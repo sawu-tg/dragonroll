@@ -1,0 +1,25 @@
+// DM Environment file for dragonroll.dme.
+// All manual changes should be made outside the BEGIN_ and END_ blocks.
+// New source code should be placed in .dm files: choose File/New --> Code File.
+
+// BEGIN_INTERNALS
+// END_INTERNALS
+
+// BEGIN_FILE_DIR
+#define FILE_DIR .
+// END_FILE_DIR
+
+// BEGIN_PREFERENCES
+#define DEBUG
+// END_PREFERENCES
+
+// BEGIN_INCLUDE
+#include "lobby.dmm"
+#include "code\datum\playerFile.dm"
+#include "code\datum\race.dm"
+#include "code\datum\stat.dm"
+#include "code\mob\player.dm"
+#include "code\world\turf.dm"
+#include "code\world\world.dm"
+// END_INCLUDE
+
