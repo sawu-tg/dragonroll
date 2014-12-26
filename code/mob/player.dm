@@ -25,6 +25,9 @@
 /mob/player/verb/say(msg as text)
 	chatSay(msg)
 
+/mob/player/verb/rollin()
+	world << do_roll(1,20,0)
+
 /mob/player/proc/nameChange(var/toName)
 	if(toName)
 		name = "[toName] the [playerData.returnGender()] [playerData.playerRace.raceName]"

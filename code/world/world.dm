@@ -2,6 +2,15 @@
 	turf = /turf/floor/voidFloor
 	view = 11
 
+/proc/do_roll(var/times,var/dice,var/bonus)
+	var/rolled = 0
+	var/count = times
+	while(count > 0)
+		rolled += rand(1,dice)
+		--count
+	rolled += bonus
+	return rolled
+
 /proc/parseIcon(var/mob/toWhere, var/parse)
 	var/icon/i
 	if(istype(parse,/mob))

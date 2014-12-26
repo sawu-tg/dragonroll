@@ -14,35 +14,60 @@
 	displayInfo("You [chestOpen ? "open" : "close"] the [src]","[user] [chestOpen ? "opens" : "closes"] the [src]",user,src)
 	icon_state = "chest[chestOpen ? "_open" : "_close"]"
 
-/obj/furniture/bed/bedframe
+//OVER/UNDERLAYS
+/obj/furniture/overlay
+	name = "overlay object"
+	layer = MOB_LAYER + 1
+
+/obj/furniture/underlay
+	name = "underlay object"
+	layer = MOB_LAYER - 1
+
+/obj/furniture/underlay/bed/bedframe
 	name = "Bed frame"
-	desc = "The frame of a wodden bed."
+	desc = "The frame of a wooden bed."
 	icon_state = "bedframe"
 
-/obj/furniture/bed
+/obj/furniture/underlay/bed
 	name = "Bed"
 	desc = "A light grey bed."
 	icon_state = "bed"
 
-/obj/furniture/bed/bedsheet
+/obj/furniture/overlay/bed/bedsheet
 	name = "Bed sheet"
 	desc = "A white sheet."
 	icon_state = "bedsheet"
 
-/obj/furniture/bed/pillow
+/obj/furniture/underlay/bed/pillow
 	name = "Pillow"
 	desc = "A white pillow."
 	icon_state = "pillow"
 
-/obj/furniture/bed/blanket
+/obj/furniture/overlay/bed/blanket
 	name = "Blanket"
 	desc = "A heavy white blanket."
 	icon_state = "blanket"
+
+//misc furniture
+
+/obj/furniture/table
+	name = "generic table"
+	density = 1
 
 /obj/furniture/table/wooden
 	name = "Wooden table"
 	desc = "A round wooden table."
 	icon_state = "table"
+
+/obj/furniture/seat
+	name = "generic seat"
+	var/seatArms = 0
+
+/obj/furniture/seat/New()
+	if(seatArms)
+		var/image/arms = image('sprite/furniture.dmi',"[icon_state]_top")
+		arms.layer = MOB_LAYER + 1
+		overlays.Add(arms)
 
 /obj/furniture/seat/stool
 	name = "Red stool"
@@ -53,6 +78,7 @@
 	name = "Metal chair"
 	desc = "A metallic chair."
 	icon_state = "chair"
+	seatArms = 1
 
 /obj/furniture/seat/chair/office
 	name = "Metal office chair"
