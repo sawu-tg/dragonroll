@@ -1,9 +1,12 @@
 /datum/playerFile
 	var/playerName = "player"
 	var/playerDesc = "not really that interesting"
+
 	var/datum/race/playerRace
+	var/playerColor = "white"
 
 	var/playerGender = 0 //0 = male , 1 = female, 2 = other/genderless
+	var/playerGenderShort = "m"
 	var/customGender = "none"
 
 	var/list/datum/stat/playerStats = new
