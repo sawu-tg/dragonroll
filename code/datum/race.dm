@@ -64,3 +64,12 @@
 	shouldColorRace = TRUE
 	str_mod = -2
 	dex_mod = 2
+
+/datum/race/Ape
+	raceName = "Ape-person"
+	raceDesc = "Generic ape-person"
+	icon_prefix = list("ape")
+	shouldColorRace = TRUE
+	str_mod = 2
+	dex_mod = -3
+	int_mod = 1

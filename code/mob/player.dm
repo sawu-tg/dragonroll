@@ -79,7 +79,7 @@
 			nameChange(input(src,"Choose your name") as text)
 			src.playerSheet()
 		if("race")
-			var/choice = input(src,"Choose your Race") as anything in list("Human","Golem","Lizard","Slime","Pod","Fly","Jelly")
+			var/choice = input(src,"Choose your Race") as anything in list("Human","Golem","Lizard","Slime","Pod","Fly","Jelly","Ape")
 			var/chosen = text2path("/datum/race/[choice]")
 			raceChange(chosen)
 			nameChange(src.playerData.playerName)
