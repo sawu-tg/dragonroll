@@ -3,6 +3,7 @@
 	var/raceDesc = "pretty bad"
 
 	var/list/icon_prefix = "caucasian1"
+	var/list/race_overlays = list()
 	var/shouldColorRace = FALSE
 
 	var/hp_mod = 0
@@ -69,6 +70,7 @@
 	raceName = "Ape-person"
 	raceDesc = "Generic ape-person"
 	icon_prefix = list("ape")
+	race_overlays = list("ape_overlay")
 	shouldColorRace = TRUE
 	str_mod = 2
 	dex_mod = -3

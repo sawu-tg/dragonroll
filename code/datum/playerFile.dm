@@ -3,7 +3,11 @@
 	var/playerDesc = "not really that interesting"
 
 	var/datum/race/playerRace
+	var/playerRacePrefix = "caucasian1"
 	var/playerColor = "white"
+	var/eyeColor = "white"
+
+	var/list/playerExtraDesc = list()
 
 	var/playerGender = 0 //0 = male , 1 = female, 2 = other/genderless
 	var/playerGenderShort = "m"

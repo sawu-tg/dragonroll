@@ -2,4 +2,4 @@
 	turf = /turf/floor/lobbyFloor
 
 /proc/chatSay(var/msg as text)
-	world << "<FONT COLOR=BLUE>\icon[usr][usr]: [msg]</FONT>"
+	world << "<font color=blue>\icon[usr][usr]: [msg]</font>"

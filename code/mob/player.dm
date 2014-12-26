@@ -23,21 +23,42 @@
 		name = "[toName] the [playerData.returnGender()] [playerData.playerRace.raceName]"
 		playerData.playerName = toName
 
-/mob/player/proc/raceChange(var/datum/race/toRace)
+/mob/player/proc/raceChange(var/datum/race/toRace,var/reselect = TRUE)
 	if(toRace)
 		playerData.playerRace = new toRace
 		playerData.assignRace(playerData.playerRace)
 		var/prefix = ""
-		if(playerData.playerRace.icon_prefix.len > 1)
-			prefix = input(src,"Choose a skin") as null|anything in playerData.playerRace.icon_prefix
+		if(reselect)
+			if(playerData.playerRace.icon_prefix.len > 1)
+				prefix = input(src,"Choose a skin") as null|anything in playerData.playerRace.icon_prefix
+			else
+				prefix = playerData.playerRace.icon_prefix[1]
+
+			playerData.playerRacePrefix = prefix
+
+			if(playerData.playerRace.shouldColorRace)
+				playerData.playerColor = input(src,"Choose a Color") as color|null
+			else
+				playerData.playerColor = "white"
 		else
-			prefix = playerData.playerRace.icon_prefix[1]
-		icon_state = "[prefix]_[playerData.playerGenderShort]_s"
-		if(playerData.playerRace.shouldColorRace)
-			playerData.playerColor = input(src,"Choose a Color") as color|null
-		else
-			playerData.playerColor = "white"
-		src.color = playerData.playerColor
+			prefix = playerData.playerRacePrefix
+		overlays.Cut()
+
+		var/state = "[prefix]_[playerData.playerGenderShort]_s"
+		var/image/player = new/image(icon,state)
+		player.color = playerData.playerColor
+		overlays.Add(player)
+
+		if(playerData.playerRace.race_overlays.len > 0)
+			for(var/ov in playerData.playerRace.race_overlays)
+				var/image/race_overlay = new/image(icon,ov)
+				overlays.Add(race_overlay)
+
+		var/image/eyes = new/image(icon,"eyes")
+		eyes.color = playerData.eyeColor
+		overlays.Add(eyes)
+
+		descChange()
 
 /mob/player/proc/genderChange(var/toGender)
 	if(toGender)
@@ -56,20 +77,42 @@
 					playerData.playerGenderShort = "m"
 				if("Female")
 					playerData.playerGenderShort = "f"
-		raceChange(text2path("[playerData.playerRace]"))
+		raceChange(text2path("[playerData.playerRace]"),FALSE)
+
+/mob/player/proc/eyeChange(var/toColor)
+	if(toColor)
+		playerData.eyeColor = toColor
+		raceChange(text2path("[playerData.playerRace]"),FALSE)
+
+/mob/player/proc/descChange(var/extra)
+	playerData.playerDesc = ""
+
+	if(extra)
+		playerData.playerExtraDesc += extra
+	playerData.playerDesc += "<br>[playerData.playerName] is a [playerData.returnGender()] [playerData.playerRace.raceName].<br>"
+	playerData.playerDesc += "[playerData.playerName] has both <font color=[playerData.eyeColor]>eyes</font>.<br>"
+	for(var/s in playerData.playerExtraDesc)
+		playerData.playerDesc += s
+		playerData.playerDesc += "<br>"
+
+/mob/player/proc/descRemove(var/what)
+	playerData.playerExtraDesc -= what
+	descChange()
 
 /mob/player/verb/playerSheet()
 	set name = "View Player Sheet"
-	var/html = ""
+	var/html = "<html><title>Player Sheet</title><body style='background:grey'>"
 	html += "<b>Name</b>: [playerData.playerName] - <a href=?src=\ref[src];function=name><i>Change</i></a><br>"
 	html += "<b>Gender</b>: [playerData.returnGender()] - <a href=?src=\ref[src];function=gender><i>Change</i></a><br>"
-	html += "<b>Race</b>: [playerData.playerRace.raceName] - <a href=?src=\ref[src];function=race><i>Change</i></a><br>"
-	html += "<b>Desc</b>: [playerData.playerDesc]<br><br>"
+	html += "<b>Race</b>: <font color=[playerData.playerColor]>[playerData.playerRace.raceName]</font> - <a href=?src=\ref[src];function=race><i>Change</i></a><br>"
+	html += "<b>Eye Color</b>: <font color=[playerData.eyeColor]>Preview</font> - <a href=?src=\ref[src];function=eyes><i>Change</i></a><br>"
+	html += "<b>Description</b>: [playerData.playerDesc] - <a href=?src=\ref[src];function=desc><i>Add</i></a>/<a href=?src=\ref[src];function=descdelete><i>Remove</i></a><br><br>"
 	for(var/datum/stat/S in playerData.playerStats)
 		if(S.isLimited)
 			html += "<b>[S.statName]</b>: [S.statModified]/[S.statMax]<br>"
 		else
 			html += "<b>[S.statName]</b>: [S.statModified]<br>"
+	html += "</body></html>"
 	src << browse(html,"window=playersheet")
 
 /mob/player/Topic(href,href_list[])
@@ -87,4 +130,13 @@
 		if("gender")
 			genderChange(input(src,"Choose your Gender") as anything in list ("Male","Female","Custom"))
 			nameChange(src.playerData.playerName)
+			src.playerSheet()
+		if("eyes")
+			eyeChange(input(src,"Choose your Eye Color") as color)
+			src.playerSheet()
+		if("desc")
+			descChange(input(src,"Describe anything extra about your character") as text)
+			src.playerSheet()
+		if("descdelete")
+			descRemove(input(src,"Remove what character note?") as null|anything in playerData.playerExtraDesc)
 			src.playerSheet()
