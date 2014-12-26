@@ -18,8 +18,9 @@
 #include "code\datum\race.dm"
 #include "code\datum\stat.dm"
 #include "code\mob\player.dm"
+#include "code\world\object.dm"
+#include "code\world\object_furniture.dm"
 #include "code\world\turf.dm"
 #include "code\world\world.dm"
 #include "map\lobby.dmm"
 // END_INCLUDE
-

@@ -14,3 +14,8 @@
 /turf/floor/lobbyFloor
 	name = "Lobby Floor"
 	icon_state = "uranium"
+
+/turf/floor/voidFloor
+	name = "Void Space"
+	icon_state = "black"
+	density = 1

@@ -3,6 +3,7 @@
 	var/raceDesc = "pretty bad"
 
 	var/list/icon_prefix = "caucasian1"
+	var/raceEyes = "eyes"
 	var/list/race_overlays = list()
 	var/shouldColorRace = FALSE
 
@@ -53,6 +54,7 @@
 /datum/race/Fly
 	raceName = "Fly-person"
 	raceDesc = "Generic fly-person"
+	raceEyes = "eyes_fly"
 	icon_prefix = list("fly")
 	str_mod = 2
 	int_mod = -2
@@ -62,6 +64,7 @@
 	raceName = "Jelly-person"
 	raceDesc = "Generic jelly-person"
 	icon_prefix = list("jelly")
+	raceEyes = "eyes_jelly"
 	shouldColorRace = TRUE
 	str_mod = -2
 	dex_mod = 2

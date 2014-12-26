@@ -42,19 +42,21 @@
 				playerData.playerColor = "white"
 		else
 			prefix = playerData.playerRacePrefix
+
+		icon_state = "blank"
 		overlays.Cut()
 
 		var/state = "[prefix]_[playerData.playerGenderShort]_s"
-		var/image/player = new/image(icon,state)
+		var/image/player = image(icon,state)
 		player.color = playerData.playerColor
 		overlays.Add(player)
 
 		if(playerData.playerRace.race_overlays.len > 0)
 			for(var/ov in playerData.playerRace.race_overlays)
-				var/image/race_overlay = new/image(icon,ov)
+				var/image/race_overlay = image(icon,ov)
 				overlays.Add(race_overlay)
 
-		var/image/eyes = new/image(icon,"eyes")
+		var/image/eyes = image(icon,playerData.playerRace.raceEyes)
 		eyes.color = playerData.eyeColor
 		overlays.Add(eyes)
 
