@@ -3,7 +3,8 @@
 	var/playerDesc = "not really that interesting"
 	var/datum/race/playerRace
 
-	var/gender = 0 //0 = male , 1 = female, 2 = other/genderless
+	var/playerGender = 0 //0 = male , 1 = female, 2 = other/genderless
+	var/customGender = "none"
 
 	var/list/datum/stat/playerStats = new
 	var/datum/stat/hp = new("Health",TRUE,100,0,100)
@@ -16,7 +17,7 @@
 	var/datum/stat/cha = new("Charisma",FALSE,1)
 
 /datum/playerFile/New()
-	playerRace = Human
+	playerRace = new/datum/race/Human
 	playerStats += hp
 	playerStats += mp
 	playerStats += str
@@ -25,6 +26,15 @@
 	playerStats += wis
 	playerStats += int
 	playerStats += cha
+
+/datum/playerFile/proc/returnGender()
+	switch(playerGender)
+		if(0)
+			return "Male"
+		if(1)
+			return "Female"
+		if(2)
+			return customGender
 
 /datum/playerFile/proc/assignRace(var/datum/race/toAssign)
 	hp.change(toAssign.hp_mod)
