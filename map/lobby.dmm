@@ -1,6 +1,18 @@
 "a" = (/turf/wall/lobbyWall,/area)
 "b" = (/turf/floor/lobbyFloor,/area)
-"c" = (/obj/furniture/chest,/turf/floor/lobbyFloor,/area)
+"c" = (/obj/furniture/seat/chair/office/grey,/turf/floor/lobbyFloor,/area)
+"d" = (/obj/furniture/seat/stool,/turf/floor/lobbyFloor,/area)
+"e" = (/obj/furniture/seat/chair/office/grey{tag = "icon-officechair_dark (EAST)"; icon_state = "officechair_dark"; dir = 4},/turf/floor/lobbyFloor,/area)
+"f" = (/obj/furniture/table/wooden,/turf/floor/lobbyFloor,/area)
+"g" = (/obj/furniture/seat/chair{tag = "icon-chair (EAST)"; icon_state = "chair"; dir = 4},/turf/floor/lobbyFloor,/area)
+"h" = (/obj/furniture/seat/chair{tag = "icon-chair (WEST)"; icon_state = "chair"; dir = 8},/turf/floor/lobbyFloor,/area)
+"i" = (/obj/furniture/bed/bedframe,/obj/furniture/bed,/obj/furniture/bed/bedsheet,/obj/furniture/bed/pillow,/obj/furniture/bed/blanket,/turf/floor/lobbyFloor,/area)
+"j" = (/obj/furniture/seat/chair/office{tag = "icon-officechair_white (NORTH)"; icon_state = "officechair_white"; dir = 1},/turf/floor/lobbyFloor,/area)
+"k" = (/obj/furniture/seat/chair/podchair,/turf/floor/lobbyFloor,/area)
+"l" = (/obj/furniture/seat/chair/podchair{tag = "icon-podchair (EAST)"; icon_state = "podchair"; dir = 4},/turf/floor/lobbyFloor,/area)
+"m" = (/obj/furniture/seat/chair/podchair{tag = "icon-podchair (WEST)"; icon_state = "podchair"; dir = 8},/turf/floor/lobbyFloor,/area)
+"n" = (/obj/furniture/chest,/turf/floor/lobbyFloor,/area)
+"o" = (/obj/furniture/seat/chair/podchair{tag = "icon-podchair (NORTH)"; icon_state = "podchair"; dir = 1},/turf/floor/lobbyFloor,/area)
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -25,14 +37,14 @@ abbbbbbbbbbbbbbbbbbbbbbbbbbbbbba
 abbbbbbbbbbbbbbbbbbbbbbbbbbbbbba
 abbbbbbbbbbbbbbbbbbbbbbbbbbbbbba
 abbbbbbbbbbbbbbbbbbbbbbbbbbbbbba
+abbbbbbcbbbbbbbbbbbbbbbbbbbbbbba
+abbbdbefdbbbbbbbbbbbbbbbbbbbbbba
+abbgfhbdbbbbbbbbbbbbbbbbbbbbbbba
+abibjbbbbbbbbbbbbbbbbbbbbbbbbbba
 abbbbbbbbbbbbbbbbbbbbbbbbbbbbbba
-abbbbbbbbbbbbbbbbbbbbbbbbbbbbbba
-abbbbbbbbbbbbbbbbbbbbbbbbbbbbbba
-abbbbbbbbbbbbbbbbbbbbbbbbbbbbbba
-abbbbbbbbbbbbbbbbbbbbbbbbbbbbbba
-abbbbbbbbbbbbbbbbbbbbbbbbbbbbbba
-abbbbbbbbbbbbbbbbbbbbbbbbbbbbbba
-acbbbbbbbbbbbbbbbbbbbbbbbbbbbbba
+abbbbkbbbbbbbbbbbbbbbbbbbbbbbbba
+abbblfmbbbbbbbbbbbbbbbbbbbbbbbba
+anbbbobbbbbbbbbbbbbbbbbbbbbbbbba
 abbbbbbbbbbbbbbbbbbbbbbbbbbbbbba
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 "}
