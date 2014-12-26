@@ -16,6 +16,7 @@
 	var/list/datum/stat/playerStats = new
 	var/datum/stat/hp = new("Health",TRUE,100,0,100)
 	var/datum/stat/mp = new("Mana",TRUE,100,0,100)
+	var/datum/stat/def = new("Defence",FALSE,10)
 	var/datum/stat/str = new("Strength",FALSE,1)
 	var/datum/stat/dex = new("Dexterity",FALSE,1)
 	var/datum/stat/con = new("Constitution",FALSE,1)
@@ -27,6 +28,7 @@
 	playerRace = new/datum/race/Human
 	playerStats += hp
 	playerStats += mp
+	playerStats += def
 	playerStats += str
 	playerStats += dex
 	playerStats += con
@@ -48,6 +50,7 @@
 	mp.change(toAssign.mp_mod)
 	str.change(toAssign.str_mod)
 	dex.change(toAssign.dex_mod)
+	def.change(def.statCur+toAssign.dex_mod)
 	con.change(toAssign.con_mod)
 	wis.change(toAssign.wis_mod)
 	int.change(toAssign.int_mod)

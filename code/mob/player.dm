@@ -15,6 +15,13 @@
 	icon_state = "skeleton_s"
 	var/datum/playerFile/playerData = new
 
+/mob/player/Stat()
+	for(var/datum/stat/S in playerData.playerStats)
+		if(S.isLimited)
+			stat("[S.statName]: [S.statModified]/[S.statMax]")
+		else
+			stat("[S.statName]: [S.statModified]")
+
 /mob/player/verb/say(msg as text)
 	chatSay(msg)
 
