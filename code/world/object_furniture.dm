@@ -94,3 +94,24 @@
 	name = "Metal pod chair"
 	desc = "A metallic pod chair"
 	icon_state = "podchair"
+
+/obj/furniture/seat/chair/comfy/
+	name = "Black comfy chair"
+	desc = "A nice chair to relax in."
+	icon_state = "comfychair_black"
+
+/obj/furniture/seat/chair/comfy/beige
+	name = "Beige comfy chair"
+	desc = "A nice chair to relax in."
+	icon_state = "comfychair_beige"
+
+/obj/furniture/seat/chair/comfy/lime
+	name = "Lime comfy chair"
+	desc = "A nice chair to relax in."
+	icon_state = "comfychair_lime"
+
+/obj/furniture/seat/chair/comfy/teal
+	name = "Teal comfy chair"
+	desc = "A nice chair to relax in."
+	icon_state = "comfychair_teal"
+
