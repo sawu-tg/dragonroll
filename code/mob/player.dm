@@ -94,8 +94,9 @@ mob/proc/hear(msg, source as text)
 /mob/player/proc/randomise()
 	var/choice = pick("Human","Golem","Lizard","Slime","Pod","Fly","Jelly","Ape")
 	var/chosen = text2path("/datum/race/[choice]")
-	genderChange(pick("Male","Female"))
 	raceChange(chosen,FALSE)
+	playerData.playerRacePrefix = playerData.playerRace.icon_prefix[1]
+	genderChange(pick("Male","Female"))
 	eyeChange(pick("red","blue","green","yellow","orange","purple"))
 	rerollStats(FALSE)
 
