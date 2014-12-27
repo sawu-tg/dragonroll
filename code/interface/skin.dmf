@@ -1,9 +1,5 @@
 macro "macro"
 	elem 
-		name = "CENTER+REP"
-		command = ".center"
-		is-disabled = false
-	elem 
 		name = "NORTHEAST"
 		command = ".northeast"
 		is-disabled = false
@@ -20,72 +16,24 @@ macro "macro"
 		command = ".northwest"
 		is-disabled = false
 	elem 
-		name = "CTRL+WEST"
-		command = "westface"
-		is-disabled = false
-	elem 
 		name = "WEST+REP"
 		command = ".west"
-		is-disabled = false
-	elem 
-		name = "CTRL+NORTH"
-		command = "northface"
 		is-disabled = false
 	elem 
 		name = "NORTH+REP"
 		command = ".north"
 		is-disabled = false
 	elem 
-		name = "CTRL+EAST"
-		command = "eastface"
-		is-disabled = false
-	elem 
 		name = "EAST+REP"
 		command = ".east"
-		is-disabled = false
-	elem 
-		name = "CTRL+SOUTH"
-		command = "southface"
 		is-disabled = false
 	elem 
 		name = "SOUTH+REP"
 		command = ".south"
 		is-disabled = false
 	elem 
-		name = "INSERT"
-		command = "a-intent right"
-		is-disabled = false
-	elem 
 		name = "DELETE"
 		command = "delete-key-pressed"
-		is-disabled = false
-	elem 
-		name = "CTRL+A+REP"
-		command = ".west"
-		is-disabled = false
-	elem 
-		name = "CTRL+D+REP"
-		command = ".east"
-		is-disabled = false
-	elem 
-		name = "CTRL+Q"
-		command = ".northwest"
-		is-disabled = false
-	elem 
-		name = "CTRL+R"
-		command = ".southwest"
-		is-disabled = false
-	elem 
-		name = "CTRL+S+REP"
-		command = ".south"
-		is-disabled = false
-	elem 
-		name = "CTRL+W+REP"
-		command = ".north"
-		is-disabled = false
-	elem 
-		name = "CTRL+X"
-		command = ".northeast"
 		is-disabled = false
 
 
