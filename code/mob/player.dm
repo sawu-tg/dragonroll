@@ -50,8 +50,9 @@
 
 	return "says, \"[msg]\"";
 
-mob/proc/hear(msg, source as text)
-	src << "[source] [msg]"
+mob/proc/hear(msg, var/source)
+	var/name = source:name
+	src << "[parseIcon(src,source)] > [name] [msg]"
 
 /mob/player/verb/say(msg as text)
 	set name = "Say"
@@ -59,7 +60,7 @@ mob/proc/hear(msg, source as text)
 	var/list/listening = get_hear(message_range, usr)
 	msg = formatspeech(msg)
 	for (var/mob/M in listening)
-		M.hear(msg, usr.name)
+		M.hear(msg, usr)
 
 /mob/player/proc/takeDamage(var/amount,var/type=DTYPE_BASIC)
 	var/damage = type == DTYPE_DIRECT ? amount : amount - playerData.def
@@ -105,6 +106,36 @@ mob/proc/hear(msg, source as text)
 		name = "[toName] the [playerData.returnGender()] [playerData.playerRace.raceName]"
 		playerData.playerName = toName
 
+/mob/player/proc/refreshIcon(var/prefix)
+	icon_state = "blank"
+	overlays.Cut()
+
+	var/state = "[prefix]_[playerData.playerGenderShort]_s"
+	var/image/player = image(icon,state)
+	player.color = playerData.playerColor
+	overlays.Add(player)
+
+	var/list/addedOverlays = list()
+	addedOverlays.Add(playerData.playerOverlays)
+	addedOverlays.Add(playerData.playerRace.race_overlays)
+
+	if(addedOverlays.len > 0)
+		for(var/ov in addedOverlays)
+			if(isicon(ov))
+				overlays.Add(ov)
+			else
+				var/image/overlay = image(icon,ov)
+				overlays.Add(overlay)
+
+	var/image/eyes = image(icon,playerData.playerRace.raceEyes)
+	eyes.color = playerData.eyeColor
+	overlays.Add(eyes)
+	playerData.playerOverlays = list()
+
+//Call hierachy
+//body update > hairChange(old-data) > refreshIcon()
+//incorrect calls or updates will result in missing icon parts.
+
 /mob/player/proc/raceChange(var/datum/race/toRace,var/reselect = TRUE)
 	if(toRace)
 		playerData.playerRace = new toRace
@@ -124,24 +155,7 @@ mob/proc/hear(msg, source as text)
 				playerData.playerColor = "white"
 		else
 			prefix = playerData.playerRacePrefix
-
-		icon_state = "blank"
-		overlays.Cut()
-
-		var/state = "[prefix]_[playerData.playerGenderShort]_s"
-		var/image/player = image(icon,state)
-		player.color = playerData.playerColor
-		overlays.Add(player)
-
-		if(playerData.playerRace.race_overlays.len > 0)
-			for(var/ov in playerData.playerRace.race_overlays)
-				var/image/race_overlay = image(icon,ov)
-				overlays.Add(race_overlay)
-
-		var/image/eyes = image(icon,playerData.playerRace.raceEyes)
-		eyes.color = playerData.eyeColor
-		overlays.Add(eyes)
-
+		hairChange(playerData.playerHair,playerData.playerFacial,playerData.hairColor)
 		descChange()
 
 /mob/player/proc/genderChange(var/toGender)
@@ -161,12 +175,24 @@ mob/proc/hear(msg, source as text)
 					playerData.playerGenderShort = "m"
 				if("Female")
 					playerData.playerGenderShort = "f"
-		raceChange(text2path("[playerData.playerRace]"),FALSE)
+		hairChange(playerData.playerHair,playerData.playerFacial,playerData.hairColor)
 
 /mob/player/proc/eyeChange(var/toColor)
 	if(toColor)
 		playerData.eyeColor = toColor
-		raceChange(text2path("[playerData.playerRace]"),FALSE)
+		hairChange(playerData.playerHair,playerData.playerFacial,playerData.hairColor)
+
+/mob/player/proc/hairChange(var/hair, var/facial, var/color)
+	playerData.playerHair = hair
+	playerData.playerFacial = facial
+	playerData.hairColor = color
+	var/icon/hairNew = new/icon('sprite/human_face.dmi',icon_state=playerData.playerHair)
+	hairNew.Blend(playerData.hairColor,ICON_MULTIPLY)
+	playerData.playerOverlays.Add(hairNew)
+	var/icon/facialNew = new/icon('sprite/human_face.dmi',icon_state=playerData.playerFacial)
+	facialNew.Blend(playerData.hairColor,ICON_MULTIPLY)
+	playerData.playerOverlays.Add(facialNew)
+	refreshIcon(playerData.playerRacePrefix)
 
 /mob/player/proc/descChange(var/extra)
 	playerData.playerDesc = ""
@@ -221,7 +247,10 @@ mob/proc/hear(msg, source as text)
 	html += "<b>Name</b>: [playerData.playerName][hasReroll ? " - <a href=?src=\ref[src];function=name><i>Change</i></a>" : ""]<br>"
 	html += "<b>Gender</b>: [playerData.returnGender()][hasReroll ? " - <a href=?src=\ref[src];function=gender><i>Change</i></a>" : ""]<br>"
 	html += "<b>Race</b>: <font color=[playerData.playerColor]>[playerData.playerRace.raceName]</font>[hasReroll ? " - <a href=?src=\ref[src];function=race><i>Change</i></a>" : ""]<br>"
+	html += "<b>Hairstyle</b>: [playerData.playerHair][hasReroll ? " - <a href=?src=\ref[src];function=sethair><i>Change</i></a>" : ""]<br>"
+	html += "<b>Facial hair</b>: [playerData.playerFacial][hasReroll ? " - <a href=?src=\ref[src];function=setfacial><i>Change</i></a>" : ""]<br>"
 	html += "<b>Eye Color</b>: <font color=[playerData.eyeColor]>Preview</font>[hasReroll ? " - <a href=?src=\ref[src];function=eyes><i>Change</i></a>" : ""]<br>"
+	html += "<b>Hair Color</b>: <font color=[playerData.hairColor]>Preview</font>[hasReroll ? " - <a href=?src=\ref[src];function=haircolor><i>Change</i></a>" : ""]<br>"
 	html += "<b>Description</b>: [playerData.playerDesc] - <a href=?src=\ref[src];function=desc><i>Add</i></a>/<a href=?src=\ref[src];function=descdelete><i>Remove</i></a><br><br>"
 	for(var/datum/stat/S in playerData.playerStats)
 		if(S.isLimited)
@@ -239,17 +268,26 @@ mob/proc/hear(msg, source as text)
 			nameChange(input(src,"Choose your name") as text)
 			src.playerSheet()
 		if("race")
-			var/choice = input(src,"Choose your Race") as anything in list("Human","Golem","Lizard","Slime","Pod","Fly","Jelly","Ape")
+			var/choice = input(src,"Choose your Race") as null|anything in list("Human","Golem","Lizard","Slime","Pod","Fly","Jelly","Ape")
 			var/chosen = text2path("/datum/race/[choice]")
 			raceChange(chosen)
 			nameChange(src.playerData.playerName)
 			src.playerSheet()
 		if("gender")
-			genderChange(input(src,"Choose your Gender") as anything in list ("Male","Female","Custom"))
+			genderChange(input(src,"Choose your Gender") as null|anything in list ("Male","Female","Custom"))
 			nameChange(src.playerData.playerName)
 			src.playerSheet()
 		if("eyes")
 			eyeChange(input(src,"Choose your Eye Color") as color)
+			src.playerSheet()
+		if("haircolor")
+			hairChange(playerData.playerHair,playerData.playerFacial,input(src,"Choose your Hair Color") as color)
+			src.playerSheet()
+		if("sethair")
+			hairChange(input(src,"Choose your Hairstyle") as null|anything in playerValidHair,playerData.playerFacial,playerData.hairColor)
+			src.playerSheet()
+		if("setfacial")
+			hairChange(playerData.playerHair,input(src,"Choose your Facial Style") as null|anything in playerValidFacial,playerData.hairColor)
 			src.playerSheet()
 		if("desc")
 			descChange(input(src,"Describe anything extra about your character") as text)

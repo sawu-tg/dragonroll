@@ -34,3 +34,6 @@
 #define PASSIVE_STATE_DEAD 512
 #define PASSIVE_STATE_DEAF 1024
 #define PASSIVE_STATE_UNCONCIOUS 2048
+
+var/list/playerValidHair = list()
+var/list/playerValidFacial = list()

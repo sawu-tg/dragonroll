@@ -3,8 +3,15 @@
 	var/playerDesc = "not really that interesting"
 
 	var/datum/race/playerRace
+	var/list/playerOverlays = list()
+
+	var/playerHair = "bald_s"
+	var/playerFacial = "bald_s"
+
 	var/playerRacePrefix = "caucasian1"
+
 	var/playerColor = "white"
+	var/hairColor = "white"
 	var/eyeColor = "white"
 
 	var/list/playerExtraDesc = list()

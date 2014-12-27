@@ -2,6 +2,16 @@
 	turf = /turf/floor/voidFloor
 	view = 11
 
+/world/New()
+	spawn(10)
+		var/icon/face = icon('sprite/human_face.dmi')
+		for(var/i in face.IconStates())
+			if(copytext(i,1,7) == "facial")
+				playerValidFacial.Add(i)
+			else if(copytext(i,1,5) == "hair")
+				playerValidHair.Add(i)
+	..()
+
 /proc/processFlags(var/mob/player/who)
 	var/flagToCheck = who.persistingEffects[1]
 	for(var/i in who.persistingEffects)
