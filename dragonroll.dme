@@ -17,6 +17,7 @@
 #include "code\datum\playerFile.dm"
 #include "code\datum\race.dm"
 #include "code\datum\stat.dm"
+#include "code\interface\skin.dmf"
 #include "code\mob\player.dm"
 #include "code\world\object.dm"
 #include "code\world\object_furniture.dm"

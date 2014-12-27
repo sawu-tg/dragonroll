@@ -22,8 +22,36 @@
 		else
 			stat("[S.statName]: [S.statModified]")
 
+//Saycode, brutally mashed together by MrSnapwalk.
+
+/proc/get_hear(range, source)
+	var/list/heard = view(range, source)
+	return heard
+
+/proc/formatspeech(msg)
+	if(!msg)
+		return "says, \"...\"";
+
+	var/ending = copytext(msg, length(msg))
+
+	if (ending == "?")
+		return "asks, \"[msg]\"";
+
+	if (ending == "!")
+		return "exclaims, \"[msg]\"";
+
+	return "says, \"[msg]\"";
+
+mob/proc/hear(msg, source as text)
+	src << "[source] [msg]"
+
 /mob/player/verb/say(msg as text)
-	chatSay(msg)
+	set name = "Say"
+	var/message_range = 7
+	var/list/listening = get_hear(message_range, usr)
+	msg = formatspeech(msg)
+	for (var/mob/M in listening)
+		M.hear(msg, usr.name)
 
 /mob/player/verb/rollin()
 	world << do_roll(1,20,0)
