@@ -14,6 +14,9 @@
 	icon = 'sprite/human.dmi'
 	icon_state = "skeleton_s"
 	var/datum/playerFile/playerData = new
+	var/list/persistingEffects = list()
+	var/active_states = 0
+	var/passive_states = 0
 
 /mob/player/Stat()
 	for(var/datum/stat/S in playerData.playerStats)
@@ -25,8 +28,35 @@
 /mob/player/verb/say(msg as text)
 	chatSay(msg)
 
-/mob/player/verb/rollin()
-	world << do_roll(1,20,0)
+/mob/player/proc/takeDamage(var/amount,var/type=DTYPE_BASIC)
+	var/damage = type == DTYPE_DIRECT ? amount : amount - playerData.def
+	var/doDamage = FALSE
+	if(damage > playerData.con)
+		if(type == DTYPE_NONLETHAL)
+			if(!savingThrow(src,0,SAVING_FORTITUDE))
+				//set unconcious 1d4 rounds
+			else
+				//set dazed 1 round
+		type = DTYPE_MASSIVE
+	if(type == DTYPE_BASIC || type == DTYPE_DIRECT)
+		doDamage = TRUE
+	if(type == DTYPE_MASSIVE)
+		if(!savingThrow(src,0,SAVING_FORTITUDE))
+			playerData.hp.statCur = -1
+			doDamage = FALSE
+		else
+			doDamage = TRUE
+	if(doDamage)
+		playerData.hp.change(-damage)
+		if(playerData.hp.statCur == 0)
+			mobAddFlag(src,PASSIVE_STATE_DISABLED,active=0)
+		else if(playerData.hp.statCur <= -1 && playerData.hp.statCur >= -9)
+			mobRemFlag(src,PASSIVE_STATE_DISABLED,active=0)
+			mobAddFlag(src,ACTIVE_STATE_DYING,active=1)
+		else if(playerData.hp.statCur <= -10)
+			mobRemFlag(src,PASSIVE_STATE_DISABLED,active=0)
+			mobRemFlag(src,ACTIVE_STATE_DYING,active=1)
+			mobAddFlag(src,PASSIVE_STATE_DEAD,active=0)
 
 /mob/player/proc/nameChange(var/toName)
 	if(toName)
@@ -113,7 +143,9 @@
 
 /mob/player/verb/playerSheet()
 	set name = "View Player Sheet"
-	var/html = "<html><title>Player Sheet</title><body style='background:grey'>"
+	world << src.client
+	world << src
+	var/html = "<title>Player Sheet</title><html><center>[parseIcon(src.client,src,FALSE)]<br><body style='background:grey'>"
 	html += "<b>Name</b>: [playerData.playerName] - <a href=?src=\ref[src];function=name><i>Change</i></a><br>"
 	html += "<b>Gender</b>: [playerData.returnGender()] - <a href=?src=\ref[src];function=gender><i>Change</i></a><br>"
 	html += "<b>Race</b>: <font color=[playerData.playerColor]>[playerData.playerRace.raceName]</font> - <a href=?src=\ref[src];function=race><i>Change</i></a><br>"
@@ -124,7 +156,7 @@
 			html += "<b>[S.statName]</b>: [S.statModified]/[S.statMax]<br>"
 		else
 			html += "<b>[S.statName]</b>: [S.statModified]<br>"
-	html += "</body></html>"
+	html += "</body></center></html>"
 	src << browse(html,"window=playersheet")
 
 /mob/player/Topic(href,href_list[])
