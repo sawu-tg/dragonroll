@@ -62,6 +62,10 @@ mob/proc/hear(msg, var/source)
 	for (var/mob/M in listening)
 		M.hear(msg, usr)
 
+/mob/verb/examinate(atom/A as mob|obj|turf in view())
+	set name = "Examine"
+	A.examine(src)
+
 /mob/player/proc/takeDamage(var/amount,var/type=DTYPE_BASIC)
 	var/damage = type == DTYPE_DIRECT ? amount : amount - playerData.def
 	var/doDamage = FALSE
