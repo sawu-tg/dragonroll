@@ -91,7 +91,7 @@
 /datum/race/Spidertaur
 	raceName = "Spidertaur"
 	raceDesc = "Generic ape-person"
-	raceEyes = "eyes_spidertaur"
+	raceEyes = "eyes_spider"
 	icon_prefix = list("spidertaur")
 	shouldColorRace = TRUE
 	str_mod = 3
