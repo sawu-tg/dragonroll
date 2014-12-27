@@ -5,8 +5,8 @@
 	var/datum/race/playerRace
 	var/list/playerOverlays = list()
 
-	var/playerHair = "bald_s"
-	var/playerFacial = "bald_s"
+	var/playerHair = "hair_bald_s"
+	var/playerFacial = "facial_bald_s"
 
 	var/playerRacePrefix = "caucasian1"
 
