@@ -78,3 +78,21 @@
 	str_mod = 2
 	dex_mod = -3
 	int_mod = 1
+
+/datum/race/Spider
+	raceName = "Spider-person"
+	raceDesc = "Generic ape-person"
+	raceEyes = "eyes_spider"
+	icon_prefix = list("spider")
+	shouldColorRace = TRUE
+	str_mod = 2
+	cha_mod = -2
+
+/datum/race/Spidertaur
+	raceName = "Spidertaur"
+	raceDesc = "Generic ape-person"
+	raceEyes = "eyes_spidertaur"
+	icon_prefix = list("spidertaur")
+	shouldColorRace = TRUE
+	str_mod = 3
+	cha_mod = -3
