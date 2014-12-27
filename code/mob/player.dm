@@ -14,9 +14,14 @@
 	icon = 'sprite/human.dmi'
 	icon_state = "skeleton_s"
 	var/datum/playerFile/playerData = new
+	var/hasReroll = TRUE
 	var/list/persistingEffects = list()
 	var/active_states = 0
 	var/passive_states = 0
+
+/mob/player/New()
+	randomise()
+	..()
 
 /mob/player/Stat()
 	for(var/datum/stat/S in playerData.playerStats)
@@ -57,6 +62,14 @@
 			mobRemFlag(src,PASSIVE_STATE_DISABLED,active=0)
 			mobRemFlag(src,ACTIVE_STATE_DYING,active=1)
 			mobAddFlag(src,PASSIVE_STATE_DEAD,active=0)
+
+/mob/player/proc/randomise()
+	var/choice = pick("Human","Golem","Lizard","Slime","Pod","Fly","Jelly","Ape")
+	var/chosen = text2path("/datum/race/[choice]")
+	genderChange(pick("Male","Female"))
+	raceChange(chosen,FALSE)
+	eyeChange(pick("red","blue","green","yellow","orange","purple"))
+	rerollStats(FALSE)
 
 /mob/player/proc/nameChange(var/toName)
 	if(toName)
@@ -141,19 +154,52 @@
 	playerData.playerExtraDesc -= what
 	descChange()
 
+/mob/player/proc/rerollStats(var/prompt=TRUE)
+	var/min = 2
+	var/max = 17
+	//min/max are minus 1 for 1 starting score
+	playerData.def.setTo(rand(min,max))
+	playerData.str.setTo(rand(min,max))
+	playerData.dex.setTo(rand(min,max))
+	playerData.con.setTo(rand(min,max))
+	playerData.wis.setTo(rand(min,max))
+	playerData.int.setTo(rand(min,max))
+	playerData.cha.setTo(rand(min,max))
+	playerData.save.setTo(rand(min,max))
+	playerData.fort.setTo(rand(min,max))
+	playerData.ref.setTo(rand(min,max))
+	playerData.will.setTo(rand(min,max))
+	if(prompt)
+		var/statAsString = ""
+		for(var/datum/stat/S in playerData.playerStats)
+			if(!S.isLimited)
+				statAsString += "[S.statName]: [S.statModified]\n"
+		statAsString += "\nKeeping the stats will confirm your character, locking you from changing it further."
+		var/answer = alert(src,statAsString,"Keep these stats?","Keep","Back","Reroll")
+		if(answer == "Reroll")
+			if(hasReroll)
+				rerollStats()
+		if(answer == "Back")
+			for(var/datum/stat/S in playerData.playerStats)
+				S.revert(TRUE)
+			src.playerSheet()
+		else
+			hasReroll = FALSE
+
 /mob/player/verb/playerSheet()
 	set name = "View Player Sheet"
 	var/html = "<title>Player Sheet</title><html><center>[parseIcon(src.client,src,FALSE)]<br><body style='background:grey'>"
-	html += "<b>Name</b>: [playerData.playerName] - <a href=?src=\ref[src];function=name><i>Change</i></a><br>"
-	html += "<b>Gender</b>: [playerData.returnGender()] - <a href=?src=\ref[src];function=gender><i>Change</i></a><br>"
-	html += "<b>Race</b>: <font color=[playerData.playerColor]>[playerData.playerRace.raceName]</font> - <a href=?src=\ref[src];function=race><i>Change</i></a><br>"
-	html += "<b>Eye Color</b>: <font color=[playerData.eyeColor]>Preview</font> - <a href=?src=\ref[src];function=eyes><i>Change</i></a><br>"
+	html += "<b>Name</b>: [playerData.playerName][hasReroll ? " - <a href=?src=\ref[src];function=name><i>Change</i></a>" : ""]<br>"
+	html += "<b>Gender</b>: [playerData.returnGender()][hasReroll ? " - <a href=?src=\ref[src];function=gender><i>Change</i></a>" : ""]<br>"
+	html += "<b>Race</b>: <font color=[playerData.playerColor]>[playerData.playerRace.raceName]</font>[hasReroll ? " - <a href=?src=\ref[src];function=race><i>Change</i></a>" : ""]<br>"
+	html += "<b>Eye Color</b>: <font color=[playerData.eyeColor]>Preview</font>[hasReroll ? " - <a href=?src=\ref[src];function=eyes><i>Change</i></a>" : ""]<br>"
 	html += "<b>Description</b>: [playerData.playerDesc] - <a href=?src=\ref[src];function=desc><i>Add</i></a>/<a href=?src=\ref[src];function=descdelete><i>Remove</i></a><br><br>"
 	for(var/datum/stat/S in playerData.playerStats)
 		if(S.isLimited)
 			html += "<b>[S.statName]</b>: [S.statModified]/[S.statMax]<br>"
 		else
 			html += "<b>[S.statName]</b>: [S.statModified]<br>"
+	html += "[hasReroll ? "<a href=?src=\ref[src];function=statroll><b>Reroll Stats</b></a>" : ""]<br>"
 	html += "</body></center></html>"
 	src << browse(html,"window=playersheet")
 
@@ -181,4 +227,7 @@
 			src.playerSheet()
 		if("descdelete")
 			descRemove(input(src,"Remove what character note?") as null|anything in playerData.playerExtraDesc)
+			src.playerSheet()
+		if("statroll")
+			rerollStats()
 			src.playerSheet()

@@ -1,5 +1,6 @@
 /datum/stat
 	var/statName = "noname"
+	var/statOld = 0
 	var/statCur = 0 // the base stat
 	var/statModified = 0 // the modified stat (ie + racials, item stats)
 	//statMin/statMax only are used when isLimited = TRUE, ie in case of health/mana.
@@ -23,6 +24,28 @@
 /datum/stat/proc/changeMax(var/amount)
 	if(amount > statMin)
 		statMax = amount
+
+/datum/stat/proc/revert(var/full=FALSE)
+	if(full)
+		setTo(statOld)
+	else
+		if(statCur > statOld)
+			--statCur
+		else if(statCur < statOld)
+			++statCur
+
+/datum/stat/proc/setTo(var/amount)
+	statOld = statCur
+	if(isLimited)
+		if(amount >= statMax)
+			statCur = statMax
+		if(amount <= statMin)
+			statCur = statMin
+		else
+			statCur = amount
+	else
+		statCur = amount
+	statModified = statCur
 
 /datum/stat/proc/change(var/amount)
 	if(isLimited)
