@@ -129,3 +129,11 @@
 
 /proc/chatSay(var/msg as text)
 	world << "<font color=black>\icon[usr][usr]: [msg]</font>"
+
+/atom/proc/examine(mob/user)
+	var/f_name = "\a [src]"
+
+	user << "\icon[src] That's [f_name]"
+
+	if(desc)
+		user << desc
