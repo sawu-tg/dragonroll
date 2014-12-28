@@ -119,21 +119,20 @@ mob/proc/hear(msg, var/source)
 	player.color = playerData.playerColor
 	overlays.Add(player)
 
-	var/list/addedOverlays = list()
-	addedOverlays.Add(playerData.playerOverlays)
-	addedOverlays.Add(playerData.playerRace.race_overlays)
-
-	if(addedOverlays.len > 0)
-		for(var/ov in addedOverlays)
-			if(isicon(ov))
-				overlays.Add(ov)
-			else
-				var/image/overlay = image(icon,ov)
-				overlays.Add(overlay)
-
 	var/image/eyes = image(icon,playerData.playerRace.raceEyes)
 	eyes.color = playerData.eyeColor
-	overlays.Add(eyes)
+
+	var/list/addedOverlays = list()
+	addedOverlays.Add(playerData.playerRace.race_overlays)
+	addedOverlays.Add(eyes) //fuck the what byond
+	addedOverlays.Add(playerData.playerOverlays)
+
+	for(var/ov in addedOverlays)
+		if(isicon(ov) || istype(ov,/image))
+			overlays.Add(ov)
+		else
+			var/image/overlay = image(icon,ov)
+			overlays.Add(overlay)
 	playerData.playerOverlays = list()
 
 //Call hierachy
