@@ -161,14 +161,22 @@ mob/proc/hear(msg, var/source)
 		var/prefix = ""
 		if(reselect)
 			if(playerData.playerRace.icon_prefix.len > 1)
-				prefix = input(src,"Choose a skin") as null|anything in playerData.playerRace.icon_prefix
+				var/chosenSkin = input(src,"Choose a skin") as null|anything in playerData.playerRace.icon_prefix
+				if(chosenSkin)
+					prefix = chosenSkin
+				else
+					prefix = playerData.playerRace.icon_prefix[1]
 			else
 				prefix = playerData.playerRace.icon_prefix[1]
 
 			playerData.playerRacePrefix = prefix
 
 			if(playerData.playerRace.shouldColorRace)
-				playerData.playerColor = input(src,"Choose a Color") as color|null
+				var/chosenColor = input(src,"Choose a Color") as color|null
+				if(chosenColor)
+					playerData.playerColor = chosenColor
+				else
+					playerData.playerColor = "white"
 			else
 				playerData.playerColor = "white"
 		else
@@ -326,13 +334,19 @@ mob/proc/hear(msg, var/source)
 			eyeChange(input(src,"Choose your Eye Color") as color)
 			src.playerSheet()
 		if("haircolor")
-			hairChange(playerData.playerHair,playerData.playerFacial,input(src,"Choose your Hair Color") as color)
+			var/colored = input(src,"Choose your Hair Color") as color
+			if(colored)
+				hairChange(playerData.playerHair,playerData.playerFacial,colored)
 			src.playerSheet()
 		if("sethair")
-			hairChange(input(src,"Choose your Hairstyle") as null|anything in playerValidHair,playerData.playerFacial,playerData.hairColor)
+			var/hairstyle = input(src,"Choose your Hairstyle") as null|anything in playerValidHair
+			if(hairstyle)
+				hairChange(hairstyle,playerData.playerFacial,playerData.hairColor)
 			src.playerSheet()
 		if("setfacial")
-			hairChange(playerData.playerHair,input(src,"Choose your Facial Style") as null|anything in playerValidFacial,playerData.hairColor)
+			var/facial = input(src,"Choose your Facial Style") as null|anything in playerValidFacial
+			if(facial)
+				hairChange(playerData.playerHair,facial,playerData.hairColor)
 			src.playerSheet()
 		if("desc")
 			descChange(input(src,"Describe anything extra about your character") as text)
