@@ -10,6 +10,8 @@
 	var/size = 0
 	var/weight = 0
 
+	var/thrown = FALSE
+	var/thrownTarget
 	var/beingCarried = FALSE
 	var/mob/player/carriedBy
 	var/myOldLayer = 0
@@ -30,6 +32,20 @@
 			carriedBy = m
 			addProcessingObject(src)
 
+/obj/verb/throwItem(mob/user)
+	set name = "Throw item"
+	set src in oview(1)
+	if(!beingCarried)
+		var/target = step(src,usr.dir)
+		walk_to(src,target)
+	else if(beingCarried)
+		var/mob/player/m = user
+		if(usr == user)
+			if(do_roll(1,20,m.playerData.str.statCur) >= weight + size)
+				thrownTarget = input("Throw at what") as null|anything in oview(m.playerData.str.statCur)
+				dropItem(m)
+				thrown = TRUE
+				addProcessingObject(src)
 
 /obj/verb/dropItem(mob/user)
 	set name = "Drop item"
@@ -48,6 +64,14 @@
 	if(beingCarried)
 		if(do_roll(1,20,carriedBy.playerData.str.statCur) >= weight + size)
 			src.loc = carriedBy.loc
+		else
+			dropItem(carriedBy)
+	if(thrown)
+		if(loc != thrownTarget:loc)
+			step_to(src,thrownTarget)
+		else
+			thrown = FALSE
+			thrownTarget = null
 
 //the function of an object when used, IE switching modes or reading books
 /obj/proc/objFunction(var/mob/user)
