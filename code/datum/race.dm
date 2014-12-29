@@ -96,3 +96,23 @@
 	shouldColorRace = TRUE
 	str_mod = 3
 	cha_mod = -3
+
+/datum/race/Robot
+	raceName = "Robot"
+	raceDesc = "Generic robot"
+	icon_prefix = list("robot")
+	str_mod = 2
+	con_mod = 2
+	wis_mod = -2
+	cha_mod = -2
+
+/datum/race/Hologram
+	raceName = "Hologram"
+	raceDesc = "Generic hologram"
+	icon_prefix = list("hologram")
+	shouldColorRace = TRUE
+	str_mod = 2
+	con_mod = 1
+	dex_mod = 1
+	wis_mod = -2
+	cha_mod = -2
