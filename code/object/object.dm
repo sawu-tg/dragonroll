@@ -12,6 +12,7 @@
 
 	var/beingCarried = FALSE
 	var/mob/player/carriedBy
+	var/myOldLayer = 0
 
 /obj/DblClick()
 	objFunction(usr)
@@ -22,6 +23,9 @@
 	if(!beingCarried)
 		var/mob/player/m = user
 		if(do_roll(1,20,m.playerData.str.statCur) >= weight + size)
+			myOldLayer = layer
+			layer = MOB_LAYER + 1
+			pixel_y = pixel_y + 10
 			beingCarried = TRUE
 			carriedBy = m
 			addProcessingObject(src)
@@ -33,6 +37,8 @@
 	if(beingCarried)
 		var/mob/player/m = user
 		if(m == carriedBy)
+			layer = myOldLayer
+			pixel_y = pixel_y - 10
 			beingCarried = FALSE
 			carriedBy = null
 			remProcessingObject(src)
