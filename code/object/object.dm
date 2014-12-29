@@ -42,10 +42,12 @@
 		var/mob/player/m = user
 		if(usr == user)
 			if(do_roll(1,20,m.playerData.str.statCur) >= weight + size)
-				thrownTarget = input("Throw at what") as null|anything in oview(m.playerData.str.statCur)
-				dropItem(m)
-				thrown = TRUE
-				addProcessingObject(src)
+				var/t = input("Throw at what") as null|anything in oview(max(m.playerData.str.statCur - (weight + size),1))
+				if(t)
+					thrownTarget = t
+					dropItem(m)
+					thrown = TRUE
+					addProcessingObject(src)
 
 /obj/verb/dropItem(mob/user)
 	set name = "Drop item"
