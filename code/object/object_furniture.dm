@@ -2,6 +2,8 @@
 	name = "furniture"
 	desc = "don't sit on me.. maybe"
 	icon = 'sprite/furniture.dmi'
+	size = 3
+	weight = 5
 
 /obj/furniture/chest
 	name = "Chest"

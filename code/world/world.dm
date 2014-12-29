@@ -1,3 +1,4 @@
+var/list/procObjects = list()
 /world
 	turf = /turf/floor/voidFloor
 	view = 11
@@ -10,7 +11,21 @@
 				playerValidFacial.Add(i)
 			else if(copytext(i,1,5) == "hair")
 				playerValidHair.Add(i)
+		processObjects()
 	..()
+
+/proc/addProcessingObject(var/obj/a)
+	procObjects += a
+
+/proc/remProcessingObject(var/obj/r)
+	procObjects -= r
+
+/proc/processObjects()
+	if(procObjects.len)
+		for(var/obj/i in procObjects)
+			i.doObjProcess()
+	spawn(1)
+		processObjects()
 
 /proc/processFlags(var/mob/player/who)
 	var/flagToCheck = who.persistingEffects[1]
@@ -133,7 +148,7 @@
 /atom/proc/examine(mob/user)
 	var/f_name = "\a [src]"
 
-	user << "\icon[src] That's [f_name]"
+	user << "[parseIcon(user,src)] That's [f_name]"
 
 	if(desc)
-		user << desc
+		user << " > [desc]"

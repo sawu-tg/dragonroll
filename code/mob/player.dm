@@ -14,10 +14,14 @@
 	icon = 'sprite/human.dmi'
 	icon_state = "skeleton_s"
 	var/datum/playerFile/playerData = new
-	var/hasReroll = TRUE
+
+	var/list/playerInventory = list()
+
 	var/list/persistingEffects = list()
 	var/active_states = 0
 	var/passive_states = 0
+
+	var/hasReroll = TRUE
 
 /mob/player/New()
 	randomise()
@@ -96,6 +100,21 @@ mob/proc/hear(msg, var/source)
 			mobRemFlag(src,ACTIVE_STATE_DYING,active=1)
 			mobAddFlag(src,PASSIVE_STATE_DEAD,active=0)
 
+/////////////////////////////////////////////////////////////////////////
+//-Player Creation and Setup functions:
+//	*randomise(): randomises a character
+//	*nameChange(name): changes the player's name to the given string, as well as it's mob's name
+//	*refreshIcon(prefix): rebuilds the player's mob icon, with the given racial prefix. This proc must be called last in most cases.
+//	*raceChange(race,reselect): changes the player's racial data to the given race, if reselect is TRUE, offers an input for color/skin.
+//	calls hairChange()
+//	*genderChange(gender): changes the player's gender to the given regular or custom gender. calls hairChange()
+//	*eyeChange(color): changes the player's eye color to the given color. calls hairChange()
+//	*hairChange(head,face,color): changes the player's head and/or facial hair to the given strings, and sets it to color.
+//-Call hierachy
+//	body update > hairChange(old-data) > refreshIcon()
+//	incorrect calls or updates will result in missing icon parts.
+/////////////////////////////////////////////////////////////////////////
+
 /mob/player/proc/randomise()
 	var/choice = pick("Human","Golem","Lizard","Slime","Pod","Fly","Jelly","Ape","Spider","Spidertaur","Robot","Hologram")
 	var/chosen = text2path("/datum/race/[choice]")
@@ -134,10 +153,6 @@ mob/proc/hear(msg, var/source)
 			var/image/overlay = image(icon,ov)
 			overlays.Add(overlay)
 	playerData.playerOverlays = list()
-
-//Call hierachy
-//body update > hairChange(old-data) > refreshIcon()
-//incorrect calls or updates will result in missing icon parts.
 
 /mob/player/proc/raceChange(var/datum/race/toRace,var/reselect = TRUE)
 	if(toRace)
@@ -196,6 +211,14 @@ mob/proc/hear(msg, var/source)
 	facialNew.Blend(playerData.hairColor,ICON_MULTIPLY)
 	playerData.playerOverlays.Add(facialNew)
 	refreshIcon(playerData.playerRacePrefix)
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+//-Extraneous player functions
+//	*descChange(add): adds the given string to the player's custom description list.
+//	*descRemove(rem): removes the selected string from the player's custom description list.
+//	*rerollStats(ask): rerolls the player's stats, and if prompt=true, it will ask the player if they want to keep them
+//	*playerSheet(): displays the player's character sheet.
+///////////////////////////////////////////////////////////////////////////////////////////////
 
 /mob/player/proc/descChange(var/extra)
 	playerData.playerDesc = ""
@@ -263,6 +286,25 @@ mob/proc/hear(msg, var/source)
 	html += "[hasReroll ? "<a href=?src=\ref[src];function=statroll><b>Reroll Stats</b></a>" : ""]<br>"
 	html += "</body></center></html>"
 	src << browse(html,"window=playersheet")
+
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+/mob/player/proc/addToInventory(var/obj/item/what)
+	playerInventory += what
+	what.loc = src
+
+/mob/player/proc/inventoryContains(var/obj/item/what)
+	for(var/obj/item/a in playerInventory)
+		if(a.uuid == what.uuid)
+			return TRUE
+	return FALSE
+
+/mob/player/proc/remFromInventory(var/obj/item/what)
+	playerInventory -= what
+	what.loc = src.loc
+
+/////////////////////////////- END OF CUSTOM PROCS- /////////////////////////////////
 
 /mob/player/Topic(href,href_list[])
 	var/function = href_list["function"]
