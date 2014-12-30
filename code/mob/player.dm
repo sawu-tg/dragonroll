@@ -275,6 +275,14 @@ mob/proc/hear(msg, var/source)
 		else
 			hasReroll = FALSE
 
+/mob/player/verb/viewInventory()
+	set name = "Open Inventory"
+	var/html = "<title>Inventory</title><html><center>[parseIcon(src.client,src,FALSE)]<br><body style='background:grey'>"
+	for(var/obj/item/I in playerInventory)
+		html += "<b>[I.name]</b>: [I.stackSize] (<a href=?src=\ref[src];function=dropitem;item=\ref[I]><i>Drop</i></a>)"
+	html += "</body></center></html>"
+	src << browse(html,"window=playersheet")
+
 /mob/player/verb/playerSheet()
 	set name = "View Player Sheet"
 	var/html = "<title>Player Sheet</title><html><center>[parseIcon(src.client,src,FALSE)]<br><body style='background:grey'>"
@@ -299,6 +307,11 @@ mob/proc/hear(msg, var/source)
 /////////////////////////////////////////////////////////////////////////////////////
 
 /mob/player/proc/addToInventory(var/obj/item/what)
+	for(var/obj/item/a in playerInventory)
+		if(a.uuid == what.uuid)
+			a.stackSize++
+			del(what)
+			return
 	playerInventory += what
 	what.loc = src
 
@@ -309,6 +322,11 @@ mob/proc/hear(msg, var/source)
 	return FALSE
 
 /mob/player/proc/remFromInventory(var/obj/item/what)
+	for(var/obj/item/a in playerInventory)
+		if(a.uuid == what.uuid)
+			if(a.stackSize > 1)
+				a.stackSize--
+				return
 	playerInventory -= what
 	what.loc = src.loc
 
@@ -354,6 +372,9 @@ mob/proc/hear(msg, var/source)
 		if("descdelete")
 			descRemove(input(src,"Remove what character note?") as null|anything in playerData.playerExtraDesc)
 			src.playerSheet()
+		if("dropitem")
+			src.remFromInventory(locate(href_list["item"]))
+			src.viewInventory()
 		if("statroll")
 			rerollStats()
 			src.playerSheet()

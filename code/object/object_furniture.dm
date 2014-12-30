@@ -5,6 +5,14 @@
 	size = 3
 	weight = 5
 
+/obj/item/furniture
+	//items for furniture, pillows etc
+	name = "furniture item"
+	desc = "beat someone with me"
+	icon = 'sprite/furniture.dmi'
+	size = 1
+	weight = 1
+
 /obj/furniture/chest
 	name = "Chest"
 	desc = "Contains Loot, most of the time."
@@ -21,7 +29,15 @@
 	name = "overlay object"
 	layer = MOB_LAYER + 1
 
+/obj/item/furniture/overlay
+	name = "overlay object"
+	layer = MOB_LAYER + 1
+
 /obj/furniture/underlay
+	name = "underlay object"
+	layer = MOB_LAYER - 1
+
+/obj/item/furniture/underlay
 	name = "underlay object"
 	layer = MOB_LAYER - 1
 
@@ -35,17 +51,17 @@
 	desc = "A light grey bed."
 	icon_state = "bed"
 
-/obj/furniture/overlay/bed/bedsheet
+/obj/item/furniture/overlay/bedsheet
 	name = "Bed sheet"
 	desc = "A white sheet."
 	icon_state = "bedsheet"
 
-/obj/furniture/underlay/bed/pillow
+/obj/item/furniture/underlay/bed/pillow
 	name = "Pillow"
 	desc = "A white pillow."
 	icon_state = "pillow"
 
-/obj/furniture/overlay/bed/blanket
+/obj/item/furniture/overlay/bed/blanket
 	name = "Blanket"
 	desc = "A heavy white blanket."
 	icon_state = "blanket"
@@ -97,10 +113,23 @@
 	desc = "A metallic pod chair"
 	icon_state = "podchair"
 
-/obj/furniture/seat/chair/comfy/
+/obj/item/furniture/overlay/comfyPillow
+	name = "chair pillow"
+	desc = "A large, comfortable pillow."
+	icon_state = "comfychair_blackcushion"
+
+/obj/furniture/seat/chair/comfy
 	name = "Black comfy chair"
 	desc = "A nice chair to relax in."
 	icon_state = "comfychair_black"
+	var/hasPillow = TRUE
+
+/obj/furniture/seat/chair/comfy/objFunction(var/mob/user)
+	if(hasPillow)
+		overlays.Add(image('sprite/furniture.dmi',icon_state="comfychair_nocushion",dir=dir))
+		var/obj/item/furniture/overlay/comfyPillow/P = new(loc)
+		P.icon_state = "[icon_state]_cushion"
+		hasPillow = FALSE
 
 /obj/furniture/seat/chair/comfy/beige
 	name = "Beige comfy chair"

@@ -22,7 +22,7 @@
 "v" = (/obj/furniture/table/wooden,/turf/floor/lobbyFloor,/area)
 "w" = (/obj/furniture/seat/chair{tag = "icon-chair (EAST)"; icon_state = "chair"; dir = 4},/turf/floor/lobbyFloor,/area)
 "x" = (/obj/furniture/seat/chair{tag = "icon-chair (WEST)"; icon_state = "chair"; dir = 8},/turf/floor/lobbyFloor,/area)
-"y" = (/obj/furniture/underlay/bed/bedframe,/obj/furniture/underlay/bed,/obj/furniture/overlay/bed/bedsheet,/obj/furniture/underlay/bed/pillow,/obj/furniture/overlay/bed/blanket,/turf/floor/lobbyFloor,/area)
+"y" = (/obj/furniture/underlay/bed/bedframe,/obj/furniture/underlay/bed,/obj/item/furniture/overlay/bedsheet,/obj/item/furniture/underlay/bed/pillow,/obj/item/furniture/overlay/bed/blanket,/turf/floor/lobbyFloor,/area)
 "z" = (/obj/furniture/seat/chair/office{tag = "icon-officechair_white (NORTH)"; icon_state = "officechair_white"; dir = 1},/turf/floor/lobbyFloor,/area)
 "A" = (/obj/furniture/seat/chair/podchair,/turf/floor/lobbyFloor,/area)
 "B" = (/obj/furniture/seat/chair/podchair{tag = "icon-podchair (EAST)"; icon_state = "podchair"; dir = 4},/turf/floor/lobbyFloor,/area)
