@@ -26,7 +26,7 @@
 		var/mob/player/m = user
 		if(do_roll(1,20,m.playerData.str.statCur) >= weight + size)
 			myOldLayer = layer
-			layer = MOB_LAYER + 1
+			layer = LAYER_OVERLAY
 			pixel_y = pixel_y + 10
 			beingCarried = TRUE
 			carriedBy = m

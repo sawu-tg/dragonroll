@@ -27,19 +27,19 @@
 //OVER/UNDERLAYS
 /obj/furniture/overlay
 	name = "overlay object"
-	layer = MOB_LAYER + 1
+	layer = LAYER_OVERLAY
 
 /obj/item/furniture/overlay
 	name = "overlay object"
-	layer = MOB_LAYER + 1
+	layer = LAYER_OVERLAY
 
 /obj/furniture/underlay
 	name = "underlay object"
-	layer = MOB_LAYER - 1
+	layer = LAYER_UNDERLAY
 
 /obj/item/furniture/underlay
 	name = "underlay object"
-	layer = MOB_LAYER - 1
+	layer = LAYER_UNDERLAY
 
 /obj/furniture/underlay/bed/bedframe
 	name = "Bed frame"
@@ -84,7 +84,7 @@
 /obj/furniture/seat/New()
 	if(seatArms)
 		var/image/arms = image('sprite/furniture.dmi',"[icon_state]_top")
-		arms.layer = MOB_LAYER + 1
+		arms.layer = LAYER_OVERLAY
 		overlays.Add(arms)
 
 /obj/furniture/seat/stool
@@ -113,7 +113,7 @@
 	desc = "A metallic pod chair"
 	icon_state = "podchair"
 
-/obj/item/furniture/overlay/comfyPillow
+/obj/item/furniture/underlay/comfyPillow
 	name = "chair pillow"
 	desc = "A large, comfortable pillow."
 	icon_state = "comfychair_blackcushion"
@@ -126,10 +126,21 @@
 
 /obj/furniture/seat/chair/comfy/objFunction(var/mob/user)
 	if(hasPillow)
-		overlays.Add(image('sprite/furniture.dmi',icon_state="comfychair_nocushion",dir=dir))
-		var/obj/item/furniture/overlay/comfyPillow/P = new(loc)
-		P.icon_state = "[icon_state]_cushion"
-		hasPillow = FALSE
+		var/choice = input(user,"What would you like to do") as null|anything in list("Hide Object","Take Cushion")
+		if(choice == "Hide Object")
+			var/mob/player/ply = user
+			var/toHide = input(ply,"Hide what?") as null|anything in ply.playerInventory
+			if(toHide)
+				displayInfo("You hide \the [toHide] inside [src]","[user] slips something into [src]",user,src)
+				ply.remFromInventory(toHide)
+				toHide:loc = src.loc
+				toHide:layer = LAYER_HIDDEN
+		if(choice == "Take Cushion")
+			displayInfo("You take the cushion from \the [src]","[user] takes the cushion from \the [src]",user,src)
+			overlays.Add(image('sprite/furniture.dmi',icon_state="comfychair_nocushion",dir=dir))
+			var/obj/item/furniture/underlay/comfyPillow/P = new(loc)
+			P.icon_state = "[icon_state]_cushion"
+			hasPillow = FALSE
 
 /obj/furniture/seat/chair/comfy/beige
 	name = "Beige comfy chair"

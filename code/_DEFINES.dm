@@ -35,5 +35,11 @@
 #define PASSIVE_STATE_DEAF 1024
 #define PASSIVE_STATE_UNCONCIOUS 2048
 
+//layers
+#define LAYER_OVERLAY MOB_LAYER+1
+#define LAYER_UNDERLAY MOB_LAYER-1
+#define LAYER_DEFAULT MOB_LAYER
+#define LAYER_HIDDEN -99
+
 var/list/playerValidHair = list()
 var/list/playerValidFacial = list()

@@ -2,6 +2,7 @@ var/list/procObjects = list()
 /world
 	turf = /turf/floor/voidFloor
 	view = 11
+	fps = 15
 
 /world/New()
 	spawn(10)

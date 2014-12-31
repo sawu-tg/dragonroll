@@ -279,7 +279,7 @@ mob/proc/hear(msg, var/source)
 	set name = "Open Inventory"
 	var/html = "<title>Inventory</title><html><center>[parseIcon(src.client,src,FALSE)]<br><body style='background:grey'>"
 	for(var/obj/item/I in playerInventory)
-		html += "<b>[I.name]</b>: [I.stackSize] (<a href=?src=\ref[src];function=dropitem;item=\ref[I]><i>Drop</i></a>)"
+		html += "<b>[I.name]</b>: [I.stackSize] (<a href=?src=\ref[src];function=dropitem;item=\ref[I]><i>Drop</i></a>)<br>"
 	html += "</body></center></html>"
 	src << browse(html,"window=playersheet")
 

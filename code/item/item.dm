@@ -7,6 +7,12 @@
 /obj/item/New()
 	uuid = name
 
-/obj/item/DblClick()
+/obj/item/verb/takeItem()
+	set name = "Take Item"
+	set src in oview(1)
 	var/mob/player/p = usr
+	layer = LAYER_DEFAULT
 	p.addToInventory(src)
+
+/obj/item/DblClick()
+	takeItem()
