@@ -21,12 +21,14 @@ var/list/procObjects = list()
 /proc/remProcessingObject(var/obj/r)
 	procObjects -= r
 
-/proc/filterList(var/filter,var/list/inList)
-	for(var/i = 1; i < inList.len; i++)
-		var/a = inList[i]
+/proc/filterList(var/filter,var/list/inList,var/list/excludeExplicit)
+	for(var/a in inList)
+		if(excludeExplicit)
+			if(excludeExplicit.Find(a))
+				inList.Remove(a)
 		if(!istype(a,filter))
-			inList.Cut(i,i)
-	return inList
+			inList.Remove(a)
+	. = inList
 
 /proc/processObjects()
 	if(procObjects.len)
