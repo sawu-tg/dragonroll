@@ -15,10 +15,12 @@ var/list/procObjects = list()
 		processObjects()
 	..()
 
-/proc/addProcessingObject(var/obj/a)
+/proc/addProcessingObject(var/atom/movable/a)
+	a.preProc()
 	procObjects += a
 
-/proc/remProcessingObject(var/obj/r)
+/proc/remProcessingObject(var/atom/movable/r)
+	r.postProc()
 	procObjects -= r
 
 /proc/filterList(var/filter,var/list/inList,var/list/excludeExplicit)

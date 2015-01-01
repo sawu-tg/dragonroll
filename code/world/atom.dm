@@ -14,6 +14,17 @@
 	var/mob/player/carriedBy
 	var/atom/movable/carrying
 	var/myOldLayer = 0
+	var/myOldPixelY = 0
+
+//done as the atom is added to the processing list
+/atom/movable/proc/preProc()
+	if(thrown)
+		density = 0
+
+//done as the atom is removed from the processing list
+/atom/movable/proc/postProc()
+	if(thrown)
+		density = 1
 
 //the process of an object, ie regenerating lasers, food rotting etc
 /atom/movable/proc/doProcess()
@@ -21,6 +32,7 @@
 		if(do_roll(1,20,carriedBy.playerData.str.statCur) >= weight + size)
 			loc = carriedBy.loc
 		else
+			displayInfo("You fumble and lose your strength, dropping the [carrying]!","[src] drops the [carrying]!",src,carrying)
 			beDropped()
 	if(thrown)
 		if(loc != thrownTarget:loc)
@@ -32,7 +44,7 @@
 /atom/movable/proc/beDropped()
 	if(beingCarried)
 		layer = myOldLayer
-		pixel_y = pixel_y - 10
+		pixel_y = myOldPixelY
 		beingCarried = FALSE
 		carriedBy = null
 		remProcessingObject(src)

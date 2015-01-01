@@ -302,7 +302,7 @@ mob/proc/hear(msg, var/source)
 			html += "<b>[S.statName]</b>: [S.statModified]/[S.statMax]<br>"
 		else
 			html += "<b>[S.statName]</b>: [S.statModified]<br>"
-	html += "[hasReroll ? "<a href=?src=\ref[src];function=statroll><b>Reroll Stats</b></a>" : ""]<br>"
+	html += "[hasReroll ? "<a href=?src=\ref[src];function=statroll><b>Reroll Stats</b></a> <a href=?src=\ref[src];function=statkeep><b>Keep Stats</b></a>" : ""]<br>"
 	html += "</body></center></html>"
 	src << browse(html,"window=playersheet")
 
@@ -329,6 +329,7 @@ mob/proc/hear(msg, var/source)
 		if(a.uuid == what.uuid)
 			if(a.stackSize > 1)
 				a.stackSize--
+				new a.type(src.loc)
 				return
 	playerInventory -= what
 	what.loc = src.loc
@@ -380,4 +381,7 @@ mob/proc/hear(msg, var/source)
 			src.viewInventory()
 		if("statroll")
 			rerollStats()
+			src.playerSheet()
+		if("statkeep")
+			hasReroll = FALSE
 			src.playerSheet()

@@ -7,6 +7,7 @@
 
 /mob/player/verb/pickupItem(mob/user)
 	set name = "Pick up"
+	set src = usr
 	var/list/excluded = list(src)
 	excluded.Add(src.contents)
 	var/what = input("Pick up what?") as null|anything in filterList(/atom/movable/,view(1),excluded)
@@ -15,6 +16,7 @@
 		var/mob/player/m = user
 		if(do_roll(1,20,m.playerData.str.statCur) >= a.weight + a.size)
 			a.myOldLayer = layer
+			a.myOldPixelY = a.pixel_y
 			a.layer = LAYER_OVERLAY
 			a.pixel_y = a.pixel_y + 10
 			a.beingCarried = TRUE
@@ -26,6 +28,7 @@
 
 /mob/player/verb/throwItem(mob/user)
 	set name = "Throw/Kick"
+	set src = usr
 	if(!carrying)
 		var/list/excluded = list(src)
 		excluded.Add(src.contents)
@@ -46,8 +49,9 @@
 
 /mob/player/verb/dropItem(mob/user)
 	set name = "Drop"
-	set src in view(1)
+	set src = usr
 	if(carrying)
+		displayInfo("You drop the [carrying]!","[src] drops the [carrying]!",src,carrying)
 		carrying.beDropped()
 
 //the function of an object when used, IE switching modes or reading books
