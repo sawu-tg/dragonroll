@@ -21,10 +21,17 @@ var/list/procObjects = list()
 /proc/remProcessingObject(var/obj/r)
 	procObjects -= r
 
+/proc/filterList(var/filter,var/list/inList)
+	for(var/i = 1; i < inList.len; i++)
+		var/a = inList[i]
+		if(!istype(a,filter))
+			inList.Cut(i,i)
+	return inList
+
 /proc/processObjects()
 	if(procObjects.len)
-		for(var/obj/i in procObjects)
-			i.doObjProcess()
+		for(var/atom/movable/i in procObjects)
+			i.doProcess()
 	spawn(1)
 		processObjects()
 
@@ -142,6 +149,9 @@ var/list/procObjects = list()
 	toWho << "<font color=blue>[parseIcon(toWho,fromWhat)] > [parseIcon(toWho,toWho)] | [personal]</font>"
 	for(var/mob/m in orange(world.view))
 		m << "<font color=blue>[parseIcon(m,fromWhat)] > [parseIcon(m,toWho)] | [others]</font>"
+
+/proc/displayTo(var/personal as text, var/mob/toWho, var/fromWhat)
+	toWho << "<font color=blue>[parseIcon(toWho,fromWhat)] > [parseIcon(toWho,toWho)] | [personal]</font>"
 
 /proc/chatSay(var/msg as text)
 	world << "<font color=black>\icon[usr][usr]: [msg]</font>"

@@ -23,6 +23,9 @@
 
 	var/hasReroll = TRUE
 
+	size = 3
+	weight = 5
+
 /mob/player/New()
 	randomise()
 	..()

@@ -1,79 +1,50 @@
 /obj
 	name = "default object"
 	desc = "not very interesting"
-	// size and weight determine how difficult it is to pick up and whether the player can throw it far
-	// size 1 = small object, like a tool or gun
-	// size 2 = two handed object, like a box or a crate
-	// size 3 = larger object, like a fridge or a stove
-	// size 4 = largest object, like a car or a cow
-	// weight is a number between 1 and 10, and is checked against the STR score of a player trying to pick it up. 1d20 vs (weight + size)
-	var/size = 0
-	var/weight = 0
-
-	var/thrown = FALSE
-	var/thrownTarget
-	var/beingCarried = FALSE
-	var/mob/player/carriedBy
-	var/myOldLayer = 0
 
 /obj/DblClick()
 	objFunction(usr)
 
-/obj/verb/pickupItem(mob/user)
+/mob/player/verb/pickupItem(mob/user)
 	set name = "Pick up"
-	set src in oview(1)
-	if(!beingCarried)
+	var/what = input("Pick up what?") as null|anything in filterList(/atom/movable/,view(1))
+	if(what)
+		var/atom/movable/a = what
 		var/mob/player/m = user
-		if(do_roll(1,20,m.playerData.str.statCur) >= weight + size)
-			myOldLayer = layer
-			layer = LAYER_OVERLAY
-			pixel_y = pixel_y + 10
-			beingCarried = TRUE
-			carriedBy = m
-			addProcessingObject(src)
-
-/obj/verb/throwItem(mob/user)
-	set name = "Throw item"
-	set src in oview(1)
-	if(!beingCarried)
-		var/target = step(src,usr.dir)
-		walk_to(src,target)
-	else if(beingCarried)
-		var/mob/player/m = user
-		if(usr == user)
-			if(do_roll(1,20,m.playerData.str.statCur) >= weight + size)
-				var/t = input("Throw at what") as null|anything in oview(max(m.playerData.str.statCur - (weight + size),1))
-				if(t)
-					thrownTarget = t
-					dropItem(m)
-					thrown = TRUE
-					addProcessingObject(src)
-
-/obj/verb/dropItem(mob/user)
-	set name = "Drop item"
-	set src in oview(1)
-	if(beingCarried)
-		var/mob/player/m = user
-		if(m == carriedBy)
-			layer = myOldLayer
-			pixel_y = pixel_y - 10
-			beingCarried = FALSE
-			carriedBy = null
-			remProcessingObject(src)
-
-//the process of an object, ie regenerating lasers, food rotting etc
-/obj/proc/doObjProcess()
-	if(beingCarried)
-		if(do_roll(1,20,carriedBy.playerData.str.statCur) >= weight + size)
-			src.loc = carriedBy.loc
+		if(do_roll(1,20,m.playerData.str.statCur) >= a.weight + a.size)
+			a.myOldLayer = layer
+			a.layer = LAYER_OVERLAY
+			a.pixel_y = a.pixel_y + 10
+			a.beingCarried = TRUE
+			a.carriedBy = m
+			carrying = a
+			addProcessingObject(a)
 		else
-			dropItem(carriedBy)
-	if(thrown)
-		if(loc != thrownTarget:loc)
-			step_to(src,thrownTarget)
-		else
-			thrown = FALSE
-			thrownTarget = null
+			displayTo("You can't quite seem to pick [a] up!",m,a)
+
+/mob/player/verb/throwItem(mob/user)
+	set name = "Throw/Kick"
+	if(!carrying)
+		var/kickWhat = input("What do you want to kick?") as null|anything in filterList(/atom/movable/,view(1))
+		if(kickWhat)
+			var/target = step(kickWhat,usr.dir)
+			walk_to(kickWhat,target)
+	else
+		var/atom/movable/a = carrying
+		var/mob/player/m = user
+		if(do_roll(1,20,m.playerData.str.statCur) >= a.weight + a.size)
+			var/t = input("Throw at what") as null|anything in filterList(/atom/movable,oview(max(m.playerData.str.statCur - (a.weight + a.size),1)))
+			if(t)
+				a.thrownTarget = t
+				dropItem(m)
+				a.thrown = TRUE
+				addProcessingObject(a)
+
+/mob/player/verb/dropItem(mob/user)
+	set name = "Drop"
+	set src in view(1)
+	if(carrying)
+		carrying.beDropped()
 
 //the function of an object when used, IE switching modes or reading books
 /obj/proc/objFunction(var/mob/user)

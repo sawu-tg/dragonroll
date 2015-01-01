@@ -23,6 +23,7 @@
 #include "code\mob\player.dm"
 #include "code\object\object.dm"
 #include "code\object\object_furniture.dm"
+#include "code\world\atom.dm"
 #include "code\world\turf.dm"
 #include "code\world\world.dm"
 #include "map\lobby.dmm"
