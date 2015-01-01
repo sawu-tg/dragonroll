@@ -20,6 +20,7 @@
 #include "code\datum\stat.dm"
 #include "code\interface\skin.dmf"
 #include "code\item\item.dm"
+#include "code\mob\npc.dm"
 #include "code\mob\player.dm"
 #include "code\object\object.dm"
 #include "code\object\object_furniture.dm"
