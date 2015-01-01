@@ -23,7 +23,7 @@
 
 //done as the atom is removed from the processing list
 /atom/movable/proc/postProc()
-	if(thrown)
+	if(!thrown)
 		density = 1
 
 //the process of an object, ie regenerating lasers, food rotting etc
