@@ -23,11 +23,12 @@ var/list/procObjects = list()
 
 /proc/filterList(var/filter,var/list/inList,var/list/excludeExplicit)
 	for(var/a in inList)
+		var/aPos = inList.Find(a)
 		if(excludeExplicit)
 			if(excludeExplicit.Find(a))
-				inList.Remove(a)
+				inList.Cut(aPos,aPos+1)
 		if(!istype(a,filter))
-			inList.Remove(a)
+			inList.Cut(aPos,aPos+1)
 	. = inList
 
 /proc/processObjects()
