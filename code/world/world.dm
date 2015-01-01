@@ -23,15 +23,21 @@ var/list/procObjects = list()
 	r.postProc()
 	procObjects -= r
 
-/proc/filterList(var/filter,var/list/inList,var/list/excludeExplicit)
-	for(var/a in inList)
-		var/aPos = inList.Find(a)
-		if(excludeExplicit)
-			if(excludeExplicit.Find(a))
-				inList.Cut(aPos,aPos+1)
-		if(!istype(a,filter))
-			inList.Cut(aPos,aPos+1)
-	. = inList
+
+/proc/filterList(var/filter, var/list/inList, var/list/explicitExcluded)
+	set background = 1
+	var/list/newList = list()
+	for(var/i = 1, i <= inList.len, i++)
+		var/j = inList[i]
+		if(explicitExcluded)
+			if(j in explicitExcluded)
+				continue
+		if(!istype(j, filter))
+			continue
+
+		newList += j
+	. = newList
+
 
 /proc/processObjects()
 	if(procObjects.len)
