@@ -15,6 +15,7 @@
 
 // BEGIN_INCLUDE
 #include "code\_DEFINES.dm"
+#include "code\datum\ability.dm"
 #include "code\datum\playerFile.dm"
 #include "code\datum\race.dm"
 #include "code\datum\stat.dm"

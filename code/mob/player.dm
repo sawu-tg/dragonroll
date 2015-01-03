@@ -21,6 +21,8 @@
 	var/active_states = 0
 	var/passive_states = 0
 
+	var/list/playerSpellHolders = list()
+
 	var/hasReroll = TRUE
 
 	size = 3
@@ -28,14 +30,20 @@
 
 /mob/player/New()
 	randomise()
+	addPlayerAbility(new/datum/ability/test_spell)
 	..()
 
 /mob/player/Stat()
+	statpanel("Character")
 	for(var/datum/stat/S in playerData.playerStats)
 		if(S.isLimited)
 			stat("[S.statName]: [S.statModified]/[S.statMax]")
 		else
 			stat("[S.statName]: [S.statModified]")
+	statpanel("Abilities")
+	for(var/obj/spellHolder/A in playerSpellHolders)
+		A.updateName()
+		stat(A)
 
 //Saycode, brutally mashed together by MrSnapwalk.
 
@@ -225,11 +233,34 @@ mob/proc/hear(msg, var/source)
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 //-Extraneous player functions
+//	*addPlayerAbility(ability): adds ability to player, if player already has it, levels it up
+//	*remPlayerAbility(ability): removes ability from player, if ability level > 1, levels it down
 //	*descChange(add): adds the given string to the player's custom description list.
 //	*descRemove(rem): removes the selected string from the player's custom description list.
 //	*rerollStats(ask): rerolls the player's stats, and if prompt=true, it will ask the player if they want to keep them
 //	*playerSheet(): displays the player's character sheet.
 ///////////////////////////////////////////////////////////////////////////////////////////////
+
+/mob/player/proc/addPlayerAbility(var/datum/ability/toAdd)
+	if(playerData.playerAbilities.Find(toAdd))
+		var/datum/ability/a = playerData.playerAbilities.Find(toAdd)
+		if(a.abilityLevel < a.abilityMaxLevel)
+			a.abilityLevel++
+	else
+		playerData.playerAbilities.Add(toAdd)
+		var/obj/spellHolder/SH = new /obj/spellHolder(toAdd)
+		playerSpellHolders.Add(SH)
+
+/mob/player/proc/remPlayerAbility(var/datum/ability/toRem)
+	if(playerData.playerAbilities.Find(toRem))
+		var/datum/ability/a = playerData.playerAbilities.Find(toRem)
+		if(a.abilityLevel > 1)
+			a.abilityLevel--
+		else
+			playerData.playerAbilities.Remove(toRem)
+			for(var/obj/spellHolder/s in playerSpellHolders)
+				if(s.heldAbility == toRem)
+					playerSpellHolders.Remove(s)
 
 /mob/player/proc/descChange(var/extra)
 	playerData.playerDesc = ""

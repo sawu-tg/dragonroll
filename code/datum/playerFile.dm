@@ -20,6 +20,7 @@
 	var/playerGenderShort = "m"
 	var/customGender = "none"
 
+	var/list/datum/ability/playerAbilities = new
 	var/list/datum/stat/playerStats = new
 	var/datum/stat/hp = new("Health",TRUE,10,0,10)
 	var/datum/stat/mp = new("Mana",TRUE,10,0,10)

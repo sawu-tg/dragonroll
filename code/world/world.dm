@@ -1,4 +1,5 @@
 var/list/procObjects = list()
+var/list/cooldownHandler = list()
 /world
 	turf = /turf/floor/voidFloor
 	view = 11
@@ -13,6 +14,7 @@ var/list/procObjects = list()
 			else if(copytext(i,1,5) == "hair")
 				playerValidHair.Add(i)
 		processObjects()
+		processCooldowns()
 	..()
 
 /proc/addProcessingObject(var/atom/movable/a)
@@ -38,6 +40,15 @@ var/list/procObjects = list()
 		newList += j
 	. = newList
 
+/proc/processCooldowns()
+	if(cooldownHandler.len)
+		for(var/datum/ability/a in cooldownHandler)
+			--a.abilityCooldownTimer
+			if(a.abilityCooldownTimer <= 0)
+				a.abilityCooldownTimer = 0 //just to be sure
+				cooldownHandler.Remove(a)
+	spawn(1)
+		processCooldowns()
 
 /proc/processObjects()
 	if(procObjects.len)
@@ -154,7 +165,7 @@ var/list/procObjects = list()
 		else
 			return {"<img src='[parse:icon_state].png'>"}
 	else
-		return parse
+		return "\icon[parse]"
 
 /proc/displayInfo(var/personal as text,var/others as text, var/mob/toWho, var/fromWhat)
 	toWho << "<font color=blue>[parseIcon(toWho,fromWhat)] > [parseIcon(toWho,toWho)] | [personal]</font>"
