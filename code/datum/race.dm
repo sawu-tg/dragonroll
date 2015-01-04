@@ -7,6 +7,7 @@
 	var/list/race_overlays = list()
 	var/shouldColorRace = FALSE
 
+	//All mods should balance to 0
 	var/hp_mod = 0
 	var/mp_mod = 0
 	var/str_mod = 0
@@ -27,6 +28,8 @@
 	icon_prefix = list("golem")
 	shouldColorRace = TRUE
 	con_mod = 2
+	str_mod = 1
+	int_mod = -1
 	cha_mod = -2
 
 /datum/race/Lizard
@@ -35,7 +38,9 @@
 	icon_prefix = list("lizard")
 	shouldColorRace = TRUE
 	dex_mod = 2
-	con_mod = -2
+	con_mod = 1
+	cha_mod = -1
+	int_mod = -2
 
 /datum/race/Slime
 	raceName = "Slime-person"
@@ -43,7 +48,8 @@
 	icon_prefix = list("slime")
 	shouldColorRace = TRUE
 	str_mod = -2
-	con_mod = 2
+	int_mod = -2
+	con_mod = 4
 
 /datum/race/Pod
 	raceName = "Pod-person"
@@ -57,6 +63,7 @@
 	raceEyes = "eyes_fly"
 	icon_prefix = list("fly")
 	str_mod = 2
+	dex_mod = 2
 	int_mod = -2
 	cha_mod = -2
 
@@ -67,6 +74,8 @@
 	raceEyes = "eyes_jelly"
 	shouldColorRace = TRUE
 	str_mod = -2
+	int_mod = -1
+	con_mod = 1
 	dex_mod = 2
 
 /datum/race/Ape
@@ -75,9 +84,10 @@
 	icon_prefix = list("ape")
 	race_overlays = list("ape_overlay")
 	shouldColorRace = TRUE
-	str_mod = 2
-	dex_mod = -3
+	str_mod = 1
+	dex_mod = 1
 	int_mod = 1
+	wis_mod = -3
 
 /datum/race/Spider
 	raceName = "Spider-person"
@@ -86,11 +96,12 @@
 	icon_prefix = list("spider")
 	shouldColorRace = TRUE
 	str_mod = 2
-	cha_mod = -2
+	int_mod = 1
+	cha_mod = -3
 
 /datum/race/Spidertaur
 	raceName = "Spidertaur"
-	raceDesc = "Generic ape-person"
+	raceDesc = "Generic spider-person"
 	raceEyes = "eyes_spider"
 	icon_prefix = list("spidertaur")
 	shouldColorRace = TRUE
@@ -111,8 +122,9 @@
 	raceDesc = "Generic hologram"
 	icon_prefix = list("hologram")
 	shouldColorRace = TRUE
-	str_mod = 2
-	con_mod = 1
+	str_mod = 1
+	con_mod = 2
 	dex_mod = 1
+	int_mod = 2
 	wis_mod = -2
 	cha_mod = -2
