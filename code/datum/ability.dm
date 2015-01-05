@@ -11,7 +11,7 @@
 	var/skillStatDifficultyUpper = 6
 	var/skillStatMax = 10 //if the roll passes this, it's a critical cast
 
-	var/abilityIcon = 'sprite/ability.dmi'
+	var/abilityIcon = 'sprite/obj/ability.dmi'
 	var/abilityState = "default_icon"
 
 	var/abilityLevel = 1
@@ -24,6 +24,9 @@
 	var/abilityFizzlePenalty = 1 // abilityCooldown/abilityFizzlePenalty on cast fail
 	var/abilityCooldown = 5*60 // how long until this can be used again, *60 for seconds
 
+	var/obj/effect/abilityIconSelf // the effect path displayed on the user when cast (if any)
+	var/obj/projectile/abilityProjectile // the projectile thrown when cast (if any)
+	var/obj/effect/abilityIconTarget // the effect path displayed on the target
 
 /datum/ability/proc/tryCast(var/mob/player/caster,var/target)
 	if(canCast(caster))
@@ -46,14 +49,21 @@
 /datum/ability/proc/preCast(var/mob/player/casting,var/target)
 	if(!suppressMessage)
 		displayInfo("You begin casting [name].","[casting.name] begins casting [name].",casting,image(abilityIcon,icon_state=abilityState))
+	if(abilityIconSelf)
+		new abilityIconSelf(casting.loc)
 
 /datum/ability/proc/Cast(var/mob/player/caster,var/target)
 	abilityCooldownTimer = abilityCooldown
+	if(abilityProjectile)
+		var/obj/projectile/p = new abilityProjectile(target)
+		p.loc = caster.loc
 	cooldownHandler.Add(src)
 
 /datum/ability/proc/postCast(var/mob/player/caster,var/target)
 	if(!suppressMessage)
 		displayInfo("You cast [name].","[caster.name] cast [name].",caster,image(abilityIcon,icon_state=abilityState))
+	if(abilityIconTarget)
+		new abilityIconTarget(target:loc)
 
 /obj/spellHolder
 	name = "spell holder"
@@ -74,7 +84,7 @@
 		name += " ([round(heldAbility.abilityCooldownTimer/60)]-CD)"
 
 /obj/spellHolder/Click()
-	var/target = input("Cast [name] on who?") as null|anything in range(heldAbility.abilityRange)
+	var/target = input("Cast [name] on what?") as null|anything in range(heldAbility.abilityRange)
 	if(target)
 		heldAbility.tryCast(usr,target)
 
@@ -82,6 +92,11 @@
 /datum/ability/test_spell
 	name = "Test spell"
 	desc = "Testing spell"
+	abilityRange = 8
+	abilityCooldown = 1*60
+	abilityIconSelf = /obj/effect/pow
+	abilityProjectile = /obj/projectile/fireball/blue
+	abilityIconTarget = /obj/effect/target
 
 
 

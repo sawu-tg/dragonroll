@@ -1,5 +1,5 @@
 /mob
-	icon = 'sprite/human.dmi'
+	icon = 'sprite/mob/human.dmi'
 
 /mob/Login()
 	if(!client.mob || !(istype(client.mob,/mob/player)))
@@ -11,7 +11,7 @@
 
 /mob/player
 	name = "unnamed"
-	icon = 'sprite/human.dmi'
+	icon = 'sprite/mob/human.dmi'
 	icon_state = "skeleton_s"
 	var/datum/playerFile/playerData = new
 
@@ -223,10 +223,10 @@ mob/proc/hear(msg, var/source)
 	playerData.playerHair = hair
 	playerData.playerFacial = facial
 	playerData.hairColor = color
-	var/icon/hairNew = new/icon('sprite/human_face.dmi',icon_state=playerData.playerHair)
+	var/icon/hairNew = new/icon('sprite/mob/human_face.dmi',icon_state=playerData.playerHair)
 	hairNew.Blend(playerData.hairColor,ICON_MULTIPLY)
 	playerData.playerOverlays.Add(hairNew)
-	var/icon/facialNew = new/icon('sprite/human_face.dmi',icon_state=playerData.playerFacial)
+	var/icon/facialNew = new/icon('sprite/mob/human_face.dmi',icon_state=playerData.playerFacial)
 	facialNew.Blend(playerData.hairColor,ICON_MULTIPLY)
 	playerData.playerOverlays.Add(facialNew)
 	refreshIcon(playerData.playerRacePrefix)

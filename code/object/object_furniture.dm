@@ -1,7 +1,7 @@
 /obj/furniture
 	name = "furniture"
 	desc = "don't sit on me.. maybe"
-	icon = 'sprite/furniture.dmi'
+	icon = 'sprite/world/furniture.dmi'
 	size = 3
 	weight = 5
 
@@ -9,7 +9,7 @@
 	//items for furniture, pillows etc
 	name = "furniture item"
 	desc = "beat someone with me"
-	icon = 'sprite/furniture.dmi'
+	icon = 'sprite/world/furniture.dmi'
 	size = 1
 	weight = 1
 
@@ -83,7 +83,7 @@
 
 /obj/furniture/seat/New()
 	if(seatArms)
-		var/image/arms = image('sprite/furniture.dmi',"[icon_state]_top")
+		var/image/arms = image('sprite/world/furniture.dmi',"[icon_state]_top")
 		arms.layer = LAYER_OVERLAY
 		overlays.Add(arms)
 
@@ -137,7 +137,7 @@
 				toHide:layer = LAYER_HIDDEN
 		if(choice == "Take Cushion")
 			displayInfo("You take the cushion from \the [src]","[user] takes the cushion from \the [src]",user,src)
-			overlays.Add(image('sprite/furniture.dmi',icon_state="comfychair_nocushion",dir=dir))
+			overlays.Add(image('sprite/world/furniture.dmi',icon_state="comfychair_nocushion",dir=dir))
 			var/obj/item/furniture/underlay/comfyPillow/P = new(loc)
 			P.icon_state = "[icon_state]_cushion"
 			hasPillow = FALSE

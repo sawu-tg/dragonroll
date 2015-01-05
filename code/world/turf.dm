@@ -1,9 +1,9 @@
 /turf/floor
-	icon = 'sprite/floors.dmi'
+	icon = 'sprite/world/floors.dmi'
 	icon_state = "floor"
 
 /turf/wall
-	icon = 'sprite/walls.dmi'
+	icon = 'sprite/world/walls.dmi'
 	icon_state = "0"
 	density = 1
 
