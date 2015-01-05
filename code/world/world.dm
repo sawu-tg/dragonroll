@@ -7,7 +7,7 @@ var/list/cooldownHandler = list()
 
 /world/New()
 	spawn(10)
-		var/icon/face = icon('sprite/human_face.dmi')
+		var/icon/face = icon('sprite/mob/human_face.dmi')
 		for(var/i in face.IconStates())
 			if(copytext(i,1,7) == "facial")
 				playerValidFacial.Add(i)
