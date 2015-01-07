@@ -22,6 +22,7 @@
 
 	var/list/datum/ability/playerAbilities = new
 	var/list/datum/stat/playerStats = new
+	var/datum/class/playerClass = new
 	var/datum/stat/hp = new("Health",TRUE,10,0,10)
 	var/datum/stat/mp = new("Mana",TRUE,10,0,10)
 	var/datum/stat/def = new("Defence",FALSE,10)
@@ -60,6 +61,18 @@
 			return "Female"
 		if(2)
 			return customGender
+
+/datum/playerFile/proc/assignClass(var/datum/class/toAssign)
+	playerAbilities.Add(toAssign.classAbilities)
+	hp.change(toAssign.hp_mod)
+	mp.change(toAssign.mp_mod)
+	str.change(toAssign.str_mod)
+	dex.change(toAssign.dex_mod)
+	def.change(def.statCur+toAssign.dex_mod)
+	con.change(toAssign.con_mod)
+	wis.change(toAssign.wis_mod)
+	int.change(toAssign.int_mod)
+	cha.change(toAssign.cha_mod)
 
 /datum/playerFile/proc/assignRace(var/datum/race/toAssign)
 	hp.change(toAssign.hp_mod)

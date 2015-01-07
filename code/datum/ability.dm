@@ -89,15 +89,20 @@
 		heldAbility.tryCast(usr,target)
 
 //ABILITIES
-/datum/ability/test_spell
-	name = "Test spell"
-	desc = "Testing spell"
+/datum/ability/fireball
+	name = "Fireball"
+	desc = "Shoots a ball of fire"
 	abilityRange = 8
 	abilityCooldown = 1*60
 	abilityIconSelf = /obj/effect/pow
 	abilityProjectile = /obj/projectile/fireball/blue
 	abilityIconTarget = /obj/effect/target
 
-
-
-
+/datum/ability/heal
+	name = "Heal"
+	desc = "Heals a target"
+	abilityRange = 8
+	abilityCooldown = 1*60
+	abilityIconSelf = /obj/effect/pow
+	abilityProjectile = /obj/projectile/fireball/blue
+	abilityIconTarget = /obj/effect/target

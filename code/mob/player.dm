@@ -30,7 +30,6 @@
 
 /mob/player/New()
 	randomise()
-	addPlayerAbility(new/datum/ability/test_spell)
 	..()
 
 /mob/player/Stat()
@@ -241,15 +240,16 @@ mob/proc/hear(msg, var/source)
 //	*playerSheet(): displays the player's character sheet.
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
-/mob/player/proc/addPlayerAbility(var/datum/ability/toAdd)
-	if(playerData.playerAbilities.Find(toAdd))
+/mob/player/proc/addPlayerAbility(var/datum/ability/toAdd,var/doUpgrade = FALSE)
+	if(playerData.playerAbilities.Find(toAdd) && doUpgrade)
 		var/datum/ability/a = playerData.playerAbilities.Find(toAdd)
 		if(a.abilityLevel < a.abilityMaxLevel)
 			a.abilityLevel++
 	else
-		playerData.playerAbilities.Add(toAdd)
-		var/obj/spellHolder/SH = new /obj/spellHolder(toAdd)
-		playerSpellHolders.Add(SH)
+		if(!playerData.playerAbilities.Find(toAdd))
+			playerData.playerAbilities.Add(toAdd)
+			var/obj/spellHolder/SH = new /obj/spellHolder(toAdd)
+			playerSpellHolders.Add(SH)
 
 /mob/player/proc/remPlayerAbility(var/datum/ability/toRem)
 	if(playerData.playerAbilities.Find(toRem))
@@ -323,6 +323,7 @@ mob/proc/hear(msg, var/source)
 	html += "<b>Name</b>: [playerData.playerName][hasReroll ? " - <a href=?src=\ref[src];function=name><i>Change</i></a>" : ""]<br>"
 	html += "<b>Gender</b>: [playerData.returnGender()][hasReroll ? " - <a href=?src=\ref[src];function=gender><i>Change</i></a>" : ""]<br>"
 	html += "<b>Race</b>: <font color=[playerData.playerColor]>[playerData.playerRace.raceName]</font>[hasReroll ? " - <a href=?src=\ref[src];function=race><i>Change</i></a>" : ""]<br>"
+	html += "<b>Class</b>: <font color=[playerData.playerClass.classColor]>[playerData.playerClass.className]</font>[hasReroll ? " - <a href=?src=\ref[src];function=class><i>Change</i></a>" : ""]<br>"
 	html += "<b>Race Desc.</b>: [playerData.playerRace.raceDesc]<br>"
 	html += "<b>Hairstyle</b>: [playerData.playerHair][hasReroll ? " - <a href=?src=\ref[src];function=sethair><i>Change</i></a>" : ""]<br>"
 	html += "<b>Facial hair</b>: [playerData.playerFacial][hasReroll ? " - <a href=?src=\ref[src];function=setfacial><i>Change</i></a>" : ""]<br>"
@@ -337,6 +338,25 @@ mob/proc/hear(msg, var/source)
 	html += "[hasReroll ? "<a href=?src=\ref[src];function=statroll><b>Reroll Stats</b></a> <a href=?src=\ref[src];function=statkeep><b>Keep Stats</b></a>" : ""]<br>"
 	html += "</body></center></html>"
 	src << browse(html,"window=playersheet")
+
+/mob/player/proc/classChange(var/datum/class/toWhat)
+	playerData.playerClass = new toWhat
+	for(var/datum/class/R in typesof(/datum/class))
+		var/datum/class/testOn = new R
+		for(var/datum/ability/A in testOn.classAbilities)
+			playerData.playerAbilities.Remove(A)
+			for(var/obj/spellHolder/s in playerSpellHolders)
+				if(s.heldAbility == A)
+					playerSpellHolders.Remove(s)
+		playerData.assignClass(toWhat)
+
+/mob/player/proc/updateSpellHolders()
+	for(var/obj/spellHolder/s in playerSpellHolders)
+		if(!playerData.playerAbilities.Find(s))
+			playerSpellHolders.Remove(s)
+
+	for(var/datum/ability/A in playerData.playerAbilities)
+		addPlayerAbility(A)
 
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
@@ -379,6 +399,11 @@ mob/proc/hear(msg, var/source)
 			var/chosen = text2path("/datum/race/[choice]")
 			raceChange(chosen)
 			nameChange(src.playerData.playerName)
+			src.playerSheet()
+		if("class")
+			var/choice = input(src,"Choose your Class") as anything in list("Assistant","Engineer","Doctor","Chef","Botanist","Scientist","Captain","Officer")
+			var/chosen = text2path("/datum/class/[choice]")
+			classChange(chosen)
 			src.playerSheet()
 		if("gender")
 			genderChange(input(src,"Choose your Gender") as null|anything in list ("Male","Female","Custom"))
