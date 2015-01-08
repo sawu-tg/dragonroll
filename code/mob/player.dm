@@ -1,5 +1,6 @@
 /mob
 	icon = 'sprite/mob/human.dmi'
+	luminosity = 4
 
 /mob/Login()
 	if(!client.mob || !(istype(client.mob,/mob/player)))
@@ -24,11 +25,11 @@
 	var/list/playerSpellHolders = list()
 
 	var/hasReroll = TRUE
-
 	size = 3
 	weight = 5
 
 /mob/player/New()
+	addProcessingObject(src)
 	randomise()
 	..()
 
@@ -43,6 +44,23 @@
 	for(var/obj/spellHolder/A in playerSpellHolders)
 		A.updateName()
 		stat(A)
+	statpanel("Debug")
+	var/turf/T = loc
+	stat("CPU: [world.cpu]")
+	stat("FPS: [world.fps]")
+	stat("Loc. Lights: [T.beingLit.len]")
+	stat("Proc. Lightspots: [globalLightingUpdates.len]")
+	stat("Total Count: [world.contents.len]")
+	stat("Realtime: [world.realtime]")
+
+///DEBUG VERBS
+/mob/player/verb/switchController()
+	set name = "Toggle Controllers"
+	set category = "Admin"
+	var/datum/controller/c = input("Toggle What?") as null|anything in controllers
+	if(c)
+		c.isRunning = !c.isRunning
+		usr << "Selected controller toggled to [c.isRunning]"
 
 //Saycode, brutally mashed together by MrSnapwalk.
 

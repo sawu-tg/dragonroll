@@ -1,0 +1,3 @@
+/mob/player/Move()
+	..()
+	updateLighting()

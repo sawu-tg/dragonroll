@@ -6,6 +6,7 @@
 	icon = 'sprite/world/walls.dmi'
 	icon_state = "0"
 	density = 1
+	opacity = 1
 
 /turf/wall/lobbyWall
 	name = "Lobby Wall"
@@ -19,3 +20,5 @@
 	name = "Void Space"
 	icon_state = "black"
 	density = 1
+	opacity = 1
+	ignoresLighting = 1

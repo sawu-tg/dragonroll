@@ -1,5 +1,7 @@
 var/list/procObjects = list()
 var/list/cooldownHandler = list()
+var/list/controllers = list()
+
 /world
 	turf = /turf/floor/voidFloor
 	view = 11
@@ -15,6 +17,9 @@ var/list/cooldownHandler = list()
 				playerValidHair.Add(i)
 		processObjects()
 		processCooldowns()
+		//CONTROLLERS
+		controllers.Add(new /datum/controller/lighting)
+		processControllers()
 	..()
 
 /proc/addProcessingObject(var/atom/movable/a)
@@ -39,6 +44,13 @@ var/list/cooldownHandler = list()
 
 		newList += j
 	. = newList
+
+/proc/processControllers()
+	if(controllers.len)
+		for(var/datum/controller/a in controllers)
+			a.doProcess()
+	spawn(1)
+		processControllers()
 
 /proc/processCooldowns()
 	if(cooldownHandler.len)
