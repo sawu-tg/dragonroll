@@ -62,7 +62,6 @@ var/list/globalTriggers = list()
 	overlays.Cut()
 	var/counter
 	var/list/iconlist = (cooldown ? triggerOverlayCD : triggerOverlay)
-	world << iconlist.len
 	for(counter = 1; counter < iconlist.len; counter = counter + 3)
 		if(iconlist[counter])
 			overlays.Add(image(icon=(cooldown ? triggerIconCD : triggerIcon),icon_state=iconlist[counter],pixel_x = iconlist[counter+1],pixel_y = iconlist[counter+2]))
