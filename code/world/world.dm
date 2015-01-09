@@ -12,13 +12,13 @@ var/list/controllers = list()
 		var/icon/face = icon('sprite/mob/human_face.dmi')
 		for(var/i in face.IconStates())
 			if(copytext(i,1,7) == "facial")
-				playerValidFacial.Add(i)
+				playerValidFacial |= i
 			else if(copytext(i,1,5) == "hair")
-				playerValidHair.Add(i)
+				playerValidHair |= i
 		processObjects()
 		processCooldowns()
 		//CONTROLLERS
-		controllers.Add(new /datum/controller/lighting)
+		controllers |= new /datum/controller/lighting
 		processControllers()
 	..()
 
@@ -95,8 +95,8 @@ var/list/controllers = list()
 /proc/mobAddFlag(var/mob/player/who, var/flag, var/length=-1, var/active=0)
 	if(active)
 		setFlag(who.active_states, flag)
-		who.persistingEffects.Add(flag)
-		who.persistingEffects.Add(length)
+		who.persistingEffects |= flag
+		who.persistingEffects |= length
 	else
 		setFlag(who.passive_states,flag)
 

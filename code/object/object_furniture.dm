@@ -85,7 +85,7 @@
 	if(seatArms)
 		var/image/arms = image('sprite/world/furniture.dmi',"[icon_state]_top")
 		arms.layer = LAYER_OVERLAY
-		overlays.Add(arms)
+		overlays |= arms
 
 /obj/furniture/seat/stool
 	name = "Red stool"
@@ -137,7 +137,7 @@
 				toHide:layer = LAYER_HIDDEN
 		if(choice == "Take Cushion")
 			displayInfo("You take the cushion from \the [src]","[user] takes the cushion from \the [src]",user,src)
-			overlays.Add(image('sprite/world/furniture.dmi',icon_state="comfychair_nocushion",dir=dir))
+			overlays |= image('sprite/world/furniture.dmi',icon_state="comfychair_nocushion",dir=dir)
 			var/obj/item/furniture/underlay/comfyPillow/P = new(loc)
 			P.icon_state = "[icon_state]_cushion"
 			hasPillow = FALSE

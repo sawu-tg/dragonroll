@@ -20,7 +20,7 @@ var/list/globalTriggers = list()
 
 /obj/trigger/New()
 	..()
-	globalTriggers.Add(src)
+	globalTriggers |= src
 	if(triggerOverlay.len)
 		updateIcons()
 
@@ -64,7 +64,7 @@ var/list/globalTriggers = list()
 	var/list/iconlist = (cooldown ? triggerOverlayCD : triggerOverlay)
 	for(counter = 1; counter < iconlist.len; counter = counter + 3)
 		if(iconlist[counter])
-			overlays.Add(image(icon=(cooldown ? triggerIconCD : triggerIcon),icon_state=iconlist[counter],pixel_x = iconlist[counter+1],pixel_y = iconlist[counter+2]))
+			overlays |= image(icon=(cooldown ? triggerIconCD : triggerIcon),icon_state=iconlist[counter],pixel_x = iconlist[counter+1],pixel_y = iconlist[counter+2])
 
 //shit,1,2,does,1,2
 
@@ -93,7 +93,7 @@ var/list/globalTriggers = list()
 			if(P == src)
 				continue
 			if(P.portalID == portalID)
-				valid.Add(P)
+				valid |= P
 	var/obj/trigger/portal/teletar = input(triggering,"Take portal to where?") as null|anything in valid
 	if(teletar)
 		..()

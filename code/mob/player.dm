@@ -164,22 +164,22 @@ mob/proc/hear(msg, var/source)
 	var/state = "[prefix]_[playerData.playerGenderShort]_s"
 	var/image/player = image(icon,state)
 	player.color = playerData.playerColor
-	overlays.Add(player)
+	overlays |= player
 
 	var/image/eyes = image(icon,playerData.playerRace.raceEyes)
 	eyes.color = playerData.eyeColor
 
 	var/list/addedOverlays = list()
-	addedOverlays.Add(playerData.playerRace.race_overlays)
-	addedOverlays.Add(eyes) //fuck the what byond
-	addedOverlays.Add(playerData.playerOverlays)
+	addedOverlays |= playerData.playerRace.race_overlays
+	addedOverlays |= eyes //fuck the what byond
+	addedOverlays |= playerData.playerOverlays
 
 	for(var/ov in addedOverlays)
 		if(isicon(ov) || istype(ov,/image))
-			overlays.Add(ov)
+			overlays |= ov
 		else
 			var/image/overlay = image(icon,ov)
-			overlays.Add(overlay)
+			overlays |= overlay
 	playerData.playerOverlays = list()
 
 /mob/player/proc/raceChange(var/datum/race/toRace,var/reselect = TRUE)
@@ -242,10 +242,10 @@ mob/proc/hear(msg, var/source)
 	playerData.hairColor = color
 	var/icon/hairNew = new/icon('sprite/mob/human_face.dmi',icon_state=playerData.playerHair)
 	hairNew.Blend(playerData.hairColor,ICON_MULTIPLY)
-	playerData.playerOverlays.Add(hairNew)
+	playerData.playerOverlays |= hairNew
 	var/icon/facialNew = new/icon('sprite/mob/human_face.dmi',icon_state=playerData.playerFacial)
 	facialNew.Blend(playerData.hairColor,ICON_MULTIPLY)
-	playerData.playerOverlays.Add(facialNew)
+	playerData.playerOverlays |= facialNew
 	refreshIcon(playerData.playerRacePrefix)
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -265,9 +265,9 @@ mob/proc/hear(msg, var/source)
 			a.abilityLevel++
 	else
 		if(!playerData.playerAbilities.Find(toAdd))
-			playerData.playerAbilities.Add(toAdd)
+			playerData.playerAbilities |= toAdd
 			var/obj/spellHolder/SH = new /obj/spellHolder(toAdd)
-			playerSpellHolders.Add(SH)
+			playerSpellHolders |= SH
 
 /mob/player/proc/remPlayerAbility(var/datum/ability/toRem)
 	if(playerData.playerAbilities.Find(toRem))

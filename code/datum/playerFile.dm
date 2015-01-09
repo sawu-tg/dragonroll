@@ -63,7 +63,7 @@
 			return customGender
 
 /datum/playerFile/proc/assignClass(var/datum/class/toAssign)
-	playerAbilities.Add(toAssign.classAbilities)
+	playerAbilities |= toAssign.classAbilities
 	hp.change(toAssign.hp_mod)
 	mp.change(toAssign.mp_mod)
 	str.change(toAssign.str_mod)

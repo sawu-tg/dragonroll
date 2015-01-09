@@ -9,7 +9,7 @@
 	set name = "Pick up"
 	set src = usr
 	var/list/excluded = list(src)
-	excluded.Add(src.contents)
+	excluded |= src.contents
 	var/what = input("Pick up what?") as null|anything in filterList(/atom/movable/,view(1),excluded)
 	if(what)
 		var/atom/movable/a = what
@@ -31,7 +31,7 @@
 	set src = usr
 	if(!carrying)
 		var/list/excluded = list(src)
-		excluded.Add(src.contents)
+		excluded |= src.contents
 		var/kickWhat = input("What do you want to kick?") as null|anything in filterList(/atom/movable/,view(1),excluded)
 		if(kickWhat)
 			var/target = step(kickWhat,usr.dir)

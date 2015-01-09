@@ -9,21 +9,22 @@ var/list/globalLightingUpdates = list()
 
 /turf/proc/updateLighting()
 	if(!ignoresLighting)
-		if(!globalLightingUpdates.Find(src))
-			globalLightingUpdates.Add(src)
+		globalLightingUpdates |= src
 
 /atom/movable/proc/updateLighting()
 	var/totalLuminosity = 0
 	totalLuminosity += luminosity
 	for(var/obj/I in contents)
-		totalLuminosity += I.luminosity
+		if(I.luminosity > 0)
+			totalLuminosity += I.luminosity
 	var/inverseCounter = 0
 	for(totalLuminosity; totalLuminosity > 0; --totalLuminosity)
 		for(var/turf/T in view(totalLuminosity,src))
-			T.lightLevel = min(LIGHTING_MAX_STATES,T.lightLevel + inverseCounter)
-			if(!T.beingLit.Find(src))
-				T.beingLit.Add(src)
-			T.updateLighting()
+			var/lumcount = min(LIGHTING_MAX_STATES,T.lightLevel + inverseCounter)
+			if(T.lightLevel < lumcount)
+				T.lightLevel = lumcount
+				T.beingLit |= src
+				T.updateLighting()
 		inverseCounter++
 
 /obj/darkness
@@ -53,7 +54,7 @@ var/list/globalLightingUpdates = list()
 				if(!locate(A) in nearby)
 					T.beingLit.Remove(A)
 
-			if(T.lightLevel > 0 && !T.beingLit.len)
+			if(T.lightLevel >= 0 && !T.beingLit.len)
 				if(prob(LIGHTING_DECAY_RATE))
 					T.lightLevel--
 

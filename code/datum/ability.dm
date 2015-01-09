@@ -57,7 +57,7 @@
 	if(abilityProjectile)
 		var/obj/projectile/p = new abilityProjectile(target)
 		p.loc = caster.loc
-	cooldownHandler.Add(src)
+	cooldownHandler |= src
 
 /datum/ability/proc/postCast(var/mob/player/caster,var/target)
 	if(!suppressMessage)
