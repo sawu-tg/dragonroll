@@ -27,6 +27,16 @@ var/list/globalLightingUpdates = list()
 				T.updateLighting()
 		inverseCounter++
 
+/turf/verb/examineLightData()
+	set src in range(32)
+	world << "Debugging Light of [src]"
+	world << "- lightLevel: [lightLevel]"
+	world << "- ignoresLighting: [ignoresLighting]"
+	world << "- lightObj: [lightObj]"
+	world << "- state: [lightObj.icon_state]"
+	for(var/t in beingLit)
+		world << "- beingLit by [t]"
+
 /obj/darkness
 	name = "darkness"
 	desc = "What lurks here?"
@@ -44,10 +54,10 @@ var/list/globalLightingUpdates = list()
 /datum/controller/lighting/doProcess()
 	if(isRunning)
 		for(var/turf/T in globalLightingUpdates)
-			if(T.luminosity + T.lightLevel < LIGHTING_MAX_STATES)
-				if(!T.lightObj)
-					T.lightObj = new(T)
-				T.lightObj.icon_state = "[T.luminosity + T.lightLevel]"
+			//if(T.luminosity + T.lightLevel < LIGHTING_MAX_STATES)
+			if(!T.lightObj)
+				T.lightObj = new(T)
+			T.lightObj.icon_state = "[T.luminosity + T.lightLevel]"
 
 			var/list/nearby = range(LIGHTING_MAX_STATES/2,T)
 			for(var/atom/A in T.beingLit)

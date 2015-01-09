@@ -8,7 +8,7 @@ var/list/globalTriggers = list()
 
 	density = 0
 
-	var/list/triggerOverlay = list() //strided list of iconstate,pixel_x,pixel_y
+	var/list/triggerOverlay = list() //strided list of iconstate,tiles_x,tiles_y
 	var/list/triggerOverlayCD = list()
 	var/triggerIcon
 	var/triggerIconCD
@@ -64,19 +64,39 @@ var/list/globalTriggers = list()
 	var/list/iconlist = (cooldown ? triggerOverlayCD : triggerOverlay)
 	for(counter = 1; counter < iconlist.len; counter = counter + 3)
 		if(iconlist[counter])
-			overlays |= image(icon=(cooldown ? triggerIconCD : triggerIcon),icon_state=iconlist[counter],pixel_x = iconlist[counter+1],pixel_y = iconlist[counter+2])
+			if(counter != 1)
+				var/obj/triggerExpander/exp = new /obj/triggerExpander(src)
+				exp.loc = loc
+				exp.x += iconlist[counter+1]
+				exp.y += iconlist[counter+2]
+			overlays |= image(icon=(cooldown ? triggerIconCD : triggerIcon),icon_state=iconlist[counter],pixel_x = iconlist[counter+1]*32,pixel_y = iconlist[counter+2]*32)
 
-//shit,1,2,does,1,2
+/obj/triggerExpander
+	name = "expander"
+	desc = "expands a trigger"
+	mouse_opacity = 0
+	var/obj/trigger/myParent
+
+/obj/triggerExpander/New(var/obj/trigger/parent)
+	myParent = parent
+	name = parent.name
+	desc = parent.desc
+	density = parent.density
+	luminosity = parent.luminosity
+	opacity = parent.opacity
+
+/obj/triggerExpander/Cross(var/atom/a)
+	myParent.Cross(a)
 
 //TRIGGERS
 
 /obj/trigger/portal
 	name = "portal"
 	desc = "takes you to a far off land!"
-	triggerIcon = 'sprite/world/furniture.dmi'
-	triggerIconCD = 'sprite/world/furniture.dmi'
-	triggerOverlay = list("portal_bottom",0,0,"portal_top",0,32)
-	triggerOverlayCD = list("portal_bottom_cd",0,0,"portal_top_cd",0,32)
+	triggerIcon = 'sprite/world/portal.dmi'
+	triggerIconCD = 'sprite/world/portal.dmi'
+	triggerOverlay = list("portal_bottomleft",0,0,"portal_topleft",0,1,"portal_topright",1,1,"portal_bottomright",1,0)
+	triggerOverlayCD = list("portal_bottomleft_cd",0,0,"portal_topleft_cd",0,1,"portal_topright_cd",1,1,"portal_bottomright_cd",1,0)
 	triggerCooldownTime = 30
 	var/exitDir = SOUTH
 	var/portalID = "default"
