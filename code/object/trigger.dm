@@ -69,7 +69,7 @@ var/list/globalTriggers = list()
 				exp.loc = loc
 				exp.x += iconlist[counter+1]
 				exp.y += iconlist[counter+2]
-			overlays |= image(icon=(cooldown ? triggerIconCD : triggerIcon),icon_state=iconlist[counter],pixel_x = iconlist[counter+1]*32,pixel_y = iconlist[counter+2]*32)
+			overlays |= image(icon=(cooldown ? triggerIconCD : triggerIcon),icon_state=iconlist[counter],pixel_x = iconlist[counter+1]*world.icon_size,pixel_y = iconlist[counter+2]*world.icon_size)
 
 /obj/triggerExpander
 	name = "expander"
@@ -93,8 +93,8 @@ var/list/globalTriggers = list()
 /obj/trigger/portal
 	name = "portal"
 	desc = "takes you to a far off land!"
-	triggerIcon = 'sprite/world/portal.dmi'
-	triggerIconCD = 'sprite/world/portal.dmi'
+	triggerIcon = 'sprite/world/portal_iso.dmi'
+	triggerIconCD = 'sprite/world/portal_iso.dmi'
 	triggerOverlay = list("portal_bottomleft",0,0,"portal_topleft",0,1,"portal_topright",1,1,"portal_bottomright",1,0)
 	triggerOverlayCD = list("portal_bottomleft_cd",0,0,"portal_topleft_cd",0,1,"portal_topright_cd",1,1,"portal_bottomright_cd",1,0)
 	triggerCooldownTime = 30

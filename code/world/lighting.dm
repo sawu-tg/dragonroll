@@ -40,12 +40,12 @@ var/list/globalLightingUpdates = list()
 /obj/darkness
 	name = "darkness"
 	desc = "What lurks here?"
-	icon = 'sprite/world/lighting.dmi'
+	icon = 'sprite/world/lighting_iso.dmi'
 	mouse_opacity = 0
 	layer = LAYER_LIGHTING
 
 /datum/controller/lighting
-	var/lightingIcon = 'sprite/world/lighting.dmi'
+	var/lightingIcon = 'sprite/world/lighting_iso.dmi'
 
 /datum/controller/lighting/New()
 	for(var/turf/T in world.contents)
@@ -57,7 +57,7 @@ var/list/globalLightingUpdates = list()
 			//if(T.luminosity + T.lightLevel < LIGHTING_MAX_STATES)
 			if(!T.lightObj)
 				T.lightObj = new(T)
-			T.lightObj.icon_state = "[T.luminosity + T.lightLevel]"
+			T.lightObj.icon_state = "[T.luminosity + T.lightLevel][(T.density || T.contents.len > 1) ? "_d" : ""]"
 
 			var/list/nearby = range(LIGHTING_MAX_STATES/2,T)
 			for(var/atom/A in T.beingLit)
