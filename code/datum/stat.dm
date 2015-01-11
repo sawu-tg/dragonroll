@@ -56,7 +56,4 @@
 			if(statModified - amount >= statMin)
 				statModified = statCur - amount
 	else
-		if(amount > 0)
-			statModified = statCur + amount
-		else if(amount < 0)
-			statModified = statCur - amount
+		statModified = statCur + amount

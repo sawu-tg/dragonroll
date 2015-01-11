@@ -7,6 +7,10 @@
 #define DTYPE_MASSIVE 3
 #define DTYPE_DIRECT 4
 
+#define INTENT_HELP 1
+#define INTENT_HARM 2
+#define INTENT_SNEAK 3
+
 //"Active" states, ie applied in combat
 #define ACTIVE_STATE_NORMAL 2
 #define ACTIVE_STATE_DAZED 4

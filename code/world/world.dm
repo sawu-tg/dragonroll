@@ -84,16 +84,6 @@ var/list/controllers = list()
 				--i
 		flagToCheck = i
 
-/proc/doCombat(var/mob/player/a, var/mob/player/b, var/mob/player/first, var/turn=0)
-	processFlags(a)
-	processFlags(b)
-
-	var/hp_a = a.playerData.hp.statCur
-	var/hp_b = b.playerData.hp.statCur
-
-	if(!hp_a <= 0 || !hp_b <= 0)
-		doCombat(b,a,b,turn + 1)
-
 /proc/mobAddFlag(var/mob/player/who, var/flag, var/length=-1, var/active=0)
 	if(active)
 		setFlag(who.active_states, flag)
@@ -139,13 +129,13 @@ var/list/controllers = list()
 	var/datum/stat/compare
 	switch(stat)
 		if(SAVING_REFLEX)
-			compare = data.ref.statCur
+			compare = data.ref
 			bonus += data.dex.statCur
 		if(SAVING_WILL)
-			compare = data.will.statCur
+			compare = data.will
 			bonus += data.wis.statCur
 		if(SAVING_FORTITUDE)
-			compare = data.fort.statCur
+			compare = data.fort
 			bonus += data.con.statCur
 	if(do_roll(1,20,bonus) >= data.save.statCur + compare.statCur)
 		return TRUE
@@ -181,13 +171,15 @@ var/list/controllers = list()
 	else
 		return "\icon[parse]"
 
-/proc/displayInfo(var/personal as text,var/others as text, var/mob/toWho, var/fromWhat)
-	toWho << "<font color=blue>[parseIcon(toWho,fromWhat)] > [parseIcon(toWho,toWho)] | [personal]</font>"
-	for(var/mob/m in orange(world.view))
-		m << "<font color=blue>[parseIcon(m,fromWhat)] > [parseIcon(m,toWho)] | [others]</font>"
+/proc/displayInfo(var/personal as text,var/others as text, var/mob/toWho, var/fromWhat,var/color="blue")
+	toWho << "<font color=[color]>[parseIcon(toWho,fromWhat)] > [parseIcon(toWho,toWho)] | [personal]</font>"
+	for(var/mob/m in oview(world.view,toWho))
+		if(m == toWho)
+			continue
+		m << "<font color=[color]>[parseIcon(m,fromWhat)] > [parseIcon(m,toWho)] | [others]</font>"
 
-/proc/displayTo(var/personal as text, var/mob/toWho, var/fromWhat)
-	toWho << "<font color=blue>[parseIcon(toWho,fromWhat)] > [parseIcon(toWho,toWho)] | [personal]</font>"
+/proc/displayTo(var/personal as text, var/mob/toWho, var/fromWhat,var/color="blue")
+	toWho << "<font color=[color]>[parseIcon(toWho,fromWhat)] > [parseIcon(toWho,toWho)] | [personal]</font>"
 
 /proc/chatSay(var/msg as text)
 	world << "<font color=black>\icon[usr][usr]: [msg]</font>"

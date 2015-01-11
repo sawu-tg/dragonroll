@@ -23,7 +23,7 @@
 	var/list/datum/ability/playerAbilities = new
 	var/list/datum/stat/playerStats = new
 	var/datum/class/playerClass = new
-	var/datum/stat/hp = new("Health",TRUE,10,0,10)
+	var/datum/stat/hp = new("Health",TRUE,10,-10,10)
 	var/datum/stat/mp = new("Mana",TRUE,10,0,10)
 	var/datum/stat/def = new("Defence",FALSE,10)
 	var/datum/stat/str = new("Strength",FALSE,1)

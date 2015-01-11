@@ -1,15 +1,3 @@
-/mob
-	icon = 'sprite/mob/human.dmi'
-	luminosity = 4
-
-/mob/Login()
-	if(!client.mob || !(istype(client.mob,/mob/player)))
-		var/mob/player/P = new
-		client.mob = P
-		spawn(5)
-			P.playerSheet()
-	..()
-
 /mob/player
 	name = "unnamed"
 	icon = 'sprite/mob/human.dmi'
@@ -40,6 +28,7 @@
 			stat("[S.statName]: [S.statModified]/[S.statMax]")
 		else
 			stat("[S.statName]: [S.statModified]")
+	stat("Your intent is: [intent2string()]")
 	statpanel("Abilities")
 	for(var/obj/spellHolder/A in playerSpellHolders)
 		A.updateName()
@@ -99,9 +88,9 @@ mob/proc/hear(msg, var/source)
 	A.examine(src)
 
 /mob/player/proc/takeDamage(var/amount,var/type=DTYPE_BASIC)
-	var/damage = type == DTYPE_DIRECT ? amount : amount - playerData.def
+	var/damage = max(0,type == DTYPE_DIRECT ? amount : amount - playerData.def.statCur)
 	var/doDamage = FALSE
-	if(damage > playerData.con)
+	if(damage > playerData.con.statCur)
 		if(type == DTYPE_NONLETHAL)
 			if(!savingThrow(src,0,SAVING_FORTITUDE))
 				//set unconcious 1d4 rounds
@@ -117,7 +106,7 @@ mob/proc/hear(msg, var/source)
 		else
 			doDamage = TRUE
 	if(doDamage)
-		playerData.hp.change(-damage)
+		playerData.hp.setTo(playerData.hp.statCur-damage)
 		if(playerData.hp.statCur == 0)
 			mobAddFlag(src,PASSIVE_STATE_DISABLED,active=0)
 		else if(playerData.hp.statCur <= -1 && playerData.hp.statCur >= -9)

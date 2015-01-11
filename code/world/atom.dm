@@ -48,3 +48,10 @@
 		beingCarried = FALSE
 		carriedBy = null
 		remProcessingObject(src)
+
+/atom/movable/Click()
+	objFunction(usr)
+
+//the function of something when used, IE switching modes or reading books
+/atom/movable/proc/objFunction(var/mob/user)
+	user << "You interact with [name]"

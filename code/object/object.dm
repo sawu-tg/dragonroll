@@ -2,9 +2,6 @@
 	name = "default object"
 	desc = "not very interesting"
 
-/obj/DblClick()
-	objFunction(usr)
-
 /mob/player/verb/pickupItem(mob/user)
 	set name = "Pick up"
 	set src = usr
@@ -53,7 +50,3 @@
 	if(carrying)
 		displayInfo("You drop the [carrying]!","[src] drops the [carrying]!",src,carrying)
 		carrying.beDropped()
-
-//the function of an object when used, IE switching modes or reading books
-/obj/proc/objFunction(var/mob/user)
-	user << "You used the [name]"
