@@ -63,16 +63,18 @@
 			return customGender
 
 /datum/playerFile/proc/assignClass(var/datum/class/toAssign)
-	playerAbilities |= toAssign.classAbilities
-	hp.change(toAssign.hp_mod)
-	mp.change(toAssign.mp_mod)
-	str.change(toAssign.str_mod)
-	dex.change(toAssign.dex_mod)
-	def.change(def.statCur+toAssign.dex_mod)
-	con.change(toAssign.con_mod)
-	wis.change(toAssign.wis_mod)
-	int.change(toAssign.int_mod)
-	cha.change(toAssign.cha_mod)
+	var/datum/class/T = new toAssign
+	playerAbilities.Add(T.classAbilities)
+	hp.change(T.hp_mod)
+	mp.change(T.mp_mod)
+	str.change(T.str_mod)
+	dex.change(T.dex_mod)
+	def.change(def.statCur+T.dex_mod)
+	con.change(T.con_mod)
+	wis.change(T.wis_mod)
+	int.change(T.int_mod)
+	cha.change(T.cha_mod)
+	del(T)
 
 /datum/playerFile/proc/assignRace(var/datum/race/toAssign)
 	hp.change(toAssign.hp_mod)

@@ -4,7 +4,7 @@ var/list/controllers = list()
 
 /world
 	turf = /turf/floor/voidFloor
-	view = 11
+	view = "6x6"
 	fps = 15
 	map_format = ISOMETRIC_MAP
 	icon_size = 64

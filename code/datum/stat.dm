@@ -51,9 +51,9 @@
 	if(isLimited)
 		if(amount > 0)
 			if(statModified + amount <= statMax)
-				statModified = statCur + amount
+				setTo(statCur + amount)
 		else if(amount < 0)
 			if(statModified - amount >= statMin)
-				statModified = statCur - amount
+				setTo(statCur - amount)
 	else
-		statModified = statCur + amount
+		setTo(statCur + amount)

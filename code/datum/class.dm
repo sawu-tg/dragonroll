@@ -2,7 +2,7 @@
 	var/className = "Default Class"
 	var/classDesc = "Generic Class"
 	var/classColor = "white"
-	var/list/classAbilities = list()
+	var/list/classAbilities = list(/datum/ability/fireball,/datum/ability/heal)
 	var/hp_mod = 0
 	var/mp_mod = 0
 	var/str_mod = 0

@@ -45,11 +45,25 @@
 ///DEBUG VERBS
 /mob/player/verb/switchController()
 	set name = "Toggle Controllers"
-	set category = "Admin"
+	set category = "Debug Verbs"
 	var/datum/controller/c = input("Toggle What?") as null|anything in controllers
 	if(c)
 		c.isRunning = !c.isRunning
 		usr << "Selected controller toggled to [c.isRunning]"
+
+/mob/player/verb/addAbility()
+	set name = "Give Ability"
+	set category = "Debug Verbs"
+	var/d = input("Learn what?") as null|anything in typesof(/datum/ability)
+	if(d)
+		addPlayerAbility(new d)
+
+/mob/player/verb/remAbility()
+	set name = "Remove Ability"
+	set category = "Debug Verbs"
+	var/d = input("Forget what?") as null|anything in playerData.playerAbilities
+	if(d)
+		remPlayerAbility(d)
 
 //Saycode, brutally mashed together by MrSnapwalk.
 
@@ -101,7 +115,7 @@ mob/proc/hear(msg, var/source)
 		doDamage = TRUE
 	if(type == DTYPE_MASSIVE)
 		if(!savingThrow(src,0,SAVING_FORTITUDE))
-			playerData.hp.statCur = -1
+			playerData.hp.setTo(-1)
 			doDamage = FALSE
 		else
 			doDamage = TRUE
@@ -133,12 +147,11 @@ mob/proc/hear(msg, var/source)
 /////////////////////////////////////////////////////////////////////////
 
 /mob/player/proc/randomise()
-	var/choice = pick("Human","Golem","Lizard","Slime","Pod","Fly","Jelly","Ape","Spider","Spidertaur","Robot","Hologram")
-	var/chosen = text2path("/datum/race/[choice]")
-	raceChange(chosen,FALSE)
+	raceChange(text2path("/datum/race/[pick("Human","Golem","Lizard","Slime","Pod","Fly","Jelly","Ape","Spider","Spidertaur","Robot","Hologram")]"),FALSE)
 	playerData.playerRacePrefix = playerData.playerRace.icon_prefix[1]
 	genderChange(pick("Male","Female"))
 	eyeChange(pick("red","blue","green","yellow","orange","purple"))
+	classChange(pick(text2path("/datum/class/[pick("Assistant","Engineer","Doctor","Chef","Botanist","Scientist","Captain","Officer")]")))
 	rerollStats(FALSE)
 
 /mob/player/proc/nameChange(var/toName)
@@ -256,6 +269,7 @@ mob/proc/hear(msg, var/source)
 		if(!playerData.playerAbilities.Find(toAdd))
 			playerData.playerAbilities |= toAdd
 			var/obj/spellHolder/SH = new /obj/spellHolder(toAdd)
+			SH.mobHolding = src
 			playerSpellHolders |= SH
 
 /mob/player/proc/remPlayerAbility(var/datum/ability/toRem)
@@ -355,15 +369,16 @@ mob/proc/hear(msg, var/source)
 			for(var/obj/spellHolder/s in playerSpellHolders)
 				if(s.heldAbility == A)
 					playerSpellHolders.Remove(s)
-		playerData.assignClass(toWhat)
+	playerData.assignClass(toWhat)
+	updateSpellHolders()
 
 /mob/player/proc/updateSpellHolders()
-	for(var/obj/spellHolder/s in playerSpellHolders)
+	for(var/s in playerSpellHolders)
 		if(!playerData.playerAbilities.Find(s))
 			playerSpellHolders.Remove(s)
 
-	for(var/datum/ability/A in playerData.playerAbilities)
-		addPlayerAbility(A)
+	for(var/A in playerData.playerAbilities)
+		addPlayerAbility(new A)
 
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////

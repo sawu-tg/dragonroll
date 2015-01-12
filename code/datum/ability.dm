@@ -67,6 +67,7 @@
 
 /obj/spellHolder
 	name = "spell holder"
+	var/mob/mobHolding
 	var/datum/ability/heldAbility
 
 /obj/spellHolder/New(var/datum/ability/a)
@@ -84,9 +85,21 @@
 		name += " ([round(heldAbility.abilityCooldownTimer/60)]-CD)"
 
 /obj/spellHolder/Click()
-	var/target = input("Cast [name] on what?") as null|anything in range(heldAbility.abilityRange)
-	if(target)
-		heldAbility.tryCast(usr,target)
+	usr << "<font color=green><b>Drag [name] to the slot slot you wish to assign it to!</b></font>"
+
+/obj/spellHolder/MouseDrag(var/srcO,var/overO,var/srcLoc,var/overLoc)
+	src.mouse_drag_pointer = image(icon=heldAbility.abilityIcon,icon_state=heldAbility.abilityState)
+
+/obj/spellHolder/MouseDrop(var/obj/interface/over)
+	src.mouse_drag_pointer = null
+	if(over && istype(over,/obj/interface/spellContainer))
+		var/obj/interface/spellContainer/t = over
+		t.setTo(src)
+
+/obj/spellHolder/proc/Cast(var/mob/user)
+	if(mobHolding)
+		mobHolding.casting = TRUE
+		mobHolding.castingSpell = src
 
 //ABILITIES
 /datum/ability/fireball
@@ -94,6 +107,7 @@
 	desc = "Shoots a ball of fire"
 	abilityRange = 8
 	abilityCooldown = 1*60
+	abilityState = "staff"
 	abilityIconSelf = /obj/effect/pow
 	abilityProjectile = /obj/projectile/fireball/blue
 	abilityIconTarget = /obj/effect/target
@@ -103,6 +117,7 @@
 	desc = "Heals a target"
 	abilityRange = 8
 	abilityCooldown = 1*60
+	abilityState = "wand"
 	abilityIconSelf = /obj/effect/pow
 	abilityProjectile = /obj/projectile/fireball/blue
 	abilityIconTarget = /obj/effect/target
