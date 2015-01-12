@@ -60,8 +60,8 @@ This is a list of current (and planned) features in dragonroll (in no particular
 | **NPCs** | Basic  |
 | - NPC AI  | Basic  |
 | - NPC Combat | None |
-| - NPC Interaction | None |
-| **Combat** | Very Basic |
+| - NPC Interaction | Basic |
+| **Combat** | Basic |
 | - Ability System | Mostly Done |
 | - Player Statistics | Done |
 | - Dice rolling | Mostly Done |
@@ -82,7 +82,7 @@ This is a list of current (and planned) features in dragonroll (in no particular
 | - Weapons | None |
 | - Tools | None |
 | **Sandbox** | Basic |
-| - Obj/Item/Mob Interaction | Very Basic |
+| - Obj/Item/Mob Interaction | Basic |
 | - Crafting | None |
 | - Character Profiles | Mostly Done |
 | - Races | Done |
