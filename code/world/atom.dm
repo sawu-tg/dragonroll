@@ -8,6 +8,8 @@
 	var/size = 0
 	var/weight = 0
 
+	var/anchored = FALSE
+
 	var/thrown = FALSE
 	var/thrownTarget
 	var/beingCarried = FALSE

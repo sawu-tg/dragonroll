@@ -2,6 +2,7 @@
 	name = "interface obj"
 	desc = "interface object"
 	icon = 'sprite/gui/guiObj.dmi'
+	anchored = TRUE
 
 /obj/interface/New(var/x,var/y,var/state="box",var/scale=32)
 	var/icon/temp = icon(icon=icon,icon_state=state)

@@ -9,6 +9,8 @@
 	excluded |= src.contents
 	var/what = input("Pick up what?") as null|anything in filterList(/atom/movable/,view(1),excluded)
 	if(what)
+		if(what:anchored)
+			return
 		var/atom/movable/a = what
 		var/mob/player/m = user
 		if(do_roll(1,20,m.playerData.str.statCur) >= a.weight + a.size)
@@ -31,6 +33,8 @@
 		excluded |= src.contents
 		var/kickWhat = input("What do you want to kick?") as null|anything in filterList(/atom/movable/,view(1),excluded)
 		if(kickWhat)
+			if(kickWhat:anchored)
+				return
 			var/target = step(kickWhat,usr.dir)
 			walk_to(kickWhat,target)
 	else

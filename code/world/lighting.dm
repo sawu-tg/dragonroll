@@ -43,6 +43,7 @@ var/list/globalLightingUpdates = list()
 	icon = 'sprite/world/lighting_iso.dmi'
 	mouse_opacity = 0
 	layer = LAYER_LIGHTING
+	anchored = TRUE
 
 /datum/controller/lighting
 	var/lightingIcon = 'sprite/world/lighting_iso.dmi'
