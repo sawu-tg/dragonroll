@@ -93,8 +93,8 @@ var/list/globalTriggers = list()
 /obj/trigger/portal
 	name = "portal"
 	desc = "takes you to a far off land!"
-	triggerIcon = 'sprite/world/portal_iso.dmi'
-	triggerIconCD = 'sprite/world/portal_iso.dmi'
+	triggerIcon = 'sprite/world/portal.dmi'
+	triggerIconCD = 'sprite/world/portal.dmi'
 	triggerOverlay = list("portal_bottomleft",0,0,"portal_topleft",0,1,"portal_topright",1,1,"portal_bottomright",1,0)
 	triggerOverlayCD = list("portal_bottomleft_cd",0,0,"portal_topleft_cd",0,1,"portal_topright_cd",1,1,"portal_bottomright_cd",1,0)
 	triggerCooldownTime = 30

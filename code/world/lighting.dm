@@ -40,13 +40,13 @@ var/list/globalLightingUpdates = list()
 /obj/darkness
 	name = "darkness"
 	desc = "What lurks here?"
-	icon = 'sprite/world/lighting_iso.dmi'
+	icon = 'sprite/world/lighting.dmi'
 	mouse_opacity = 0
 	layer = LAYER_LIGHTING
 	anchored = TRUE
 
 /datum/controller/lighting
-	var/lightingIcon = 'sprite/world/lighting_iso.dmi'
+	var/lightingIcon = 'sprite/world/lighting.dmi'
 
 /datum/controller/lighting/New()
 	for(var/turf/T in world.contents)

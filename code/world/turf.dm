@@ -1,24 +1,24 @@
 /turf/floor
-	icon = 'sprite/world/floors_iso.dmi'
-	icon_state = "base"
+	icon = 'sprite/world/floors.dmi'
+	icon_state = "floor"
 
 /turf/wall
-	icon = 'sprite/world/walls_iso.dmi'
+	icon = 'sprite/world/walls.dmi'
 	icon_state = "0"
 	density = 1
 	opacity = 1
 
 /turf/wall/lobbyWall
 	name = "Lobby Wall"
-	icon_state = "base"
+	icon_state = "gold0"
 
 /turf/floor/lobbyFloor
 	name = "Lobby Floor"
-	icon_state = "base"
+	icon_state = "gold"
 
 /turf/floor/voidFloor
 	name = "Void Space"
-	icon_state = "base"
+	icon_state = "black"
 	density = 1
 	opacity = 1
 	ignoresLighting = 1

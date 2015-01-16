@@ -100,6 +100,7 @@
 	if(mobHolding)
 		mobHolding.casting = TRUE
 		mobHolding.castingSpell = src
+		mobHolding.client.mouse_pointer_icon = image(icon='sprite/obj/ability.dmi',icon_state="all")
 
 //ABILITIES
 /datum/ability/fireball

@@ -7,6 +7,9 @@
 	//spell vars
 	var/casting = FALSE
 	var/obj/spellHolder/castingSpell
+	var/obj/interface/Cursor
+	var/maxHotkeys = 9
+	var/selectedHotKey = 1
 
 /mob/New()
 	spawn(1)
@@ -41,53 +44,71 @@
 ///////////////////////////////////////////////////////////////
 /mob/verb/KeyDown0()
 	set hidden = TRUE
-	var/obj/interface/O = screenObjs[1]
+	var/obj/interface/O = screenObjs[0]
 	O.objFunction()
 
 /mob/verb/KeyDown1()
 	set hidden = TRUE
-	var/obj/interface/O = screenObjs[2]
+	var/obj/interface/O = screenObjs[1]
 	O.objFunction()
 
 /mob/verb/KeyDown2()
 	set hidden = TRUE
-	var/obj/interface/O = screenObjs[3]
+	var/obj/interface/O = screenObjs[2]
 	O.objFunction()
 
 /mob/verb/KeyDown3()
 	set hidden = TRUE
-	var/obj/interface/O = screenObjs[4]
+	var/obj/interface/O = screenObjs[3]
 	O.objFunction()
 
 /mob/verb/KeyDown4()
 	set hidden = TRUE
-	var/obj/interface/O = screenObjs[5]
+	var/obj/interface/O = screenObjs[4]
 	O.objFunction()
 
 /mob/verb/KeyDown5()
 	set hidden = TRUE
-	var/obj/interface/O = screenObjs[6]
+	var/obj/interface/O = screenObjs[5]
 	O.objFunction()
 
 /mob/verb/KeyDown6()
 	set hidden = TRUE
-	var/obj/interface/O = screenObjs[7]
+	var/obj/interface/O = screenObjs[6]
 	O.objFunction()
 
 /mob/verb/KeyDown7()
 	set hidden = TRUE
-	var/obj/interface/O = screenObjs[8]
+	var/obj/interface/O = screenObjs[7]
 	O.objFunction()
 
 /mob/verb/KeyDown8()
 	set hidden = TRUE
-	var/obj/interface/O = screenObjs[9]
+	var/obj/interface/O = screenObjs[8]
 	O.objFunction()
 
 /mob/verb/KeyDown9()
 	set hidden = TRUE
-	var/obj/interface/O = screenObjs[10]
+	var/obj/interface/O = screenObjs[9]
 	O.objFunction()
+
+/mob/verb/NextHotkey()
+	if(selectedHotKey + 1 <= maxHotkeys)
+		++selectedHotKey
+	else
+		selectedHotKey = 1
+	refreshInterface()
+
+/mob/verb/UseHotkey()
+	world << "[selectedHotKey] is [screenObjs[selectedHotKey]]"
+	call(usr,"KeyDown[selectedHotKey]")(usr)
+
+/mob/verb/LastHotkey()
+	if(selectedHotKey - 1 >= 1)
+		--selectedHotKey
+	else
+		selectedHotKey = 9
+	refreshInterface()
 
 /client/Click(var/clickedOn)
 	if(mob)
@@ -95,6 +116,7 @@
 			mob.castingSpell.heldAbility.tryCast(mob,clickedOn)
 			mob.casting = FALSE
 			mob.castingSpell = null
+			mob.client.mouse_pointer_icon = null
 		else
 			..()
 //////////////////////////////////////////////////////
@@ -131,15 +153,20 @@
 		processAttack(user,src)
 
 /mob/proc/defaultInterface()
-	for(var/i = 0; i < 9; ++i)
-		screenObjs += new/obj/interface/spellContainer("[i][i > 0 ? ":[(-32)*i]" : ""]",1,"sphere")
+	for(var/i = 1; i <= maxHotkeys; ++i)
+		screenObjs += new/obj/interface/spellContainer("[i]",1,"sphere")
 		var/obj/interface/spellContainer/scrnobj = screenObjs[screenObjs.len]
 		scrnobj.name = "Slot [i]"
 		scrnobj.hotKey = i
-		screenObjs += new/obj/interface("[i][i > 0 ? ":[(-32)*i]" : ""]",1,"[i]")
+	for(var/i = 1; i <= maxHotkeys; ++i)
+		screenObjs += new/obj/interface("[i]",1,"[i]")
 
 /mob/proc/refreshInterface()
 	if(client)
-		client.screen.Cut()
+		screenObjs -= Cursor
+		client.screen = newlist()
+		Cursor = new/obj/interface(selectedHotKey,1,"select")
+		Cursor.layer = LAYER_INTERFACE+0.1
+		screenObjs |= Cursor
 		for(var/obj/interface/I in screenObjs)
 			I.showTo(src)

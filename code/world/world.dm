@@ -4,10 +4,8 @@ var/list/controllers = list()
 
 /world
 	turf = /turf/floor/voidFloor
-	view = "6x6"
 	fps = 15
-	map_format = ISOMETRIC_MAP
-	icon_size = 64
+	icon_size = 32
 
 /world/New()
 	spawn(10)
