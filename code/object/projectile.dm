@@ -8,6 +8,7 @@
 	var/projSpeed = 0.25
 	var/guided = FALSE
 	var/atom/target
+	var/damage = 1
 
 /obj/projectile/New(var/atom/at)
 	if(guided)
@@ -17,6 +18,9 @@
 	addProcessingObject(src)
 
 /obj/projectile/proc/doProjAct(var/atom/what)
+	if(istype(what,/mob/player))
+		var/mob/player/P = what
+		P.playerData.hp.change(damage)
 	del(src)
 
 /obj/projectile/Bump(var/atom/what)

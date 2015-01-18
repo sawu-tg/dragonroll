@@ -100,7 +100,6 @@
 	refreshInterface()
 
 /mob/verb/UseHotkey()
-	world << "[selectedHotKey] is [screenObjs[selectedHotKey]]"
 	call(usr,"KeyDown[selectedHotKey]")(usr)
 
 /mob/verb/LastHotkey()
@@ -169,4 +168,16 @@
 		Cursor.layer = LAYER_INTERFACE+0.1
 		screenObjs |= Cursor
 		for(var/obj/interface/I in screenObjs)
+			if(istype(I,/obj/interface/spellContainer))
+				var/obj/interface/spellContainer/SC = I
+				if(SC.heldSpell)
+					if(SC.heldSpell.heldAbility.abilityCooldownTimer)
+						I.overlays.Cut()
+						var/cd = round(min(10,SC.heldSpell.heldAbility.abilityCooldownTimer/60),1)
+						SC.overlays |= image(icon=SC.heldSpell.heldAbility.abilityIcon,icon_state=SC.heldSpell.heldAbility.abilityState)
+						SC.overlays |= image(icon='sprite/obj/ability.dmi',icon_state="cd_[cd]")
+						//hacky, sue me
+						spawn(15)
+							I.overlays.Cut()
+							SC.overlays |= image(icon=SC.heldSpell.heldAbility.abilityIcon,icon_state=SC.heldSpell.heldAbility.abilityState)
 			I.showTo(src)

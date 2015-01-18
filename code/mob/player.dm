@@ -25,9 +25,9 @@
 	statpanel("Character")
 	for(var/datum/stat/S in playerData.playerStats)
 		if(S.isLimited)
-			stat("[S.statName]: [S.statModified]/[S.statMax]")
+			stat("[S.statName]: [S.statModified]/[S.statMax] (Base: [S.statCur])")
 		else
-			stat("[S.statName]: [S.statModified]")
+			stat("[S.statName]: [S.statModified] (Base: [S.statCur])")
 	stat("Your intent is: [intent2string()]")
 	statpanel("Abilities")
 	for(var/obj/spellHolder/A in playerSpellHolders)
@@ -269,6 +269,7 @@ mob/proc/hear(msg, var/source)
 		if(!playerData.playerAbilities.Find(toAdd))
 			playerData.playerAbilities |= toAdd
 			var/obj/spellHolder/SH = new /obj/spellHolder(toAdd)
+			SH.heldAbility.holder = src
 			SH.mobHolding = src
 			playerSpellHolders |= SH
 

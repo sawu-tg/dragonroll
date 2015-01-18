@@ -14,8 +14,9 @@
 	var/abilityIcon = 'sprite/obj/ability.dmi'
 	var/abilityState = "default_icon"
 
-	var/abilityLevel = 1
-	var/abilityMaxLevel = 10
+	var/abilityLevel = 1 //level the ability is at
+	var/abilityMaxLevel = 10 //max level the ability can reach
+	var/abilityModifier = 1 //how much HP the ability takes/gives, abilityModifier*abilityLevel
 
 	var/abilityRange = 3 // range(abilityRange)
 
@@ -27,6 +28,8 @@
 	var/obj/effect/abilityIconSelf // the effect path displayed on the user when cast (if any)
 	var/obj/projectile/abilityProjectile // the projectile thrown when cast (if any)
 	var/obj/effect/abilityIconTarget // the effect path displayed on the target
+
+	var/mob/holder // who holds this spell, for easy access
 
 /datum/ability/proc/tryCast(var/mob/player/caster,var/target)
 	if(canCast(caster))
@@ -54,9 +57,20 @@
 
 /datum/ability/proc/Cast(var/mob/player/caster,var/target)
 	abilityCooldownTimer = abilityCooldown
-	if(abilityProjectile)
+	if(abilityProjectile && target != caster)
 		var/obj/projectile/p = new abilityProjectile(target)
 		p.loc = caster.loc
+		if(abilityModifier > 0)
+			p.damage = do_roll(1,abilityModifier*abilityLevel)
+		else
+			p.damage = -do_roll(1,-abilityModifier*abilityLevel)
+	else
+		if(istype(target,/mob/player))
+			var/mob/player/P = target
+			if(abilityModifier > 0)
+				P.playerData.hp.change(do_roll(1,abilityModifier*abilityLevel))
+			else
+				P.playerData.hp.change(-do_roll(1,-abilityModifier*abilityLevel))
 	cooldownHandler |= src
 
 /datum/ability/proc/postCast(var/mob/player/caster,var/target)
@@ -107,7 +121,8 @@
 	name = "Fireball"
 	desc = "Shoots a ball of fire"
 	abilityRange = 8
-	abilityCooldown = 1*60
+	abilityModifier = -2
+	abilityCooldown = 5*60
 	abilityState = "staff"
 	abilityIconSelf = /obj/effect/pow
 	abilityProjectile = /obj/projectile/fireball/blue
@@ -117,8 +132,9 @@
 	name = "Heal"
 	desc = "Heals a target"
 	abilityRange = 8
+	abilityModifier = 1
 	abilityCooldown = 1*60
 	abilityState = "wand"
 	abilityIconSelf = /obj/effect/pow
-	abilityProjectile = /obj/projectile/fireball/blue
-	abilityIconTarget = /obj/effect/target
+	abilityProjectile = /obj/projectile/fireball/green
+	abilityIconTarget = /obj/effect/heal

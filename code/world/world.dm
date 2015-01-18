@@ -59,6 +59,7 @@ var/list/controllers = list()
 			if(a.abilityCooldownTimer <= 0)
 				a.abilityCooldownTimer = 0 //just to be sure
 				cooldownHandler.Remove(a)
+			a.holder.refreshInterface()
 	spawn(1)
 		processCooldowns()
 

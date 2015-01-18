@@ -50,10 +50,8 @@
 /datum/stat/proc/change(var/amount)
 	if(isLimited)
 		if(amount > 0)
-			if(statModified + amount <= statMax)
-				setTo(statCur + amount)
+			setTo(min(statMax,statCur + amount))
 		else if(amount < 0)
-			if(statModified - amount >= statMin)
-				setTo(statCur - amount)
+			setTo(max(statMin,statCur + amount))
 	else
 		setTo(statCur + amount)

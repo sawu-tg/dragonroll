@@ -11,6 +11,8 @@
 #define INTENT_HARM 2
 #define INTENT_SNEAK 3
 
+#define BLEEDING_INTERVAL 90
+
 //"Active" states, ie applied in combat
 #define ACTIVE_STATE_NORMAL 2
 #define ACTIVE_STATE_DAZED 4
