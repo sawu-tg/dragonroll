@@ -5,6 +5,7 @@
 	var/datum/playerFile/playerData = new
 
 	var/list/playerInventory = list()
+	var/list/playerEquipped = list()
 
 	var/list/persistingEffects = list()
 	var/active_states = 0

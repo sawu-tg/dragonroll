@@ -24,7 +24,39 @@
 	else
 		--procTime
 
+/obj/effect/aoe_tile
+	name = "aoe tile"
+	desc = "This is the tile of a spell! Watch out!"
+	layer = LAYER_OVERLAY
+	var/damage = 1
+
+/obj/effect/aoe_tile/proc/doAOEAct(var/atom/what)
+	if(istype(what,/mob/player))
+		var/mob/player/P = what
+		P.playerData.hp.change(damage)
+	del(src)
+
+/obj/effect/aoe_tile/Bump(var/atom/what)
+	..()
+	doAOEAct(what)
+
+/obj/effect/aoe_tile/Cross(var/atom/what)
+	..()
+	doAOEAct(what)
+
+
 //effects
+
+/obj/effect/aoe_tile/flame
+	name = "Fire"
+	desc = "Hot hot HOT!"
+	icon = 'sprite/world/fire.dmi'
+	icon_state = "1"
+	length = 15
+
+/obj/effect/aoe_tile/flame/New()
+	icon_state = "[pick(1,2,3)]"
+	..()
 
 /obj/effect/target
 	name = "Targeted"

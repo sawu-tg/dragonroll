@@ -10,6 +10,7 @@
 	var/skillStatDifficultyLower = 1 // lower d upper + playerSkills[skillStatIndex] >= skillStatMin
 	var/skillStatDifficultyUpper = 6
 	var/skillStatMax = 10 //if the roll passes this, it's a critical cast
+	var/abilityManaMod = 2 //mana cost is level*manaMod
 
 	var/abilityIcon = 'sprite/obj/ability.dmi'
 	var/abilityState = "default_icon"
@@ -25,14 +26,16 @@
 	var/abilityFizzlePenalty = 1 // abilityCooldown/abilityFizzlePenalty on cast fail
 	var/abilityCooldown = 5*60 // how long until this can be used again, *60 for seconds
 
+	var/abilityAoe = 0 // if > 0, equals the damage range the ability is cast, if it is negative, its self cast around it
 	var/obj/effect/abilityIconSelf // the effect path displayed on the user when cast (if any)
 	var/obj/projectile/abilityProjectile // the projectile thrown when cast (if any)
-	var/obj/effect/abilityIconTarget // the effect path displayed on the target
+	var/obj/effect/abilityIconTarget // the effect path displayed on the target, or in the case of AOE, around it
 
 	var/mob/holder // who holds this spell, for easy access
 
 /datum/ability/proc/tryCast(var/mob/player/caster,var/target)
 	if(canCast(caster))
+		caster.playerData.mp.change(abilityLevel * abilityManaMod)
 		preCast(caster,target)
 		Cast(caster,target)
 		postCast(caster,target)
@@ -41,7 +44,10 @@
 	if(abilityCooldownTimer == 0)
 		var/datum/stat/checkStat = checked.playerData.playerStats[skillStatIndex]
 		if(do_roll(skillStatDifficultyLower,skillStatDifficultyUpper,checkStat.statCur) >= skillStatMin)
-			return TRUE
+			if(checked.playerData.mp.statCur >= abilityLevel * abilityManaMod)
+				return TRUE
+			else
+				displayTo("You don't have enough mana to cast the spell!",checked,checked)
 		else
 			if(abilityHasPenalty)
 				abilityCooldownTimer = abilityCooldown/abilityFizzlePenalty
@@ -55,22 +61,35 @@
 	if(abilityIconSelf)
 		new abilityIconSelf(casting.loc)
 
+/datum/ability/proc/placeAoe(var/turf/where)
+	var/obj/effect/aoe_tile/A = new abilityIconTarget(where)
+	A.damage = do_roll(1,abilityModifier*abilityLevel)
+	A.length = abilityLevel*25
+
 /datum/ability/proc/Cast(var/mob/player/caster,var/target)
 	abilityCooldownTimer = abilityCooldown
-	if(abilityProjectile && target != caster)
-		var/obj/projectile/p = new abilityProjectile(target)
-		p.loc = caster.loc
-		if(abilityModifier > 0)
-			p.damage = do_roll(1,abilityModifier*abilityLevel)
-		else
-			p.damage = -do_roll(1,-abilityModifier*abilityLevel)
+	if(abilityAoe != 0)
+		var/max = abilityAoe < 0 ? -abilityAoe : abilityAoe
+		var/counter
+		for(counter = 1; counter <= max; ++counter)
+			for(var/turf/T in oview(counter,abilityAoe < 0 ? holder : target))
+				if(!locate(abilityIconTarget) in T)
+					new/datum/timer(counter*5,src,"placeAoe",T)
 	else
-		if(istype(target,/mob/player))
-			var/mob/player/P = target
+		if(abilityProjectile && target != caster)
+			var/obj/projectile/p = new abilityProjectile(target)
+			p.loc = caster.loc
 			if(abilityModifier > 0)
-				P.playerData.hp.change(do_roll(1,abilityModifier*abilityLevel))
+				p.damage = do_roll(1,abilityModifier*abilityLevel)
 			else
-				P.playerData.hp.change(-do_roll(1,-abilityModifier*abilityLevel))
+				p.damage = -do_roll(1,-abilityModifier*abilityLevel)
+		else
+			if(istype(target,/mob/player))
+				var/mob/player/P = target
+				if(abilityModifier > 0)
+					P.playerData.hp.change(do_roll(1,abilityModifier*abilityLevel))
+				else
+					P.playerData.hp.change(-do_roll(1,-abilityModifier*abilityLevel))
 	cooldownHandler |= src
 
 /datum/ability/proc/postCast(var/mob/player/caster,var/target)
@@ -127,6 +146,18 @@
 	abilityIconSelf = /obj/effect/pow
 	abilityProjectile = /obj/projectile/fireball/blue
 	abilityIconTarget = /obj/effect/target
+
+/datum/ability/firewall
+	name = "Firewall"
+	desc = "Expells a blastwave of flames."
+	abilityRange = 8
+	abilityAoe = 2
+	abilityModifier = -2
+	abilityCooldown = 5*60
+	abilityState = "earth"
+	abilityIconSelf = /obj/effect/pow
+	abilityIconTarget = /obj/effect/aoe_tile/flame
+
 
 /datum/ability/heal
 	name = "Heal"

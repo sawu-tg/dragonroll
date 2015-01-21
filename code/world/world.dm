@@ -171,14 +171,14 @@ var/list/controllers = list()
 		return "\icon[parse]"
 
 /proc/displayInfo(var/personal as text,var/others as text, var/mob/toWho, var/fromWhat,var/color="blue")
-	toWho << "<font color=[color]>[parseIcon(toWho,fromWhat)] > [parseIcon(toWho,toWho)] | [personal]</font>"
+	toWho << "<font color=[color]>[fromWhat:name] > [toWho:name] | [personal]</font>"
 	for(var/mob/m in oview(world.view,toWho))
 		if(m == toWho)
 			continue
 		m << "<font color=[color]>[parseIcon(m,fromWhat)] > [parseIcon(m,toWho)] | [others]</font>"
 
 /proc/displayTo(var/personal as text, var/mob/toWho, var/fromWhat,var/color="blue")
-	toWho << "<font color=[color]>[parseIcon(toWho,fromWhat)] > [parseIcon(toWho,toWho)] | [personal]</font>"
+	toWho << "<font color=[color]>[fromWhat:name] > [toWho:name] | [personal]</font>"
 
 /proc/chatSay(var/msg as text)
 	world << "<font color=black>\icon[usr][usr]: [msg]</font>"
