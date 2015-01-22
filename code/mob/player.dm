@@ -176,6 +176,8 @@ mob/proc/hear(msg, var/source)
 	addedOverlays |= playerData.playerRace.race_overlays
 	addedOverlays |= eyes //fuck the what byond
 	addedOverlays |= playerData.playerOverlays
+	for(var/obj/item/I in playerEquipped)
+		addedOverlays |= image(icon=I.icon,icon_state = I.icon_state)
 
 	for(var/ov in addedOverlays)
 		if(isicon(ov) || istype(ov,/image))
@@ -250,6 +252,16 @@ mob/proc/hear(msg, var/source)
 	facialNew.Blend(playerData.hairColor,ICON_MULTIPLY)
 	playerData.playerOverlays |= facialNew
 	refreshIcon(playerData.playerRacePrefix)
+
+/mob/player/proc/updateStats()
+	for(var/obj/item/I in playerEquipped)
+		for(var/datum/stat/S in playerData.playerStats)
+			for(var/A in I.stats)
+				if(A == S.statName)
+					if(!S.affecting.Find(I))
+						S.addTo(I.stats[A])
+						S.affecting |= I
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 //-Extraneous player functions
@@ -336,7 +348,7 @@ mob/proc/hear(msg, var/source)
 	set name = "Open Inventory"
 	var/html = "<title>Inventory</title><html><center>[parseIcon(src.client,src,FALSE)]<br><body style='background:grey'>"
 	for(var/obj/item/I in playerInventory)
-		html += "<b>[I.name]</b>: [I.stackSize] (<a href=?src=\ref[src];function=dropitem;item=\ref[I]><i>Drop</i></a>)<br>"
+		html += "<b>[I.name]</b>: [I.stackSize] ([!isWorn(I) ? "<a href=?src=\ref[src];function=dropitem;item=\ref[I]><i>Drop</i></a>" : ""][isWearable(I) && !isWorn(I) ? " | <a href=?src=\ref[src];function=wearitem;item=\ref[I]><i>Equip</i></a>" : "<a href=?src=\ref[src];function=removeitem;item=\ref[I]><i>Remove</i></a>"])<br>"
 	html += "</body></center></html>"
 	src << browse(html,"window=playersheet")
 
@@ -410,6 +422,32 @@ mob/proc/hear(msg, var/source)
 	playerInventory -= what
 	what.loc = src.loc
 
+/mob/player/proc/equipItem(var/obj/item/what)
+	src.playerEquipped |= what
+	updateStats()
+	refreshIcon(playerData.playerRacePrefix)
+
+/mob/player/proc/unEquipItem(var/obj/item/what)
+	src.playerEquipped.Remove(what)
+	for(var/datum/stat/S in playerData.playerStats)
+		for(var/A in what.stats)
+			if(A == S.statName)
+				if(S.affecting.Find(what))
+					S.remFrom(what.stats[A])
+					S.affecting.Remove(what)
+	refreshIcon(playerData.playerRacePrefix)
+
+/mob/player/proc/isWorn(var/obj/item/what)
+	if(playerEquipped.Find(what))
+		return TRUE
+	return FALSE
+
+/mob/player/proc/isWearable(var/obj/item/what)
+	if(istype(what,/obj/item))
+		if(what.slot)
+			return TRUE
+	return FALSE
+
 /////////////////////////////- END OF CUSTOM PROCS- /////////////////////////////////
 
 /mob/player/Topic(href,href_list[])
@@ -459,6 +497,12 @@ mob/proc/hear(msg, var/source)
 			src.playerSheet()
 		if("dropitem")
 			src.remFromInventory(locate(href_list["item"]))
+			src.viewInventory()
+		if("wearitem")
+			equipItem(locate(href_list["item"]))
+			src.viewInventory()
+		if("removeitem")
+			unEquipItem(locate(href_list["item"]))
 			src.viewInventory()
 		if("statroll")
 			rerollStats()

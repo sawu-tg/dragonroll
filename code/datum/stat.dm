@@ -7,6 +7,7 @@
 	var/statMin = 0
 	var/statMax = 100
 	var/isLimited = FALSE
+	var/list/affecting = list()
 
 /datum/stat/New(var/name = "error", var/limit=FALSE, var/cur=0, var/min=0, var/max=100)
 	if(limit)
@@ -46,6 +47,12 @@
 	else
 		statCur = amount
 	statModified = statCur
+
+/datum/stat/proc/remFrom(var/amount)
+	statModified -= amount
+
+/datum/stat/proc/addTo(var/amount)
+	statModified += amount
 
 /datum/stat/proc/change(var/amount)
 	if(isLimited)
