@@ -423,9 +423,14 @@ mob/proc/hear(msg, var/source)
 	what.loc = src.loc
 
 /mob/player/proc/equipItem(var/obj/item/what)
-	src.playerEquipped |= what
-	updateStats()
-	refreshIcon(playerData.playerRacePrefix)
+	var/space = TRUE
+	for(var/obj/item/I in playerEquipped)
+		if(I.slot == what.slot)
+			space = FALSE
+	if(space)
+		src.playerEquipped |= what
+		updateStats()
+		refreshIcon(playerData.playerRacePrefix)
 
 /mob/player/proc/unEquipItem(var/obj/item/what)
 	src.playerEquipped.Remove(what)
