@@ -2,6 +2,7 @@
 	var/lastBleed = 0
 
 /mob/player/doProcess()
+	..()
 	//health management
 	if(playerData.hp.statCur > 0)
 		if(!canMove)
@@ -16,3 +17,5 @@
 			lastBleed = BLEEDING_INTERVAL
 		else
 			lastBleed--
+	if(loc:lightLevel < luminosity)
+		updateLighting()

@@ -49,7 +49,7 @@
 #define LAYER_DEFAULT MOB_LAYER
 #define LAYER_HIDDEN -99
 
-#define LIGHTING_DECAY_RATE 75 //%chance for light to decay to dark
+#define LIGHTING_DECAY_RATE 1 //amount for light to decay to dark
 #define LIGHTING_MAX_STATES 7 //how many states of luminosity are in the lighting.dm
 #define LIGHTING_MINIMUM_THRESHOLD -1 //the lowest level a light will decay to minus one, -1 means complete darkness.
 var/list/playerValidHair = list()

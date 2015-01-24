@@ -126,3 +126,14 @@
 	int_mod = 2
 	wis_mod = -2
 	cha_mod = -2
+
+
+//NPC only races
+/datum/race/Grey
+	raceName = "Greylien"
+	raceDesc = "If it starts screaming conjuctions, you better run."
+	icon_prefix = list("grey")
+	shouldColorRace = TRUE
+	con_mod = -4
+	int_mod = 2
+	wis_mod = 2

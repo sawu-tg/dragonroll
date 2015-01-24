@@ -37,7 +37,6 @@
 		..()
 	else
 		return
-	updateLighting()
 
 //interface cmds
 //we're going to assume screenObjs 0 - 9 are the correct objs

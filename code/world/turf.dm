@@ -1,3 +1,6 @@
+/turf
+	var/mineral = "iron"
+
 /turf/floor
 	icon = 'sprite/world/floors.dmi'
 	icon_state = "floor"
@@ -8,10 +11,13 @@
 	density = 0
 	opacity = 1
 	anchored = 1
+	var/walltype = "metal"
 
 /turf/wall/lobbyWall
 	name = "Lobby Wall"
 	icon_state = "gold0"
+	mineral = "gold"
+	walltype = "gold"
 
 /turf/floor/lobbyFloor
 	name = "Lobby Floor"

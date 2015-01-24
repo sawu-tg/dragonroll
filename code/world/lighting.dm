@@ -3,6 +3,7 @@ var/list/globalLightingUpdates = list()
 /turf
 	luminosity = 0 // this is byond's base luminosity, used for actual light level
 	var/lightLevel = 0 // this is the level of light being projected onto a tile
+	var/oldLight
 	var/ignoresLighting = 0
 	var/obj/darkness/lightObj //holds the darkness overlays
 	var/list/beingLit = list()
@@ -19,7 +20,7 @@ var/list/globalLightingUpdates = list()
 			totalLuminosity += I.luminosity
 	var/inverseCounter = 0
 	for(totalLuminosity; totalLuminosity > 0; --totalLuminosity)
-		for(var/turf/T in circle(src,totalLuminosity))
+		for(var/turf/T in (circle(src,totalLuminosity)))
 			var/lumcount = min(LIGHTING_MAX_STATES,T.lightLevel + inverseCounter)
 			if(T.lightLevel < lumcount)
 				T.lightLevel = lumcount
@@ -31,6 +32,7 @@ var/list/globalLightingUpdates = list()
 	set src in range(32)
 	world << "Debugging Light of [src]"
 	world << "- lightLevel: [lightLevel]"
+	world << "- oldLight: [oldLight]"
 	world << "- ignoresLighting: [ignoresLighting]"
 	world << "- lightObj: [lightObj]"
 	world << "- state: [lightObj.icon_state]"
@@ -50,6 +52,24 @@ var/list/globalLightingUpdates = list()
 	execTime = 1
 	var/lightingIcon = 'sprite/world/lighting.dmi'
 
+/datum/controller/lighting/proc/gatherLit()
+	var/list/newList = list()
+	for(var/atom/a in globalLightingUpdates)
+		if(a:beingLit)
+			for(var/b in a:beingLit)
+				if(!newList.Find(b:name))
+					newList[b:name] = 1
+				else
+					newList[b:name] = newList[b:name] + 1
+	return newList
+
+/datum/controller/lighting/Stat()
+	..()
+	var/list/gathered = gatherLit()
+	stat("== Lightsources ==")
+	for(var/a in gathered)
+		stat("	[a]: [gathered[a]]")
+
 /datum/controller/lighting/New()
 	for(var/turf/T in world.contents)
 		T.updateLighting()
@@ -60,16 +80,14 @@ var/list/globalLightingUpdates = list()
 			//if(T.luminosity + T.lightLevel < LIGHTING_MAX_STATES)
 			if(!T.lightObj)
 				T.lightObj = new(T)
-			T.lightObj.icon_state = "[T.luminosity + T.lightLevel]"
+			//if(T.lightLevel != T.oldLight)
+			T.lightObj.icon_state = "[max(0,T.luminosity + T.lightLevel)]"
 
-			var/list/nearby = circle(T,LIGHTING_MAX_STATES/2)
-			for(var/atom/A in T.beingLit)
-				if(!locate(A) in nearby)
-					T.beingLit -= A
+			T.lightLevel = T.lightLevel - T.oldLight
+			if(!T.beingLit.len)
+				--T.lightLevel
+			T.oldLight = T.lightLevel
 
-			if(T.lightLevel >= 0 && !T.beingLit.len)
-				if(prob(LIGHTING_DECAY_RATE))
-					T.lightLevel--
-
-			if(T.lightLevel <= LIGHTING_MINIMUM_THRESHOLD && !T.beingLit.len)
+			if(T.lightLevel <= LIGHTING_MINIMUM_THRESHOLD)
+				T.lightObj.icon_state = "0"
 				globalLightingUpdates -= T

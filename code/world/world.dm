@@ -5,7 +5,7 @@ var/datum/controller_master/CS
 /world
 	turf = /turf/floor/voidFloor
 	mob = /mob/player
-	view = 7
+	view = 9
 	fps = 15
 	icon_size = 32
 
@@ -179,22 +179,32 @@ var/datum/controller_master/CS
 /proc/chatSay(var/msg as text)
 	world << "<font color=black>\icon[usr][usr]: [msg]</font>"
 
-/proc/circle(turf/source,radius=1)
+/proc/circle(turf/source,radius=1,var/expensive = FALSE)
 	var/list/l = list()
 	var/rsq = radius * (radius+0.50)
-	for(var/atom/T in view(radius, source))
-		var/dx = T.x - source.x
-		var/dy = T.y - source.y
-		if(dx*dx + dy*dy <= rsq)
-			l |= T
+	var/path = text2path("/[expensive ? "atom" : "turf"]")
+	var/list/around = view(radius,source)
+	var/count = 0
+	for(count = 1; count < around.len; ++count)
+		var/T = around[count]
+		if(istype(T,path))
+			var/dx = T:x - source.x
+			var/dy = T:y - source.y
+			if(dx*dx + dy*dy <= rsq)
+				l |= T
 	. = l
 
-/proc/circleRange(turf/source,radius=1)
+/proc/circleRange(turf/source,radius=1,var/expensive = FALSE)
 	var/list/l = list()
 	var/rsq = radius * (radius+0.50)
-	for(var/atom/T in range(radius, source))
-		var/dx = T.x - source.x
-		var/dy = T.y - source.y
-		if(dx*dx + dy*dy <= rsq)
-			l |= T
+	var/path = text2path("/[expensive ? "atom" : "turf"]")
+	var/list/around = range(radius,source)
+	var/count = 0
+	for(count = 1; count < around.len; ++count)
+		var/T = around[count]
+		if(istype(T,path))
+			var/dx = T:x - source.x
+			var/dy = T:y - source.y
+			if(dx*dx + dy*dy <= rsq)
+				l |= T
 	. = l

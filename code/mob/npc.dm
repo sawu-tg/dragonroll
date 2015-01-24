@@ -14,6 +14,8 @@
 /mob/player/npc
 	name = "NPC player"
 
+	var/forceRace
+
 	var/timeSinceLast = 0
 
 	var/wander = 1
@@ -29,6 +31,10 @@
 
 	New()
 		..()
+		if(forceRace)
+			spawn(10)
+				raceChange(forceRace,TRUE)
+				nameChange(name)
 		addProcessingObject(src)
 
 /mob/player/npc/doProcess()

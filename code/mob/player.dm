@@ -22,6 +22,9 @@
 	randomise()
 	..()
 
+/mob/player/verb/setview()
+	client.view = input(src,"Set View Range") as num
+
 /mob/player/Stat()
 	statpanel("Character")
 	for(var/datum/stat/S in playerData.playerStats)
@@ -89,7 +92,7 @@
 
 	return "says, \"[msg]\"";
 
-mob/proc/hear(msg, var/source)
+/mob/proc/hear(msg, var/source)
 	var/name = source:name
 	src << "[parseIcon(src,source)] > [name] [msg]"
 
