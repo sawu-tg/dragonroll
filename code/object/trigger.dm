@@ -100,12 +100,14 @@ var/list/globalTriggers = list()
 	triggerCooldownTime = 30
 	var/exitDir = SOUTH
 	var/portalID = "default"
+	var/safe = TRUE //if false, players are forced to relinquish safe zone features, such as character changing
 
 /obj/trigger/portal/forceCooldown()
 	..()
 	updateIcons(TRUE)
 
 /obj/trigger/portal/triggerAction()
+	var/mob/player/Ply = triggering
 	var/list/valid = list()
 	for(var/obj/trigger/T in globalTriggers)
 		if(istype(T,/obj/trigger/portal))
@@ -116,10 +118,23 @@ var/list/globalTriggers = list()
 				valid |= P
 	var/obj/trigger/portal/teletar = input(triggering,"Take portal to where?") as null|anything in valid
 	if(teletar)
-		..()
-		teletar.forceCooldown()
-		triggering.loc = teletar.loc
-		step(triggering,exitDir)
+		var/choice
+		var/shouldTeleport = TRUE
+		if(Ply.hasReroll && !teletar.safe)
+			choice = alert(triggering,"You are leaving a safe-zone, this will disable character changes and sanctuary effects.","Safe-zone","Continue","Return")
+		if(choice)
+			switch(choice)
+				if("Continue")
+					shouldTeleport = TRUE
+				if("Return")
+					shouldTeleport = FALSE
+		if(shouldTeleport)
+			..()
+			teletar.forceCooldown()
+			triggering.loc = teletar.loc
+			step(triggering,exitDir)
+		else
+			step(triggering,exitDir)
 
 /obj/trigger/portal/doProcess()
 	..()

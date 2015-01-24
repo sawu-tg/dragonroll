@@ -32,8 +32,8 @@
 				P.playerSheet()
 	..()
 
-/mob/Move()
-	if(canMove)
+/mob/Move(var/atom/newLoc)
+	if(canMove && !newLoc.anchored)
 		..()
 	else
 		return

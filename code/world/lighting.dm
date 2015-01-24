@@ -19,7 +19,7 @@ var/list/globalLightingUpdates = list()
 			totalLuminosity += I.luminosity
 	var/inverseCounter = 0
 	for(totalLuminosity; totalLuminosity > 0; --totalLuminosity)
-		for(var/turf/T in view(totalLuminosity,src))
+		for(var/turf/T in circle(src,totalLuminosity))
 			var/lumcount = min(LIGHTING_MAX_STATES,T.lightLevel + inverseCounter)
 			if(T.lightLevel < lumcount)
 				T.lightLevel = lumcount
@@ -46,6 +46,8 @@ var/list/globalLightingUpdates = list()
 	anchored = TRUE
 
 /datum/controller/lighting
+	name = "Lighting"
+	execTime = 1
 	var/lightingIcon = 'sprite/world/lighting.dmi'
 
 /datum/controller/lighting/New()
@@ -58,16 +60,16 @@ var/list/globalLightingUpdates = list()
 			//if(T.luminosity + T.lightLevel < LIGHTING_MAX_STATES)
 			if(!T.lightObj)
 				T.lightObj = new(T)
-			T.lightObj.icon_state = "[T.luminosity + T.lightLevel][(T.density || T.contents.len > 1) ? "_d" : ""]"
+			T.lightObj.icon_state = "[T.luminosity + T.lightLevel]"
 
-			var/list/nearby = range(LIGHTING_MAX_STATES/2,T)
+			var/list/nearby = circle(T,LIGHTING_MAX_STATES/2)
 			for(var/atom/A in T.beingLit)
 				if(!locate(A) in nearby)
-					T.beingLit.Remove(A)
+					T.beingLit -= A
 
 			if(T.lightLevel >= 0 && !T.beingLit.len)
 				if(prob(LIGHTING_DECAY_RATE))
 					T.lightLevel--
 
 			if(T.lightLevel <= LIGHTING_MINIMUM_THRESHOLD && !T.beingLit.len)
-				globalLightingUpdates.Remove(T)
+				globalLightingUpdates -= T

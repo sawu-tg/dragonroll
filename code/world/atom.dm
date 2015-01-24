@@ -1,3 +1,14 @@
+/atom
+	var/anchored = FALSE
+
+/atom/proc/examine(mob/user)
+	var/f_name = "\a [src]"
+
+	user << "[parseIcon(user,src)] That's [f_name]"
+
+	if(desc)
+		user << " > [desc]"
+
 /atom/movable
 	// size and weight determine how difficult it is to pick up and whether the player can throw it far
 	// size 1 = small object, like a tool or gun
@@ -7,8 +18,6 @@
 	// weight is a number between 1 and 10, and is checked against the STR score of a player trying to pick it up. 1d20 vs (weight + size)
 	var/size = 0
 	var/weight = 0
-
-	var/anchored = FALSE
 
 	var/thrown = FALSE
 	var/thrownTarget
@@ -51,7 +60,7 @@
 		carriedBy = null
 		remProcessingObject(src)
 
-/atom/movable/Click()
+/atom/movable/DblClick()
 	objFunction(usr)
 
 //the function of something when used, IE switching modes or reading books

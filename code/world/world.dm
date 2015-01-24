@@ -1,9 +1,11 @@
 var/list/procObjects = list()
 var/list/cooldownHandler = list()
-var/list/controllers = list()
+var/datum/controller_master/CS
 
 /world
 	turf = /turf/floor/voidFloor
+	mob = /mob/player
+	view = 7
 	fps = 15
 	icon_size = 32
 
@@ -18,8 +20,9 @@ var/list/controllers = list()
 		processObjects()
 		processCooldowns()
 		//CONTROLLERS
-		controllers |= new /datum/controller/lighting
-		processControllers()
+		CS = new
+		CS.addControl(new /datum/controller/lighting)
+		CS.process()
 	..()
 
 /proc/addProcessingObject(var/atom/movable/a)
@@ -44,13 +47,6 @@ var/list/controllers = list()
 
 		newList += j
 	. = newList
-
-/proc/processControllers()
-	if(controllers.len)
-		for(var/datum/controller/a in controllers)
-			a.doProcess()
-	spawn(1)
-		processControllers()
 
 /proc/processCooldowns()
 	if(cooldownHandler.len)
@@ -183,10 +179,22 @@ var/list/controllers = list()
 /proc/chatSay(var/msg as text)
 	world << "<font color=black>\icon[usr][usr]: [msg]</font>"
 
-/atom/proc/examine(mob/user)
-	var/f_name = "\a [src]"
+/proc/circle(turf/source,radius=1)
+	var/list/l = list()
+	var/rsq = radius * (radius+0.50)
+	for(var/atom/T in view(radius, source))
+		var/dx = T.x - source.x
+		var/dy = T.y - source.y
+		if(dx*dx + dy*dy <= rsq)
+			l |= T
+	. = l
 
-	user << "[parseIcon(user,src)] That's [f_name]"
-
-	if(desc)
-		user << " > [desc]"
+/proc/circleRange(turf/source,radius=1)
+	var/list/l = list()
+	var/rsq = radius * (radius+0.50)
+	for(var/atom/T in range(radius, source))
+		var/dx = T.x - source.x
+		var/dy = T.y - source.y
+		if(dx*dx + dy*dy <= rsq)
+			l |= T
+	. = l

@@ -5,8 +5,9 @@
 /turf/wall
 	icon = 'sprite/world/walls.dmi'
 	icon_state = "0"
-	density = 1
+	density = 0
 	opacity = 1
+	anchored = 1
 
 /turf/wall/lobbyWall
 	name = "Lobby Wall"

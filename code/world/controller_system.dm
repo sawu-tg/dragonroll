@@ -1,0 +1,37 @@
+/datum/controller_master
+	var/list/controllers = list()
+	var/interval = 1
+
+/datum/controller_master/proc/addControl(var/datum/controller/C)
+	controllers |= C
+	interval = Gcd(C.execTime, interval)
+	interval = round(interval)
+
+#define MC_AVERAGE(average, current) (0.8*(average) + 0.2*(current))
+// ^ thanks carn
+
+/datum/controller_master/proc/process()
+	var/timer = world.time
+	for(var/datum/controller/C in controllers)
+		timer += interval
+		C.next_fire = timer
+	var/cpu
+	spawn(0)
+		while(TRUE)
+			if(interval > 0)
+				for(var/datum/controller/C in controllers)
+					if(C.isRunning)
+						if(C.next_fire <= world.time)
+							C.next_fire += C.execTime
+							timer = world.timeofday
+							cpu = world.cpu
+							C.last_fire = world.time
+							C.doProcess()
+							C.cpu = MC_AVERAGE(C.cpu,world.cpu - cpu)
+							C.cost = MC_AVERAGE(C.cost, world.timeofday - timer)
+							sleep(-1)
+				sleep(interval)
+			else
+				sleep(50)
+
+#undef MC_AVERAGE

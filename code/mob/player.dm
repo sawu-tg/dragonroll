@@ -41,13 +41,16 @@
 	stat("Loc. Lights: [T.beingLit.len]")
 	stat("Proc. Lightspots: [globalLightingUpdates.len]")
 	stat("Total Count: [world.contents.len]")
-	stat("Realtime: [world.realtime]")
+	if(CS)
+		stat("==== SUBSYSTEMS ====")
+		for(var/datum/controller/C in CS.controllers)
+			C.Stat()
 
 ///DEBUG VERBS
 /mob/player/verb/switchController()
 	set name = "Toggle Controllers"
 	set category = "Debug Verbs"
-	var/datum/controller/c = input("Toggle What?") as null|anything in controllers
+	var/datum/controller/c = input("Toggle What?") as null|anything in CS.controllers
 	if(c)
 		c.isRunning = !c.isRunning
 		usr << "Selected controller toggled to [c.isRunning]"

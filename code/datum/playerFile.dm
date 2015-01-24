@@ -25,6 +25,7 @@
 	var/datum/class/playerClass = new
 	var/datum/stat/hp = new("Health",TRUE,10,-10,10)
 	var/datum/stat/mp = new("Mana",TRUE,10,0,10)
+	var/datum/stat/ar = new("Armor Rating",FALSE,0)
 	var/datum/stat/def = new("Defence",FALSE,10)
 	var/datum/stat/str = new("Strength",FALSE,1)
 	var/datum/stat/dex = new("Dexterity",FALSE,1)
@@ -41,6 +42,7 @@
 	playerRace = new/datum/race/Human
 	playerStats += hp
 	playerStats += mp
+	playerStats += ar
 	playerStats += def
 	playerStats += str
 	playerStats += dex
