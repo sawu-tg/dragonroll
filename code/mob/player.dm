@@ -38,10 +38,8 @@
 		A.updateName()
 		stat(A)
 	statpanel("Debug")
-	var/turf/T = loc
 	stat("CPU: [world.cpu]")
 	stat("FPS: [world.fps]")
-	stat("Loc. Lights: [T.beingLit.len]")
 	stat("Proc. Lightspots: [globalLightingUpdates.len]")
 	stat("Total Count: [world.contents.len]")
 	if(CS)
