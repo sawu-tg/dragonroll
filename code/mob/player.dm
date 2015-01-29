@@ -352,7 +352,7 @@
 	set name = "Open Inventory"
 	var/html = "<title>Inventory</title><html><center>[parseIcon(src.client,src,FALSE)]<br><body style='background:grey'>"
 	for(var/obj/item/I in playerInventory)
-		html += "<b>[I.name]</b>: [I.stackSize] ([!isWorn(I) ? "<a href=?src=\ref[src];function=dropitem;item=\ref[I]><i>Drop</i></a>" : ""][isWearable(I) && !isWorn(I) ? " | <a href=?src=\ref[src];function=wearitem;item=\ref[I]><i>Equip</i></a>" : "<a href=?src=\ref[src];function=removeitem;item=\ref[I]><i>Remove</i></a>"])<br>"
+		html += "<b>[I.name]</b>: [I.stackSize] ([!isWorn(I) ? "<a href=?src=\ref[src];function=dropitem;item=\ref[I]><i>Drop</i></a>" : ""][isWearable(I) && !isWorn(I) ? " | <a href=?src=\ref[src];function=wearitem;item=\ref[I]><i>Equip</i></a>" : (isWorn(I) ? "<a href=?src=\ref[src];function=removeitem;item=\ref[I]><i>Remove</i></a>" : "")] | <a href=?src=\ref[src];function=useitem;item=\ref[I]><i>Use</i></a>)<br>"
 	html += "</body></center></html>"
 	src << browse(html,"window=playersheet")
 
@@ -512,6 +512,10 @@
 			src.viewInventory()
 		if("removeitem")
 			unEquipItem(locate(href_list["item"]))
+			src.viewInventory()
+		if("useitem")
+			var/obj/item/I = locate(href_list["item"])
+			I.objFunction(src)
 			src.viewInventory()
 		if("statroll")
 			rerollStats()

@@ -34,7 +34,7 @@ var/list/globalLightingUpdates = list()
 		for(var/turf/T in (circle(src,totalLuminosity)))
 			var/lumcount = min(LIGHTING_MAX_STATES,T.lightLevel + inverseCounter)
 			if(T.lightLevel < lumcount)
-				T.expectedLight = lumcount
+				T.expectedLight = min(LIGHTING_MAX_STATES,lumcount)
 				T.expectedColor = lightColor
 				T.updateLighting()
 		inverseCounter++

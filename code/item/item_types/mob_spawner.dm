@@ -8,8 +8,8 @@
 	var/mob/player/npc/spawned_mob
 
 /obj/item/mob_spawner/objFunction(var/mob/user)
-	user << "You pull a [spawned_mob.name] from the bag!"
-	new spawned_mob(user.loc)
+	var/mob/m = new spawned_mob(user.loc)
+	user << "You pull a [m.name] from the bag!"
 	return
 
 /obj/item/mob_spawner/chicken

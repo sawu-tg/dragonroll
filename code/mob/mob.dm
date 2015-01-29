@@ -10,7 +10,7 @@
 	var/obj/interface/Cursor
 	var/maxHotkeys = 9
 	var/selectedHotKey = 1
-	var/datum/faction/mobFaciton = new
+	var/datum/faction/mobFaction
 
 /mob/New()
 	spawn(1)

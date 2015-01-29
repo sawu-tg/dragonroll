@@ -22,6 +22,7 @@ var/datum/controller_master/CS
 		//CONTROLLERS
 		CS = new
 		CS.addControl(new /datum/controller/lighting)
+		CS.addControl(new /datum/controller/machinery)
 		CS.process()
 	..()
 
