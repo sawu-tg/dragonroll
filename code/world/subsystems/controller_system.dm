@@ -7,6 +7,19 @@
 	interval = Gcd(C.execTime, interval)
 	interval = round(interval)
 
+/proc/isRunningSafe(var/what)
+	if(CS)
+		return CS.isRunning(what)
+	return FALSE
+
+/datum/controller_master/proc/isRunning(var/what)
+	var/found = controllers.Find(what)
+	if(found > 0)
+		var/datum/controller/F = controllers[found]
+		if(F)
+			var/R = F.isRunning
+			return R
+
 #define MC_AVERAGE(average, current) (0.8*(average) + 0.2*(current))
 // ^ thanks carn
 

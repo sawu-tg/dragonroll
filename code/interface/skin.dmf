@@ -79,6 +79,10 @@ macro "macro"
 		name = "Q"
 		command = "LastHotkey"
 		is-disabled = false
+	elem "NextHand"
+		name = "R"
+		command = "NextHand"
+		is-disabled = false
 	elem 
 		name = "S+REP"
 		command = ".south"

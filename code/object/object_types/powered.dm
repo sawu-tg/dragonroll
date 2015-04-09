@@ -8,6 +8,8 @@
 	var/powerNeeded = 100 // power consumed per call
 	var/powerMax = 100000 // max power held
 	var/powerShare = 0 // power shared per call
+	var/halfLife = 1
+	var/timeSinceLastPower = 0
 	var/powerOn = TRUE // is the obj powered on and consuming electricity
 	var/powerConsuming = TRUE // consumes power
 	var/list/connectedWire = list() // connected machines
@@ -28,10 +30,12 @@
 		if(powerHeld - amount > 0)
 			powerHeld -= amount
 			where.powerHeld = min(powerMax,powerHeld + amount)
+			where.timeSinceLastPower = 0
 
 //adds power to the obj
 /obj/structure/powered/proc/addPower(var/amount)
 	powerHeld = min(powerMax,powerHeld + amount)
+	timeSinceLastPower = 0
 
 //drops power completely
 /obj/structure/powered/proc/dropPower(var/amount)
@@ -46,8 +50,10 @@
 
 /obj/structure/powered/proc/process()
 	if(powerOn)
+		timeSinceLastPower++
 		if(powerConsuming)
-			consumePower(powerNeeded)
+			if(timeSinceLastPower >= halfLife)
+				consumePower(powerNeeded)
 			if(powerHeld <= 0)
 				powerOn = FALSE
 

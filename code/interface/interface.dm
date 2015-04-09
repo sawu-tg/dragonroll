@@ -17,6 +17,22 @@
 
 /obj/interface/objFunction(var/mob/user)
 
+//interface shortcut (ie to an item)
+/obj/interface/shortcut
+	name = "shortcutContainer"
+	desc = "For easy access"
+	var/obj/shortcutTo
+
+/obj/interface/shortcut/New(var/x,var/y,var/state="box",var/scale=32,var/obj/shown)
+	shortcutTo = shown
+	..(x,y,state,scale)
+
+/obj/interface/shortcut/proc/rebuild(var/obj/aswhat)
+	overlays.Cut()
+	shortcutTo = aswhat
+	if(aswhat)
+		overlays.Add(icon(icon=aswhat.icon,icon_state=aswhat.icon_state))
+
 //spell container
 //holds clickable abilties
 /obj/interface/spellContainer

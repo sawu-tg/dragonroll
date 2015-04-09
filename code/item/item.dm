@@ -15,9 +15,10 @@
 	set src in oview(1)
 	var/mob/player/p = usr
 	layer = LAYER_DEFAULT
-	p.addToInventory(src)
+	p.takeToActiveHand(src)
+	p.refreshInterface()
 
-/obj/item/DblClick()
+/obj/item/Click()
 	..()
 	if(!prevent_pickup)
 		takeItem()

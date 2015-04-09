@@ -168,17 +168,19 @@ var/datum/controller_master/CS
 		return "\icon[parse]"
 
 /proc/displayInfo(var/personal as text,var/others as text, var/mob/toWho, var/fromWhat,var/color="blue")
-	toWho << "<font color=[color]>[fromWhat:name] > [toWho:name] | [personal]</font>"
+	var/visibleMessage = toWho == fromWhat ? "[fromWhat:name]" : "[fromWhat:name] > [toWho:name]"
+	toWho << "<font color=[color]>[visibleMessage]: [personal]</font>"
 	for(var/mob/m in oview(world.view,toWho))
 		if(m == toWho)
 			continue
-		m << "<font color=[color]>[parseIcon(m,fromWhat)] > [parseIcon(m,toWho)] | [others]</font>"
+		m << "<font color=[color]>[visibleMessage]: [others]</font>"
 
 /proc/displayTo(var/personal as text, var/mob/toWho, var/fromWhat,var/color="blue")
-	toWho << "<font color=[color]>[fromWhat:name] > [toWho:name] | [personal]</font>"
+	var/visibleMessage = toWho == fromWhat ? "[fromWhat:name]" : "[fromWhat:name] > [toWho:name]"
+	toWho << "<font color=[color]>[visibleMessage]: [personal]</font>"
 
 /proc/chatSay(var/msg as text)
-	world << "<font color=black>\icon[usr][usr]: [msg]</font>"
+	world << "<font color=black>[usr]: [msg]</font>"
 
 /proc/circle(turf/source,radius=1,var/expensive = FALSE)
 	var/list/l = list()

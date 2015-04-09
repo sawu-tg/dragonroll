@@ -6,6 +6,17 @@
 	var/canMove = TRUE
 	//spell vars
 	var/casting = FALSE
+
+	var/obj/selectedQuickSlot
+	var/obj/interface/quickSlotCursor
+	var/list/interfaceHands = list()
+	var/obj/leftHand
+	var/obj/rightHand
+	var/obj/leftPocket
+	var/obj/rightPocket
+
+	var/list/handOrder = list()
+
 	var/obj/spellHolder/castingSpell
 	var/obj/interface/Cursor
 	var/maxHotkeys = 9
@@ -14,8 +25,15 @@
 
 /mob/New()
 	spawn(1)
-		defaultInterface()
-		refreshInterface()
+		leftHand = new
+		rightHand = new
+		rightPocket = new
+		leftPocket = new
+		handOrder = list(leftPocket,leftHand,rightHand,rightPocket)
+		selectedQuickSlot = leftPocket
+		spawn(1)
+			defaultInterface()
+			refreshInterface()
 
 /mob/verb/forceRefreshInterface()
 	set name = "Refresh Interface"
@@ -99,6 +117,24 @@
 		selectedHotKey = 1
 	refreshInterface()
 
+/mob/verb/NextHand()
+	if(selectedQuickSlot == leftPocket)
+		selectedQuickSlot = leftHand
+	else if(selectedQuickSlot == leftHand)
+		selectedQuickSlot = rightHand
+	else if(selectedQuickSlot == rightHand)
+		selectedQuickSlot = rightPocket
+	else if(selectedQuickSlot == rightPocket)
+		selectedQuickSlot = leftPocket
+	refreshInterface()
+
+/mob/verb/DropItem()
+	if(selectedQuickSlot.contents.len > 0)
+		world << selectedQuickSlot.contents.len
+		var/obj/A = selectedQuickSlot.contents[1]
+		A.loc = src.loc
+	refreshInterface()
+
 /mob/verb/UseHotkey()
 	call(usr,"KeyDown[selectedHotKey]")(usr)
 
@@ -152,13 +188,21 @@
 		processAttack(user,src)
 
 /mob/proc/defaultInterface()
+	var/total = 0
 	for(var/i = 1; i <= maxHotkeys; ++i)
 		screenObjs += new/obj/interface/spellContainer("[i]",1,"sphere")
 		var/obj/interface/spellContainer/scrnobj = screenObjs[screenObjs.len]
 		scrnobj.name = "Slot [i]"
 		scrnobj.hotKey = i
+		total++
 	for(var/i = 1; i <= maxHotkeys; ++i)
 		screenObjs += new/obj/interface("[i]",1,"[i]")
+	for(var/a = 1; a < handOrder.len+1; ++a)
+		var/obj/interface/shortcut/hand = new/obj/interface/shortcut("[total + a]",1,"box")
+		hand.rebuild(handOrder[a])
+		screenObjs += hand
+		interfaceHands += hand
+		screenObjs += new/obj/interface("[total + a]",1,"[a >= 3 ? "R" : "L"]")
 
 /mob/proc/refreshInterface()
 	if(client)
@@ -181,3 +225,25 @@
 							I.overlays.Cut()
 							SC.overlays |= image(icon=SC.heldSpell.heldAbility.abilityIcon,icon_state=SC.heldSpell.heldAbility.abilityState)
 			I.showTo(src)
+
+		var/activeHand
+		if(selectedQuickSlot == leftPocket)
+			activeHand = 1
+		if(selectedQuickSlot == leftHand)
+			activeHand = 2
+		if(selectedQuickSlot == rightHand)
+			activeHand = 3
+		if(selectedQuickSlot == rightPocket)
+			activeHand = 4
+
+		screenObjs -= quickSlotCursor
+		quickSlotCursor = new/obj/interface("[maxHotkeys+activeHand]",1,"active")
+		quickSlotCursor.layer = LAYER_INTERFACE+0.1
+		screenObjs |= quickSlotCursor
+
+		for(var/obj/interface/shortcut/S in interfaceHands)
+			var/obj/O = handOrder[interfaceHands.Find(S)]
+			if(O.contents.len > 0)
+				S.rebuild(O.contents[1])
+			else
+				S.rebuild(null)

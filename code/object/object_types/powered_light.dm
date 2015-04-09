@@ -11,6 +11,7 @@
 /obj/structure/powered/light/verb/toggle()
 	set src in view(32)
 	powerOn = !powerOn
+	luminosity = powerOn ? initial(luminosity) : 0
 	icon_state = "tube[powerOn]"
 
 /obj/structure/powered/light/debugPower()

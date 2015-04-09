@@ -1,2 +1,3 @@
 /client
-	perspective = EDGE_PERSPECTIVE
+	perspective = EYE_PERSPECTIVE
+	lazy_eye = 0
