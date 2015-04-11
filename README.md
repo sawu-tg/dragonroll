@@ -3,7 +3,7 @@ dragonroll
 A D&D re-imagining of Space Station 13.
 
 dragonroll is a re-creation of the popular internet game, Space Station 13, with semi-D&D style gameplay.
-It is set a small amount of years before the setting of Space Station 13, meaning it follows a retrofuturism look for 
+It is set in an alternate, steampunk-like future version of Space Station 13, meaning it follows a retrofuturism/steampunk look for 
 object and art style (as well as most items and other things).
 
 Similar to Space Station 13, it is based on the BYOND engine.
