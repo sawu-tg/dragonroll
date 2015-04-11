@@ -16,6 +16,7 @@
 	M.client.screen |= src
 
 /obj/interface/objFunction(var/mob/user)
+	return
 
 //interface shortcut (ie to an item)
 /obj/interface/shortcut
@@ -32,6 +33,7 @@
 	shortcutTo = aswhat
 	if(aswhat)
 		overlays.Add(icon(icon=aswhat.icon,icon_state=aswhat.icon_state))
+
 
 //spell container
 //holds clickable abilties
@@ -53,3 +55,38 @@
 /obj/interface/spellContainer/objFunction(var/mob/user)
 	if(heldSpell)
 		heldSpell.Cast(user)
+
+///
+//buttons that are hardcoded
+///
+
+//pickup
+/obj/interface/pickupButton
+	name = "Pickup Item"
+	desc = "Picks up stuff"
+	mouse_opacity = 1
+
+/obj/interface/pickupButton/New(var/x,var/y,var/state="box",var/scale=32)
+	overlays.Cut()
+	overlays.Add(icon(icon=icon,icon_state="pickup"))
+	..(x,y,state,scale)
+
+/obj/interface/pickupButton/Click()
+	var/mob/player/P = usr
+	P.pickupItem(usr)
+
+//drop
+/obj/interface/dropButton
+	name = "Drop Item"
+	desc = "Drops stuff"
+	mouse_opacity = 1
+
+/obj/interface/dropButton/New(var/x,var/y,var/state="box",var/scale=32)
+	overlays.Cut()
+	overlays.Add(icon(icon=icon,icon_state="drop"))
+	..(x,y,state,scale)
+
+/obj/interface/dropButton/Click()
+	var/mob/player/P = usr
+	if(P.carrying)
+		P.carrying.beDropped()

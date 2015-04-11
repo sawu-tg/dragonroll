@@ -26,6 +26,7 @@
 	var/atom/movable/carrying
 	var/myOldLayer = 0
 	var/myOldPixelY = 0
+	var/prevent_pickup = 0
 
 //done as the atom is added to the processing list
 /atom/movable/proc/preProc()
@@ -43,7 +44,7 @@
 		if(do_roll(1,20,carriedBy.playerData.str.statCur) >= weight + size)
 			loc = carriedBy.loc
 		else
-			displayInfo("You fumble and lose your strength, dropping the [carrying]!","[src] drops the [carrying]!",src,carrying)
+			displayInfo("You fumble and lose your strength, dropping the [carriedBy.carrying]!","[src] drops the [carrying]!",carriedBy,src)
 			beDropped()
 	if(thrown)
 		if(loc != thrownTarget:loc)
@@ -60,9 +61,21 @@
 		carriedBy = null
 		remProcessingObject(src)
 
-/atom/movable/DblClick()
-	objFunction(usr)
+/atom/movable/proc/takeObject()
+	if(size <= 2)
+		var/mob/player/p = usr
+		layer = LAYER_DEFAULT
+		p.takeToActiveHand(src)
+		p.refreshInterface()
+
+/atom/movable/Click()
+	var/mob/player/P = usr
+	if(P.activeHandEmpty())
+		if(!prevent_pickup)
+			takeObject()
+	else
+		objFunction(usr,P.activeHand())
 
 //the function of something when used, IE switching modes or reading books
-/atom/movable/proc/objFunction(var/mob/user)
-	user << "You interact with [name]"
+/atom/movable/proc/objFunction(var/mob/user,var/obj/item/with)
+	user << "You use [with ? "the [with] with" : ""] [name]"

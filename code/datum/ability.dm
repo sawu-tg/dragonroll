@@ -34,6 +34,10 @@
 	var/mob/holder // who holds this spell, for easy access
 
 /datum/ability/proc/tryCast(var/mob/player/caster,var/target)
+	if(!caster)
+		return
+	if(!target)
+		return
 	if(canCast(caster))
 		caster.playerData.mp.change(abilityLevel * abilityManaMod)
 		preCast(caster,target)

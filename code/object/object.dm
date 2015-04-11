@@ -2,25 +2,23 @@
 	name = "default object"
 	desc = "not very interesting"
 
-/mob/player/verb/pickupItem(mob/user)
+/mob/player/verb/pickupItem(var/mob/user)
 	set name = "Pick up"
 	set src = usr
-	var/list/excluded = list(src)
-	excluded |= src.contents
-	var/what = input("Pick up what?") as null|anything in filterList(/atom/movable/,view(1),excluded)
+	var/what = input("Pick up what?") as null|anything in filterList(/atom/movable/,oview(1))
 	if(what)
 		if(what:anchored)
 			return
 		var/atom/movable/a = what
-		var/mob/player/m = user
+		var/mob/player/m = src
 		if(do_roll(1,20,m.playerData.str.statCur) >= a.weight + a.size)
-			a.myOldLayer = layer
+			a.myOldLayer = a.layer
 			a.myOldPixelY = a.pixel_y
 			a.layer = LAYER_OVERLAY
 			a.pixel_y = a.pixel_y + 10
 			a.beingCarried = TRUE
 			a.carriedBy = m
-			carrying = a
+			m.carrying = a
 			addProcessingObject(a)
 		else
 			displayTo("You can't quite seem to pick [a] up!",m,a)

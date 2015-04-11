@@ -16,12 +16,12 @@
 /turf/wall/lobbyWall
 	name = "Lobby Wall"
 	icon_state = "gold0"
-	mineral = "gold"
-	walltype = "gold"
+	mineral = "wood"
+	walltype = "wood"
 
 /turf/floor/lobbyFloor
 	name = "Lobby Floor"
-	icon_state = "gold"
+	icon_state = "wood"
 
 /turf/floor/voidFloor
 	name = "Void Space"

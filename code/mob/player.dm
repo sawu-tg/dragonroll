@@ -444,6 +444,15 @@
 		if("rightPocket")
 			return rightPocket.contents.len > 0 ? FALSE : TRUE
 
+
+/mob/player/proc/activeHandEmpty()
+	return selectedQuickSlot.contents.len > 0 ? FALSE : TRUE
+
+/mob/player/proc/activeHand()
+	if(selectedQuickSlot.contents.len > 0)
+		return selectedQuickSlot.contents[1]
+	return null
+
 /mob/player/proc/insertInHand(var/obj/item/what,var/where="leftHand")
 	if(getHandIsFree(where))
 		var/obj/hand = getHandByName(where)

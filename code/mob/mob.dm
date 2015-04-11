@@ -111,6 +111,7 @@
 	O.objFunction()
 
 /mob/verb/NextHotkey()
+	set hidden = TRUE
 	if(selectedHotKey + 1 <= maxHotkeys)
 		++selectedHotKey
 	else
@@ -118,6 +119,7 @@
 	refreshInterface()
 
 /mob/verb/NextHand()
+	set hidden = TRUE
 	if(selectedQuickSlot == leftPocket)
 		selectedQuickSlot = leftHand
 	else if(selectedQuickSlot == leftHand)
@@ -203,6 +205,9 @@
 		screenObjs += hand
 		interfaceHands += hand
 		screenObjs += new/obj/interface("[total + a]",1,"[a >= 3 ? "R" : "L"]")
+
+	screenObjs += new/obj/interface/pickupButton(1,19,"box",32)
+	screenObjs += new/obj/interface/dropButton(2,19,"box",32)
 
 /mob/proc/refreshInterface()
 	if(client)
