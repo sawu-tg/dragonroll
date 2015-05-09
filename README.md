@@ -95,3 +95,4 @@ Contributing Users
 * Nienhaus (Sprites)
 * RemieRichards (Coder)
 * MrSnapwalk (Code and Sprites)
+* iamgoofball (Code and Sprites)
