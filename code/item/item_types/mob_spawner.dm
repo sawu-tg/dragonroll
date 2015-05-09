@@ -12,6 +12,13 @@
 	user << "You pull a [m.name] from the bag!"
 	return
 
+/obj/item/mob_spawner/genie
+	name = "bejewled leather spell pouch"
+	desc = "Smells of the desert."
+	icon_state = "lamp"
+	uuid = "mob_spawner_genie"
+	spawned_mob = /mob/player/npc/genie
+
 /obj/item/mob_spawner/chicken
 	name = "chicken infested spell component pouch"
 	desc = "You wonder where all the chickens come from."

@@ -36,6 +36,7 @@
 #include "code\mob\player.dm"
 #include "code\mob\player_process.dm"
 #include "code\mob\mob_types\chicken.dm"
+#include "code\mob\mob_types\genie.dm"
 #include "code\mob\mob_types\grey.dm"
 #include "code\mob\mob_types\npc.dm"
 #include "code\object\object.dm"

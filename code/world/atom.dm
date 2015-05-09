@@ -73,6 +73,8 @@
 	if(P.activeHandEmpty())
 		if(!prevent_pickup)
 			takeObject()
+		else
+			objFunction(usr)
 	else
 		objFunction(usr,P.activeHand())
 

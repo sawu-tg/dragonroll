@@ -19,7 +19,7 @@
 	New()
 		..()
 		if(forceRace)
-			spawn(10)
+			spawn(1)
 				raceChange(forceRace,TRUE)
 				nameChange(name)
 		addProcessingObject(src)

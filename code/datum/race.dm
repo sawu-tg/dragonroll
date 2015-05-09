@@ -137,3 +137,11 @@
 	con_mod = -4
 	int_mod = 2
 	wis_mod = 2
+
+/datum/race/Genie
+	raceName = "Genie"
+	raceDesc = "A Mystical, bouyant being. Noted to indulge in cross-dressing as elderly maids."
+	icon_prefix = list("genie")
+	shouldColorRace = TRUE
+	int_mod = 3
+	wis_mod = 3
