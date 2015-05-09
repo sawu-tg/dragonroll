@@ -91,4 +91,7 @@ This is a list of current (and planned) features in dragonroll (in no particular
 
 Contributing Users
 ==========
-Sawu-tg (main code), Nienhaus (Sprites), RemieRichards (Coder), MrSnapwalk (Code and Sprites)
+* Sawu-tg (main code)
+* Nienhaus (Sprites)
+* RemieRichards (Coder)
+* MrSnapwalk (Code and Sprites)
