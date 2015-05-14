@@ -15,7 +15,7 @@
 
 /turf/wall/lobbyWall
 	name = "Lobby Wall"
-	icon_state = "gold0"
+	icon_state = "wood0"
 	mineral = "wood"
 	walltype = "wood"
 
@@ -29,3 +29,34 @@
 	density = 1
 	opacity = 1
 	ignoresLighting = 1
+
+//End of default floors
+
+// World floors
+
+/turf/floor/outside
+	icon_state = "grass1"
+
+/turf/floor/outside/grass
+	name = "Grass"
+
+/turf/floor/outside/grass/New()
+	icon_state = "grass[rand(1,4)]"
+
+/turf/floor/outside/dirt
+	name = "Dirt"
+
+/turf/floor/outside/dirt/New()
+	icon_state = "asteroid[rand(0,12)]"
+
+/turf/floor/outside/water
+	name = "Water"
+	icon_state = "water"
+
+//world walls
+
+/turf/wall/shimmering
+	name = "Shimmering Wall"
+	icon_state = "silver0"
+	mineral = "silver"
+	walltype = "silver"

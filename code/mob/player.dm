@@ -21,7 +21,16 @@
 	addProcessingObject(src)
 	selectedQuickSlot = leftHand
 	randomise()
+	light = new(src, 6)
+	light.loc = src.loc
 	..()
+
+/mob/player/verb/relocate()
+	var/x = input(src,"Choose X") as num
+	var/y = input(src,"Choose Y") as num
+	var/z = input(src,"Choose Z") as num
+
+	loc = locate(x,y,z)
 
 /mob/player/verb/setview()
 	client.view = input(src,"Set View Range") as num
@@ -122,10 +131,12 @@
 	if(type == DTYPE_MASSIVE)
 		if(!savingThrow(src,0,SAVING_FORTITUDE))
 			playerData.hp.setTo(-1)
+			F_damage(src,damage,rgb(255,0,255))
 			doDamage = FALSE
 		else
 			doDamage = TRUE
 	if(doDamage)
+		F_damage(src,damage,rgb(255,0,0))
 		playerData.hp.setTo(playerData.hp.statCur-damage)
 		if(playerData.hp.statCur == 0)
 			mobAddFlag(src,PASSIVE_STATE_DISABLED,active=0)

@@ -14,6 +14,8 @@
 // END_PREFERENCES
 
 // BEGIN_INCLUDE
+#include <fireking\lightspeed\light speed\light speed.dme>
+#include <flick\f_damage\F_Damage.dme>
 #include "code\_DEFINES.dm"
 #include "code\datum\ability.dm"
 #include "code\datum\class.dm"
@@ -41,12 +43,14 @@
 #include "code\mob\mob_types\npc.dm"
 #include "code\object\object.dm"
 #include "code\object\object_types\effect.dm"
+#include "code\object\object_types\interact.dm"
 #include "code\object\object_types\object_furniture.dm"
 #include "code\object\object_types\powered.dm"
 #include "code\object\object_types\powered_light.dm"
 #include "code\object\object_types\projectile.dm"
 #include "code\object\object_types\structure.dm"
 #include "code\object\object_types\trigger.dm"
+#include "code\object\object_types\interact\nature.dm"
 #include "code\world\atom.dm"
 #include "code\world\smoothwall.dm"
 #include "code\world\turf.dm"

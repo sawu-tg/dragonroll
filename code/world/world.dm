@@ -8,8 +8,11 @@ var/datum/controller_master/CS
 	view = 9
 	fps = 15
 	icon_size = 32
+	loop_checks = 0
+
 
 /world/New()
+	. = ..()
 	spawn(10)
 		var/icon/face = icon('sprite/mob/human_face.dmi')
 		for(var/i in face.IconStates())
@@ -17,6 +20,11 @@ var/datum/controller_master/CS
 				playerValidFacial |= i
 			else if(copytext(i,1,5) == "hair")
 				playerValidHair |= i
+		world << "<b>GENERATING WORLD..</b>"
+		spawn(1)
+			generate()
+		spawn(10)
+			world << "<b>FINISHED!</b>"
 		processObjects()
 		processCooldowns()
 		//CONTROLLERS
@@ -211,3 +219,48 @@ var/datum/controller_master/CS
 			if(dx*dx + dy*dy <= rsq)
 				l |= T
 	. = l
+
+
+//terrain generation
+
+#define lowestChance 1
+#define decoChance 15
+
+/proc/generate()
+	var/x = world.maxx
+	var/y = world.maxy
+	var/z = world.maxz
+
+	for(var/a = 1; a <= x; ++a)
+		for(var/b = 1; b <= y; ++b)
+			for(var/c = 1; c <= z; ++c)
+				if(c == 1)
+					continue
+				else
+					var/turf/T = locate(a,b,c)
+					T = new/turf/floor/outside/grass(T)
+					if(a == 1 || b == 1 || c == 1 || a == x || b == y || c == z)
+						T = new/turf/wall/shimmering(T)
+					if(prob(lowestChance))
+						for(var/turf/T2 in range(T,rand(1,4)))
+							if(!istype(T2,/turf/wall/shimmering))
+								T2 = new/turf/floor/outside/dirt(T2)
+					if(prob(lowestChance))
+						for(var/turf/T2 in range(T,rand(1,4)))
+							if(!istype(T2,/turf/wall/shimmering))
+								T2 = new/turf/floor/outside/water(T2)
+
+	for(var/a = 1; a <= x; ++a)
+		for(var/b = 1; b <= y; ++b)
+			for(var/c = 1; c <= z; ++c)
+				if(c == 1)
+					continue
+				var/turf/T = locate(a,b,c)
+				if(istype(T,/turf/floor/outside/dirt))
+					if(prob(decoChance))
+						new/obj/interact/nature/rock(T)
+				if(istype(T,/turf/floor/outside/grass))
+					if(prob(decoChance))
+						new/obj/interact/nature/bush(T)
+#undef lowestChance
+#undef decoChance

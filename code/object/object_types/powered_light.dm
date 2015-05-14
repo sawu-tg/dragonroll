@@ -8,10 +8,15 @@
 	powerOn = TRUE
 	luminosity = 8
 
+/obj/structure/powered/light/New()
+	light = new(src, 12)
+	light.loc = src.loc
+
 /obj/structure/powered/light/verb/toggle()
 	set src in view(32)
 	powerOn = !powerOn
-	luminosity = powerOn ? initial(luminosity) : 0
+	light.toggle()
+	light.update()
 	icon_state = "tube[powerOn]"
 
 /obj/structure/powered/light/debugPower()
