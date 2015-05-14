@@ -88,3 +88,11 @@ This is a list of current (and planned) features in dragonroll (in no particular
 | - Races | Done |
 | - Map | Very Basic |
 | - Triggers | None |
+
+Contributing Users
+==========
+* Sawu-tg (main code)
+* Nienhaus (Sprites)
+* RemieRichards (Coder)
+* MrSnapwalk (Code and Sprites)
+* iamgoofball (Code and Sprites)
