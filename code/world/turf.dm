@@ -28,7 +28,6 @@
 	icon_state = "black"
 	density = 1
 	opacity = 1
-	ignoresLighting = 1
 
 //End of default floors
 

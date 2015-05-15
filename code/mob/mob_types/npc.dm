@@ -40,7 +40,7 @@
 			npcState = NPCSTATE_IDLE
 			target = null
 		if(!(loc in orange(1,target)))
-			walk_to(src,target)
+			walk_to(src,target,0,0,speed)
 			timeSinceLast = 0
 		else
 			target = null

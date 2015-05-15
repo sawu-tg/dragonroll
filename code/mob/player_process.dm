@@ -21,4 +21,3 @@
 			lastBleed = BLEEDING_INTERVAL
 		else
 			lastBleed--
-	updateLighting()

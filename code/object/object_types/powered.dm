@@ -74,7 +74,7 @@
 
 //basic power structures
 /obj/structure/powered/smes
-	name = "Super-magnetic Electrical Storage"
+	name = "Ancient Pillar"
 	desc = "Coils upon coils of electricity."
 	icon_state = "smes"
 	powerTransfer = TRUE
@@ -83,14 +83,15 @@
 
 
 /obj/structure/powered/smes/filled
-	name = "Infinite SMES"
+	name = "Imbued Ancient Pillar"
+	icon_state = "smesi"
 	powerConsuming = FALSE
 	powerHeld = 999999
 	powerMax = 999999
 
 /obj/structure/powered/wire
-	name = "Heavy-duty cable"
-	desc = "Thick ropes of flowing power."
+	name = "Mana-Tube"
+	desc = "Thick, solid glass conduits, carrying flowing red essence."
 	icon = 'sprite/obj/power_cond_heavy.dmi'
 	icon_state = "node"
 	powerTransfer = TRUE

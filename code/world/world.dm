@@ -29,7 +29,6 @@ var/datum/controller_master/CS
 		processCooldowns()
 		//CONTROLLERS
 		CS = new
-		CS.addControl(new /datum/controller/lighting)
 		CS.addControl(new /datum/controller/machinery)
 		CS.process()
 	..()
@@ -225,11 +224,14 @@ var/datum/controller_master/CS
 
 #define lowestChance 1
 #define decoChance 15
+#define colonyChance 5
+#define maxColonists 15
 
 /proc/generate()
 	var/x = world.maxx
 	var/y = world.maxy
 	var/z = world.maxz
+	var/colonists = 0
 
 	for(var/a = 1; a <= x; ++a)
 		for(var/b = 1; b <= y; ++b)
@@ -262,5 +264,11 @@ var/datum/controller_master/CS
 				if(istype(T,/turf/floor/outside/grass))
 					if(prob(decoChance))
 						new/obj/interact/nature/bush(T)
+				if(prob(colonyChance))
+					if(colonists < maxColonists)
+						new/mob/player/npc/colonist(T)
+						colonists++
 #undef lowestChance
 #undef decoChance
+#undef colonyChance
+#undef maxColonists

@@ -11,6 +11,7 @@
 /obj/structure/powered/light/New()
 	light = new(src, 12)
 	light.loc = src.loc
+	icon_state = "tube1"
 
 /obj/structure/powered/light/verb/toggle()
 	set src in view(32)
@@ -22,8 +23,3 @@
 /obj/structure/powered/light/debugPower()
 	..()
 	world << "Lums: [luminosity]"
-
-/obj/structure/powered/light/process()
-	if(powerOn)
-		updateLighting()
-	..()

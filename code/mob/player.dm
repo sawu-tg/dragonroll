@@ -16,6 +16,7 @@
 	var/hasReroll = TRUE
 	size = 3
 	weight = 5
+	var/speed = 1
 
 /mob/player/New()
 	addProcessingObject(src)
@@ -50,35 +51,11 @@
 	statpanel("Debug")
 	stat("CPU: [world.cpu]")
 	stat("FPS: [world.fps]")
-	stat("Proc. Lightspots: [globalLightingUpdates.len]")
 	stat("Total Count: [world.contents.len]")
 	if(CS)
 		stat("==== SUBSYSTEMS ====")
 		for(var/datum/controller/C in CS.controllers)
 			C.Stat()
-
-///DEBUG VERBS
-/mob/player/verb/switchController()
-	set name = "Toggle Controllers"
-	set category = "Debug Verbs"
-	var/datum/controller/c = input("Toggle What?") as null|anything in CS.controllers
-	if(c)
-		c.isRunning = !c.isRunning
-		usr << "Selected controller toggled to [c.isRunning]"
-
-/mob/player/verb/addAbility()
-	set name = "Give Ability"
-	set category = "Debug Verbs"
-	var/d = input("Learn what?") as null|anything in typesof(/datum/ability)
-	if(d)
-		addPlayerAbility(new d)
-
-/mob/player/verb/remAbility()
-	set name = "Remove Ability"
-	set category = "Debug Verbs"
-	var/d = input("Forget what?") as null|anything in playerData.playerAbilities
-	if(d)
-		remPlayerAbility(d)
 
 //Saycode, brutally mashed together by MrSnapwalk.
 
@@ -359,36 +336,6 @@
 			src.playerSheet()
 		else
 			hasReroll = FALSE
-
-/mob/player/verb/viewInventory()
-	set name = "Open Inventory"
-	var/html = "<title>Inventory</title><html><center>[parseIcon(src.client,src,FALSE)]<br><body style='background:grey'>"
-	for(var/obj/item/I in playerInventory)
-		html += "<b>[I.name]</b>: [I.stackSize] ([!isWorn(I) ? "<a href=?src=\ref[src];function=dropitem;item=\ref[I]><i>Drop</i></a>" : ""][isWearable(I) && !isWorn(I) ? " | <a href=?src=\ref[src];function=wearitem;item=\ref[I]><i>Equip</i></a>" : (isWorn(I) ? "<a href=?src=\ref[src];function=removeitem;item=\ref[I]><i>Remove</i></a>" : "")] | <a href=?src=\ref[src];function=useitem;item=\ref[I]><i>Use</i></a>)<br>"
-	html += "</body></center></html>"
-	src << browse(html,"window=playersheet")
-
-/mob/player/verb/playerSheet()
-	set name = "View Player Sheet"
-	var/html = "<title>Player Sheet</title><html><center>[parseIcon(src.client,src,FALSE)]<br><body style='background:grey'>"
-	html += "<b>Name</b>: [playerData.playerName][hasReroll ? " - <a href=?src=\ref[src];function=name><i>Change</i></a>" : ""]<br>"
-	html += "<b>Gender</b>: [playerData.returnGender()][hasReroll ? " - <a href=?src=\ref[src];function=gender><i>Change</i></a>" : ""]<br>"
-	html += "<b>Race</b>: <font color=[playerData.playerColor]>[playerData.playerRace.raceName]</font>[hasReroll ? " - <a href=?src=\ref[src];function=race><i>Change</i></a>" : ""]<br>"
-	html += "<b>Class</b>: <font color=[playerData.playerClass.classColor]>[playerData.playerClass.className]</font>[hasReroll ? " - <a href=?src=\ref[src];function=class><i>Change</i></a>" : ""]<br>"
-	html += "<b>Race Desc.</b>: [playerData.playerRace.raceDesc]<br>"
-	html += "<b>Hairstyle</b>: [playerData.playerHair][hasReroll ? " - <a href=?src=\ref[src];function=sethair><i>Change</i></a>" : ""]<br>"
-	html += "<b>Facial hair</b>: [playerData.playerFacial][hasReroll ? " - <a href=?src=\ref[src];function=setfacial><i>Change</i></a>" : ""]<br>"
-	html += "<b>Eye Color</b>: <font color=[playerData.eyeColor]>Preview</font>[hasReroll ? " - <a href=?src=\ref[src];function=eyes><i>Change</i></a>" : ""]<br>"
-	html += "<b>Hair Color</b>: <font color=[playerData.hairColor]>Preview</font>[hasReroll ? " - <a href=?src=\ref[src];function=haircolor><i>Change</i></a>" : ""]<br>"
-	html += "<b>Description</b>: [playerData.playerDesc] - <a href=?src=\ref[src];function=desc><i>Add</i></a>/<a href=?src=\ref[src];function=descdelete><i>Remove</i></a><br><br>"
-	for(var/datum/stat/S in playerData.playerStats)
-		if(S.isLimited)
-			html += "<b>[S.statName]</b>: [S.statModified]/[S.statMax]<br>"
-		else
-			html += "<b>[S.statName]</b>: [S.statModified]<br>"
-	html += "[hasReroll ? "<a href=?src=\ref[src];function=statroll><b>Reroll Stats</b></a> <a href=?src=\ref[src];function=statkeep><b>Keep Stats</b></a>" : ""]<br>"
-	html += "</body></center></html>"
-	src << browse(html,"window=playersheet")
 
 /mob/player/proc/classChange(var/datum/class/toWhat)
 	playerData.playerClass = new toWhat
