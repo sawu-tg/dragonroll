@@ -103,8 +103,10 @@
 		interfaceHands += hand
 		screenObjs += new/obj/interface("[total + a]",1,"[a >= 3 ? "R" : "L"]")
 
-	screenObjs += new/obj/interface/pickupButton(1,19,"box",32)
-	screenObjs += new/obj/interface/dropButton(2,19,"box",32)
+	screenObjs += new/obj/interface/pickupButton(10,2,"box",32)
+	screenObjs += new/obj/interface/dropButton(13,2,"box",32)
+	screenObjs += new/obj/interface/storeButton(11,2,"box",32)
+	screenObjs += new/obj/interface/useButton(12,2,"box",32)
 
 /mob/proc/refreshInterface()
 	if(client)

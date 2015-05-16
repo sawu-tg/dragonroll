@@ -1,4 +1,6 @@
-///DEBUG VERBS
+///
+// DEBUG VERBS
+///
 /mob/player/verb/switchController()
 	set name = "Toggle Controllers"
 	set category = "Debug Verbs"
@@ -22,6 +24,9 @@
 		remPlayerAbility(d)
 
 
+///
+// INVENTORY AND STAT VERBS
+///
 /mob/player/verb/viewInventory()
 	set name = "Open Inventory"
 	var/html = "<title>Inventory</title><html><center>[parseIcon(src.client,src,FALSE)]<br><body style='background:grey'>"
@@ -60,9 +65,9 @@
 	refreshInterface()
 
 
-//interface cmds
-//we're going to assume screenObjs 0 - 9 are the correct objs
-///////////////////////////////////////////////////////////////
+///
+// INTERFACE SHORTCUTS
+///
 /mob/verb/KeyDown0()
 	set hidden = TRUE
 	var/obj/interface/O = screenObjs[0]
@@ -133,9 +138,12 @@
 		selectedQuickSlot = leftPocket
 	refreshInterface()
 
+///
+// ITEM HANDLING SHORTCUTS
+//
+
 /mob/verb/DropItem()
 	if(selectedQuickSlot.contents.len > 0)
-		world << selectedQuickSlot.contents.len
 		var/obj/A = selectedQuickSlot.contents[1]
 		A.loc = src.loc
 	refreshInterface()
@@ -149,6 +157,61 @@
 	else
 		selectedHotKey = 9
 	refreshInterface()
+
+/mob/player/verb/liftObj()
+	set name = "Lift"
+	set src = usr
+	var/what = input("Pick up what?") as null|anything in filterList(/atom/movable/,oview(1))
+	if(what)
+		if(what:anchored)
+			return
+		var/atom/movable/a = what
+		var/mob/player/m = src
+		if(do_roll(1,20,m.playerData.str.statCur) >= a.weight + a.size)
+			a.myOldLayer = a.layer
+			a.myOldPixelY = a.pixel_y
+			a.layer = LAYER_OVERLAY
+			a.pixel_y = a.pixel_y + 10
+			a.beingCarried = TRUE
+			a.carriedBy = m
+			m.carrying = a
+			addProcessingObject(a)
+		else
+			displayTo("You can't quite seem to pick [a] up!",m,a)
+
+/mob/player/verb/throwObj()
+	set name = "Throw/Kick"
+	set src = usr
+	if(!carrying)
+		var/list/excluded = list(src)
+		excluded |= src.contents
+		var/kickWhat = input("What do you want to kick?") as null|anything in filterList(/atom/movable/,view(1),excluded)
+		if(kickWhat)
+			if(kickWhat:anchored)
+				return
+			var/target = step(kickWhat,usr.dir)
+			walk_to(kickWhat,target)
+	else
+		var/atom/movable/a = carrying
+		var/mob/player/m = src
+		if(do_roll(1,20,m.playerData.str.statCur) >= a.weight + a.size)
+			var/t = input("Throw at what") as null|anything in filterList(/atom/movable,oview(max(m.playerData.str.statCur - (a.weight + a.size),1)))
+			if(t)
+				a.thrownTarget = t
+				dropObj(m)
+				a.thrown = TRUE
+				addProcessingObject(a)
+
+/mob/player/verb/dropObj()
+	set name = "Drop"
+	set src = usr
+	if(carrying)
+		displayInfo("You drop the [carrying]!","[src] drops the [carrying]!",src,carrying)
+		carrying.beDropped()
+
+///
+// INTENT AND MOB CONTROL
+///
 
 /mob/verb/changeIntent()
 	set name = "Change Intent"

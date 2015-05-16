@@ -38,6 +38,8 @@
 	var/datum/stat/ref = new("Reflex Throw",FALSE,1)
 	var/datum/stat/will = new("Will Throw",FALSE,1)
 
+	var/list/knownRecipes = list(new/datum/recipe/test)
+
 /datum/playerFile/New()
 	playerRace = new/datum/race/Human
 	playerStats += hp

@@ -73,7 +73,7 @@
 
 /obj/interface/pickupButton/Click()
 	var/mob/player/P = usr
-	P.pickupItem(usr)
+	P.liftObj(usr)
 
 //drop
 /obj/interface/dropButton
@@ -90,3 +90,39 @@
 	var/mob/player/P = usr
 	if(P.carrying)
 		P.carrying.beDropped()
+
+//store
+/obj/interface/storeButton
+	name = "Store Item"
+	desc = "Puts an item in the player's inventory"
+	mouse_opacity = 1
+
+/obj/interface/storeButton/New(var/x,var/y,var/state="box",var/scale=32)
+	overlays.Cut()
+	overlays.Add(icon(icon=icon,icon_state="store"))
+	..(x,y,state,scale)
+
+/obj/interface/storeButton/Click()
+	var/mob/player/P = usr
+	if(P.selectedQuickSlot.contents.len > 0)
+		var/obj/A = P.selectedQuickSlot.contents[1]
+		P.addToInventory(A)
+	P.refreshInterface()
+
+//use
+/obj/interface/useButton
+	name = "Use Item"
+	desc = "Uses the current item"
+	mouse_opacity = 1
+
+/obj/interface/useButton/New(var/x,var/y,var/state="box",var/scale=32)
+	overlays.Cut()
+	overlays.Add(icon(icon=icon,icon_state="use"))
+	..(x,y,state,scale)
+
+/obj/interface/useButton/Click()
+	var/mob/player/P = usr
+	if(P.selectedQuickSlot.contents.len > 0)
+		var/obj/A = P.selectedQuickSlot.contents[1]
+		A.objFunction(P)
+	P.refreshInterface()

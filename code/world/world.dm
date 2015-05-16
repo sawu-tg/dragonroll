@@ -225,7 +225,7 @@ var/datum/controller_master/CS
 #define lowestChance 1
 #define decoChance 15
 #define colonyChance 5
-#define maxColonists 15
+#define maxColonists 0
 
 /proc/generate()
 	var/x = world.maxx

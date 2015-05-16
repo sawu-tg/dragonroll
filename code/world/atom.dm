@@ -58,6 +58,7 @@
 		layer = myOldLayer
 		pixel_y = myOldPixelY
 		beingCarried = FALSE
+		carriedBy.carrying = null
 		carriedBy = null
 		remProcessingObject(src)
 

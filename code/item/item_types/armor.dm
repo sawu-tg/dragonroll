@@ -5,7 +5,7 @@
 
 /obj/item/armor/New()
 	..()
-	stats.Add("Armor Rating" = armorRating)
+	stats["Armor Rating"] = armorRating
 
 //armor
 
