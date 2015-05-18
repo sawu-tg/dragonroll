@@ -3,9 +3,6 @@
 
 /mob/player/doProcess()
 	..()
-	if(src.light)
-		light.loc = src.loc
-		light.update()
 	refreshInterface()
 	//health management
 	if(playerData.hp.statCur > 0)

@@ -14,8 +14,6 @@
 // END_PREFERENCES
 
 // BEGIN_INCLUDE
-#include <fireking\lightspeed\light speed\light speed.dme>
-#include <flick\f_damage\F_Damage.dme>
 #include "code\_DEFINES.dm"
 #include "code\datum\ability.dm"
 #include "code\datum\class.dm"
@@ -30,6 +28,13 @@
 #include "code\item\item.dm"
 #include "code\item\item_types\armor.dm"
 #include "code\item\item_types\mob_spawner.dm"
+#include "code\lib\flick.f_damage\Cache.dm"
+#include "code\lib\flick.f_damage\F_Damage.dm"
+#include "code\lib\flick.f_damage\F_Damage_Align.dm"
+#include "code\lib\flick.f_damage\F_Damage_Global.dm"
+#include "code\lib\flick.f_damage\F_DamageCode.dm"
+#include "code\lib\fireking.light_speed\!lighting.dm"
+#include "code\lib\fireking.light_speed\light_speed.dm"
 #include "code\misc\files.dm"
 #include "code\misc\icons.dm"
 #include "code\misc\maths.dm"

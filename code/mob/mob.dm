@@ -49,6 +49,9 @@
 /mob/Move(var/atom/newLoc)
 	if(canMove && !newLoc.anchored)
 		..()
+		if(src.light)
+			light.loc = src.loc
+			light.update()
 	else
 		return
 

@@ -40,13 +40,15 @@
 	name = "Grass"
 
 /turf/floor/outside/grass/New()
+	..()
 	icon_state = "grass[rand(1,4)]"
 
 /turf/floor/outside/dirt
 	name = "Dirt"
 
 /turf/floor/outside/dirt/New()
-	icon_state = "asteroid[rand(0,12)]"
+	..()
+	icon_state = "asteroid[rand(0,4)]"
 
 /turf/floor/outside/water
 	name = "Water"

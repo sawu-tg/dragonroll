@@ -1,6 +1,7 @@
 var/list/procObjects = list()
 var/list/cooldownHandler = list()
 var/datum/controller_master/CS
+var/list/globalSuns = list()
 
 /world
 	turf = /turf/floor/voidFloor
@@ -258,6 +259,10 @@ var/datum/controller_master/CS
 				if(c == 1)
 					continue
 				var/turf/T = locate(a,b,c)
+				if(a == x/2 && b == y/2)
+					if(!T.light)
+						T.light = new(T,world.maxx,world.maxx)
+						globalSuns += T
 				if(istype(T,/turf/floor/outside/dirt))
 					if(prob(decoChance))
 						new/obj/interact/nature/rock(T)

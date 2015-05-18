@@ -5,6 +5,7 @@
 	var/list/materials = list() // associative list of ingredients and count
 	var/list/product = list() // associative list of produced objects and their count
 
+//TODO: Needs debugging, single item counts for multiple
 /datum/recipe/proc/canCraft(var/list/provided, var/override=FALSE)
 	if(override)
 		return TRUE
@@ -45,4 +46,11 @@
 	desc = "you shouldn't see this"
 
 	materials = list(/obj/item/armor/corgisuit = 1, /obj/item/armor/corgihat = 1)
+	product = list(/obj/item/armor/streetarmor = 1)
+
+/datum/recipe/test2
+	name = "2est"
+	desc = "you shouldn't see this either"
+
+	materials = list(/obj/item/armor/corgisuit = 3, /obj/item/armor/corgihat = 4)
 	product = list(/obj/item/armor/streetarmor = 1)
