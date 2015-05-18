@@ -302,6 +302,7 @@ lighting
 			s:init()
 
 light
+	name = null
 	parent_type = /obj
 
 	icon = null
@@ -326,6 +327,7 @@ light
 			CRASH("The first argument should be an atom, getting [a] instead")
 		#endif
 
+		name = null
 		owner = a
 
 		if(istype(owner, /atom/movable))
@@ -535,6 +537,10 @@ shading
 
 	pixel_x = LIGHTING_HALF_ICON_SIZE
 	pixel_y = LIGHTING_HALF_ICON_SIZE
+
+	New()
+		..()
+		name = null
 
 	Del()
 		if(c1 && c1.u3) c1.u3 = null_shading

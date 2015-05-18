@@ -89,10 +89,6 @@
 	for (var/mob/M in listening)
 		M.hear(msg, usr)
 
-/mob/verb/examinate(atom/A as mob|obj|turf in view())
-	set name = "Examine"
-	A.examine(src)
-
 /mob/player/proc/takeDamage(var/amount,var/type=DTYPE_BASIC)
 	var/damage = max(0,type == DTYPE_DIRECT ? amount : amount - playerData.def.statCur)
 	var/doDamage = FALSE
