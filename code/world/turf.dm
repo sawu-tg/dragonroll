@@ -53,6 +53,7 @@
 /turf/floor/outside/water
 	name = "Water"
 	icon_state = "water"
+	density = 1
 
 //world walls
 
