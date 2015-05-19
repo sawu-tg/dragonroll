@@ -15,16 +15,27 @@
 	light.loc = src.loc
 	icon_state = "tube1"
 
-	wires = new(src, 24)
+	wires = new(src, 6)
 	wires.add_input("On")
 	wires.add_output("On")
 
-	set_on(1)
+	//set_on(1)
 
 	addProcessingObject(src)
 
 /obj/structure/powered/light/doProcess()
 	..()
+
+	var/wireoff = 12
+
+	var/xoff = ((dir & 4) ? wireoff : 0) + ((dir & 8) ? -wireoff : 0)
+	var/yoff = ((dir & 1) ? wireoff : 0) + ((dir & 2) ? -wireoff : 0)
+
+	var/xtrans = ((dir & 1) ? wireoff : 0) + ((dir & 2) ? -wireoff : 0)
+	var/ytrans = ((dir & 4) ? wireoff : 0) + ((dir & 8) ? -wireoff : 0)
+
+	wires.move_input("On",16 + xoff + xtrans,16 + yoff + ytrans)
+	wires.move_output("On",16 + xoff - xtrans,16 + yoff - ytrans)
 
 	wires.doProcess()
 
@@ -54,10 +65,10 @@
 	world << "Lums: [luminosity]"
 
 /obj/structure/powered/light/receive_wiresignal(input,signal,is_pulse)
-	world << "[src]: [input] got [signal]"
+	//world << "[src]: [input] got [signal]"
 
-	//if(input == "On")
-		//set_on(signal > 0)
+	if(input == "On")
+		set_on(signal > 0)
 
 /obj/structure/lightswitch
 	name = "light switch"
@@ -71,24 +82,23 @@
 /obj/structure/lightswitch/New()
 	..()
 
-	wires = new(src, 24)
-	wires.add_output("On")
+	wires = new(src, 6)
+	wires.add_output("On",16,20)
 
 	spawn(10)
-		for(var/obj/structure/powered/light/lightfixture in range(12,src))
+		for(var/obj/structure/powered/light/lightfixture in range(6,src))
 			world << "wiring up [lightfixture]"
 
 			wires.wire_output("On",lightfixture.wires,"On")
 
 		set_on(1)
 
-		odd_behavior()
+	addProcessingObject(src)
 
-/obj/structure/lightswitch/proc/odd_behavior()
-	//set_on(!on)
-	//wires.doProcess()
+/obj/structure/lightswitch/doProcess()
+	..()
 
-	spawn(10) .()
+	wires.doProcess()
 
 /obj/structure/lightswitch/proc/set_on(var/new_on)
 	on = new_on

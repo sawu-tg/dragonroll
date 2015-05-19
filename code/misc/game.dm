@@ -20,6 +20,15 @@
 	else if(dx<0)
 		.+=360
 
+/proc/vector2angle(dx,dy)//For beams.
+	if(!dy)
+		return (dx>=0)?90:270
+	.=arctan(dx/dy)
+	if(dy<0)
+		.+=180
+	else if(dx<0)
+		.+=360
+
 /proc/arctan(x)
 	var/y=arcsin(x/sqrt(1+x*x))
 	return y

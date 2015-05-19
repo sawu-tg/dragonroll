@@ -305,7 +305,7 @@ light
 	name = null
 	parent_type = /obj
 
-	name = ""
+	//name = ""
 
 	icon = null
 	icon_state = null

@@ -77,7 +77,6 @@
 #include "code\object\object_types\trigger.dm"
 #include "code\object\object_types\interact\nature.dm"
 #include "code\world\atom.dm"
-#include "code\world\examine.dm"
 #include "code\world\smoothwall.dm"
 #include "code\world\turf.dm"
 #include "code\world\world.dm"
