@@ -7,6 +7,10 @@ var/list/globalTriggers = list()
 	icon_state = "trigger_generic"
 
 	density = 0
+	anchored = 1
+
+	var/atom/lastTrigger
+	var/shouldCheckLast = FALSE
 
 	var/list/triggerOverlay = list() //strided list of iconstate,tiles_x,tiles_y
 	var/list/triggerOverlayCD = list()
@@ -26,6 +30,10 @@ var/list/globalTriggers = list()
 
 /obj/trigger/Cross(var/atom/a)
 	triggering = a
+	if(shouldCheckLast)
+		if(triggering == lastTrigger)
+			return
+	lastTrigger = triggering
 	doTrigger()
 
 /obj/trigger/proc/canTrigger()
@@ -52,6 +60,7 @@ var/list/globalTriggers = list()
 		icon = triggerIcon
 		icon_state = triggerOverlay
 		triggering = null
+		lastTrigger = null
 		remProcessingObject(src)
 
 /obj/trigger/proc/doTrigger()
@@ -75,6 +84,7 @@ var/list/globalTriggers = list()
 	name = "expander"
 	desc = "expands a trigger"
 	mouse_opacity = 0
+	anchored = 1
 	var/obj/trigger/myParent
 
 /obj/triggerExpander/New(var/obj/trigger/parent)
@@ -98,6 +108,7 @@ var/list/globalTriggers = list()
 	triggerOverlay = list("portal_bottomleft",0,0,"portal_topleft",0,1,"portal_topright",1,1,"portal_bottomright",1,0)
 	triggerOverlayCD = list("portal_bottomleft_cd",0,0,"portal_topleft_cd",0,1,"portal_topright_cd",1,1,"portal_bottomright_cd",1,0)
 	triggerCooldownTime = 30
+	shouldCheckLast = TRUE
 	var/exitDir = SOUTH
 	var/portalID = "default"
 	var/safe = TRUE //if false, players are forced to relinquish safe zone features, such as character changing

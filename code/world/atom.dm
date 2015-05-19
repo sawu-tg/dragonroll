@@ -1,14 +1,6 @@
 /atom
 	var/anchored = FALSE
 
-/atom/proc/examine(mob/user)
-	var/f_name = "\a [src]"
-
-	user << "[parseIcon(user,src)] That's [f_name]"
-
-	if(desc)
-		user << " > [desc]"
-
 /atom/movable
 	// size and weight determine how difficult it is to pick up and whether the player can throw it far
 	// size 1 = small object, like a tool or gun

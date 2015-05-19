@@ -15,6 +15,9 @@
 	var/npcNature = NPCTYPE_PASSIVE
 
 	var/target
+	var/turf/lastPos
+	var/list/inView = list()
+	var/list/inRange = list()
 
 	New()
 		..()
@@ -28,18 +31,20 @@
 	..()
 	if(beingCarried)
 		return
+	if(lastPos != loc)
+		inView = oview(src,wanderRange)
+		inRange = orange(1,src)
 	if(npcState == NPCSTATE_IDLE)
 		if(wander && timeSinceLast > wanderFuzziness)
-			var/list/toTarget = oview(src,wanderRange)
-			if(toTarget)
-				target = pick(toTarget)
+			if(inView.len)
+				target = pick(inView)
 				npcState = NPCSTATE_MOVE
 				timeSinceLast = 0
 	if(npcState == NPCSTATE_MOVE)
 		if(timeSinceLast >= npcMaxWait)
 			npcState = NPCSTATE_IDLE
 			target = null
-		if(!(loc in orange(1,target)))
+		if(!(target in inRange))
 			walk_to(src,target,0,0,speed)
 			timeSinceLast = 0
 		else
