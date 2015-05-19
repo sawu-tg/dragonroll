@@ -3,10 +3,18 @@
 	set desc = "Allows the player to craft an object"
 
 	var/topic = "<title>Crafting</title><html><center>[parseIcon(src.client,src,FALSE)]<br><body style='background:grey'>"
-
+	topic += "<table style=\"width=100%; border: 1px solid black;\">"
 	for(var/datum/recipe/r in playerData.knownRecipes)
+		topic += "<tr>"
+		topic += "<td>"
 		topic += "<a href=?src=\ref[src];recipe=\ref[r]><b><font color=[r.canCraft(contents) ? "green" : "red"]>[r.name]</font></b></a><br>"
-	topic += "</body></center></html>"
+		topic += "</td>"
+		for(var/eb in r.getNeededNames())
+			topic += "<td>"
+			topic += eb
+			topic += "</td>"
+		topic += "</tr>"
+	topic += "</table></body></center></html>"
 	src << browse(topic,"window=craftwindow")
 
 

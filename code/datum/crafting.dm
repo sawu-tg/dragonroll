@@ -5,7 +5,6 @@
 	var/list/materials = list() // associative list of ingredients and count
 	var/list/product = list() // associative list of produced objects and their count
 
-//TODO: Needs debugging, single item counts for multiple
 /datum/recipe/proc/canCraft(var/list/provided, var/override=FALSE)
 	if(override)
 		return TRUE
@@ -22,9 +21,17 @@
 		for(var/i = 1; i < materials.len; i = i + 2)
 			var/found = locate(materials[i]) in provided
 			if(found)
-				if(converted[found:type] > materials[i])
+				if(converted[found:type] >= materials[materials[i]])
 					return TRUE
 	return FALSE
+
+/datum/recipe/proc/getNeededNames()
+	var/list/newList = list()
+	for(var/e in materials)
+		var/obj/d = new e(src)
+		newList += "[d.name] x [materials[e]]"
+		del(d)
+	return newList
 
 /datum/recipe/proc/getResult(var/list/provided, var/mob/player/crafter, var/override=FALSE)
 	if(override)
