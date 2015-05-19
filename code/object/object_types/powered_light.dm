@@ -44,10 +44,9 @@
 		light.on()
 	else
 		light.off()
+	light.update()
 
 	wires.set_wiresignal("On",powerOn)
-
-	light.update()
 	icon_state = "tube[powerOn]"
 
 /obj/structure/powered/light/debugPower()
@@ -55,8 +54,10 @@
 	world << "Lums: [luminosity]"
 
 /obj/structure/powered/light/receive_wiresignal(input,signal,is_pulse)
-	if(input == "On")
-		set_on(signal)
+	world << "[src]: [input] got [signal]"
+
+	//if(input == "On")
+		//set_on(signal > 0)
 
 /obj/structure/lightswitch
 	name = "light switch"
@@ -84,8 +85,8 @@
 		odd_behavior()
 
 /obj/structure/lightswitch/proc/odd_behavior()
-	set_on(!on)
-	wires.doProcess()
+	//set_on(!on)
+	//wires.doProcess()
 
 	spawn(10) .()
 
@@ -93,9 +94,10 @@
 	on = new_on
 
 	wires.set_wiresignal("On",on)
+	wires.doProcess()
 
 	icon_state = "light[on]"
 
 /obj/structure/lightswitch/objFunction(var/mob/user,var/obj/item/with)
 	set_on(!on)
-	user << "You flip /the [src]."
+	user << "You flip [src]."
