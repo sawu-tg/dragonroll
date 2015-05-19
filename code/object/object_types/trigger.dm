@@ -142,7 +142,6 @@ var/list/globalTriggers = list()
 		if(shouldTeleport)
 			..()
 			teletar.forceCooldown()
-			src.forceCooldown()
 			triggering.loc = teletar.loc
 			step(triggering,exitDir)
 		else

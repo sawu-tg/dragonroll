@@ -2,6 +2,7 @@ var/list/procObjects = list()
 var/list/cooldownHandler = list()
 var/datum/controller_master/CS
 var/list/globalSuns = list()
+var/list/levelNames = list()
 
 /world
 	turf = /turf/floor/voidFloor
@@ -22,10 +23,10 @@ var/list/globalSuns = list()
 			else if(copytext(i,1,5) == "hair")
 				playerValidHair |= i
 		world << "<b>GENERATING WORLD..</b>"
-		//spawn(1)
-		//	generate()
-		//spawn(10)
-		//	world << "<b>FINISHED!</b>"
+		spawn(1)
+			generate()
+		spawn(10)
+			world << "<b>FINISHED!</b>"
 		processObjects()
 		processCooldowns()
 		//CONTROLLERS
@@ -220,13 +221,18 @@ var/list/globalSuns = list()
 				l |= T
 	. = l
 
+/proc/generateName(var/forWhat)
+	if(forWhat == 0)
+		var/list/prefix = list("Kal'","Kom'","Bre'","Tor","Jan'","Min","Zer'","Na")
+		var/list/suffix = list("toth","kim","herl","bof","rend","fren","roff","hert","pindreth","gallod")
+		return "[pick(prefix)][pick(suffix)]"
 
 //terrain generation
 
 #define lowestChance 1
 #define decoChance 15
 #define colonyChance 5
-#define maxColonists 0
+#define maxColonists 5
 
 /proc/generate()
 	var/x = world.maxx
@@ -235,17 +241,17 @@ var/list/globalSuns = list()
 	var/colonists = 0
 
 	for(var/a = 1; a <= x; ++a)
-		sleep(-1)
-
 		for(var/b = 1; b <= y; ++b)
 			for(var/c = 1; c <= z; ++c)
 				if(c == 1)
+					levelNames.Add("Lobby")
 					continue
 				else
+					levelNames.Add(generateName(0))
 					var/turf/T = locate(a,b,c)
 					T = new/turf/floor/outside/grass(T)
-					if(a == 1 || b == 1 || c == 1 || a == x || b == y || c == z)
-						T = new/turf/wall/shimmering(T)
+					//if(a == 1 || b == 1 || c == 1 || a == x || b == y || c == z)
+					//	T = new/turf/wall/shimmering(T)
 					if(prob(lowestChance))
 						for(var/turf/T2 in range(T,rand(1,4)))
 							if(!istype(T2,/turf/wall/shimmering))
@@ -256,8 +262,6 @@ var/list/globalSuns = list()
 								T2 = new/turf/floor/outside/water(T2)
 
 	for(var/a = 1; a <= x; ++a)
-		sleep(-1)
-
 		for(var/b = 1; b <= y; ++b)
 			for(var/c = 1; c <= z; ++c)
 				if(c == 1)
@@ -267,20 +271,20 @@ var/list/globalSuns = list()
 					if(!T.light)
 						T.light = new(T,world.maxx,world.maxx)
 						globalSuns += T
-				if(istype(T,/turf/floor/outside/dirt))
-					if(prob(decoChance))
-						new/obj/interact/nature/rock(T)
-				if(istype(T,/turf/floor/outside/grass))
-					if(prob(decoChance))
-						new/obj/interact/nature/bush(T)
-				if(prob(colonyChance))
-					if(colonists < maxColonists)
-						new/mob/player/npc/colonist(T)
-						colonists++
-
-	world << "<b>FINISHED!</b>"
-
-
+						var/obj/trigger/portal/P = new/obj/trigger/portal(T)
+						P.name = levelNames[c]
+						P.safe = FALSE
+				else
+					if(istype(T,/turf/floor/outside/dirt))
+						if(prob(decoChance))
+							new/obj/interact/nature/rock(T)
+					if(istype(T,/turf/floor/outside/grass))
+						if(prob(decoChance))
+							new/obj/interact/nature/bush(T)
+					if(prob(colonyChance))
+						if(colonists < maxColonists)
+							new/mob/player/npc/colonist(T)
+							colonists++
 #undef lowestChance
 #undef decoChance
 #undef colonyChance
