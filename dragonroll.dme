@@ -7,6 +7,19 @@
 
 // BEGIN_FILE_DIR
 #define FILE_DIR .
+#define FILE_DIR "code"
+#define FILE_DIR "code/lib"
+#define FILE_DIR "code/lib/flick.f_damage"
+#define FILE_DIR "code/lib/flick.f_damage/demo"
+#define FILE_DIR "code/lib/fireking.light_speed"
+#define FILE_DIR "code/lib/fireking.light_speed/demo"
+#define FILE_DIR "sprite"
+#define FILE_DIR "sprite/clothing"
+#define FILE_DIR "sprite/gui"
+#define FILE_DIR "sprite/mob"
+#define FILE_DIR "sprite/obj"
+#define FILE_DIR "sprite/obj/doors"
+#define FILE_DIR "sprite/world"
 // END_FILE_DIR
 
 // BEGIN_PREFERENCES
@@ -23,6 +36,7 @@
 #include "code\datum\race.dm"
 #include "code\datum\stat.dm"
 #include "code\datum\timer.dm"
+#include "code\datum\wiremodule.dm"
 #include "code\interface\interface.dm"
 #include "code\interface\skin.dmf"
 #include "code\item\item.dm"
@@ -36,6 +50,7 @@
 #include "code\lib\fireking.light_speed\!lighting.dm"
 #include "code\lib\fireking.light_speed\light_speed.dm"
 #include "code\misc\files.dm"
+#include "code\misc\game.dm"
 #include "code\misc\icons.dm"
 #include "code\misc\maths.dm"
 #include "code\misc\type2type.dm"

@@ -304,6 +304,8 @@ lighting
 light
 	parent_type = /obj
 
+	name = ""
+
 	icon = null
 	icon_state = null
 
@@ -526,6 +528,8 @@ light
 
 shading
 	parent_type = /obj
+
+	name = ""
 
 	icon = LIGHTING_ICON
 	icon_state = "0000"

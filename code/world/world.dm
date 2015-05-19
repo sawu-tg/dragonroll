@@ -22,10 +22,10 @@ var/list/globalSuns = list()
 			else if(copytext(i,1,5) == "hair")
 				playerValidHair |= i
 		world << "<b>GENERATING WORLD..</b>"
-		spawn(1)
-			generate()
-		spawn(10)
-			world << "<b>FINISHED!</b>"
+		//spawn(1)
+		//	generate()
+		//spawn(10)
+		//	world << "<b>FINISHED!</b>"
 		processObjects()
 		processCooldowns()
 		//CONTROLLERS
@@ -235,6 +235,8 @@ var/list/globalSuns = list()
 	var/colonists = 0
 
 	for(var/a = 1; a <= x; ++a)
+		sleep(-1)
+
 		for(var/b = 1; b <= y; ++b)
 			for(var/c = 1; c <= z; ++c)
 				if(c == 1)
@@ -254,6 +256,8 @@ var/list/globalSuns = list()
 								T2 = new/turf/floor/outside/water(T2)
 
 	for(var/a = 1; a <= x; ++a)
+		sleep(-1)
+
 		for(var/b = 1; b <= y; ++b)
 			for(var/c = 1; c <= z; ++c)
 				if(c == 1)
@@ -273,6 +277,10 @@ var/list/globalSuns = list()
 					if(colonists < maxColonists)
 						new/mob/player/npc/colonist(T)
 						colonists++
+
+	world << "<b>FINISHED!</b>"
+
+
 #undef lowestChance
 #undef decoChance
 #undef colonyChance

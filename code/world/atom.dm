@@ -72,7 +72,7 @@
 /atom/movable/Click()
 	var/mob/player/P = usr
 	if(P.activeHandEmpty())
-		if(!prevent_pickup)
+		if(!prevent_pickup && !anchored)
 			takeObject()
 		else
 			objFunction(usr)
