@@ -7,19 +7,6 @@
 
 // BEGIN_FILE_DIR
 #define FILE_DIR .
-#define FILE_DIR "code"
-#define FILE_DIR "code/lib"
-#define FILE_DIR "code/lib/flick.f_damage"
-#define FILE_DIR "code/lib/flick.f_damage/demo"
-#define FILE_DIR "code/lib/fireking.light_speed"
-#define FILE_DIR "code/lib/fireking.light_speed/demo"
-#define FILE_DIR "sprite"
-#define FILE_DIR "sprite/clothing"
-#define FILE_DIR "sprite/gui"
-#define FILE_DIR "sprite/mob"
-#define FILE_DIR "sprite/obj"
-#define FILE_DIR "sprite/obj/doors"
-#define FILE_DIR "sprite/world"
 // END_FILE_DIR
 
 // BEGIN_PREFERENCES
@@ -42,6 +29,7 @@
 #include "code\item\item.dm"
 #include "code\item\item_types\armor.dm"
 #include "code\item\item_types\mob_spawner.dm"
+#include "code\item\item_types\weapon.dm"
 #include "code\lib\flick.f_damage\Cache.dm"
 #include "code\lib\flick.f_damage\F_Damage.dm"
 #include "code\lib\flick.f_damage\F_Damage_Align.dm"

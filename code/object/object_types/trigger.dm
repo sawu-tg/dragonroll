@@ -139,6 +139,10 @@ var/list/globalTriggers = list()
 					shouldTeleport = TRUE
 				if("Return")
 					shouldTeleport = FALSE
+				else
+					lastTrigger = null
+		else
+			lastTrigger = null
 		if(shouldTeleport)
 			..()
 			teletar.forceCooldown()
@@ -146,6 +150,8 @@ var/list/globalTriggers = list()
 			step(triggering,exitDir)
 		else
 			step(triggering,exitDir)
+	else
+		lastTrigger = null
 
 /obj/trigger/portal/doProcess()
 	..()

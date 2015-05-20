@@ -314,7 +314,7 @@ datum/wiremodule
 			usedimages += refname
 
 			if(!I)
-				I = image('wire.dmi',renderobj,"wire_node",10000)
+				I = image('sprite/obj/wire.dmi',renderobj,"wire_node",10000)
 				cableimages[refname] = I
 
 			I.color = N.wirecolor
@@ -354,7 +354,7 @@ datum/wiremodule
 
 		var/image/I1 = cableimages[refname1]
 		if(!I1)
-			I1 = image('wire.dmi',renderobj,iconstate,10000)
+			I1 = image('sprite/obj/wire.dmi',renderobj,iconstate,10000)
 			cableimages[refname1] = I1
 		I1.color = color
 		var/matrix/trans = matrix()
@@ -370,7 +370,7 @@ datum/wiremodule
 
 		var/image/I2 = cableimages[refname2]
 		if(!I2)
-			I2 = image('wire.dmi',renderobj,"wire_connect",10000)
+			I2 = image('sprite/obj/wire.dmi',renderobj,"wire_connect",10000)
 			cableimages[refname2] = I2
 		I2.pixel_x = beginnode.pixel_x - 16
 		I2.pixel_y = beginnode.pixel_y - 16
