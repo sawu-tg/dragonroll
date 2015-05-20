@@ -27,10 +27,10 @@
 
 /mob/New()
 	spawn(1)
-		leftHand = new
-		rightHand = new
-		rightPocket = new
-		leftPocket = new
+		leftHand = new(src)
+		rightHand = new(src)
+		rightPocket = new(src)
+		leftPocket = new(src)
 		handOrder = list(leftPocket,leftHand,rightHand,rightPocket)
 		selectedQuickSlot = leftPocket
 		spawn(1)
@@ -49,9 +49,9 @@
 /mob/Move(var/atom/newLoc)
 	if(canMove && !newLoc.anchored)
 		..()
-		if(src.light)
-			light.loc = src.loc
-			light.update()
+		//if(src.light)
+			//light.loc = src.loc
+			//light.update()
 	else
 		return
 

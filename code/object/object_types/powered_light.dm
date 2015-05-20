@@ -2,24 +2,26 @@
 	name = "light"
 	desc = "Brightens your day"
 	icon = 'sprite/obj/lighting.dmi'
-	icon_state = "tube1"
+	icon_state = "ntube"
 	powerNeeded = 10
 	powerHeld = 1000
 	powerOn = TRUE
 	luminosity = 8
 
 	var/datum/wiremodule/wires
+	var/image/tubeoverlay
+	var/tubelight = "#FFFFCC"
 
 /obj/structure/powered/light/New()
-	light = new(src, 12)
-	light.loc = src.loc
-	icon_state = "tube1"
+	//light = new(src, 12)
+	//light.loc = src.loc
+	//icon_state = "ntube"
 
 	wires = new(src, 6)
 	wires.add_input("On")
 	wires.add_output("On")
 
-	//set_on(1)
+	set_on(1)
 
 	addProcessingObject(src)
 
@@ -51,14 +53,34 @@
 	powerOn = on
 
 	//This is the most disgusting thing I've ever seen :V
+	//if(powerOn)
+	//	light.on()
+	//else
+	//	light.off()
+	//light.update()
+
 	if(powerOn)
-		light.on()
-	else
-		light.off()
-	light.update()
+		set_light(12 * powerOn,4,tubelight)
 
 	wires.set_wiresignal("On",powerOn)
-	icon_state = "tube[powerOn]"
+	updateIcon()
+	//icon_state = "tube[powerOn]"
+
+/obj/structure/powered/light/proc/updateIcon()
+	overlays -= tubeoverlay
+
+	world << "ntube[powerOn]"
+
+	icon_state = "ntube"
+
+	if(!tubeoverlay)
+		tubeoverlay = image(icon,src,"ntube[powerOn]",layer + 0.1,dir)
+
+	tubeoverlay.icon_state = "ntube[powerOn]"
+	tubeoverlay.dir = dir
+	tubeoverlay.color = tubelight
+
+	overlays += tubeoverlay
 
 /obj/structure/powered/light/debugPower()
 	..()
@@ -69,6 +91,11 @@
 
 	if(input == "On")
 		set_on(signal > 0)
+
+/obj/structure/powered/light/objFunction(var/mob/user,var/obj/item/with)
+	if(istype(with,/obj/item/powerdevice/wiretool))
+		var/obj/item/powerdevice/wiretool/WT = with
+		WT.default_wire_action(user,wires)
 
 /obj/structure/lightswitch
 	name = "light switch"
@@ -86,10 +113,10 @@
 	wires.add_output("On",16,20)
 
 	spawn(10)
-		for(var/obj/structure/powered/light/lightfixture in range(6,src))
-			world << "wiring up [lightfixture]"
+		//for(var/obj/structure/powered/light/lightfixture in range(6,src))
+			//world << "wiring up [lightfixture]"
 
-			wires.wire_output("On",lightfixture.wires,"On")
+			//wires.wire_output("On",lightfixture.wires,"On")
 
 		set_on(1)
 
@@ -109,5 +136,9 @@
 	icon_state = "light[on]"
 
 /obj/structure/lightswitch/objFunction(var/mob/user,var/obj/item/with)
-	set_on(!on)
-	user << "You flip [src]."
+	if(istype(with,/obj/item/powerdevice/wiretool))
+		var/obj/item/powerdevice/wiretool/WT = with
+		WT.default_wire_action(user,wires)
+	else
+		set_on(!on)
+		user << "You flip [src]."

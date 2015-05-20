@@ -24,7 +24,7 @@ datum/wirenode
 	var/pixel_x = 16
 	var/pixel_y = 16
 
-	New(var/datum/wiremodule/parent,name,mode,pixel_x = 16,pixel_y = 16)
+	New(var/datum/wiremodule/parent,name,mode,pixel_x = 16,pixel_y = 16,color = "#FFFFFF")
 		src.parent = parent
 		src.name = name
 		src.mode = mode
@@ -32,7 +32,8 @@ datum/wirenode
 		src.pixel_x = pixel_x
 		src.pixel_y = pixel_y
 
-		wirecolor = HSVtoRGB(hsv(AngleToHue(rand(360)),255,128))
+		//wirecolor = HSVtoRGB(hsv(AngleToHue(rand(360)),255,128))
+		wirecolor = color
 
 	proc/set_value(newvalue)
 		if(mode == WIRE_OUTPUT)
@@ -65,11 +66,6 @@ datum/wirenode
 			return
 
 		//Do not attach more than one wire to inputs :V
-		if(othernode.mode == WIRE_INPUT && othernode.connected.len)
-			//world << "disconnecting superfluous input nodes"
-
-			othernode.disconnect_all()
-
 		if(mode == WIRE_INPUT && connected.len)
 			//world << "disconnecting superfluous input nodes"
 
@@ -78,6 +74,8 @@ datum/wirenode
 		connected |= othernode
 
 		if(direct)
+			world << "connecting other side"
+
 			othernode.connect(src,0)
 
 	proc/disconnect(var/datum/wirenode/othernode,var/direct = 1)
@@ -96,6 +94,8 @@ datum/wirenode
 			//world << "\ref[src] passive disconnect"
 
 	proc/disconnect_all(var/direct = 1)
+		set_value(0)
+
 		if(connected.len && direct)
 			for(var/datum/wirenode/otherN)
 				otherN.disconnect(src,0)
@@ -103,7 +103,6 @@ datum/wirenode
 		//if(direct)
 			//world << "[name] active disconnect"
 
-		value = 0
 		connected.Cut()
 
 		//world << "node disconnected"
@@ -112,8 +111,8 @@ datum/wirenode
 		if(!connected || !(othernode in connected))
 			return 0
 
-		var/atom/origin = parent.myatom
-		var/atom/terminus = othernode.parent.myatom
+		var/atom/origin = get_outermost_atom(parent.myatom)
+		var/atom/terminus = get_outermost_atom(othernode.parent.myatom)
 
 		return get_dist_euclidian(origin,terminus)
 
@@ -121,21 +120,25 @@ datum/wirenode
 		if(!parent || !parent.myatom)
 			return
 
-		return parent.myatom.x * 32 + pixel_x
+		var/atom/A = get_outermost_atom(parent.myatom)
+
+		return A.x * 32 + A.pixel_x + pixel_x
 
 	proc/totaly()
 		if(!parent || !parent.myatom)
 			return
 
-		return parent.myatom.y * 32 + pixel_y
+		var/atom/A = get_outermost_atom(parent.myatom)
+
+		return A.y * 32 + A.pixel_y + pixel_y
 
 datum/wiremodule
 	var/atom/myatom
 
 	var/maxlength = 8 //How far the wire reaches, too long and it will cull.
 
-	var/list/outputs = list() //Reference to wire objects connected to outputs
-	var/list/inputs = list() //Reference to wire objects connected to inputs
+	var/list/datum/wirenode/outputs = list() //Reference to wire objects connected to outputs
+	var/list/datum/wirenode/inputs = list() //Reference to wire objects connected to inputs
 
 	var/list/cableimages = list()
 	var/list/usedimages = list()
@@ -150,6 +153,8 @@ datum/wiremodule
 	proc/doProcess()
 		cull_wires()
 		render()
+
+		renderobj.Move(get_turf(myatom))
 
 	proc/cull_wires()
 		for(var/outnode in outputs)
@@ -167,11 +172,11 @@ datum/wiremodule
 					I.disconnect(N)
 
 	//For dynamically changing inputs and outputs
-	proc/add_input(input,pixel_x = 16,pixel_y = 16)
+	proc/add_input(input,pixel_x = 16,pixel_y = 16,color = "#FFFFFF")
 		if(inputs[input])
 			return
 
-		inputs[input] = new /datum/wirenode(src,input,WIRE_INPUT,pixel_x,pixel_y)
+		inputs[input] = new /datum/wirenode(src,input,WIRE_INPUT,pixel_x,pixel_y,color)
 
 	proc/move_input(input,pixel_x = 16,pixel_y = 16)
 		var/datum/wirenode/I = inputs[input]
@@ -191,11 +196,11 @@ datum/wiremodule
 		I.disconnect_all()
 		inputs.Remove(input)
 
-	proc/add_output(output,pixel_x = 16,pixel_y = 16)
+	proc/add_output(output,pixel_x = 16,pixel_y = 16,color = "#FFFFFF")
 		if(outputs[output])
 			return
 
-		outputs[output] = new /datum/wirenode(src,output,WIRE_OUTPUT,pixel_x,pixel_y)
+		outputs[output] = new /datum/wirenode(src,output,WIRE_OUTPUT,pixel_x,pixel_y,color)
 
 	proc/move_output(output,pixel_x = 16,pixel_y = 16)
 		var/datum/wirenode/O = outputs[output]
@@ -240,7 +245,7 @@ datum/wiremodule
 		var/datum/wirenode/I = other.outputs[output]
 
 		if(O && I)
-			I.connect(O)
+			O.connect(I)
 
 	proc/unwire_input(input)
 		var/datum/wirenode/I = inputs[input]
@@ -313,13 +318,17 @@ datum/wiremodule
 
 			usedimages += refname
 
+			var/animate_steps = 10
+
 			if(!I)
 				I = image('sprite/obj/wire.dmi',renderobj,"wire_node",10000)
 				cableimages[refname] = I
+				animate_steps = 0
 
-			I.color = N.wirecolor
-			I.pixel_x = N.pixel_x - 16
-			I.pixel_y = N.pixel_y - 16
+			animate(I,color = N.wirecolor, pixel_x = N.pixel_x - 16,pixel_y = N.pixel_y - 16,animate_steps)
+			//I.color = N.wirecolor
+			//I.pixel_x = N.pixel_x - 16
+			//I.pixel_y = N.pixel_y - 16
 
 		for(var/client/C)
 			for(var/refname in cableimages)
@@ -353,6 +362,7 @@ datum/wiremodule
 		var/refname2 = "wirenode_\ref[beginnode]_\ref[endnode]"
 
 		var/image/I1 = cableimages[refname1]
+
 		if(!I1)
 			I1 = image('sprite/obj/wire.dmi',renderobj,iconstate,10000)
 			cableimages[refname1] = I1
@@ -362,13 +372,23 @@ datum/wiremodule
 		I1.transform = trans.Turn(angle-90)
 		I1.blend_mode = BLEND_ADD
 		I1.alpha = wirealpha
+
+		var/pixx = beginnode.pixel_x - 16
+		var/pixy = beginnode.pixel_y - 16
+
 		if(dist != 0)
-			I1.pixel_x = beginnode.pixel_x - 16 + delta_x / 4
-			I1.pixel_y = beginnode.pixel_y - 16 + delta_y / 4
+			pixx = beginnode.pixel_x - 16 + delta_x / 4
+			pixy = beginnode.pixel_y - 16 + delta_y / 4
 		else
 			I1.icon_state = "wire_connect"
 
+		I1.pixel_x = pixx
+		I1.pixel_y = pixy
+
+		//animate(I1,color = color, transform = trans.Turn(angle-90),alpha = wirealpha,pixel_x = pixx,pixel_y = pixy,animate_steps)
+
 		var/image/I2 = cableimages[refname2]
+
 		if(!I2)
 			I2 = image('sprite/obj/wire.dmi',renderobj,"wire_connect",10000)
 			cableimages[refname2] = I2

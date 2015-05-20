@@ -22,8 +22,11 @@
 	addProcessingObject(src)
 	selectedQuickSlot = leftHand
 	randomise()
-	light = new(src, 6)
-	light.loc = src.loc
+
+	set_light(6)
+
+	//light = new(src, 6)
+	//light.loc = src.loc
 	..()
 
 /mob/player/verb/relocate()

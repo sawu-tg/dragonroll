@@ -32,6 +32,7 @@ var/list/levelNames = list()
 		//CONTROLLERS
 		CS = new
 		CS.addControl(new /datum/controller/machinery)
+		CS.addControl(new /datum/controller/lighting)
 		CS.process()
 	..()
 
@@ -269,7 +270,8 @@ var/list/levelNames = list()
 				var/turf/T = locate(a,b,c)
 				if(a == x/2 && b == y/2)
 					if(!T.light)
-						T.light = new(T,world.maxx,world.maxx)
+						//T.light = new(T,world.maxx,world.maxx)
+						T.set_light(world.maxx,world.maxx) //This doesn't quite work.
 						globalSuns += T
 						var/obj/trigger/portal/P = new/obj/trigger/portal(T)
 						P.name = levelNames[c]

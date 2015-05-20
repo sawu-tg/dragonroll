@@ -7,6 +7,8 @@
 	interval = Gcd(C.execTime, interval)
 	interval = round(interval)
 
+	C.Initialize()
+
 /proc/isRunningSafe(var/what)
 	if(CS)
 		return CS.isRunning(what)

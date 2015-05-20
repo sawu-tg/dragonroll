@@ -57,3 +57,15 @@
 
 /atom/proc/total_y()
 	return (y+0.5) * 32 + pixel_y
+
+/proc/get_turf(atom/movable/AM)
+	if(istype(AM))
+		return locate(/turf) in AM.locs
+	else if(isturf(AM))
+		return AM
+
+/proc/get_outermost_atom(atom/AM)
+	if(!AM.loc || isturf(AM.loc))
+		return AM
+	else
+		return get_outermost_atom(AM.loc)
