@@ -10,6 +10,9 @@
 /datum/controller/proc/Stat()
 	stat("[name] | [round(cost,0.001)]ds | (CPU:[round(cpu,1)]%)")
 
+/datum/controller/proc/Initialize()
+	return
+
 /datum/controller/proc/doProcess()
 	if(!isRunning)
 		return

@@ -13,8 +13,8 @@
 	var/tubelight = "#FFFFCC"
 
 /obj/structure/powered/light/New()
-	light = new(src, 12)
-	light.loc = src.loc
+	//light = new(src, 12)
+	//light.loc = src.loc
 	//icon_state = "ntube"
 
 	wires = new(src, 6)
@@ -53,11 +53,14 @@
 	powerOn = on
 
 	//This is the most disgusting thing I've ever seen :V
+	//if(powerOn)
+	//	light.on()
+	//else
+	//	light.off()
+	//light.update()
+
 	if(powerOn)
-		light.on()
-	else
-		light.off()
-	light.update()
+		set_light(12 * powerOn,4,tubelight)
 
 	wires.set_wiresignal("On",powerOn)
 	updateIcon()
@@ -66,12 +69,16 @@
 /obj/structure/powered/light/proc/updateIcon()
 	overlays -= tubeoverlay
 
+	world << "ntube[powerOn]"
+
 	icon_state = "ntube"
 
 	if(!tubeoverlay)
 		tubeoverlay = image(icon,src,"ntube[powerOn]",layer + 0.1,dir)
 
-	animate(tubeoverlay, color = tubelight,20)
+	tubeoverlay.icon_state = "ntube[powerOn]"
+	tubeoverlay.dir = dir
+	tubeoverlay.color = tubelight
 
 	overlays += tubeoverlay
 
