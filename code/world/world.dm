@@ -24,7 +24,8 @@ var/list/levelNames = list()
 				playerValidHair |= i
 		world << "<b>GENERATING WORLD..</b>"
 		spawn(1)
-			generate()
+			for(var/i = 1; i < world.maxz; i++)
+				generate(i)
 		spawn(10)
 			world << "<b>FINISHED!</b>"
 		processObjects()
@@ -231,66 +232,63 @@ var/list/levelNames = list()
 //terrain generation
 
 #define lowestChance 1
-#define decoChance 15
-#define colonyChance 5
 #define maxColonists 5
 
-/proc/generate()
+/proc/generate(var/zLevel)
+	var/cB = pick(validBiomes)
+	var/datum/biome/chosenBiome = new cB()
+
+	var/decoChance = chosenBiome.debrisChance
+	var/turfScale = chosenBiome.turfSize
+	var/colonyChance = chosenBiome.mobChance
+	var/liquidScale = chosenBiome.liquidSize
+
 	var/x = world.maxx
 	var/y = world.maxy
-	var/z = world.maxz
 	var/colonists = 0
 
-	for(var/a = 1; a <= x; ++a)
-		for(var/b = 1; b <= y; ++b)
-			for(var/c = 1; c <= z; ++c)
-				if(c == 1)
-					levelNames.Add("Lobby")
-					continue
-				else
-					levelNames.Add(generateName(0))
-					var/turf/T = locate(a,b,c)
-					T = new/turf/floor/outside/grass(T)
-					//if(a == 1 || b == 1 || c == 1 || a == x || b == y || c == z)
-					//	T = new/turf/wall/shimmering(T)
-					if(prob(lowestChance))
-						for(var/turf/T2 in range(T,rand(1,4)))
-							if(!istype(T2,/turf/wall/shimmering))
-								T2 = new/turf/floor/outside/dirt(T2)
-					if(prob(lowestChance))
-						for(var/turf/T2 in range(T,rand(1,4)))
-							if(!istype(T2,/turf/wall/shimmering))
-								T2 = new/turf/floor/outside/water(T2)
+	if(zLevel == 1)
+		levelNames.Add("Lobby")
+	else
+		levelNames.Add(generateName(0))
 
 	for(var/a = 1; a <= x; ++a)
 		for(var/b = 1; b <= y; ++b)
-			for(var/c = 1; c <= z; ++c)
-				if(c == 1)
-					continue
-				var/turf/T = locate(a,b,c)
-				if(a == x/2 && b == y/2)
-					if(!T.light)
-						//T.light = new(T,world.maxx,world.maxx)
-						T.set_light(world.maxx,world.maxx) //This doesn't quite work.
-						globalSuns += T
-						var/obj/trigger/portal/P = new/obj/trigger/portal(T)
-						P.name = levelNames[c]
-						P.safe = FALSE
-				else
-					if(istype(T,/turf/floor/outside/dirt))
-						if(prob(decoChance))
-							new/obj/interact/nature/rock(T)
-					if(istype(T,/turf/floor/outside/grass))
-						if(prob(decoChance))
-							new/obj/interact/nature/bush(T)
-					if(istype(T,/turf/floor/outside/grass))
-						if(prob(decoChance))
-							new/obj/interact/nature/tree(T)
-					if(prob(colonyChance))
-						if(colonists < maxColonists)
-							new/mob/player/npc/colonist(T)
-							colonists++
+			if(zLevel == 1)
+				continue
+			var/turf/T = locate(a,b,zLevel)
+			T = new chosenBiome.baseTurf(T)
+			if(prob(lowestChance))
+				for(var/turf/T2 in range(T,rand(0,turfScale)))
+					var/turf/T3 = pick(chosenBiome.validTurfs)
+					T2 = new T3(T2)
+			if(chosenBiome.validLiquids.len)
+				if(prob(lowestChance))
+					for(var/turf/T2 in range(T,rand(0,liquidScale)))
+						var/turf/T3 = pick(chosenBiome.validLiquids)
+						T2 = new T3(T2)
+	for(var/a = 1; a <= x; ++a)
+		for(var/b = 1; b <= y; ++b)
+			if(zLevel == 1)
+				continue
+			var/turf/T = locate(a,b,zLevel)
+			if(a == x/2 && b == y/2)
+				if(!T.light)
+					//T.light = new(T,world.maxx,world.maxx)
+					T.set_light(world.maxx,world.maxx) //This doesn't quite work.
+					globalSuns += T
+					var/obj/trigger/portal/P = new/obj/trigger/portal(T)
+					P.name = "[levelNames[zLevel]] the [chosenBiome.name]"
+					P.safe = FALSE
+			else
+				if(prob(decoChance))
+					if(!(T.type in chosenBiome.validLiquids))
+						var/obj/o = pick(chosenBiome.validDebris)
+						new o(T)
+				if(prob(colonyChance))
+					if(colonists < maxColonists)
+						var/mob/m = pick(chosenBiome.validMobs)
+						new m(T)
+						colonists++
 #undef lowestChance
-#undef decoChance
-#undef colonyChance
 #undef maxColonists

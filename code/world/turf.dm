@@ -50,10 +50,23 @@
 	..()
 	icon_state = "asteroid[rand(1,5)]"
 
-/turf/floor/outside/water
-	name = "Water"
+/turf/floor/outside/shimmering
+	icon_state = "white"
+
+//liquids
+
+/turf/floor/outside/liquid
+	name = "liquid"
 	icon_state = "water"
 	density = 1
+
+/turf/floor/outside/liquid/water
+	name = "Water"
+	icon_state = "water"
+
+/turf/floor/outside/liquid/lava
+	name = "Lava"
+	icon_state = "lava"
 
 //world walls
 
