@@ -38,7 +38,7 @@
 	var/datum/stat/ref = new("Reflex Throw",FALSE,1)
 	var/datum/stat/will = new("Will Throw",FALSE,1)
 
-	var/list/knownRecipes = list(new/datum/recipe/hatchet)
+	var/list/knownRecipes = list(new/datum/recipe/hatchet,new/datum/recipe/woodwall)
 
 /datum/playerFile/New()
 	playerRace = new/datum/race/Human

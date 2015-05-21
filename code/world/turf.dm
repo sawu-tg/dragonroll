@@ -48,7 +48,7 @@
 
 /turf/floor/outside/dirt/New()
 	..()
-	icon_state = "asteroid[rand(0,4)]"
+	icon_state = "asteroid[rand(1,5)]"
 
 /turf/floor/outside/water
 	name = "Water"
@@ -62,3 +62,9 @@
 	icon_state = "silver0"
 	mineral = "silver"
 	walltype = "silver"
+
+/turf/wall/woodWall
+	name = "Wooden Wall"
+	icon_state = "wood0"
+	mineral = "wood"
+	walltype = "wood"

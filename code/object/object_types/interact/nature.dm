@@ -31,30 +31,18 @@
 /obj/interact/nature/rock/New()
 	icon_state = "rock[rand(1,5)]"
 
+/obj/interact/nature/tree
+	name = "tree"
+	desc = "it's seen better days"
+	icon = 'sprite/world/deadtrees.dmi'
+	layer = LAYER_OVERLAY
+	density = 1
+	harvestables = list(/obj/loot/nature/log = 1,/obj/loot/nature/stick = 4,/obj/loot/nature/leaf = 4)
 
-///
-// HARVESTED GOODS, move elsewhere later
-///
+/obj/interact/nature/tree/objFunction(var/mob/user)
+	..()
+	displayTo("The [src] collapses!",user,src)
+	del(src)
 
-/obj/loot/nature
-	name = "nature thing"
-	desc = "vaguely leafy"
-	icon = 'sprite/obj/items.dmi'
-
-/obj/loot/nature/stick
-	name = "stick"
-	desc = "What's brown and sticky?"
-	icon_state = "c_tube"
-	itemMaterial = new/datum/material/wood1
-
-/obj/loot/nature/leaf
-	name = "leafy pile"
-	desc = "Make like a tree and leaf."
-	icon_state = "leafmatter"
-	itemMaterial = new/datum/material/nature1
-
-/obj/loot/nature/rock
-	name = "rock chip"
-	desc = "An alternative to heavy metal."
-	icon_state = "rock"
-	itemMaterial = new/datum/material/mineral1
+/obj/interact/nature/tree/New()
+	icon_state = "tree_[rand(1,6)]"

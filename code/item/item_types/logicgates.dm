@@ -52,7 +52,6 @@
 
 /obj/item/logicgate/doProcess()
 	..()
-
 	wires.doProcess()
 
 /obj/item/logicgate/receive_wiresignal(input,signal,is_pulse)

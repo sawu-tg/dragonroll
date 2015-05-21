@@ -6,7 +6,6 @@
 ///       ///
 // WEAPONS //
 ///       ///
-
 /obj/item/weapon/tool/hatchet
 	name = "hatchet"
 	desc = "slices and dices much easier than your fists."

@@ -17,12 +17,14 @@
 				converted[t] = converted[t] + 1
 			else
 				converted[t] = 1
-
-		for(var/i = 1; i < materials.len; i = i + 2)
+		var/max = 0
+		for(var/i = 1; i <= materials.len; i++)
 			var/found = locate(materials[i]) in provided
 			if(found)
 				if(converted[found:type] >= materials[materials[i]])
-					return TRUE
+					max++
+		if(max >= materials.len)
+			return TRUE
 	return FALSE
 
 /datum/recipe/proc/getNeededNames()
@@ -47,12 +49,13 @@
 					for(var/c = 0; c < materials[m]; c++)
 						var/b = locate(m) in provided
 						if(b)
-							found |= b
-				var/obj/first = found[1]
-				var/obj/second = found[2]
-				var/datum/material/nm = combineMaterials(first.itemMaterial,second.itemMaterial)
-				na.itemMaterial = nm
-				na.updateStats()
+							found += b
+				if(found.len)
+					var/obj/first = found[1]
+					var/obj/second = found.len >= 2 ? found[2] : found[1]
+					var/datum/material/nm = combineMaterials(first.itemMaterial,second.itemMaterial)
+					na.itemMaterial = nm
+					na.updateStats()
 				for(var/d in found)
 					del(crafter.remFromInventory(d))
 
@@ -62,3 +65,10 @@
 
 	materials = list(/obj/loot/nature/stick = 1, /obj/loot/nature/rock = 1)
 	product = list(/obj/item/weapon/tool/hatchet = 1)
+
+/datum/recipe/woodwall
+	name = "wooden wall"
+	desc = "keeps things out"
+
+	materials = list(/obj/loot/processed/wood = 1)
+	product = list(/obj/buildable/woodenWall = 1)

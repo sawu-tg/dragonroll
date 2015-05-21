@@ -62,6 +62,7 @@
 #include "code\object\object_types\powered.dm"
 #include "code\object\object_types\powered_light.dm"
 #include "code\object\object_types\projectile.dm"
+#include "code\object\object_types\resources.dm"
 #include "code\object\object_types\structure.dm"
 #include "code\object\object_types\trigger.dm"
 #include "code\object\object_types\interact\nature.dm"
