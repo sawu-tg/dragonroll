@@ -23,6 +23,12 @@
 	if(d)
 		remPlayerAbility(d)
 
+/mob/player/verb/bridge()
+	set name = "Bridge Land"
+	set category = "Debug Verbs"
+	for(var/turf/t in range(7))
+		t = new/turf/floor/outside/grass(t)
+
 
 ///
 // INVENTORY AND STAT VERBS

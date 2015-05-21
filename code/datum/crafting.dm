@@ -41,23 +41,24 @@
 	else
 		for(var/a in product)
 			for(var/i = 0; i < product[a]; i++)
-				new a(crafter.loc)
+				var/obj/na = new a(crafter.loc)
+				var/list/found = list()
 				for(var/m in materials)
 					for(var/c = 0; c < materials[m]; c++)
 						var/b = locate(m) in provided
 						if(b)
-							del(crafter.remFromInventory(b))
+							found |= b
+				var/obj/first = found[1]
+				var/obj/second = found[2]
+				var/datum/material/nm = combineMaterials(first.itemMaterial,second.itemMaterial)
+				na.itemMaterial = nm
+				na.updateStats()
+				for(var/d in found)
+					del(crafter.remFromInventory(d))
 
-/datum/recipe/test
-	name = "test"
-	desc = "you shouldn't see this"
+/datum/recipe/hatchet
+	name = "hatchet"
+	desc = "a cutting tool"
 
-	materials = list(/obj/item/armor/corgisuit = 1, /obj/item/armor/corgihat = 1)
-	product = list(/obj/item/armor/streetarmor = 1)
-
-/datum/recipe/test2
-	name = "2est"
-	desc = "you shouldn't see this either"
-
-	materials = list(/obj/item/armor/corgisuit = 3, /obj/item/armor/corgihat = 4)
-	product = list(/obj/item/armor/streetarmor = 1)
+	materials = list(/obj/loot/nature/stick = 1, /obj/loot/nature/rock = 1)
+	product = list(/obj/item/weapon/tool/hatchet = 1)

@@ -1,7 +1,7 @@
 /obj/item/logicgate
 	name = "logic slab"
 	desc = "Intricate runes mark the surface but it seems inert."
-	icon = 'wire.dmi'
+	icon = 'sprite/obj/wire.dmi'
 	icon_state = "gate"
 	var/gatecolor = "#FFFFFF"
 	var/evaluating = 0
@@ -13,7 +13,7 @@
 	var/outputs
 
 /obj/item/logicgate/New()
-	glowimage = image('wire.dmi',src,"gate_glow",1000)
+	glowimage = image('sprite/obj/wire.dmi',src,"gate_glow",1000)
 	glowimage.blend_mode = BLEND_ADD
 	glowimage.color = gatecolor
 

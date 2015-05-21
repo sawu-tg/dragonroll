@@ -26,6 +26,7 @@
 	name = "small rock"
 	desc = "Do not bang your head on this."
 	icon = 'sprite/world/rocks.dmi'
+	harvestables = list(/obj/loot/nature/rock = 1)
 
 /obj/interact/nature/rock/New()
 	icon_state = "rock[rand(1,5)]"
@@ -44,8 +45,16 @@
 	name = "stick"
 	desc = "What's brown and sticky?"
 	icon_state = "c_tube"
+	itemMaterial = new/datum/material/wood1
 
 /obj/loot/nature/leaf
 	name = "leafy pile"
 	desc = "Make like a tree and leaf."
 	icon_state = "leafmatter"
+	itemMaterial = new/datum/material/nature1
+
+/obj/loot/nature/rock
+	name = "rock chip"
+	desc = "An alternative to heavy metal."
+	icon_state = "rock"
+	itemMaterial = new/datum/material/mineral1

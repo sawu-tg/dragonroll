@@ -7,7 +7,7 @@
 
 #define LIGHTING_RESOLUTION 1 // resolution of the lighting overlays, powers of 2 only, max of 32
 #define LIGHTING_LAYER 10 // drawing layer for lighting overlays
-#define LIGHTING_ICON 'lighting_overlay.dmi' // icon used for lighting shading effects
+#define LIGHTING_ICON 'sprite/world/lighting_overlay.dmi' // icon used for lighting shading effects
 
 #define INVISIBILITY_LIGHTING 0
 #define CLAMP01(x) max(0, min(1, x))

@@ -8,7 +8,7 @@
 	name = "wiretool"
 	desc = "Generates wires between wireable components"
 
-	icon = 'wire.dmi'
+	icon = 'sprite/obj/wire.dmi'
 	icon_state = "wiretool"
 
 	var/datum/wirenode/node1

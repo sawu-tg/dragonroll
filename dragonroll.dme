@@ -19,6 +19,7 @@
 #include "code\datum\class.dm"
 #include "code\datum\crafting.dm"
 #include "code\datum\faction.dm"
+#include "code\datum\material.dm"
 #include "code\datum\playerFile.dm"
 #include "code\datum\race.dm"
 #include "code\datum\stat.dm"
