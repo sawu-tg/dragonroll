@@ -56,6 +56,7 @@
 
 /obj/effect/aoe_tile/flame/New()
 	icon_state = "[pick(1,2,3)]"
+	set_light(3,3,"#FF5500")
 	..()
 
 /obj/effect/target
