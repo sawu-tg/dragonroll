@@ -197,7 +197,7 @@
 			if(kickWhat.anchored)
 				return
 			var/turf/target = get_step(kickWhat,usr.dir)
-			if(!target.density)
+			if(target && !target.density)
 				walk_to(kickWhat,target)
 	else
 		if(do_roll(1,20,playerData.str.statCur) >= carrying.weight + carrying.size)
