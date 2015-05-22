@@ -207,9 +207,9 @@
 			var/t = input("Throw at what") as null|anything in filterList(/atom/movable,oview(max(playerData.str.statCur - (carrying.weight + carrying.size),1)))
 			if(t)
 				carrying.thrownTarget = t
-				dropObj(src)
 				carrying.thrown = TRUE
 				addProcessingObject(carrying)
+				dropObj(src)
 
 /mob/player/verb/dropObj()
 	set name = "Drop"
