@@ -1,6 +1,6 @@
 /datum/material
 	var/name = "default material"
-	var/color = "red"
+	var/color = "#FF0000"
 	var/matLevel = 1 // 1 - 10
 	var/addedWeight = 0
 	var/addedForce = 0
@@ -19,6 +19,7 @@
 	var/datum/material/sickterial = new mat1
 
 	for(var/i = 0, i < 5,i++)
+		world << sickterial.color
 		var/mat2 = getRandomMaterial()
 		sickterial = combineMaterials(sickterial, new mat2)
 
@@ -59,7 +60,7 @@
 	combined.matLevel = first.matLevel + second.matLevel
 	//combined.name = "[first]-[second]" //Sick naming
 	combined.name = alloyname(first.name,second.name)
-	combined.color = BlendRGBasHSV(first.color,second.color)
+	combined.color = BlendRGBasHSV(first.color,second.color,0.5)
 	combined.addedWeight = round((first.addedWeight + second.addedWeight)/2)
 	combined.addedForce = round((first.addedForce + second.addedForce)/2)
 	return combined
@@ -72,37 +73,37 @@
 
 /datum/material/default //Wat
 	name = "default" //Kill yourself
-	color = "white"
+	color = "#FFFFFF"
 	addedWeight = 0
 	matLevel = 10
 	addedForce = 0
 
 /datum/material/wood1
 	name = "hearthwood"
-	color = "brown"
+	color = "#8B4513"
 	addedWeight = 0
 	addedForce = 1
 
 /datum/material/nature1
 	name = "hearthbush"
-	color = "green"
+	color = "#556B2F"
 	addedWeight = 0
 	addedForce = 1
 
 /datum/material/mineral1
 	name = "erdestein"
-	color = "grey"
+	color = "#696969"
 	addedWeight = 1
 	addedForce = 2
 
 /datum/material/iron
 	name = "ferrum"
-	color = "gray"
+	color = "#808080"
 	addedWeight = 1
 	addedForce = 2
 
 /datum/material/conducting
 	name = "conductium"
-	color = "orange"
+	color = "#D2691E"
 	addedWeight = 1
 	addedForce = 2
