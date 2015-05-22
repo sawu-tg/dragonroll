@@ -168,11 +168,11 @@
 	set name = "Lift"
 	set src = usr
 	var/atom/movable/lifted = input("Pick up what?") as null|anything in filterList(/atom/movable/,oview(1))
-	if(!Adjacent(lifted))
-		displayTo("[lifted] is too far away!",src,lifted)
-		return
 	if(lifted)
 		if(lifted.anchored || lifted == carrying || lifted.carriedBy == src)
+			return
+		if(!Adjacent(lifted))
+			displayTo("[lifted] is too far away!",src,lifted)
 			return
 		if(do_roll(1,20,playerData.str.statCur) >= lifted.weight + lifted.size)
 			lifted.myOldLayer = lifted.layer
