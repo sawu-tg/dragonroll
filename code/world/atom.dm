@@ -25,36 +25,42 @@
 	var/turf/lastTurf
 
 //done as the atom is added to the processing list
-/atom/movable/proc/preProc()
-	if(thrown)
-		density = 0
+/atom/proc/preProc()
+	if(istype(src,/atom/movable))
+		var/atom/movable/A = src
+		if(A.thrown)
+			density = 0
 
 //done as the atom is removed from the processing list
-/atom/movable/proc/postProc()
-	if(!thrown)
-		density = 1
+/atom/proc/postProc()
+	if(istype(src,/atom/movable))
+		var/atom/movable/A = src
+		if(!A.thrown)
+			density = 1
 
 //the process of an object, ie regenerating lasers, food rotting etc
-/atom/movable/proc/doProcess()
-	if(beingCarried)
-		if(do_roll(1,20,carriedBy.playerData.str.statCur) >= weight + size)
-			loc = carriedBy.loc
-		else
-			displayInfo("You fumble and lose your strength, dropping the [carriedBy.carrying]!","[src] drops the [carrying]!",carriedBy,src)
-			beDropped()
-	if(thrown)
-		if(loc != thrownTarget:loc)
-			if(lastTurf == src.loc)
-				countedTimeout++
-			if(countedTimeout >= thrownTimeout)
-				thrown = FALSE
-				thrownTarget = null
-				countedTimeout = 0
-			step_to(src,thrownTarget)
-			lastTurf = src.loc
-		else
-			thrown = FALSE
-			thrownTarget = null
+/atom/proc/doProcess()
+	if(istype(src,/atom/movable))
+		var/atom/movable/A = src
+		if(A.beingCarried)
+			if(do_roll(1,20,A.carriedBy.playerData.str.statCur) >= A.weight + A.size)
+				A.loc = A.carriedBy.loc
+			else
+				displayInfo("You fumble and lose your strength, dropping the [A.carriedBy.carrying]!","[src] drops the [A.carrying]!",A.carriedBy,src)
+				A.beDropped()
+		if(A.thrown)
+			if(loc != A.thrownTarget:loc)
+				if(A.lastTurf == src.loc)
+					A.countedTimeout++
+				if(A.countedTimeout >= A.thrownTimeout)
+					A.thrown = FALSE
+					A.thrownTarget = null
+					A.countedTimeout = 0
+				step_to(src,A.thrownTarget)
+				A.lastTurf = src.loc
+			else
+				A.thrown = FALSE
+				A.thrownTarget = null
 
 /atom/movable/proc/beDropped()
 	if(beingCarried)

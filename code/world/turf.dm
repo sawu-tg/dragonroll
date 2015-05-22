@@ -72,7 +72,28 @@
 /turf/floor/outside/liquid
 	name = "liquid"
 	icon_state = "water"
-	density = 1
+	density = 0
+	var/depth = 5 //1 - 100
+
+/turf/floor/outside/liquid/New()
+	..()
+	depth = rand(1,100)
+	updateDepth()
+
+/turf/floor/outside/liquid/proc/updateDepth()
+	var/toRGB = depth*2.5
+	src.icon -= rgb(toRGB,toRGB,toRGB)
+
+/turf/floor/outside/liquid/Enter(atom/movable/O)
+	if(istype(O,/mob/player))
+		var/mob/player/P = O
+		if(P.playerData.dex.statCur-P.weight >= depth)
+			return 1
+		else
+			displayTo("[src] is too deep for you to wade in! ([P.playerData.dex.statCur-P.weight] v [depth])",P,src)
+			return 0
+	else
+		return 1
 
 /turf/floor/outside/liquid/water
 	name = "Water"

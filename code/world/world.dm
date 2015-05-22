@@ -73,7 +73,7 @@ var/list/levelNames = list()
 
 /proc/processObjects()
 	if(procObjects.len)
-		for(var/atom/movable/i in procObjects)
+		for(var/atom/i in procObjects)
 			i.doProcess()
 	spawn(1)
 		processObjects()
