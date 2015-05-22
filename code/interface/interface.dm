@@ -126,3 +126,20 @@
 		var/obj/A = P.selectedQuickSlot.contents[1]
 		A.objFunction(P)
 	P.refreshInterface()
+
+
+//throw
+/obj/interface/throwButton
+	name = "Throw/Kick Item"
+	desc = "Uses the held item (or kicks something)"
+	mouse_opacity = 1
+
+/obj/interface/throwButton/New(var/x,var/y,var/state="box",var/scale=32)
+	overlays.Cut()
+	overlays.Add(icon(icon=icon,icon_state="throw"))
+	..(x,y,state,scale)
+
+/obj/interface/throwButton/Click()
+	var/mob/player/P = usr
+	P.throwObj()
+	P.refreshInterface()

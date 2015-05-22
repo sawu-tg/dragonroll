@@ -206,10 +206,9 @@
 		if(do_roll(1,20,playerData.str.statCur) >= carrying.weight + carrying.size)
 			var/t = input("Throw at what") as null|anything in filterList(/atom/movable,oview(max(playerData.str.statCur - (carrying.weight + carrying.size),1)))
 			if(t)
-				carrying.thrownTarget = t
+				carrying.throw_at(t)
 				dropObj(src)
-				carrying.thrown = TRUE
-				addProcessingObject(carrying)
+
 
 /mob/player/verb/dropObj()
 	set name = "Drop"

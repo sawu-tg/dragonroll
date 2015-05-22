@@ -7,6 +7,7 @@
 	powerHeld = 1000
 	powerOn = TRUE
 	luminosity = 8
+	density = 0
 
 	var/datum/wiremodule/wires
 	var/image/tubeoverlay

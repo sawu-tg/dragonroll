@@ -73,6 +73,12 @@
 	else
 		objFunction(usr,P.activeHand())
 
+/atom/movable/proc/throw_at(var/target)
+	target = get_turf(target)
+	thrownTarget = target
+	thrown = TRUE
+	addProcessingObject(src)
+
 //the function of something when used, IE switching modes or reading books
 /atom/movable/proc/objFunction(var/mob/user,var/obj/item/with)
 	user << "You use [with ? "the [with] with" : ""] [name]"

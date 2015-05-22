@@ -111,6 +111,7 @@
 	screenObjs += new/obj/interface/dropButton(13,2,"box",32)
 	screenObjs += new/obj/interface/storeButton(11,2,"box",32)
 	screenObjs += new/obj/interface/useButton(12,2,"box",32)
+	screenObjs += new/obj/interface/throwButton(13,3,"box",32)
 
 /mob/proc/refreshInterface()
 	if(client)
