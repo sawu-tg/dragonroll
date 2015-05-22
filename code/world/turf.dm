@@ -43,12 +43,26 @@
 	..()
 	icon_state = "grass[rand(1,4)]"
 
+/turf/floor/outside/snow
+	name = "Snow"
+
+/turf/floor/outside/snow/New()
+	..()
+	icon_state = "snow[rand(1,3)]"
+
 /turf/floor/outside/dirt
 	name = "Dirt"
 
 /turf/floor/outside/dirt/New()
 	..()
 	icon_state = "asteroid[rand(1,5)]"
+
+/turf/floor/outside/dirt/lava
+	name = "Ashen Dirt"
+
+/turf/floor/outside/dirt/lava/New()
+	..()
+	icon_state = "ironsand[rand(1,15)]"
 
 /turf/floor/outside/shimmering
 	icon_state = "white"

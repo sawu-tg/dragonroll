@@ -1,4 +1,4 @@
-var/list/validBiomes = list(/datum/biome/grassland,/datum/biome/desert,/datum/biome/lavaland,/datum/biome/alienlab)
+var/list/validBiomes = list(/datum/biome/grassland,/datum/biome/desert,/datum/biome/lavaland,/datum/biome/alienlab,/datum/biome/snow)
 
 /datum/biome
 	var/name = "default"
@@ -39,8 +39,8 @@ var/list/validBiomes = list(/datum/biome/grassland,/datum/biome/desert,/datum/bi
 	name = "lava-land"
 	desc = "you don't even need a toaster for your bread!"
 
-	baseTurf = /turf/floor/outside/dirt
-	validTurfs = list(/turf/floor/outside/dirt)
+	baseTurf = /turf/floor/outside/dirt/lava
+	validTurfs = list(/turf/floor/outside/dirt/lava)
 	liquidSize = 6
 	validLiquids = list(/turf/floor/outside/liquid/lava)
 	validDebris = list(/obj/interact/nature/rock)
@@ -55,3 +55,13 @@ var/list/validBiomes = list(/datum/biome/grassland,/datum/biome/desert,/datum/bi
 	liquidSize = 9
 	validDebris = list(/turf/wall/shimmering)
 	validMobs = list(/mob/player/npc/grey)
+
+/datum/biome/snow
+	name = "tundra"
+	desc = "frosty the generic holiday character may be here."
+
+	baseTurf = /turf/floor/outside/snow
+	validTurfs = list(/turf/floor/outside/snow)
+	liquidSize = 0
+	validDebris = list(/obj/interact/nature/tree/snow,/obj/interact/nature/bush/snow)
+	validMobs = list(/mob/player/npc/colonist)

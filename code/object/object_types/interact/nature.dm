@@ -22,6 +22,14 @@
 /obj/interact/nature/bush/New()
 	icon_state = "grassybush_[rand(1,4)]"
 
+/obj/interact/nature/bush/snow
+	name = "snowy small bush"
+	desc = "Needs a bit of a trim."
+	icon = 'sprite/world/snowflora.dmi'
+
+/obj/interact/nature/bush/snow/New()
+	icon_state = "snowbush[rand(1,6)]"
+
 /obj/interact/nature/rock
 	name = "small rock"
 	desc = "Do not bang your head on this."
@@ -46,3 +54,13 @@
 
 /obj/interact/nature/tree/New()
 	icon_state = "tree_[rand(1,6)]"
+
+/obj/interact/nature/tree/snow
+	name = "snowy tree"
+	desc = "it's seen warmer days"
+	icon = 'sprite/world/deadtrees.dmi'
+	icon = 'sprite/world/pinetrees.dmi'
+	harvestables = list(/obj/loot/nature/log = 1,/obj/loot/nature/stick = 4,/obj/loot/nature/leaf = 4)
+
+/obj/interact/nature/tree/snow/New()
+	icon_state = "pine_[rand(1,3)]"
