@@ -14,6 +14,8 @@
 	var/npcState = NPCSTATE_IDLE
 	var/npcNature = NPCTYPE_PASSIVE
 
+	speed = 2
+
 	var/target
 	var/turf/lastPos
 	var/list/inView = list()
@@ -45,7 +47,7 @@
 			npcState = NPCSTATE_IDLE
 			target = null
 		if(!(target in inRange))
-			walk_to(src,target,0,0,speed)
+			walk_to(src,target,0,speed)
 			timeSinceLast = 0
 		else
 			target = null

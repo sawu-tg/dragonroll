@@ -13,7 +13,7 @@
 
 		for(var/a in provided)
 			var/t = a:type
-			if(locate(t) in converted)
+			if(converted[t])
 				converted[t] = converted[t] + 1
 			else
 				converted[t] = 1
@@ -45,11 +45,13 @@
 			for(var/i = 0; i < product[a]; i++)
 				var/obj/na = new a(crafter.loc)
 				var/list/found = list()
+				var/list/cloneProv = provided.Copy(0,provided.len+1)
 				for(var/m in materials)
-					for(var/c = 0; c < materials[m]; c++)
-						var/b = locate(m) in provided
+					for(var/c = 0; c <= materials[m]; c++)
+						var/b = locate(m) in cloneProv
 						if(b)
 							found += b
+							cloneProv -= b
 				if(found.len)
 					var/obj/first = found[1]
 					var/obj/second = found.len >= 2 ? found[2] : found[1]

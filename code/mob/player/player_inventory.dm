@@ -3,20 +3,23 @@
 ///
 
 /mob/player/proc/addToInventory(var/obj/item/what)
-	playerInventory += what
-	what.loc = src
-	return what
+	if(what)
+		playerInventory += what
+		what.loc = src
+		return what
 
 /mob/player/proc/inventoryContains(var/obj/item/what)
-	for(var/obj/item/a in playerInventory)
-		if(a.uuid == what.uuid)
-			return TRUE
+	if(what)
+		for(var/obj/item/a in playerInventory)
+			if(a.uuid == what.uuid)
+				return TRUE
 	return FALSE
 
 /mob/player/proc/remFromInventory(var/obj/item/what)
-	playerInventory -= what
-	what.loc = src.loc
-	return what
+	if(what)
+		playerInventory -= what
+		what.loc = src.loc
+		return what
 
 ///
 // Hand management

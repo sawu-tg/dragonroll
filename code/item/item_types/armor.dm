@@ -134,3 +134,25 @@
 	icon = 'sprite/clothing/head.dmi'
 	icon_state = "corgi_hood"
 	stats = list("Mana" = 10, "Wisdom" = 5)
+
+///
+// ACTUAL FUCKING GAME ARMOR
+///
+
+/obj/item/armor/jerkin
+	name = "leather jerkin"
+	slot = "chest"
+	icon = 'sprite/clothing/tg/uniform.dmi'
+	icon_state = "brown_s"
+
+/obj/item/armor/leather_boot_left
+	name = "leather shoe left"
+	slot = "l_foot"
+	icon = 'sprite/clothing/feet.dmi'
+	icon_state = "winterboots_l"
+
+/obj/item/armor/leather_boot_right
+	name = "leather shoe right"
+	slot = "r_foot"
+	icon = 'sprite/clothing/feet.dmi'
+	icon_state = "winterboots_r"

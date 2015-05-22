@@ -22,11 +22,16 @@
 	addProcessingObject(src)
 	selectedQuickSlot = leftHand
 	randomise()
-
 	set_light(6)
-
-	//light = new(src, 6)
-	//light.loc = src.loc
+	var/obj/item/armor/jerkin/J = new
+	var/obj/item/armor/leather_boot_left/LBL = new
+	var/obj/item/armor/leather_boot_right/LBR = new
+	addToInventory(LBL)
+	addToInventory(LBR)
+	addToInventory(J)
+	equipItem(J)
+	equipItem(LBL)
+	equipItem(LBR)
 	..()
 
 /mob/player/verb/relocate()
