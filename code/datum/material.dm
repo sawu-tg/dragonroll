@@ -71,7 +71,7 @@
 ///
 
 /datum/material/default //Wat
-	name = "defaultium"
+	name = "default" //Kill yourself
 	color = "white"
 	addedWeight = 0
 	matLevel = 10
