@@ -167,7 +167,8 @@
 /mob/player/verb/liftObj()
 	set name = "Lift"
 	set src = usr
-	var/atom/movable/lifted = input("Pick up what?") as null|anything in filterList(/atom/movable/,oview(1))
+	var/excluded = list(src,carrying)
+	var/atom/movable/lifted = input("Pick up what?") as null|anything in filterList(/atom/movable/,oview(1),excluded)
 	if(lifted)
 		if(lifted.anchored || lifted == carrying || lifted.carriedBy == src)
 			return
