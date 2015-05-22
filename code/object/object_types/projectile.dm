@@ -45,6 +45,11 @@
 	desc = "Goodness gracious, great blasts of fire!"
 	icon_state = "effect_projectile_fire"
 
+	New()
+		set_light(3,2,"#FF5500")
+
+		..()
+
 /obj/projectile/fireball/purple
 	icon_state = "effect_projectile_purplefire"
 

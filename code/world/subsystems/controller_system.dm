@@ -41,7 +41,8 @@
 							timer = world.timeofday
 							cpu = world.cpu
 							C.last_fire = world.time
-							C.doProcess()
+							spawn(0)
+								C.doProcess()
 							C.cpu = MC_AVERAGE(C.cpu,world.cpu - cpu)
 							C.cost = MC_AVERAGE(C.cost, world.timeofday - timer)
 							sleep(-1)
