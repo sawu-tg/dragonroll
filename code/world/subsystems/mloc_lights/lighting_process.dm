@@ -23,7 +23,7 @@ var/list/lighting_update_overlays = list()
 				L.force_update = 0
 			L.needs_update = 0
 
-		scheck()
+		//scheck()
 
 	lighting_update_lights.Cut()
 
@@ -32,6 +32,6 @@ var/list/lighting_update_overlays = list()
 			O.update_overlay()
 			O.needs_update = 0
 
-		scheck()
+		//scheck()
 
 	lighting_update_overlays.Cut()
