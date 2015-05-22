@@ -47,10 +47,10 @@
 	..()
 
 /mob/Move(var/atom/newLoc)
+	if(!newLoc)
+		return
 	if(canMove && !newLoc.density)
 		..()
-	else
-		return
 
 /client/Click(var/clickedOn)
 	if(mob)

@@ -353,8 +353,16 @@
 		if(!playerData.playerAbilities.Find(s))
 			playerSpellHolders.Remove(s)
 
-	for(var/A in playerData.playerAbilities)
-		addPlayerAbility(new A)
+	abilLoop:
+		for(var/A in playerData.playerAbilities)
+			//prevent duplicates
+			for(var/obj/spellHolder/SH in playerSpellHolders)
+				if(SH.heldAbility.type == A)
+					continue abilLoop
+
+			if(ispath(A))
+				addPlayerAbility(new A)
+
 
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////

@@ -26,6 +26,7 @@
 #include "code\datum\stat.dm"
 #include "code\datum\timer.dm"
 #include "code\datum\wiremodule.dm"
+#include "code\helpers\misc.dm"
 #include "code\interface\interface.dm"
 #include "code\interface\skin.dmf"
 #include "code\item\item.dm"

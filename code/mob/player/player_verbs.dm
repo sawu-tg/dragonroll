@@ -167,23 +167,24 @@
 /mob/player/verb/liftObj()
 	set name = "Lift"
 	set src = usr
-	var/what = input("Pick up what?") as null|anything in filterList(/atom/movable/,oview(1))
-	if(what)
-		if(what:anchored)
+	var/atom/movable/lifted = input("Pick up what?") as null|anything in filterList(/atom/movable/,oview(1))
+	if(!Adjacent(lifted))
+		displayTo("[lifted] is too far away!",src,lifted)
+		return
+	if(lifted)
+		if(lifted.anchored || lifted == carrying || lifted.carriedBy == src)
 			return
-		var/atom/movable/a = what
-		var/mob/player/m = src
-		if(do_roll(1,20,m.playerData.str.statCur) >= a.weight + a.size)
-			a.myOldLayer = a.layer
-			a.myOldPixelY = a.pixel_y
-			a.layer = LAYER_OVERLAY
-			a.pixel_y = a.pixel_y + 10
-			a.beingCarried = TRUE
-			a.carriedBy = m
-			m.carrying = a
-			addProcessingObject(a)
+		if(do_roll(1,20,playerData.str.statCur) >= lifted.weight + lifted.size)
+			lifted.myOldLayer = lifted.layer
+			lifted.myOldPixelY = lifted.pixel_y
+			lifted.layer = LAYER_OVERLAY
+			lifted.pixel_y = lifted.pixel_y + 10
+			lifted.beingCarried = TRUE
+			lifted.carriedBy = src
+			carrying = lifted
+			addProcessingObject(lifted)
 		else
-			displayTo("You can't quite seem to pick [a] up!",m,a)
+			displayTo("You can't quite seem to pick [lifted] up!",src,lifted)
 
 /mob/player/verb/throwObj()
 	set name = "Throw/Kick"
@@ -191,22 +192,21 @@
 	if(!carrying)
 		var/list/excluded = list(src)
 		excluded |= src.contents
-		var/kickWhat = input("What do you want to kick?") as null|anything in filterList(/atom/movable/,view(1),excluded)
+		var/atom/movable/kickWhat = input("What do you want to kick?") as null|anything in filterList(/atom/movable/,view(1),excluded)
 		if(kickWhat)
-			if(kickWhat:anchored)
+			if(kickWhat.anchored)
 				return
-			var/target = step(kickWhat,usr.dir)
-			walk_to(kickWhat,target)
+			var/turf/target = get_step(kickWhat,usr.dir)
+			if(!target.density)
+				walk_to(kickWhat,target)
 	else
-		var/atom/movable/a = carrying
-		var/mob/player/m = src
-		if(do_roll(1,20,m.playerData.str.statCur) >= a.weight + a.size)
-			var/t = input("Throw at what") as null|anything in filterList(/atom/movable,oview(max(m.playerData.str.statCur - (a.weight + a.size),1)))
+		if(do_roll(1,20,playerData.str.statCur) >= carrying.weight + carrying.size)
+			var/t = input("Throw at what") as null|anything in filterList(/atom/movable,oview(max(playerData.str.statCur - (carrying.weight + carrying.size),1)))
 			if(t)
-				a.thrownTarget = t
-				dropObj(m)
-				a.thrown = TRUE
-				addProcessingObject(a)
+				carrying.thrownTarget = t
+				dropObj(src)
+				carrying.thrown = TRUE
+				addProcessingObject(carrying)
 
 /mob/player/verb/dropObj()
 	set name = "Drop"
