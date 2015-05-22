@@ -59,8 +59,8 @@
 	//	light.off()
 	//light.update()
 
-	if(powerOn)
-		set_light(12 * powerOn,4,tubelight)
+	//if(powerOn)
+	set_light(12 * powerOn,4,tubelight)
 
 	wires.set_wiresignal("On",powerOn)
 	updateIcon()
