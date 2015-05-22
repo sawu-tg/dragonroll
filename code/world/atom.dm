@@ -63,7 +63,7 @@
 
 /atom/movable/Click()
 	var/mob/player/P = usr
-	if(get_dist(P,src) > 1)
+	if(!Adjacent(P))
 		return
 	if(P.activeHandEmpty())
 		if(!prevent_pickup && !anchored)
