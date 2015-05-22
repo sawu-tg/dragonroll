@@ -2,7 +2,7 @@
 	var/raceName = "raceless"
 	var/raceDesc = "pretty bad"
 
-	var/list/icon_prefix = "caucasian1"
+	var/list/icon_prefix = list("caucasian1") //REEEEEEEEEEEEEEEEEE
 	var/raceEyes = "eyes"
 	var/list/race_overlays = list()
 	var/shouldColorRace = FALSE
@@ -16,6 +16,8 @@
 	var/wis_mod = 0
 	var/int_mod = 0
 	var/cha_mod = 0
+
+	var/list/slots = list()
 
 /datum/race/Human
 	raceName = "Human"
