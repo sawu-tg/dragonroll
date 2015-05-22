@@ -198,6 +198,8 @@
 			if(kickWhat.anchored)
 				return
 			var/turf/target = get_step(kickWhat,usr.dir)
+			if(src in target)
+				return
 			if(target && !target.density)
 				walk_to(kickWhat,target)
 	else
