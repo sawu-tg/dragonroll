@@ -10,5 +10,3 @@ var/list/globalMachines = list()
 /datum/controller/doProcess()
 	for(var/obj/structure/powered/A in globalMachines)
 		A.process()
-
-		scheck()

@@ -72,7 +72,6 @@ datum/wirenode
 			disconnect_all()
 
 		connected |= othernode
-		set_value(value)
 
 		if(direct)
 			world << "connecting other side"
@@ -86,7 +85,6 @@ datum/wirenode
 		//if(connected)
 		//	disconnect()
 
-		set_value(0)
 		connected -= othernode
 
 		if(direct)
