@@ -8,7 +8,7 @@
 /turf/wall
 	icon = 'sprite/world/walls.dmi'
 	icon_state = "0"
-	density = 0
+	density = 1
 	opacity = 1
 	anchored = 1
 	var/walltype = "metal"

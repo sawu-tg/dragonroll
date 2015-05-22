@@ -274,12 +274,13 @@ var/list/levelNames = list()
 			var/turf/T = locate(a,b,zLevel)
 			if(a == x/2 && b == y/2)
 				if(!T.light)
-					//T.light = new(T,world.maxx,world.maxx)
-					T.set_light(world.maxx,world.maxx) //This doesn't quite work.
-					globalSuns += T
 					var/obj/trigger/portal/P = new/obj/trigger/portal(T)
+					for(var/turf/D in range(P,5))
+						D = new chosenBiome.baseTurf(D)
 					P.name = "[levelNames[zLevel]] the [chosenBiome.name]"
 					P.safe = FALSE
+					T.set_light(world.maxx,world.maxx) //This doesn't quite work.
+					globalSuns += T
 			else
 				if(prob(decoChance))
 					if(!(T.type in chosenBiome.validLiquids))

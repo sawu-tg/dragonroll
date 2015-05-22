@@ -7,15 +7,23 @@
 	icon = 'sprite/obj/items.dmi'
 	desc = "makes things"
 	anchored = 1
+	var/ofType
+
+/obj/buildable/objFunction(var/mob/user)
+	new ofType(src.loc)
+	del(src)
 
 /obj/buildable/woodenWall
 	name = "wooden wall parts"
 	desc = "It would keep things out if you actually built it."
 	icon_state = "wood_tableparts"
+	ofType = /turf/wall/woodWall
 
-/obj/buildable/woodenWall/objFunction(var/mob/user)
-	new/turf/wall/woodWall(src.loc)
-	del(src)
+/obj/buildable/woodenDoor
+	name = "wooden door parts"
+	desc = "It would keep things out if you actually built it."
+	icon_state = "wood_tableparts"
+	ofType = /obj/structure/door
 
 
 ///

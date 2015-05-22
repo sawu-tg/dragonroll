@@ -98,6 +98,7 @@
 	powerShare = 100
 	powerHeld = 150 // have some buffer for electrical transfer
 	powerNeeded = 0
+	density = 0
 	var/d1
 	var/d2
 	var/d3
