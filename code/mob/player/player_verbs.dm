@@ -228,3 +228,10 @@
 	else
 		intent = 1
 	displayTo("Your intent is now [intent2string()]",src,src)
+
+/mob/player/verb/leap()
+	set name = "Leap to"
+	set desc = "Attempts to leap towards a target"
+	var/t = input("Leap at what") as null|anything in filterList(/atom/movable,oview(max( (playerData.str.statCur+playerData.dex.statCur)/src.weight ,1)))
+	if(t)
+		src.throw_at(t)

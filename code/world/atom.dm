@@ -10,15 +10,19 @@
 	// weight is a number between 1 and 10, and is checked against the STR score of a player trying to pick it up. 1d20 vs (weight + size)
 	var/size = 0
 	var/weight = 0
-
-	var/thrown = FALSE
-	var/thrownTarget
 	var/beingCarried = FALSE
 	var/mob/player/carriedBy
 	var/atom/movable/carrying
 	var/myOldLayer = 0
 	var/myOldPixelY = 0
 	var/prevent_pickup = 0
+
+	//throwing stuff
+	var/thrown = FALSE
+	var/thrownTarget
+	var/thrownTimeout = 30
+	var/countedTimeout = 0
+	var/turf/lastTurf
 
 //done as the atom is added to the processing list
 /atom/movable/proc/preProc()
@@ -40,7 +44,14 @@
 			beDropped()
 	if(thrown)
 		if(loc != thrownTarget:loc)
+			if(lastTurf == src.loc)
+				countedTimeout++
+			if(countedTimeout >= thrownTimeout)
+				thrown = FALSE
+				thrownTarget = null
+				countedTimeout = 0
 			step_to(src,thrownTarget)
+			lastTurf = src.loc
 		else
 			thrown = FALSE
 			thrownTarget = null
