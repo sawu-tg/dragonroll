@@ -78,7 +78,7 @@
 /turf/floor/outside/liquid/New()
 	..()
 	depth = rand(1,100)
-	updateDepth()
+	//updateDepth()
 
 /turf/floor/outside/liquid/proc/updateDepth()
 	var/toRGB = depth*2.5

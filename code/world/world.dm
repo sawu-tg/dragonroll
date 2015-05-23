@@ -252,6 +252,10 @@ var/list/levelNames = list()
 	else
 		levelNames.Add(generateName(0))
 
+	var/tilesBetweenLiquid = 1024
+	var/tile2LiquidCounter = 0
+
+	world << "<i>GENERATING TURFS ON Z[zLevel]..</i>"
 	for(var/a = 1; a <= x; ++a)
 		for(var/b = 1; b <= y; ++b)
 			if(zLevel == 1)
@@ -262,11 +266,37 @@ var/list/levelNames = list()
 				for(var/turf/T2 in range(T,rand(0,turfScale)))
 					var/turf/T3 = pick(chosenBiome.validTurfs)
 					T2 = new T3(T2)
+
+	world << "<i>GENERATING LIQUIDS ON Z[zLevel]..</i>"
+	var/list/liqMade = list()
+	for(var/a = 1; a <= x; ++a)
+		for(var/b = 1; b <= y; ++b)
+			if(zLevel == 1)
+				continue
+			var/turf/T = locate(a,b,zLevel)
 			if(chosenBiome.validLiquids.len)
-				if(prob(lowestChance))
-					for(var/turf/T2 in range(T,rand(0,liquidScale)))
-						var/turf/T3 = pick(chosenBiome.validLiquids)
-						T2 = new T3(T2)
+				if(prob(lowestChance) && tile2LiquidCounter <= 0)
+					tile2LiquidCounter = tilesBetweenLiquid
+					for(var/i = liquidScale; i > 0; --i)
+						for(var/turf/T2 in circle(T,i))
+							var/turf/T3 = pick(chosenBiome.validLiquids)
+							var/turf/floor/outside/liquid/T4 = new T3(T2)
+							T4.depth = 100 - (10*i)
+							T4.updateDepth()
+							liqMade |= T4
+				if(tile2LiquidCounter > 0)
+					tile2LiquidCounter--
+
+	world << "<i>ERODING LIQUIDS ON Z[zLevel]..</i>"
+	for(var/turf/floor/outside/liquid/EL in liqMade)
+		if(prob(liquidScale))
+			for(var/T in circle(EL,1))
+				if(istype(T,/turf/floor/outside/liquid))
+					var/turf/T2 = pick(chosenBiome.validTurfs)
+					EL = new T2(T)
+
+
+	world << "<i>GENERATING DECORATIONS ON Z[zLevel]..</i>"
 	for(var/a = 1; a <= x; ++a)
 		for(var/b = 1; b <= y; ++b)
 			if(zLevel == 1)
