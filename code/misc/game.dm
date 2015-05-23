@@ -81,7 +81,7 @@ var/list/alldirs = list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAS
 
 /proc/FloodFill(var/datum/start, var/proc/adjacency)
 	var/list/visited = list()
-	var/list/rlist = list()
+	. = list()
 	visited |= start
 
 	var/i = 1
@@ -89,8 +89,6 @@ var/list/alldirs = list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAS
 		var/T = visited[i]
 		//visited -= T
 		if(T)
-			rlist |= T
+			. |= T
 			visited |= call(adjacency)(T)
 		i++
-
-	return rlist
