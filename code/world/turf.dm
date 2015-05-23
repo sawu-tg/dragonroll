@@ -78,11 +78,9 @@
 /turf/floor/outside/liquid/New()
 	..()
 	depth = rand(1,100)
-	//updateDepth()
 
 /turf/floor/outside/liquid/proc/updateDepth()
-	var/toRGB = depth*2.5
-	src.icon -= rgb(toRGB,toRGB,toRGB)
+	alpha = 255 - depth*2
 
 /turf/floor/outside/liquid/Enter(atom/movable/O)
 	if(istype(O,/mob/player))

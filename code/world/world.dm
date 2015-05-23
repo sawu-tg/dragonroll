@@ -278,7 +278,7 @@ var/list/levelNames = list()
 						for(var/turf/T2 in circle(T,i))
 							var/turf/T3 = pick(chosenBiome.validLiquids)
 							var/turf/floor/outside/liquid/T4 = new T3(T2)
-							T4.depth = 100 - (10*i)
+							T4.depth = 100 - (15*i)
 							T4.updateDepth()
 							liqMade |= T4
 				if(tile2LiquidCounter > 0)
