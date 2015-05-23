@@ -128,3 +128,25 @@
 		wires.set_wiresignal("Out",inputA ^ inputB)
 
 		..()
+
+/obj/item/logicgate/constant
+	name = "Constant crystal"
+	gatecolor = "#FF0000"
+	icon_state = "constant"
+
+	inputs = 0
+	outputs = 1
+
+	var/keepvalue = 1
+
+/obj/item/logicgate/constant/objFunction(var/mob/user,var/obj/item/with)
+	if(istype(with,/obj/item/powerdevice/wiretool))
+		var/obj/item/powerdevice/wiretool/WT = with
+		WT.default_wire_action(user,wires)
+	else
+		keepvalue = input("Adjust the output value of this crystal","Output Strength",usr.gender) as num
+
+		if(!keepvalue)
+			keepvalue = 0
+
+		wires.set_wiresignal("Out",keepvalue)
