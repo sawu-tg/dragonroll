@@ -72,3 +72,25 @@ var/list/alldirs = list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAS
 		return AM
 	else
 		return get_outermost_atom(AM.loc)
+
+/proc/is_type_in_list(var/atom/A, var/list/L)
+	for(var/type in L)
+		if(istype(A, type))
+			return 1
+	return 0
+
+/proc/FloodFill(var/datum/start, var/proc/adjacency)
+	var/list/visited = list()
+	var/list/rlist = list()
+	visited |= start
+
+	var/i = 1
+	while(visited.len > 0 && i <= visited.len)
+		var/T = visited[i]
+		//visited -= T
+		if(T)
+			rlist |= T
+			visited |= call(adjacency)(T)
+		i++
+
+	return rlist
