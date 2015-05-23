@@ -79,14 +79,14 @@ This is a list of current (and planned) features in dragonroll (in no particular
 | - Item Base | Done |
 | - Item Functions | Basic |
 | - Item Interaction | Basic |
-| - Weapons | None |
-| - Tools | None |
+| - Weapons | Very Basic |
+| - Tools | Very Basic |
 | **Sandbox** | Basic |
 | - Obj/Item/Mob Interaction | Basic |
-| - Crafting | None |
+| - Crafting | Basic |
 | - Character Profiles | Mostly Done |
 | - Races | Done |
-| - Map | Very Basic |
+| - Map | Basic |
 | - Triggers | None |
 
 Contributing Users
