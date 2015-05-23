@@ -43,6 +43,11 @@
 
 /mob/player/verb/playerSheet()
 	set name = "View Player Sheet"
+	showPlayerSheet(src)
+
+/mob/player/proc/showPlayerSheet(var/mob/toWho)
+	if(!toWho)
+		toWho = src
 	var/html = "<title>Player Sheet</title><html><center>[parseIcon(src.client,src,FALSE)]<br><body style='background:grey'>"
 	html += "<b>Name</b>: [playerData.playerName][hasReroll ? " - <a href=?src=\ref[src];function=name><i>Change</i></a>" : ""]<br>"
 	html += "<b>Gender</b>: [playerData.returnGender()][hasReroll ? " - <a href=?src=\ref[src];function=gender><i>Change</i></a>" : ""]<br>"
@@ -62,7 +67,7 @@
 			html += "<b>[S.statName]</b>: [S.statModified]<br>"
 	html += "[hasReroll ? "<a href=?src=\ref[src];function=statroll><b>Reroll Stats</b></a> <a href=?src=\ref[src];function=statkeep><b>Keep Stats</b></a>" : ""]<br>"
 	html += "</body></center></html>"
-	src << browse(html,"window=playersheet")
+	toWho << browse(html,"window=playersheet")
 
 /mob/verb/forceRefreshInterface()
 	set name = "Refresh Interface"

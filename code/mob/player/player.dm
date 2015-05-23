@@ -470,3 +470,6 @@
 		if("statkeep")
 			hasReroll = FALSE
 			src.playerSheet()
+		if("examine")
+			var/mob/player/P = locate(href_list["what"])
+			P.showPlayerSheet(src)

@@ -1,7 +1,9 @@
 /atom/proc/examine(mob/user)
-	var/f_name = "\a [src]"
-
-	user << "[parseIcon(user,src)] That's [f_name]"
+	if(istype(user,/mob/player))
+		var/f_name = "\a [src]"
+		var/mob/player/P = src
+		user << "That's <a href=?src=\ref[user];function=examine;what=\ref[P]><b>[f_name]</b></a>"
+		user << "He looks [P.playerData.hp.statCur > P.playerData.hp.statMax/2 ? "Healthy" : "Hurt"]"
 
 	if(desc)
 		user << " > [desc]"

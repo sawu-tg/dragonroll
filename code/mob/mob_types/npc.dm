@@ -21,12 +21,16 @@
 	var/list/inView = list()
 	var/list/inRange = list()
 
+	var/list/firstName = list("Steve","John","Reggie","Oswald","Daniel","Delilah","Rudy","Christine","Chad","Roma","Jessy","Mike","Gabe")
+	var/list/secondName  = list("Smith","Rivers","Bombastic","Donalds","Stevens","Black","McRand","Compton","Chadswick","Hunt","Horn")
+
 	New()
 		..()
+		name = "[pick(firstName)] [pick(secondName)]"
 		if(forceRace)
 			spawn(1)
 				raceChange(forceRace,TRUE)
-				nameChange(name)
+		nameChange(name)
 		addProcessingObject(src)
 
 /mob/player/npc/doProcess()
