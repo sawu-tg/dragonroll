@@ -11,6 +11,8 @@
 	if(playerData.hp.statCur <= 0)
 		if(canMove)
 			canMove = FALSE
+	if(canMove && !checkFlag(ACTIVE_STATE_DAZED))
+		speed = actualSpeed
 	if(playerData.hp.statCur < 0 && playerData.hp.statCur > playerData.hp.statMin)
 		if(lastBleed <= 0)
 			takeDamage(1,DTYPE_DIRECT)

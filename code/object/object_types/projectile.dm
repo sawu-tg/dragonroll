@@ -9,6 +9,7 @@
 	var/guided = FALSE
 	var/atom/target
 	var/damage = 1
+	var/effect = 0
 
 /obj/projectile/New(var/atom/at)
 	if(guided)
@@ -20,6 +21,7 @@
 /obj/projectile/proc/doProjAct(var/atom/what)
 	if(istype(what,/mob/player))
 		var/mob/player/P = what
+		mobAddFlag(P,ACTIVE_STATE_DAZED,damage,TRUE)
 		P.playerData.hp.change(damage)
 	del(src)
 
@@ -40,21 +42,22 @@
 
 //projectiles
 
-/obj/projectile/fireball
-	name = "Fire blast"
-	desc = "Goodness gracious, great blasts of fire!"
-	icon_state = "effect_projectile_fire"
+/obj/projectile/manablast
+	name = "Mana blast"
+	desc = "Goodness gracious, great blasts of mana!"
+	icon = 'sprite/obj/projectiles.dmi'
+	icon_state = "heavylaser"
 
 	New()
 		set_light(3,2,"#FF5500")
-
 		..()
 
-/obj/projectile/fireball/purple
-	icon_state = "effect_projectile_purplefire"
+/obj/projectile/healingblast
+	name = "Healing blast"
+	desc = "Delicious heals!"
+	icon = 'sprite/obj/projectiles.dmi'
+	icon_state = "ion"
 
-/obj/projectile/fireball/blue
-	icon_state = "effect_projectile_bluefire"
-
-/obj/projectile/fireball/green
-	icon_state = "effect_projectile_greenfire"
+	New()
+		set_light(3,2,"#FF5500")
+		..()

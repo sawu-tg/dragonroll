@@ -20,6 +20,8 @@
 	var/abilityModifier = 1 //how much HP the ability takes/gives, abilityModifier*abilityLevel
 
 	var/abilityRange = 3 // range(abilityRange)
+	var/abilityHitsPlayers = FALSE // ensures the abilty finds a player
+	var/abilityEffect = 0 // the flag which the ability will apply on the target
 
 	var/abilityCooldownTimer = 0 // counter used to calculate cds
 	var/abilityHasPenalty = FALSE
@@ -72,6 +74,10 @@
 
 /datum/ability/proc/Cast(var/mob/player/caster,var/target)
 	abilityCooldownTimer = abilityCooldown
+	if(abilityHitsPlayers)
+		target = locate(/mob/player) in target:loc
+	if(!target && abilityHitsPlayers)
+		return
 	if(abilityAoe != 0)
 		var/max = abilityAoe < 0 ? -abilityAoe : abilityAoe
 		var/counter
@@ -83,6 +89,7 @@
 		if(abilityProjectile && target != caster)
 			var/obj/projectile/p = new abilityProjectile(target)
 			p.loc = caster.loc
+			p.effect = abilityEffect
 			if(abilityModifier > 0)
 				p.damage = do_roll(1,abilityModifier*abilityLevel)
 			else
@@ -90,10 +97,12 @@
 		else
 			if(istype(target,/mob/player))
 				var/mob/player/P = target
+				mobAddFlag(P,ACTIVE_STATE_DAZED,abilityModifier*abilityLevel,TRUE)
 				if(abilityModifier > 0)
+					F_damage(P,abilityModifier*abilityLevel,rgb(0,255,0))
 					P.playerData.hp.change(do_roll(1,abilityModifier*abilityLevel))
 				else
-					P.playerData.hp.change(-do_roll(1,-abilityModifier*abilityLevel))
+					P.takeDamage(-do_roll(1,abilityModifier*abilityLevel))
 	cooldownHandler |= src
 
 /datum/ability/proc/postCast(var/mob/player/caster,var/target)
@@ -140,36 +149,3 @@
 		mobHolding.client.mouse_pointer_icon = image(icon='sprite/obj/ability.dmi',icon_state="all")
 
 //ABILITIES
-/datum/ability/fireball
-	name = "Fireball"
-	desc = "Shoots a ball of fire"
-	abilityRange = 8
-	abilityModifier = -2
-	abilityCooldown = 5*60
-	abilityState = "staff"
-	abilityIconSelf = /obj/effect/pow
-	abilityProjectile = /obj/projectile/fireball/blue
-	abilityIconTarget = /obj/effect/target
-
-/datum/ability/firewall
-	name = "Firewall"
-	desc = "Expells a blastwave of flames."
-	abilityRange = 8
-	abilityAoe = 2
-	abilityModifier = -2
-	abilityCooldown = 5*60
-	abilityState = "earth"
-	abilityIconSelf = /obj/effect/pow
-	abilityIconTarget = /obj/effect/aoe_tile/flame
-
-
-/datum/ability/heal
-	name = "Heal"
-	desc = "Heals a target"
-	abilityRange = 8
-	abilityModifier = 1
-	abilityCooldown = 1*60
-	abilityState = "wand"
-	abilityIconSelf = /obj/effect/pow
-	abilityProjectile = /obj/projectile/fireball/green
-	abilityIconTarget = /obj/effect/heal

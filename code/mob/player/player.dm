@@ -16,7 +16,8 @@
 	var/hasReroll = TRUE
 	size = 3
 	weight = 5
-	var/speed = 1
+	var/actualSpeed = 1 //the actual speed
+	var/speed = 1 // the speed they move at
 
 /mob/player/New()
 	addProcessingObject(src)
@@ -99,6 +100,7 @@
 
 /mob/player/proc/takeDamage(var/amount,var/type=DTYPE_BASIC)
 	var/damage = max(0,type == DTYPE_DIRECT ? amount : amount - playerData.def.statCur)
+	world << "[src] taking [damage]hp"
 	var/doDamage = FALSE
 	if(damage > playerData.con.statCur)
 		if(type == DTYPE_NONLETHAL)
@@ -149,7 +151,7 @@
 	playerData.playerRacePrefix = playerData.playerRace.icon_prefix[1]
 	genderChange(pick("Male","Female"))
 	eyeChange(pick("red","blue","green","yellow","orange","purple"))
-	classChange(pick(text2path("/datum/class/[pick("Assistant","Engineer","Doctor","Chef","Botanist","Scientist","Captain","Officer")]")))
+	classChange(pick(text2path("/datum/class/[pick("assassin","manaweaver","whitepriest","hunter","herbalist","defender","knightcommander","blackpriest")]")))
 	rerollStats(FALSE)
 
 /mob/player/proc/nameChange(var/toName)
@@ -418,7 +420,7 @@
 			nameChange(src.playerData.playerName)
 			src.playerSheet()
 		if("class")
-			var/choice = input(src,"Choose your Class") as anything in list("Assistant","Engineer","Doctor","Chef","Botanist","Scientist","Captain","Officer")
+			var/choice = input(src,"Choose your Class") as anything in list("assassin","manaweaver","whitepriest","hunter","herbalist","defender","knightcommander","blackpriest")
 			var/chosen = text2path("/datum/class/[choice]")
 			classChange(chosen)
 			src.playerSheet()

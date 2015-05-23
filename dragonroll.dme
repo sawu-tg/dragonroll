@@ -15,7 +15,6 @@
 
 // BEGIN_INCLUDE
 #include "code\_DEFINES.dm"
-#include "code\datum\ability.dm"
 #include "code\datum\biome.dm"
 #include "code\datum\class.dm"
 #include "code\datum\crafting.dm"
@@ -26,6 +25,11 @@
 #include "code\datum\stat.dm"
 #include "code\datum\timer.dm"
 #include "code\datum\wiremodule.dm"
+#include "code\datum\ability\ability.dm"
+#include "code\datum\ability\buff.dm"
+#include "code\datum\ability\defensive.dm"
+#include "code\datum\ability\helpful.dm"
+#include "code\datum\ability\offensive.dm"
 #include "code\helpers\misc.dm"
 #include "code\interface\interface.dm"
 #include "code\interface\skin.dmf"

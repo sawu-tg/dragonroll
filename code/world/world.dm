@@ -79,32 +79,29 @@ var/list/levelNames = list()
 		processObjects()
 
 /proc/processFlags(var/mob/player/who)
-	var/flagToCheck = who.persistingEffects[1]
 	for(var/i in who.persistingEffects)
 		if(i == ACTIVE_STATE_DYING)
 			who.takeDamage(1,DTYPE_DIRECT)
+		if(i == ACTIVE_STATE_DAZED)
+			who.speed = who.actualSpeed/4
 		//reduce time
-		if(i == 0)
-			mobRemFlag(who,flagToCheck,1)
-		else if (who.persistingEffects.Find(i) % 2)
-			if(i > 0)
-				--i
-		flagToCheck = i
+		if(who.persistingEffects[i] == 0)
+			mobRemFlag(who,i,1)
+		else if(who.persistingEffects[i] % 2)
+			if(who.persistingEffects[i] > 0)
+				--who.persistingEffects[i]
 
 /proc/mobAddFlag(var/mob/player/who, var/flag, var/length=-1, var/active=0)
 	if(active)
 		setFlag(who.active_states, flag)
-		who.persistingEffects |= flag
-		who.persistingEffects |= length
+		who.persistingEffects[flag] = length
 	else
 		setFlag(who.passive_states,flag)
 
 /proc/mobRemFlag(var/mob/player/who, var/flag, var/active=0)
 	if(active)
 		remFlag(who.active_states, flag)
-		var/indexOf = who.persistingEffects.Find(flag)
-		if(indexOf)
-			who.persistingEffects.Cut(indexOf,indexOf+1)
+		who.persistingEffects[flag] = null
 	else
 		remFlag(who.passive_states, flag)
 
