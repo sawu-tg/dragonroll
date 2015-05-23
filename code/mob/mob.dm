@@ -101,7 +101,8 @@
 	for(var/i = 1; i <= maxHotkeys; ++i)
 		screenObjs += new/obj/interface("[i]",1,"[i]")
 	for(var/a = 1; a < handOrder.len+1; ++a)
-		var/obj/interface/shortcut/hand = new/obj/interface/shortcut("[total + a]",1,"box")
+		var/obj/interface/shortcut/hand = new/obj/interface/shortcut("[total + a]",1,"box",index=a)
+		hand.name = "Hand[a]"
 		hand.rebuild(handOrder[a])
 		screenObjs += hand
 		interfaceHands += hand

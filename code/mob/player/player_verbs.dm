@@ -145,6 +145,18 @@
 		selectedQuickSlot = leftPocket
 	refreshInterface()
 
+/mob/proc/ChooseHand(var/i)
+	set hidden = TRUE
+	if(i == 1)
+		selectedQuickSlot = leftPocket
+	else if(i == 2)
+		selectedQuickSlot = leftHand
+	else if(i == 3)
+		selectedQuickSlot = rightHand
+	else if(i == 4)
+		selectedQuickSlot = rightPocket
+	refreshInterface()
+
 ///
 // ITEM HANDLING SHORTCUTS
 //

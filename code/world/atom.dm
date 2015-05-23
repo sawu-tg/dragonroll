@@ -80,6 +80,9 @@
 
 /atom/movable/Click()
 	var/mob/player/P = usr
+	if(istype(src,/obj/interface))
+		objFunction(usr)
+		return
 	if(!Adjacent(P))
 		return
 	if(P.activeHandEmpty())

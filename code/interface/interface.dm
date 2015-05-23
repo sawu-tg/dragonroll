@@ -15,18 +15,23 @@
 /obj/interface/proc/showTo(var/mob/M)
 	M.client.screen |= src
 
-/obj/interface/objFunction(var/mob/user)
-	return
-
 //interface shortcut (ie to an item)
 /obj/interface/shortcut
 	name = "shortcutContainer"
 	desc = "For easy access"
+	mouse_opacity = 1
+	var/myIndex
 	var/obj/shortcutTo
 
-/obj/interface/shortcut/New(var/x,var/y,var/state="box",var/scale=32,var/obj/shown)
+/obj/interface/shortcut/New(var/x,var/y,var/state="box",var/scale=32,var/obj/shown,var/index)
+	myIndex = index
 	shortcutTo = shown
 	..(x,y,state,scale)
+
+/obj/interface/shortcut/objFunction(var/mob/user)
+	user.ChooseHand(myIndex)
+	user.refreshInterface()
+	..()
 
 /obj/interface/shortcut/proc/rebuild(var/obj/aswhat)
 	overlays.Cut()

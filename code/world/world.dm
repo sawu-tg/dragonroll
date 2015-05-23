@@ -94,14 +94,14 @@ var/list/levelNames = list()
 /proc/mobAddFlag(var/mob/player/who, var/flag, var/length=-1, var/active=0)
 	if(active)
 		setFlag(who.active_states, flag)
-		who.persistingEffects[flag] = length
+		who.persistingEffects["[flag]"] = length
 	else
 		setFlag(who.passive_states,flag)
 
 /proc/mobRemFlag(var/mob/player/who, var/flag, var/active=0)
 	if(active)
 		remFlag(who.active_states, flag)
-		who.persistingEffects[flag] = null
+		who.persistingEffects["[flag]"] = null
 	else
 		remFlag(who.passive_states, flag)
 

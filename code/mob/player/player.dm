@@ -100,7 +100,6 @@
 
 /mob/player/proc/takeDamage(var/amount,var/type=DTYPE_BASIC)
 	var/damage = max(0,type == DTYPE_DIRECT ? amount : amount - playerData.def.statCur)
-	world << "[src] taking [damage]hp"
 	var/doDamage = FALSE
 	if(damage > playerData.con.statCur)
 		if(type == DTYPE_NONLETHAL)
