@@ -56,8 +56,18 @@
 					A.thrown = FALSE
 					A.thrownTarget = null
 					A.countedTimeout = 0
-				step_to(src,A.thrownTarget)
-				A.lastTurf = src.loc
+				var/turf/T = get_step_to(A,A.thrownTarget)
+				if(T)
+					//SUE ME, COMPLAIN, I DAR-null error
+					if(!T.density)
+						walk_to(src,T,0,0,2)
+						A.lastTurf = src.loc
+					else
+						A.thrown = FALSE
+						A.thrownTarget = null
+				else
+					A.thrown = FALSE
+					A.thrownTarget = null
 			else
 				A.thrown = FALSE
 				A.thrownTarget = null
