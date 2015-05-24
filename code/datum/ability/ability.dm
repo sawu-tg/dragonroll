@@ -87,7 +87,7 @@
 					new/datum/timer(counter*5,src,"placeAoe",T)
 	else
 		if(abilityProjectile && target != caster)
-			var/obj/projectile/p = new abilityProjectile(target)
+			var/obj/projectile/p = new abilityProjectile(target,caster)
 			p.loc = caster.loc
 			p.effect = abilityEffect
 			if(abilityModifier > 0)

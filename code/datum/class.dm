@@ -48,6 +48,7 @@
 /datum/class/herbalist
 	className = "Herbalist"
 	classDesc = "Herbalists are masters of alchemical concoctions, able to swiftly heal or hinder."
+	classAbilities = list(/datum/ability/toxicthrow)
 	int_mod = 2
 	wis_mod = 2
 	con_mod = 2
@@ -55,6 +56,7 @@
 /datum/class/defender
 	className = "Defender"
 	classDesc = "Defenders are masters of shield and armor, absorbing damage and taking the brunt of a fight."
+	classAbilities = list(/datum/ability/taunt)
 	con_mod = 4
 	str_mod = 2
 

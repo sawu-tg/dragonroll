@@ -48,6 +48,23 @@
 	abilityModifier = -1
 	abilityCooldown = 10*60
 	abilityState = "staff"
+	abilityEffect = ACTIVE_STATE_DAZED
 	abilityIconSelf = /obj/effect/pow
 	abilityProjectile = /obj/projectile/manablast
+	abilityIconTarget = /obj/effect/target
+
+///
+// HERBALIST SPELLS
+///
+
+/datum/ability/toxicthrow
+	name = "Toxin Throw"
+	desc = "Flings a toxic sludge at the target."
+	abilityRange = 8
+	abilityModifier = -1
+	abilityCooldown = 10*60
+	abilityState = "staff"
+	abilityEffect = ACTIVE_STATE_POISONED
+	abilityIconSelf = /obj/effect/pow
+	abilityProjectile = /obj/projectile/toxinthrow
 	abilityIconTarget = /obj/effect/target

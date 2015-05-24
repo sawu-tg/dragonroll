@@ -4,24 +4,30 @@
 	icon = 'sprite/obj/effects.dmi'
 	layer = LAYER_DEFAULT
 	density = 1
+	var/projectileLight
 	var/detRange = 1
 	var/projSpeed = 0.25
 	var/guided = FALSE
 	var/atom/target
 	var/damage = 1
 	var/effect = 0
+	var/mob/projectileOwner
 
-/obj/projectile/New(var/atom/at)
+/obj/projectile/New(var/atom/at,var/mob/owner)
 	if(guided)
 		target = at
 	else
 		target = at.loc
+	if(projectileLight)
+		set_light(3,2,projectileLight)
+		..()
+	projectileOwner = owner
 	addProcessingObject(src)
 
 /obj/projectile/proc/doProjAct(var/atom/what)
 	if(istype(what,/mob/player))
 		var/mob/player/P = what
-		mobAddFlag(P,ACTIVE_STATE_DAZED,damage,TRUE)
+		mobAddFlag(P,effect,damage,TRUE)
 		P.playerData.hp.change(damage)
 	del(src)
 
@@ -47,17 +53,32 @@
 	desc = "Goodness gracious, great blasts of mana!"
 	icon = 'sprite/obj/projectiles.dmi'
 	icon_state = "heavylaser"
-
-	New()
-		set_light(3,2,"#FF5500")
-		..()
+	projectileLight = "#FF5500"
 
 /obj/projectile/healingblast
 	name = "Healing blast"
 	desc = "Delicious heals!"
 	icon = 'sprite/obj/projectiles.dmi'
 	icon_state = "ion"
+	projectileLight = "#66FFFF"
 
-	New()
-		set_light(3,2,"#FF5500")
-		..()
+/obj/projectile/toxinthrow
+	name = "Toxin"
+	desc = "Does many things, but making you feel better is not one."
+	icon = 'sprite/obj/projectiles.dmi'
+	icon_state = "neurotoxin"
+	projectileLight = "#00CC00"
+
+/obj/projectile/taunt
+	name = "Taunt"
+	desc = "Several rude things were said, but only one happened to insult the target."
+	icon = 'sprite/obj/projectiles.dmi'
+	guided = TRUE
+	icon_state = "kinetic_blast"
+	projectileLight = "#000000"
+
+/obj/projectile/taunt/doProjAct(var/atom/what)
+	..()
+	if(istype(what,/mob/player))
+		var/mob/player/P = what
+		walk_to(what,projectileOwner,0,0,P.speed)
