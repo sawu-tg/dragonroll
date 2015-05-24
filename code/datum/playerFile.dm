@@ -19,6 +19,7 @@
 	var/playerGender = 0 //0 = male , 1 = female, 2 = other/genderless
 	var/playerGenderShort = "m"
 	var/customGender = "none"
+	var/customGenderA = "none"
 
 	var/list/datum/ability/playerAbilities = new
 	var/list/datum/stat/playerStats = new
@@ -57,14 +58,14 @@
 	playerStats += ref
 	playerStats += will
 
-/datum/playerFile/proc/returnGender()
+/datum/playerFile/proc/returnGender(var/alternate=FALSE)
 	switch(playerGender)
 		if(0)
-			return "Male"
+			return alternate ? "He" : "Male"
 		if(1)
-			return "Female"
+			return alternate ? "She" : "Female"
 		if(2)
-			return customGender
+			return alternate ? customGenderA : customGender
 
 /datum/playerFile/proc/assignClass(var/datum/class/toAssign)
 	var/datum/class/T = new toAssign

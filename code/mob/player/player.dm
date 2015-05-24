@@ -226,6 +226,7 @@
 		if(toGender == "Custom")
 			playerData.playerGender = 2
 			playerData.customGender = input(src,"Please input your gender") as text
+			playerData.customGenderA = input(src,"Please input your gender's pronoun (i.e He, She)") as text
 			var/choice = input(src,"Please choose what gender appearence you would like") as anything in list("Male","Female")
 			switch(choice)
 				if("Male")
