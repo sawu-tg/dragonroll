@@ -71,8 +71,10 @@
 
 /turf/floor/outside/liquid
 	name = "liquid"
+	var/solidName = "liquidSolid"
 	icon_state = "water"
 	density = 0
+	var/solid = 0
 	var/damage = 0
 	var/damageVerb = ""
 	var/minDamDepth = 0
@@ -84,10 +86,24 @@
 
 /turf/floor/outside/liquid/proc/updateDepth()
 	alpha = 255 - depth*2
+	if(solid)
+		name = solidName
+		icon_state = "[initial(icon_state)]_solid"
+	else
+		name = initial(name)
+		icon_state = "[initial(icon_state)]"
 
 /turf/floor/outside/liquid/Enter(atom/movable/O)
 	if(istype(O,/mob/player))
 		var/mob/player/P = O
+		if(solid)
+			if(P.playerData.dex.statCur-P.weight <= depth)
+				displayTo("You lose your balance and fall on [src], cracking it! ([P.playerData.dex.statCur-P.weight] v [depth])",P,src)
+				for(var/turf/floor/outside/liquid/L in range(src,1))
+					L.solid = 0
+					L.updateDepth()
+				P.stun(depth*15)
+			return 1
 		if(P.playerData.dex.statCur-P.weight >= depth)
 			return 1
 		else
@@ -97,6 +113,8 @@
 		return 1
 
 /turf/floor/outside/liquid/Entered(atom/movable/O)
+	if(solid)
+		return
 	if(damage > 0 && depth >= minDamDepth)
 		if(istype(O,/mob/player))
 			var/mob/player/P = O
@@ -109,6 +127,8 @@
 				P.liquidDamage = damage
 
 /turf/floor/outside/liquid/Exited(atom/movable/O)
+	if(solid)
+		return
 	if(damage > 0 && depth >= minDamDepth)
 		if(istype(O,/mob/player))
 			var/mob/player/P = O
@@ -120,6 +140,14 @@
 	name = "Water"
 	icon_state = "water"
 	damage = 1
+	damageVerb = "drowning"
+	minDamDepth = 35
+
+/turf/floor/outside/liquid/water/ice
+	solidName = "Ice"
+	icon_state = "water"
+	damage = 1
+	solid = 1
 	damageVerb = "drowning"
 	minDamDepth = 35
 

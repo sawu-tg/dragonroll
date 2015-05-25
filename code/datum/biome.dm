@@ -62,6 +62,6 @@ var/list/validBiomes = list(/datum/biome/grassland,/datum/biome/desert,/datum/bi
 
 	baseTurf = /turf/floor/outside/snow
 	validTurfs = list(/turf/floor/outside/snow)
-	liquidSize = 0
+	validLiquids = list(/turf/floor/outside/liquid/water/ice)
 	validDebris = list(/obj/interact/nature/tree/snow,/obj/interact/nature/bush/snow)
 	validMobs = list(/mob/player/npc/colonist)

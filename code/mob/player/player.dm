@@ -130,6 +130,15 @@
 			mobRemFlag(src,ACTIVE_STATE_DYING,active=1)
 			mobAddFlag(src,PASSIVE_STATE_DEAD,active=0)
 
+///
+// BASIC FLAG STATES
+// Mob flags seem to be broken right now. Not sure why?
+///
+/mob/player/proc/stun(var/amount)
+	canMove = FALSE
+	mobAddFlag(src, ACTIVE_STATE_STUNNED, amount, TRUE)
+
+
 /////////////////////////////////////////////////////////////////////////
 //-Player Creation and Setup functions:
 //	*randomise(): randomises a character
