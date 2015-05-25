@@ -32,7 +32,7 @@
 	abilityRange = 8
 	abilityModifier = -2
 	abilityCooldown = 10*60
-	abilityState = "staff"
+	abilityState = "redline"
 	abilityIconSelf = /obj/effect/pow
 	abilityProjectile = /obj/projectile/manablast
 	abilityIconTarget = /obj/effect/target

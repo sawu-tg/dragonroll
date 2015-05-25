@@ -49,6 +49,7 @@
 				displayInfo("You fumble and lose your strength, dropping the [A.carriedBy.carrying]!","[src] drops the [A.carrying]!",A.carriedBy,src)
 				A.beDropped()
 		if(A.thrown)
+			SpinAnimation(5,1)
 			if(loc != A.thrownTarget:loc)
 				if(A.lastTurf == src.loc)
 					A.countedTimeout++

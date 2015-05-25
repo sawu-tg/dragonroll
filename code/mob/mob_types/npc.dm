@@ -35,7 +35,7 @@
 
 /mob/player/npc/doProcess()
 	..()
-	if(beingCarried)
+	if(beingCarried || thrown)
 		return
 	if(lastPos != loc)
 		inView = oview(src,wanderRange)

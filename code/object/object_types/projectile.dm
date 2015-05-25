@@ -78,7 +78,7 @@
 	projectileLight = "#000000"
 
 /obj/projectile/taunt/doProjAct(var/atom/what)
+	if(istype(what,/atom/movable))
+		var/atom/movable/M = what
+		M.throw_at(projectileOwner)
 	..()
-	if(istype(what,/mob/player))
-		var/mob/player/P = what
-		walk_to(what,projectileOwner,0,0,P.speed)
