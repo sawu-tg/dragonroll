@@ -1,6 +1,11 @@
 /mob/player
 	var/lastBleed = 0
 
+	//liquid stuff
+	var/inDPSLiquid = FALSE
+	var/liquidVerb = ""
+	var/liquidDamage = 0
+
 /mob/player/doProcess()
 	..()
 	refreshInterface()
@@ -13,6 +18,10 @@
 			canMove = FALSE
 	if(canMove && !checkFlag(active_states,ACTIVE_STATE_DAZED))
 		speed = actualSpeed
+	if(inDPSLiquid)
+		if(prob(5))
+			displayInfo("You are [liquidVerb]!","[src] screams!",src,src)
+			takeDamage(liquidDamage,DTYPE_DIRECT)
 	if(checkFlag(active_states,ACTIVE_STATE_POISONED))
 		if(prob(5))
 			displayInfo("You are poisoned!","[src] shudders and wretches",src,src)

@@ -73,6 +73,9 @@
 	name = "liquid"
 	icon_state = "water"
 	density = 0
+	var/damage = 0
+	var/damageVerb = ""
+	var/minDamDepth = 0
 	var/depth = 5 //1 - 100
 
 /turf/floor/outside/liquid/New()
@@ -93,13 +96,38 @@
 	else
 		return 1
 
+/turf/floor/outside/liquid/Entered(atom/movable/O)
+	if(damage > 0 && depth >= minDamDepth)
+		if(istype(O,/mob/player))
+			var/mob/player/P = O
+			//
+			var/calcDepth = (depth + P.weight)-(P.playerData.dex.statCur + P.playerData.str.statCur)
+			//
+			if(calcDepth >= minDamDepth)
+				P.inDPSLiquid = TRUE
+				P.liquidVerb = damageVerb
+				P.liquidDamage = damage
+
+/turf/floor/outside/liquid/Exited(atom/movable/O)
+	if(damage > 0 && depth >= minDamDepth)
+		if(istype(O,/mob/player))
+			var/mob/player/P = O
+			P.inDPSLiquid = FALSE
+			P.liquidVerb = ""
+			P.liquidDamage = 0
+
 /turf/floor/outside/liquid/water
 	name = "Water"
 	icon_state = "water"
+	damage = 1
+	damageVerb = "drowning"
+	minDamDepth = 35
 
 /turf/floor/outside/liquid/lava
 	name = "Lava"
 	icon_state = "lava"
+	damage = 1
+	damageVerb = "burning"
 
 //world walls
 
