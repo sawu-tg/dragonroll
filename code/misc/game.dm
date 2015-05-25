@@ -79,6 +79,18 @@ var/list/alldirs = list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAS
 			return 1
 	return 0
 
+/proc/GetPath(var/atom/start,var/dir,var/maxDist = 4)
+	var/turf/T = get_turf(start)
+	var/count = 0
+	while(!T.density)
+		count++
+		if(count <= maxDist)
+			T = get_step(T,dir)
+		else
+			break
+	return T
+
+
 /proc/FloodFill(var/datum/start, var/proc/adjacency)
 	var/list/visited = list()
 	. = list()

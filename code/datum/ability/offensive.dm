@@ -68,3 +68,32 @@
 	abilityIconSelf = /obj/effect/pow
 	abilityProjectile = /obj/projectile/toxinthrow
 	abilityIconTarget = /obj/effect/target
+
+///
+// BLACK MAGE SPELLS
+///
+
+
+/datum/ability/deathbeam
+	name = "Death Beam"
+	desc = "Charges a target with entropy, binding them, and then forcefully blowing them backwards."
+	abilityRange = 8
+	abilityModifier = -2
+	abilityCooldown = 3*60
+	abilityState = "redline"
+	abilityIconSelf = /obj/effect/pow
+	abilityIconTarget = /obj/effect/target
+
+/datum/ability/deathbeam/Cast(var/mob/player/caster,var/target)
+	var/atom/movable/AM = target
+	if(AM)
+		AM.anchored = 1
+		caster.Beam(AM,time=15,icon_state="d_beam")
+		for(var/turf/T in range(1,AM))
+			if(prob(85))
+				var/obj/effect/sparks/EM = new/obj/effect/sparks(get_turf(caster))
+				if(EM)
+					walk_to(EM,T)
+		AM.anchored = 0
+		AM.throw_at(GetPath(AM,caster.dir))
+	..()

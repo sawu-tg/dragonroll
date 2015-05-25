@@ -10,7 +10,7 @@
 	..()
 	refreshInterface()
 	//health management
-	if(playerData.hp.statCur > 0 && !checkFlag(active_states,ACTIVE_STATE_STUNNED))
+	if(playerData.hp.statCur > 0 && !isDisabled())
 		if(!canMove)
 			canMove = TRUE
 	if(playerData.hp.statCur <= 0)

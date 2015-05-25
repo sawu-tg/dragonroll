@@ -138,6 +138,19 @@
 	canMove = FALSE
 	mobAddFlag(src, ACTIVE_STATE_STUNNED, amount, TRUE)
 
+/mob/player/proc/isDisabled()
+	if(beingCarried)
+		return TRUE
+	if(thrown || thrownTarget || countedTimeout > 0)
+		return TRUE
+	if(checkFlag(active_states,ACTIVE_STATE_DAZED))
+		return TRUE
+	if(checkFlag(active_states,ACTIVE_STATE_STUNNED))
+		return TRUE
+	if(!canMove)
+		return TRUE
+	return FALSE
+
 
 /////////////////////////////////////////////////////////////////////////
 //-Player Creation and Setup functions:

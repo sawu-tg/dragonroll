@@ -107,3 +107,19 @@
 	length = 4.05
 	repeat = FALSE
 	icon_state = "effect_pow"
+
+/obj/effect/explosion_shrap
+	name = "Shrapnel"
+	desc = "Warning: If you see this, it's too late."
+	length = 4.05
+	repeat = FALSE
+	icon = 'sprite/obj/tg_effects/effects.dmi'
+	icon_state = "explosion_particle"
+
+/obj/effect/sparks
+	name = "Spark"
+	desc = "Zzzzzzzap."
+	length = 4.05
+	repeat = FALSE
+	icon = 'sprite/obj/tg_effects/effects.dmi'
+	icon_state = "sparks"

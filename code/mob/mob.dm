@@ -49,7 +49,7 @@
 /mob/Move(var/atom/newLoc)
 	if(!newLoc)
 		return
-	if(canMove && !newLoc.density)
+	if(canMove && !newLoc.density && !anchored)
 		..()
 
 /client/Click(var/clickedOn)

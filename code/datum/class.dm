@@ -70,6 +70,7 @@
 /datum/class/blackpriest
 	className = "Black Priest"
 	classDesc = "Fragile and deceptive, Black Priests wield dark magic, confusing and debilitating foes."
+	classAbilities = list(/datum/ability/deathbeam)
 	int_mod = 2
 	wis_mod = 2
 	hp_mod = 2
