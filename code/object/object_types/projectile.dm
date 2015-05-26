@@ -68,17 +68,3 @@
 	icon = 'sprite/obj/projectiles.dmi'
 	icon_state = "neurotoxin"
 	projectileLight = "#00CC00"
-
-/obj/projectile/taunt
-	name = "Taunt"
-	desc = "Several rude things were said, but only one happened to insult the target."
-	icon = 'sprite/obj/projectiles.dmi'
-	guided = TRUE
-	icon_state = "kinetic_blast"
-	projectileLight = "#000000"
-
-/obj/projectile/taunt/doProjAct(var/atom/what)
-	if(istype(what,/atom/movable))
-		var/atom/movable/M = what
-		M.throw_at(projectileOwner)
-	..()
