@@ -11,7 +11,7 @@
 	var/atom/target
 	var/damage = 1
 	var/effect = 0
-	var/mob/projectileOwner
+	var/mob/player/projectileOwner
 
 /obj/projectile/New(var/atom/at,var/mob/owner)
 	if(guided)
@@ -30,14 +30,6 @@
 		mobAddFlag(P,effect,damage,TRUE)
 		P.playerData.hp.change(damage)
 	del(src)
-
-/obj/projectile/Bump(var/atom/what)
-	..()
-	doProjAct(what)
-
-/obj/projectile/Cross(var/atom/what)
-	..()
-	doProjAct(what)
 
 /obj/projectile/doProcess()
 	..()
@@ -68,3 +60,20 @@
 	icon = 'sprite/obj/projectiles.dmi'
 	icon_state = "neurotoxin"
 	projectileLight = "#00CC00"
+
+/obj/projectile/spear
+	name = "Spear"
+	desc = "Be very worried."
+	icon = 'sprite/obj/projectiles.dmi'
+	icon_state = "spear"
+	guided = TRUE
+
+/obj/projectile/spear/doProjAct(var/atom/what)
+	if(what == target)
+		var/atom/movable/AM = what
+		if(AM)
+			loc = AM.loc
+			if(do_roll(1,20,projectileOwner.playerData.str.statCur) >= AM.weight + AM.size)
+				AM.throw_at(projectileOwner)
+				projectileOwner.Beam(AM,time=15,icon_state="c_beam")
+	..()

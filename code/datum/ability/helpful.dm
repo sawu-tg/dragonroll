@@ -20,12 +20,13 @@
 	abilityModifier = 0
 	abilityCooldown = 5*60
 	abilityState = "shout"
+	abilityHitsPlayers = TRUE
 	abilityIconSelf = /obj/effect/pow
+	abilityProjectile = /obj/projectile/spear
 	abilityIconTarget = /obj/effect/target
 
 /datum/ability/taunt/Cast(var/mob/player/caster,var/target)
+	..()
 	var/atom/movable/AM = target
 	if(AM)
-		AM.throw_at(caster)
-		caster.Beam(AM,time=15,icon_state="c_beam")
-	..()
+		caster.Beam(abilityCastedProjectile,time=15,icon_state="c_beam")

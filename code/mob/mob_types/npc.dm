@@ -6,7 +6,7 @@
 	var/timeSinceLast = 0
 
 	var/wander = 1
-	var/wanderFuzziness = 25 // how high "timeSinceLast" should reach before wandering again
+	var/wanderFuzziness = 125 // how high "timeSinceLast" should reach before wandering again
 	var/wanderRange = 5
 
 	var/npcMaxWait = 15 //maximum time to wait in certain actions, before reverting to idle
@@ -14,7 +14,7 @@
 	var/npcState = NPCSTATE_IDLE
 	var/npcNature = NPCTYPE_PASSIVE
 
-	speed = 2
+	speed = 4
 
 	var/target
 	var/turf/lastPos

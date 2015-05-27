@@ -20,13 +20,15 @@
 	var/abilityModifier = 1 //how much HP the ability takes/gives, abilityModifier*abilityLevel
 
 	var/abilityRange = 3 // range(abilityRange)
-	var/abilityHitsPlayers = FALSE // ensures the abilty finds a player
+	var/abilityHitsPlayers = FALSE // ensures the abilty finds a player (or atom_movable)
 	var/abilityEffect = 0 // the flag which the ability will apply on the target
 
 	var/abilityCooldownTimer = 0 // counter used to calculate cds
 	var/abilityHasPenalty = FALSE
 	var/abilityFizzlePenalty = 1 // abilityCooldown/abilityFizzlePenalty on cast fail
 	var/abilityCooldown = 5*60 // how long until this can be used again, *60 for seconds
+
+	var/obj/projectile/abilityCastedProjectile // casted projectile for spell tracking etc
 
 	var/abilityAoe = 0 // if > 0, equals the damage range the ability is cast, if it is negative, its self cast around it
 	var/obj/effect/abilityIconSelf // the effect path displayed on the user when cast (if any)
@@ -74,9 +76,9 @@
 
 /datum/ability/proc/Cast(var/mob/player/caster,var/target)
 	abilityCooldownTimer = abilityCooldown
-	if(abilityHitsPlayers)
-		target = locate(/mob/player) in target:loc
-	if(!target && abilityHitsPlayers)
+	if(abilityHitsPlayers && !istype(target,/atom/movable))
+		target = locate(/atom/movable) in target:loc
+	if(!istype(target,/atom/movable) && abilityHitsPlayers)
 		return
 	if(abilityAoe != 0)
 		var/max = abilityAoe < 0 ? -abilityAoe : abilityAoe
@@ -87,13 +89,13 @@
 					new/datum/timer(counter*5,src,"placeAoe",T)
 	else
 		if(abilityProjectile && target != caster)
-			var/obj/projectile/p = new abilityProjectile(target,caster)
-			p.loc = caster.loc
-			p.effect = abilityEffect
+			abilityCastedProjectile = new abilityProjectile(target,caster)
+			abilityCastedProjectile.loc = caster.loc
+			abilityCastedProjectile.effect = abilityEffect
 			if(abilityModifier > 0)
-				p.damage = do_roll(1,abilityModifier*abilityLevel)
+				abilityCastedProjectile.damage = do_roll(1,abilityModifier*abilityLevel)
 			else
-				p.damage = -do_roll(1,-abilityModifier*abilityLevel)
+				abilityCastedProjectile.damage = -do_roll(1,-abilityModifier*abilityLevel)
 		else
 			if(istype(target,/mob/player))
 				var/mob/player/P = target
