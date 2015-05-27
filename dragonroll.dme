@@ -60,6 +60,7 @@
 #include "code\mob\player\player_crafting.dm"
 #include "code\mob\player\player_inventory.dm"
 #include "code\mob\player\player_process.dm"
+#include "code\mob\player\player_slots.dm"
 #include "code\mob\player\player_verbs.dm"
 #include "code\object\object.dm"
 #include "code\object\object_types\effect.dm"

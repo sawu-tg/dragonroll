@@ -138,7 +138,7 @@
 		selectedHotKey = 1
 	refreshInterface()
 
-/mob/verb/NextHand()
+/*/mob/verb/NextHand()
 	set hidden = TRUE
 	if(selectedQuickSlot == leftPocket)
 		selectedQuickSlot = leftHand
@@ -160,7 +160,7 @@
 		selectedQuickSlot = rightHand
 	else if(i == 4)
 		selectedQuickSlot = rightPocket
-	refreshInterface()
+	refreshInterface()*/
 
 ///
 // ITEM HANDLING SHORTCUTS
@@ -168,8 +168,8 @@
 
 /mob/verb/DropItem()
 	set name = "Drop Held Item"
-	if(selectedQuickSlot.contents.len > 0)
-		var/obj/A = selectedQuickSlot.contents[1]
+	if(selectedSlot.contents.len > 0)
+		var/obj/A = selectedSlot.contents[1]
 		A.loc = src.loc
 	refreshInterface()
 

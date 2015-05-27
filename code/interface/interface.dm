@@ -29,7 +29,7 @@
 	..(x,y,state,scale)
 
 /obj/interface/shortcut/objFunction(var/mob/user)
-	user.ChooseHand(myIndex)
+	//user.ChooseHand(myIndex)
 	user.refreshInterface()
 	..()
 
@@ -109,8 +109,8 @@
 
 /obj/interface/storeButton/Click()
 	var/mob/player/P = usr
-	if(P.selectedQuickSlot.contents.len > 0)
-		var/obj/A = P.selectedQuickSlot.contents[1]
+	if(P.selectedSlot.contents.len > 0)
+		var/obj/A = P.selectedSlot.contents[1]
 		P.addToInventory(A)
 	P.refreshInterface()
 
@@ -127,8 +127,8 @@
 
 /obj/interface/useButton/Click()
 	var/mob/player/P = usr
-	if(P.selectedQuickSlot.contents.len > 0)
-		var/obj/A = P.selectedQuickSlot.contents[1]
+	if(P.selectedSlot.contents.len > 0)
+		var/obj/A = P.selectedSlot.contents[1]
 		A.objFunction(P)
 	P.refreshInterface()
 

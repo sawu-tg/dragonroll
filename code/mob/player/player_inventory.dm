@@ -24,6 +24,8 @@
 ///
 // Hand management
 ///
+
+/*
 /mob/player/proc/getFreeHand()
 	if(leftHand.contents.len <= 0)
 		return leftHand
@@ -56,23 +58,24 @@
 			return leftPocket.contents.len > 0 ? FALSE : TRUE
 		if("rightPocket")
 			return rightPocket.contents.len > 0 ? FALSE : TRUE
+*/
 
 /mob/player/proc/activeHandEmpty()
-	return selectedQuickSlot.contents.len > 0 ? FALSE : TRUE
+	return selectedSlot.contents.len > 0 ? FALSE : TRUE
 
 /mob/player/proc/activeHand()
-	if(selectedQuickSlot.contents.len > 0)
-		return selectedQuickSlot.contents[1]
+	if(selectedSlot.contents.len > 0)
+		return selectedSlot.contents[1]
 	return null
 
-/mob/player/proc/insertInHand(var/obj/item/what,var/where="leftHand")
+/*/mob/player/proc/insertInHand(var/obj/item/what,var/where="leftHand")
 	if(getHandIsFree(where))
 		var/obj/hand = getHandByName(where)
-		what.loc = hand
+		what.loc = hand*/
 
 /mob/player/proc/takeToActiveHand(var/obj/item/what)
-	if(selectedQuickSlot.contents.len <= 0)
-		what.loc = selectedQuickSlot
+	if(selectedSlot.contents.len <= 0)
+		what.loc = selectedSlot
 
 /mob/player/proc/takeToHand(var/obj/item/what)
 	var/obj/hand = getFreeHand()

@@ -7,15 +7,15 @@
 	//spell vars
 	var/casting = FALSE
 
-	var/obj/selectedQuickSlot
-	var/obj/interface/quickSlotCursor
-	var/list/interfaceHands = list()
-	var/obj/leftHand
-	var/obj/rightHand
-	var/obj/leftPocket
-	var/obj/rightPocket
+	//var/obj/selectedQuickSlot
+	//var/obj/interface/quickSlotCursor
+	//var/list/interfaceHands = list()
+	//var/obj/leftHand
+	//var/obj/rightHand
+	//var/obj/leftPocket
+	//var/obj/rightPocket
 
-	var/list/handOrder = list()
+	//var/list/handOrder = list()
 
 	var/obj/spellHolder/castingSpell
 	var/obj/interface/Cursor
@@ -27,12 +27,13 @@
 
 /mob/New()
 	spawn(1)
-		leftHand = new(src)
-		rightHand = new(src)
-		rightPocket = new(src)
-		leftPocket = new(src)
-		handOrder = list(leftPocket,leftHand,rightHand,rightPocket)
-		selectedQuickSlot = leftPocket
+		//leftHand = new(src)
+		//rightHand = new(src)
+		//rightPocket = new(src)
+		//leftPocket = new(src)
+		//handOrder = list(leftPocket,leftHand,rightHand,rightPocket)
+		//selectedQuickSlot = leftPocket
+		makeSlotsFromRace(new/datum/race)
 		spawn(1)
 			defaultInterface()
 			refreshInterface()
@@ -98,6 +99,12 @@
 		scrnobj.hotKey = i
 	for(var/i = 1; i <= maxHotkeys; ++i)
 		screenObjs += new/obj/interface("[i]",1,"[i]")
+	for(var/slotid in slots)
+		var/obj/interface/slot/S = slots[slotid]
+		//S.rebuild(handOrder[a])
+		screenObjs += S
+		interfaceSlots += S
+		//screenObjs += new/obj/interface("[total + a]",1,"[a >= 3 ? "R" : "L"]")
 
 	screenObjs += new/obj/interface/pickupButton(10,1,"box",32)
 	screenObjs += new/obj/interface/dropButton(11,1,"box",32)
@@ -128,8 +135,8 @@
 							SC.overlays |= image(icon=SC.heldSpell.heldAbility.abilityIcon,icon_state=SC.heldSpell.heldAbility.abilityState)
 			I.showTo(src)
 
-		var/activeHand
-		if(selectedQuickSlot == leftPocket)
+		/*var/activeHand
+		if(selectedSlot == leftPocket)
 			activeHand = 1
 		if(selectedQuickSlot == leftHand)
 			activeHand = 2
@@ -148,4 +155,10 @@
 			if(O.contents.len > 0)
 				S.rebuild(O.contents[1])
 			else
-				S.rebuild(null)
+				S.rebuild(null)*/
+
+		for(var/slotid in slots)
+			var/obj/interface/slot/S = slots[slotid]
+
+			S.align(src)
+			S.rebuild()
