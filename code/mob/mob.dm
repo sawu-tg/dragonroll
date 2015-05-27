@@ -91,28 +91,20 @@
 		processAttack(user,src)
 
 /mob/proc/defaultInterface()
-	var/total = 0
 	for(var/i = 1; i <= maxHotkeys; ++i)
 		screenObjs += new/obj/interface/spellContainer("[i]",1,"sphere")
 		var/obj/interface/spellContainer/scrnobj = screenObjs[screenObjs.len]
 		scrnobj.name = "Slot [i]"
 		scrnobj.hotKey = i
-		total++
 	for(var/i = 1; i <= maxHotkeys; ++i)
 		screenObjs += new/obj/interface("[i]",1,"[i]")
-	for(var/a = 1; a < handOrder.len+1; ++a)
-		var/obj/interface/shortcut/hand = new/obj/interface/shortcut("[total + a]",1,"box",index=a)
-		hand.name = "Hand[a]"
-		hand.rebuild(handOrder[a])
-		screenObjs += hand
-		interfaceHands += hand
-		screenObjs += new/obj/interface("[total + a]",1,"[a >= 3 ? "R" : "L"]")
 
-	screenObjs += new/obj/interface/pickupButton(10,2,"box",32)
-	screenObjs += new/obj/interface/dropButton(13,2,"box",32)
+	screenObjs += new/obj/interface/pickupButton(10,1,"box",32)
+	screenObjs += new/obj/interface/dropButton(11,1,"box",32)
 	screenObjs += new/obj/interface/storeButton(11,2,"box",32)
-	screenObjs += new/obj/interface/useButton(12,2,"box",32)
-	screenObjs += new/obj/interface/throwButton(13,3,"box",32)
+	screenObjs += new/obj/interface/useButton(12,1,"box",32)
+	screenObjs += new/obj/interface/dropIButton(12,2,"box",32)
+	screenObjs += new/obj/interface/throwButton(10,2,"box",32)
 
 /mob/proc/refreshInterface()
 	if(client)

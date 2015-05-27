@@ -167,6 +167,7 @@
 //
 
 /mob/verb/DropItem()
+	set name = "Drop Held Item"
 	if(selectedQuickSlot.contents.len > 0)
 		var/obj/A = selectedQuickSlot.contents[1]
 		A.loc = src.loc
@@ -183,7 +184,7 @@
 	refreshInterface()
 
 /mob/player/verb/liftObj()
-	set name = "Lift"
+	set name = "Lift Object"
 	set src = usr
 	var/excluded = list(src,carrying)
 	var/atom/movable/lifted = input("Pick up what?") as null|anything in filterList(/atom/movable/,oview(1),excluded)
@@ -206,7 +207,7 @@
 			displayTo("You can't quite seem to pick [lifted] up!",src,lifted)
 
 /mob/player/verb/throwObj()
-	set name = "Throw/Kick"
+	set name = "Throw/Kick Object"
 	set src = usr
 	if(!carrying)
 		var/list/excluded = list(src)
@@ -229,7 +230,7 @@
 
 
 /mob/player/verb/dropObj()
-	set name = "Drop"
+	set name = "Drop Held Object"
 	set src = usr
 	if(carrying)
 		displayInfo("You drop the [carrying]!","[src] drops the [carrying]!",src,carrying)

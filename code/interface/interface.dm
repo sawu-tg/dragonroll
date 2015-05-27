@@ -67,7 +67,7 @@
 
 //pickup
 /obj/interface/pickupButton
-	name = "Pickup Item"
+	name = "Pickup Object"
 	desc = "Picks up stuff"
 	mouse_opacity = 1
 
@@ -82,7 +82,7 @@
 
 //drop
 /obj/interface/dropButton
-	name = "Drop Item"
+	name = "Drop Object"
 	desc = "Drops stuff"
 	mouse_opacity = 1
 
@@ -135,7 +135,7 @@
 
 //throw
 /obj/interface/throwButton
-	name = "Throw/Kick Item"
+	name = "Throw/Kick Object"
 	desc = "Uses the held item (or kicks something)"
 	mouse_opacity = 1
 
@@ -148,3 +148,18 @@
 	var/mob/player/P = usr
 	P.throwObj()
 	P.refreshInterface()
+
+//drop item
+/obj/interface/dropIButton
+	name = "Drop Item"
+	desc = "Picks up stuff"
+	mouse_opacity = 1
+
+/obj/interface/dropIButton/New(var/x,var/y,var/state="box",var/scale=32)
+	overlays.Cut()
+	overlays.Add(icon(icon=icon,icon_state="dropitem"))
+	..(x,y,state,scale)
+
+/obj/interface/dropIButton/Click()
+	var/mob/player/P = usr
+	P.DropItem()
