@@ -65,6 +65,10 @@
 #define LIGHTING_MAX_STATES 7 //how many states of luminosity are in the lighting.dm
 #define LIGHTING_MINIMUM_THRESHOLD 0 //the lowest level a light will decay to minus one, -1 means complete darkness.
 
+#define TURF_INSIDE 0
+#define TURF_OUTSIDE 1
+#define TURF_FULLBRIGHT 2
+#define TURF_NOLIGHT 3
 
 var/list/playerValidHair = list()
 var/list/playerValidFacial = list()

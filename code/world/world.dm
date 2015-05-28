@@ -3,6 +3,7 @@ var/list/cooldownHandler = list()
 var/datum/controller_master/CS
 var/list/globalSuns = list()
 var/list/levelNames = list()
+var/list/regions = list()
 
 /world
 	turf = /turf/floor/voidFloor
@@ -30,6 +31,7 @@ var/list/levelNames = list()
 			world << "<b>FINISHED!</b>"
 		processObjects()
 		processCooldowns()
+		processRegions()
 		//CONTROLLERS
 		CS = new
 		CS.addControl(new /datum/controller/machinery)
@@ -70,6 +72,13 @@ var/list/levelNames = list()
 			a.holder.refreshInterface()
 	spawn(1)
 		processCooldowns()
+
+/proc/processRegions()
+	if(regions.len)
+		for(var/datum/zregion/R in regions)
+			R.doProcess()
+	spawn(1)
+		processRegions()
 
 /proc/processObjects()
 	if(procObjects.len)
@@ -252,6 +261,10 @@ var/list/levelNames = list()
 	var/tilesBetweenLiquid = 1024
 	var/tile2LiquidCounter = 0
 
+	var/datum/zregion/R = new(zLevel,chosenBiome,levelNames[zLevel])
+
+	regions += R
+
 	world << "<i>GENERATING TURFS ON Z[zLevel]..</i>"
 	for(var/a = 1; a <= x; ++a)
 		for(var/b = 1; b <= y; ++b)
@@ -306,8 +319,8 @@ var/list/levelNames = list()
 						D = new chosenBiome.baseTurf(D)
 					P.name = "[levelNames[zLevel]] the [chosenBiome.name]"
 					P.safe = FALSE
-					T.set_light(world.maxx,world.maxx) //This doesn't quite work.
-					globalSuns += T
+					//T.set_light(world.maxx,world.maxx) //This doesn't quite work.
+					//globalSuns += T
 			else
 				if(prob(decoChance))
 					if(!(T.type in chosenBiome.validLiquids))

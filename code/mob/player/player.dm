@@ -21,7 +21,7 @@
 
 /mob/player/New()
 	addProcessingObject(src)
-	selectedQuickSlot = leftHand
+	//selectedQuickSlot = leftHand
 	randomise()
 	set_light(6)
 	var/obj/item/armor/jerkin/J = new

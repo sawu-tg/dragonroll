@@ -17,7 +17,15 @@
 	var/int_mod = 0
 	var/cha_mod = 0
 
-	var/list/slots = list()
+	var/list/slots = list(/obj/interface/slot/hand/left,
+		/obj/interface/slot/hand/right,
+		/obj/interface/slot/foot/left,
+		/obj/interface/slot/foot/right,
+		/obj/interface/slot/pocket/left,
+		/obj/interface/slot/pocket/right,
+		/obj/interface/slot/chest,
+		/obj/interface/slot/groin,
+		/obj/interface/slot/head)
 
 /datum/race/Human
 	raceName = "Human"

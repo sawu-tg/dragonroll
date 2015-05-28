@@ -13,6 +13,10 @@
 	var/lum_g
 	var/lum_b
 
+	var/amb_r
+	var/amb_g
+	var/amb_b
+
 	#if LIGHTING_RESOLUTION != 1
 	var/xoffset
 	var/yoffset
@@ -32,16 +36,33 @@
 	needs_update = 1
 	lighting_update_overlays += src
 
+/atom/movable/lighting_overlay/proc/update_ambience(new_r, new_g, new_b)
+	var/turf/T = loc
+
+	if(!T) return
+
+	amb_r = new_r * T.ambient_factor
+	amb_g = new_g * T.ambient_factor
+	amb_b = new_b * T.ambient_factor
+
+	needs_update = 1
+	lighting_update_overlays |= src
+
 /atom/movable/lighting_overlay/proc/update_overlay()
-	var/mx = max(lum_r, lum_g, lum_b)
+	var/total_r = lum_r + amb_r
+	var/total_g = lum_g + amb_g
+	var/total_b = lum_b + amb_b
+
+	var/mx = max(total_r, total_g, total_b)
 	. = 1 // factor
 	if(mx > 1)
 		. = 1/mx
+
 	#if LIGHTING_TRANSITIONS == 1
 	animate(src,
-		color = rgb(lum_r * 255 * ., lum_g * 255 * ., lum_b * 255 * .),
+		color = rgb(total_r * 255 * ., total_g * 255 * ., total_b * 255 * .),
 		LIGHTING_INTERVAL - 1
 	)
 	#else
-	color = rgb(lum_r * 255 * ., lum_g * 255 * ., lum_b * 255 * .)
+	color = rgb(total_r * 255 * ., total_g * 255 * ., total_b * 255 * .)
 	#endif
