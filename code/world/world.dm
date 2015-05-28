@@ -319,8 +319,7 @@ var/list/regions = list()
 						D = new chosenBiome.baseTurf(D)
 					P.name = "[levelNames[zLevel]] the [chosenBiome.name]"
 					P.safe = FALSE
-					//T.set_light(world.maxx,world.maxx) //This doesn't quite work.
-					//globalSuns += T
+					P.set_light(9,9,"#66CCFF")
 			else
 				if(prob(decoChance))
 					if(!(T.type in chosenBiome.validLiquids))
