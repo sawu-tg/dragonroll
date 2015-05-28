@@ -1,5 +1,6 @@
 /turf
 	var/mineral = "iron"
+	var/ambient_factor = 0
 
 /turf/floor
 	icon = 'sprite/world/floors.dmi'
@@ -29,12 +30,14 @@
 	density = 1
 	opacity = 1
 
+
 //End of default floors
 
 // World floors
 
 /turf/floor/outside
 	icon_state = "grass1"
+	ambient_factor = 1
 
 /turf/floor/outside/grass
 	name = "Grass"

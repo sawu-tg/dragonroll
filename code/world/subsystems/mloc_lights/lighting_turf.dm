@@ -1,10 +1,6 @@
 /turf
 	var/list/affecting_lights
-
-/turf/verb/check()
-	set src in orange(usr,32)
-
-	usr << list2text(contents)
+	var/light_flag = TURF_INSIDE
 
 /turf/proc/reconsider_lights()
 	for(var/datum/light_source/L in affecting_lights)
