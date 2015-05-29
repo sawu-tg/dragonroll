@@ -3,11 +3,11 @@ var/list/lighting_update_overlays = list()
 
 /datum/controller/lighting
 	name = "Lighting"
-	execTime = 5
+	execTime = LIGHTING_INTERVAL
 
 /datum/controller/lighting/Initialize()
 	create_lighting_overlays()
-	execTime = LIGHTING_INTERVAL
+
 
 /datum/controller/lighting/Stat()
 	stat("[name] | [round(cost,0.001)]ds | (CPU:[round(cpu,1)]%) (Lightcount: [lighting_update_lights.len]) (Overlaycount: [lighting_update_overlays.len])")

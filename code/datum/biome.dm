@@ -1,4 +1,9 @@
-var/list/validBiomes = list(/datum/biome/grassland,/datum/biome/desert,/datum/biome/lavaland,/datum/biome/alienlab,/datum/biome/snow)
+var/list/validBiomes = list(/datum/biome/grassland,
+	/datum/biome/desert,
+	/datum/biome/lavaland,
+	/datum/biome/alienlab,
+	/datum/biome/snow,
+	/datum/biome/meteor)
 
 /datum/biome
 	var/name = "default"
@@ -8,6 +13,7 @@ var/list/validBiomes = list(/datum/biome/grassland,/datum/biome/desert,/datum/bi
 	var/turf/baseTurf
 	var/list/validTurfs = list() // valid turfs to generate (grass, dirt, floors)
 	var/liquidSize = 7 // size of liquid spatters
+	var/liquidErode = 7
 	var/list/validLiquids = list() //valid liquids to generate (lava, water, giant pools of tequila)
 	var/debrisChance = 15 // chance of placing debris
 	var/list/validDebris = list() //valid debris (ruins, obelisks, fat people's orbit)
@@ -31,6 +37,7 @@ var/list/validBiomes = list(/datum/biome/grassland,/datum/biome/desert,/datum/bi
 	baseTurf = /turf/floor/outside/dirt
 	validTurfs = list(/turf/floor/outside/dirt)
 	liquidSize = 2
+	liquidErode = 2
 	validLiquids = list(/turf/floor/outside/liquid/water)
 	validDebris = list(/obj/interact/nature/bush,/obj/interact/nature/rock)
 	validMobs = list(/mob/player/npc/grey,/mob/player/npc/colonist)
@@ -42,6 +49,7 @@ var/list/validBiomes = list(/datum/biome/grassland,/datum/biome/desert,/datum/bi
 	baseTurf = /turf/floor/outside/dirt/lava
 	validTurfs = list(/turf/floor/outside/dirt/lava)
 	liquidSize = 6
+	liquidErode = 6
 	validLiquids = list(/turf/floor/outside/liquid/lava)
 	validDebris = list(/obj/interact/nature/rock)
 	validMobs = list(/mob/player/npc/grey)
@@ -53,6 +61,7 @@ var/list/validBiomes = list(/datum/biome/grassland,/datum/biome/desert,/datum/bi
 	baseTurf = /turf/floor/outside/shimmering
 	validTurfs = list(/turf/floor/outside/shimmering)
 	liquidSize = 9
+	liquidErode = 9
 	validDebris = list(/turf/wall/shimmering)
 	validMobs = list(/mob/player/npc/grey)
 
@@ -64,4 +73,16 @@ var/list/validBiomes = list(/datum/biome/grassland,/datum/biome/desert,/datum/bi
 	validTurfs = list(/turf/floor/outside/snow)
 	validLiquids = list(/turf/floor/outside/liquid/water/ice)
 	validDebris = list(/obj/interact/nature/tree/snow,/obj/interact/nature/bush/snow)
+	validMobs = list(/mob/player/npc/colonist)
+
+/datum/biome/meteor
+	name = "impact site"
+	desc = "meteors can't melt steel beams. 9/11 was an inside job."
+
+	baseTurf = /turf/floor/outside/dirt
+	validTurfs = list(/turf/floor/outside/dirt)
+	liquidSize = 8
+	liquidErode = 0
+	validLiquids = list(/turf/floor/outside/liquid/pit)
+	validDebris = list(/obj/interact/nature/bush,/obj/interact/nature/rock)
 	validMobs = list(/mob/player/npc/colonist)

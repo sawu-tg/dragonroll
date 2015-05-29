@@ -65,19 +65,19 @@
 	name = "hatchet"
 	desc = "a cutting tool"
 
-	materials = list(/obj/loot/nature/stick = 1, /obj/loot/nature/rock = 1)
+	materials = list(/obj/item/loot/nature/stick = 1, /obj/item/loot/nature/rock = 1)
 	product = list(/obj/item/weapon/tool/hatchet = 1)
 
 /datum/recipe/woodwall
 	name = "wooden wall"
 	desc = "keeps things out"
 
-	materials = list(/obj/loot/processed/wood = 4)
-	product = list(/obj/buildable/woodenWall = 1)
+	materials = list(/obj/item/loot/processed/wood = 4)
+	product = list(/obj/item/buildable/woodenWall = 1)
 
 /datum/recipe/wooddoor
 	name = "wooden door"
 	desc = "keeps things out"
 
-	materials = list(/obj/loot/processed/wood = 2)
-	product = list(/obj/buildable/woodenWall = 1)
+	materials = list(/obj/item/loot/processed/wood = 2)
+	product = list(/obj/item/buildable/woodenWall = 1)

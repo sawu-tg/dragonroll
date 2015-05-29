@@ -2,24 +2,24 @@
 // Construction Parts
 ///
 
-/obj/buildable
+/obj/item/buildable
 	name = "buildable"
 	icon = 'sprite/obj/items.dmi'
 	desc = "makes things"
 	anchored = 1
 	var/ofType
 
-/obj/buildable/objFunction(var/mob/user)
+/obj/item/buildable/objFunction(var/mob/user)
 	new ofType(src.loc)
 	del(src)
 
-/obj/buildable/woodenWall
+/obj/item/buildable/woodenWall
 	name = "wooden wall parts"
 	desc = "It would keep things out if you actually built it."
 	icon_state = "wood_tableparts"
 	ofType = /turf/wall/woodWall
 
-/obj/buildable/woodenDoor
+/obj/item/buildable/woodenDoor
 	name = "wooden door parts"
 	desc = "It would keep things out if you actually built it."
 	icon_state = "wood_tableparts"
@@ -29,12 +29,12 @@
 ///
 // PROCESSED GOODS
 ///
-/obj/loot/processed
+/obj/item/loot/processed
 	name = "processed good"
 	desc = "processed from something."
 	icon = 'sprite/obj/items.dmi'
 
-/obj/loot/processed/wood
+/obj/item/loot/processed/wood
 	name = "wood plank"
 	desc = "May be woody"
 	icon_state = "sheet-wood"
@@ -45,30 +45,30 @@
 // HARVESTED GOODS
 ///
 
-/obj/loot/nature
+/obj/item/loot/nature
 	name = "nature thing"
 	desc = "vaguely leafy"
 	icon = 'sprite/obj/items.dmi'
 
-/obj/loot/nature/stick
+/obj/item/loot/nature/stick
 	name = "stick"
 	desc = "What's brown and sticky?"
 	icon_state = "c_tube"
 	itemMaterial = new/datum/material/wood1
 
-/obj/loot/nature/leaf
+/obj/item/loot/nature/leaf
 	name = "leafy pile"
 	desc = "Make like a tree and leaf."
 	icon_state = "leafmatter"
 	itemMaterial = new/datum/material/nature1
 
-/obj/loot/nature/rock
+/obj/item/loot/nature/rock
 	name = "rock chip"
 	desc = "An alternative to heavy metal."
 	icon_state = "rock"
 	itemMaterial = new/datum/material/mineral1
 
-/obj/loot/nature/log
+/obj/item/loot/nature/log
 	name = "log"
 	desc = "Has a future in housing."
 	icon_state = "tree_log"
@@ -76,9 +76,9 @@
 	weight = 8
 	itemMaterial = new/datum/material/wood1
 
-/obj/loot/nature/log/objFunction(var/mob/user,var/obj/used)
+/obj/item/loot/nature/log/objFunction(var/mob/user,var/obj/used)
 	if(istype(used,/obj/item/weapon/tool/hatchet))
 		displayTo("You harvest some logs from [src]",user,src)
 		for(var/i = 0; i < 4; ++i)
-			new/obj/loot/processed/wood(user.loc)
+			new/obj/item/loot/processed/wood(user.loc)
 		del(src)

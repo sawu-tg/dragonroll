@@ -103,6 +103,7 @@
 	desc = "This is a light switch. Behaves oddly."
 	icon = 'sprite/obj/power.dmi'
 	icon_state = "light0"
+	density = 0
 
 	var/datum/wiremodule/wires
 	var/on = 0
