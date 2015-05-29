@@ -37,7 +37,10 @@
 	overlays.Cut()
 	shortcutTo = aswhat
 	if(aswhat)
-		overlays.Add(icon(icon=aswhat.icon,icon_state=aswhat.icon_state))
+		if(istype(aswhat,/obj/item))
+			overlays.Add(icon(icon=initial(aswhat.icon),icon_state=initial(aswhat.icon_state)))
+		else
+			overlays.Add(icon(icon=aswhat.icon,icon_state=aswhat.icon_state))
 
 
 //spell container

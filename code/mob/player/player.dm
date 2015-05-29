@@ -197,7 +197,7 @@
 	addedOverlays |= eyes //fuck the what byond
 	addedOverlays |= playerData.playerOverlays
 	for(var/obj/item/I in playerEquipped)
-		addedOverlays |= image(icon=I.icon,icon_state = I.icon_state)
+		addedOverlays |= image(icon=initial(I.icon),icon_state = initial(I.icon_state))
 
 	for(var/ov in addedOverlays)
 		if(isicon(ov) || istype(ov,/image))

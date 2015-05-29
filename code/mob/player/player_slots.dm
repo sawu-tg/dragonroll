@@ -51,7 +51,6 @@
 		for(var/obj/item/I in loc)
 			if(I.slot != id)
 				continue
-
 			overlays += icon(I.icon,I.icon_state)
 
 		for(var/atom/A in contents)

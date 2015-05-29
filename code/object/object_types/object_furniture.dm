@@ -32,6 +32,7 @@
 /obj/item/furniture/overlay
 	name = "overlay object"
 	layer = LAYER_OVERLAY
+	showAsLoot = FALSE
 
 /obj/furniture/underlay
 	name = "underlay object"
@@ -40,6 +41,7 @@
 /obj/item/furniture/underlay
 	name = "underlay object"
 	layer = LAYER_UNDERLAY
+	showAsLoot = FALSE
 
 /obj/furniture/underlay/bed/bedframe
 	name = "Bed frame"
