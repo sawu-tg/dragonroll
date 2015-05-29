@@ -1,0 +1,44 @@
+///
+// PLANNED FEATURES (feel free to add some under your own header, or remove them if you have completed one)
+///
+
+@sawu-tg
+
+Classes
+	* White mage Healing spell (aoe orbs)
+	* Knight templar buff (aoe "shout" to boost hp)
+	* NPC classes (ie animals, monsters)
+	
+Crafting
+	* Seperate into seperate sub-skills (woodcrafting, enchanting, leatherworking)
+	* Enchanting system (adds stats + overlay)
+	* Custom item crafting (choose hilt/blade/shaft etc of items crafted and colors to material)
+	
+NPCs
+	* Redo AI
+	* Add building/crafting
+	* Add clan forming
+	* Add better, less laggier processing
+	* Add interaction
+	
+Biomes
+	* Add more
+	* New water/enviornment sprites
+	* New tiles
+	* New decorations
+	* Biome-specific special nodes (fountains for grassland, mineral deposits for lava etc)
+	* spawned loot chests
+	
+Generation
+	* Per-class starting items
+	* pre-generated, pre-equipped NPCS
+	* pre-generated villages and landmarks
+	
+Extra gubbins
+	* More items
+	* More crap to craft
+	* More NPCs
+	* Redo some UIs
+	* Create a global UI proc
+	* Non(and some)-skill based things (farming, cooking etc)
+	* Interactive and turf needed crafting (cookpots, anvils)
