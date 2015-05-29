@@ -72,6 +72,9 @@
 
 //liquids
 
+#define LIQUIDCOST_CARDINAL 1 * 15
+#define LIQUIDCOST_DIAGONAL 1.7 * 15
+
 /turf/floor/outside/liquid
 	name = "liquid"
 	var/solidName = "liquidSolid"
@@ -87,8 +90,30 @@
 	..()
 	depth = rand(1,100)
 
+/turf/floor/outside/liquid/proc/updateErodeDepth()
+	if(!src || !istype(src,/turf/floor/outside/liquid))
+		return
+
+	var/surrounddepth = 9999999
+
+	for(var/d in alldirs)
+		var/turf/floor/outside/liquid/T = get_step(src,d)
+
+		var/cost = LIQUIDCOST_DIAGONAL
+		if(d in cardinal)
+			cost = LIQUIDCOST_CARDINAL
+
+		if(T)
+			if(!istype(T))
+				surrounddepth = min(surrounddepth,5)
+			else
+				surrounddepth = min(surrounddepth,T.depth+cost)
+
+	depth = surrounddepth
+	updateDepth()
+
 /turf/floor/outside/liquid/proc/updateDepth()
-	alpha = 255 - depth*2
+	alpha = max(50,255 - depth*2)
 	if(solid)
 		name = solidName
 		icon_state = "[initial(icon_state)]_solid"
@@ -146,6 +171,15 @@
 	damageVerb = "drowning"
 	minDamDepth = 35
 
+/turf/floor/outside/liquid/pit //what even does this mean :^)
+	name = "Pit"
+	icon_state = "asteroid1"
+	color = "#999999"
+
+/turf/floor/outside/liquid/pit/New()
+	..()
+	icon_state = "asteroid[rand(1,5)]"
+
 /turf/floor/outside/liquid/water/ice
 	solidName = "Ice"
 	icon_state = "water"
@@ -160,6 +194,14 @@
 	damage = 1
 	damageVerb = "burning"
 
+	New()
+		..()
+
+		set_light(2,1,"#FF5500")
+
+	Del()
+		set_light(0)
+
 //world walls
 
 /turf/wall/shimmering
@@ -167,9 +209,11 @@
 	icon_state = "silver0"
 	mineral = "silver"
 	walltype = "silver"
+	ambient_factor = 1
 
 /turf/wall/woodWall
 	name = "Wooden Wall"
 	icon_state = "wood0"
 	mineral = "wood"
 	walltype = "wood"
+	ambient_factor = 1

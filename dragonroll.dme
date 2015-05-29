@@ -32,6 +32,7 @@
 #include "code\datum\ability\helpful.dm"
 #include "code\datum\ability\offensive.dm"
 #include "code\helpers\misc.dm"
+#include "code\helpers\noise.dm"
 #include "code\interface\interface.dm"
 #include "code\interface\skin.dmf"
 #include "code\item\item.dm"

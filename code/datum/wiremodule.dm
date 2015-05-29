@@ -144,7 +144,9 @@ datum/wiremodule
 
 	var/list/cableimages = list()
 	var/list/usedimages = list()
+
 	var/wires/renderobj
+	var/list/clientlist = list()
 
 	New(var/atom/A,cablelen = 8)
 		myatom = A
@@ -274,7 +276,7 @@ datum/wiremodule
 		//if(cableimages.len)
 		//	return
 
-		for(var/client/C)
+		for(var/client/C in clientlist)
 			for(var/refname in cableimages)
 				if(refname in usedimages)
 					continue
@@ -285,6 +287,7 @@ datum/wiremodule
 				cableimages.Remove(refname)
 
 		usedimages.Cut()
+		clientlist.Cut()
 
 		var/list/nodes_to_render = list()
 
@@ -332,9 +335,16 @@ datum/wiremodule
 			//I.pixel_x = N.pixel_x - 16
 			//I.pixel_y = N.pixel_y - 16
 
-		for(var/client/C)
+		for(var/mob/M in viewers(world.view,renderobj))
+			var/client/C = M.client
+
+			if(!C)
+				continue
+
 			for(var/refname in cableimages)
 				C.images |= cableimages[refname]
+
+			clientlist |= M
 
 	proc/render_wire(var/datum/wirenode/beginnode,var/datum/wirenode/endnode,iconstate,color = "#FF00FF",wirealpha = 255)
 		var/datum/wiremodule/enddevice = endnode.parent

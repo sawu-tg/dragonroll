@@ -21,9 +21,9 @@
 		regionName = name
 		chosenBiome = biome
 
-		startTime = rand(0,10000)
-
 		updateTime()
+
+		startTime = rand(0,timeTotalLength)
 
 	proc/doProcess()
 		ambientLight_Last = ambientLight

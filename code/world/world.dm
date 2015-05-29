@@ -13,7 +13,6 @@ var/list/regions = list()
 	icon_size = 32
 	loop_checks = 0
 
-
 /world/New()
 	. = ..()
 	spawn(10)
@@ -32,6 +31,7 @@ var/list/regions = list()
 		processObjects()
 		processCooldowns()
 		processRegions()
+		processLiquids()
 		//CONTROLLERS
 		CS = new
 		CS.addControl(new /datum/controller/machinery)
@@ -47,6 +47,13 @@ var/list/regions = list()
 	r.postProc()
 	procObjects -= r
 
+/proc/processLiquids()
+	for(var/turf/floor/outside/liquid/T in world)
+		if(T && istype(T))
+			T.updateErodeDepth()
+
+	spawn(10)
+		processLiquids()
 
 /proc/filterList(var/filter, var/list/inList, var/list/explicitExcluded)
 	set background = 1
@@ -248,6 +255,7 @@ var/list/regions = list()
 	var/turfScale = chosenBiome.turfSize
 	var/colonyChance = chosenBiome.mobChance
 	var/liquidScale = chosenBiome.liquidSize
+	var/liquidErosion = chosenBiome.liquidErode
 
 	var/x = world.maxx
 	var/y = world.maxy
@@ -287,19 +295,20 @@ var/list/regions = list()
 			if(chosenBiome.validLiquids.len)
 				if(prob(lowestChance) && tile2LiquidCounter <= 0)
 					tile2LiquidCounter = tilesBetweenLiquid
-					for(var/i = liquidScale; i > 0; --i)
-						for(var/turf/T2 in circle(T,i))
-							var/turf/T3 = pick(chosenBiome.validLiquids)
-							var/turf/floor/outside/liquid/T4 = new T3(T2)
-							T4.depth = 100 - (15*i)
-							T4.updateDepth()
-							liqMade |= T4
+					//for(var/i = liquidScale; i > 0; --i)
+					for(var/turf/T2 in circle(T,rand(liquidScale / 3,liquidScale)))
+						var/turf/T3 = pick(chosenBiome.validLiquids)
+						var/turf/floor/outside/liquid/T4 = new T3(T2)
+						T4.depth = 0
+						//T4.depth = (liquidScale - i) * 15
+						//T4.updateDepth()
+						liqMade |= T4
 				if(tile2LiquidCounter > 0)
 					tile2LiquidCounter--
 
 	world << "<i>ERODING LIQUIDS ON Z[zLevel]..</i>"
 	for(var/turf/floor/outside/liquid/EL in liqMade)
-		if(prob(liquidScale))
+		if(prob(liquidErosion))
 			for(var/T in circle(EL,1))
 				if(istype(T,/turf/floor/outside/liquid))
 					var/turf/T2 = pick(chosenBiome.validTurfs)
@@ -331,5 +340,7 @@ var/list/regions = list()
 						var/mob/m = pick(chosenBiome.validMobs)
 						new m(T)
 						colonists++
+
+	//erodeLiquids |= liqMade
 #undef lowestChance
 #undef maxColonists
