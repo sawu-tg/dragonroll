@@ -34,7 +34,7 @@
 /obj/projectile/doProcess()
 	..()
 	if(!(target in range(detRange,src)))
-		step_to(src,target,0,projSpeed)
+		walk_to(src,target,0,projSpeed*10)
 	else
 		doProjAct(target)
 
@@ -51,7 +51,7 @@
 	name = "Healing blast"
 	desc = "Delicious heals!"
 	icon = 'sprite/obj/projectiles.dmi'
-	icon_state = "ion"
+	icon_state = "magicm"
 	projectileLight = "#66FFFF"
 
 /obj/projectile/toxinthrow

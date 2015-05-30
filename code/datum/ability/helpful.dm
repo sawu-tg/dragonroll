@@ -4,6 +4,7 @@
 	abilityRange = 8
 	abilityModifier = 1
 	abilityCooldown = 1*60
+	abilityProjectiles = 8
 	abilityState = "redcross"
 	abilityIconSelf = /obj/effect/pow
 	abilityProjectile = /obj/projectile/healingblast

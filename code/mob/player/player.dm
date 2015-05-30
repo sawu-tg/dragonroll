@@ -35,13 +35,6 @@
 	equipItem(LBR)
 	..()
 
-/mob/player/verb/relocate()
-	var/x = input(src,"Choose X") as num
-	var/y = input(src,"Choose Y") as num
-	var/z = input(src,"Choose Z") as num
-
-	loc = locate(x,y,z)
-
 /mob/player/verb/setview()
 	client.view = input(src,"Set View Range") as num
 

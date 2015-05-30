@@ -39,7 +39,7 @@
 			refreshInterface()
 
 /mob/Login()
-	if(!client.mob || !(istype(client.mob,/mob/player)))
+	if(!client.mob)
 		spawn(5)
 			var/mob/player/P = new
 			client.mob = P
@@ -50,6 +50,9 @@
 /mob/Move(var/atom/newLoc)
 	if(!newLoc)
 		return
+	if(client)
+		if(client.isDM)
+			..()
 	if(canMove && !newLoc.density && !anchored)
 		..()
 
@@ -101,10 +104,8 @@
 		screenObjs += new/obj/interface("[i]",1,"[i]")
 	for(var/slotid in slots)
 		var/obj/interface/slot/S = slots[slotid]
-		//S.rebuild(handOrder[a])
 		screenObjs += S
 		interfaceSlots += S
-		//screenObjs += new/obj/interface("[total + a]",1,"[a >= 3 ? "R" : "L"]")
 
 	screenObjs += new/obj/interface/pickupButton(10,1,"box",32)
 	screenObjs += new/obj/interface/dropButton(11,1,"box",32)
@@ -134,28 +135,6 @@
 							I.overlays.Cut()
 							SC.overlays |= image(icon=SC.heldSpell.heldAbility.abilityIcon,icon_state=SC.heldSpell.heldAbility.abilityState)
 			I.showTo(src)
-
-		/*var/activeHand
-		if(selectedSlot == leftPocket)
-			activeHand = 1
-		if(selectedQuickSlot == leftHand)
-			activeHand = 2
-		if(selectedQuickSlot == rightHand)
-			activeHand = 3
-		if(selectedQuickSlot == rightPocket)
-			activeHand = 4
-
-		screenObjs -= quickSlotCursor
-		quickSlotCursor = new/obj/interface("[maxHotkeys+activeHand]",1,"active")
-		quickSlotCursor.layer = LAYER_INTERFACE+0.1
-		screenObjs |= quickSlotCursor
-
-		for(var/obj/interface/shortcut/S in interfaceHands)
-			var/obj/O = handOrder[interfaceHands.Find(S)]
-			if(O.contents.len > 0)
-				S.rebuild(O.contents[1])
-			else
-				S.rebuild(null)*/
 
 		for(var/slotid in slots)
 			var/obj/interface/slot/S = slots[slotid]

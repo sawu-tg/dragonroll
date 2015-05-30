@@ -135,7 +135,8 @@ var/list/globalTriggers = list()
 	if(teletar)
 		var/choice
 		var/shouldTeleport = TRUE
-		if(Ply.hasReroll && !teletar.safe)
+		var/reRoll = !istype(triggering,/mob/player) ? TRUE : Ply.hasReroll
+		if(reRoll && !teletar.safe)
 			choice = isTargetAI ? pick("Continue","Return") : alert(triggering,"You are leaving a safe-zone, this will disable character changes and sanctuary effects.","Safe-zone","Continue","Return")
 		if(choice)
 			switch(choice)

@@ -31,6 +31,7 @@
 	var/obj/projectile/abilityCastedProjectile // casted projectile for spell tracking etc
 
 	var/abilityAoe = 0 // if > 0, equals the damage range the ability is cast, if it is negative, its self cast around it
+	var/abilityProjectiles = 1 // amount of projectiles cast
 	var/obj/effect/abilityIconSelf // the effect path displayed on the user when cast (if any)
 	var/obj/projectile/abilityProjectile // the projectile thrown when cast (if any)
 	var/obj/effect/abilityIconTarget // the effect path displayed on the target, or in the case of AOE, around it
@@ -89,13 +90,18 @@
 					new/datum/timer(counter*5,src,"placeAoe",T)
 	else
 		if(abilityProjectile && target != caster)
-			abilityCastedProjectile = new abilityProjectile(target,caster)
-			abilityCastedProjectile.loc = caster.loc
-			abilityCastedProjectile.effect = abilityEffect
-			if(abilityModifier > 0)
-				abilityCastedProjectile.damage = do_roll(1,abilityModifier*abilityLevel)
-			else
-				abilityCastedProjectile.damage = -do_roll(1,-abilityModifier*abilityLevel)
+			var/list/inArea = oview(abilityRange,caster)
+			var/spawned = 0
+			for(var/turf/T in inArea)
+				if(spawned < abilityProjectiles)
+					abilityCastedProjectile = new abilityProjectile(target,caster)
+					abilityCastedProjectile.loc = caster.loc
+					abilityCastedProjectile.effect = abilityEffect
+					if(abilityModifier > 0)
+						abilityCastedProjectile.damage = do_roll(1,abilityModifier*abilityLevel)
+					else
+						abilityCastedProjectile.damage = -do_roll(1,-abilityModifier*abilityLevel)
+					spawned++;
 		else
 			if(istype(target,/mob/player))
 				var/mob/player/P = target
