@@ -72,8 +72,9 @@
 	var/def = victim.playerData.def.statCur //only here for calculations in output
 	var/obj/item/mainHand = attacker.activeHand()
 	var/attackString = "punch [victim]"
-	attackString = "hit [victim] with [mainHand.name]"
-	damage += (mainHand.force+mainHand.weight)*mainHand.size
+	if(mainHand)
+		attackString = "hit [victim] with [mainHand.name]"
+		damage += (mainHand.force+mainHand.weight)*mainHand.size
 	victim.takeDamage(damage)
 	displayInfo("You [attackString] for [max(0,damage-def)]HP (1d[damage]-[def])","[attacker] hits [victim] for [max(0,damage-def)]HP (1d[damage]-[def])",attacker,victim,"red")
 
