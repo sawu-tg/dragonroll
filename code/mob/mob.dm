@@ -38,6 +38,9 @@
 			defaultInterface()
 			refreshInterface()
 
+	add_pane(/datum/windowpane/verbs)
+	add_pane(/datum/windowpane/debug)
+
 /mob/Login()
 	if(!client.mob)
 		spawn(5)

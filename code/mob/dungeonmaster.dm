@@ -18,6 +18,12 @@
 	spawn(10)
 		client.isDM = TRUE
 
+	addProcessingObject(src)
+
+/mob/player/doProcess()
+	..()
+	refreshInterface()
+
 /mob/dm/verb/relocate()
 	set name = "Teleport"
 	set desc = "Teleports you to a new location"

@@ -35,6 +35,10 @@
 	equipItem(LBL)
 	equipItem(LBR)
 
+	add_pane(/datum/windowpane/stats)
+	add_pane(/datum/windowpane/abilities)
+	add_pane(/datum/windowpane/inventory)
+
 	///
 	playerOrgans |= new/datum/organ/l_arm
 	playerOrgans |= new/datum/organ/r_arm
@@ -47,14 +51,6 @@
 	///
 
 	..()
-
-/mob/player/Login()
-	..()
-
-	add_pane(/datum/windowpane/verbs)
-	add_pane(/datum/windowpane/stats)
-	add_pane(/datum/windowpane/inventory)
-	add_pane(/datum/windowpane/debug)
 
 /mob/player/verb/setview()
 	client.view = input(src,"Set View Range") as num
@@ -72,10 +68,10 @@
 
 		stat(stattext)
 	stat("Your intent is: [intent2string()]")*/
-	statpanel("Abilities")
-	for(var/obj/spellHolder/A in playerSpellHolders)
-		A.updateName()
-		stat(A)
+	//statpanel("Abilities")
+	//for(var/obj/spellHolder/A in playerSpellHolders)
+	//	A.updateName()
+	//	stat(A)
 	/*statpanel("Debug")
 	stat("CPU: [world.cpu]")
 	stat("FPS: [world.fps]")
@@ -132,12 +128,14 @@
 	if(type == DTYPE_MASSIVE)
 		if(!savingThrow(src,0,SAVING_FORTITUDE))
 			playerData.hp.setTo(-1)
-			F_damage(src,damage,rgb(255,0,255))
+			//F_damage(src,damage,rgb(255,0,255))
+			src.popup("[damage]",rgb(255,0,255))
 			doDamage = FALSE
 		else
 			doDamage = TRUE
 	if(doDamage)
-		F_damage(src,damage,rgb(255,0,0))
+		//F_damage(src,damage,rgb(255,0,0))
+		src.popup("[damage]",rgb(255,0,0))
 		playerData.hp.setTo(playerData.hp.statCur-damage)
 		if(playerData.hp.statCur == 0)
 			mobAddFlag(src,PASSIVE_STATE_DISABLED,active=0)
