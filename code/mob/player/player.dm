@@ -1,7 +1,4 @@
-/mob/player
-	name = "unnamed"
-	icon = 'sprite/mob/human.dmi'
-	icon_state = "skeleton_s"
+/mob
 	var/datum/playerFile/playerData = new
 
 	var/list/playerInventory = list()
@@ -20,20 +17,26 @@
 	var/actualSpeed = 1 //the actual speed
 	var/speed = 1 // the speed they move at
 
-/mob/player/New()
+/mob/player
+	name = "unnamed"
+	icon = 'sprite/mob/human.dmi'
+	icon_state = "skeleton_s"
+
+/mob/player/New(var/naked=FALSE)
 	addProcessingObject(src)
 	//selectedQuickSlot = leftHand
 	randomise()
 	set_light(6)
-	var/obj/item/armor/jerkin/J = new
-	var/obj/item/armor/leather_boot_left/LBL = new
-	var/obj/item/armor/leather_boot_right/LBR = new
-	addToInventory(LBL)
-	addToInventory(LBR)
-	addToInventory(J)
-	equipItem(J)
-	equipItem(LBL)
-	equipItem(LBR)
+	if(!naked)
+		var/obj/item/armor/jerkin/J = new
+		var/obj/item/armor/leather_boot_left/LBL = new
+		var/obj/item/armor/leather_boot_right/LBR = new
+		addToInventory(LBL)
+		addToInventory(LBR)
+		addToInventory(J)
+		equipItem(J)
+		equipItem(LBL)
+		equipItem(LBR)
 
 	///
 	playerOrgans |= new/datum/organ/l_arm
@@ -48,42 +51,22 @@
 
 	..()
 
-/mob/player/Login()
+/mob/Login()
 	..()
-
 	add_pane(/datum/windowpane/verbs)
-	add_pane(/datum/windowpane/stats)
-	add_pane(/datum/windowpane/inventory)
+	if(istype(src,/mob/player))
+		add_pane(/datum/windowpane/stats)
+		add_pane(/datum/windowpane/inventory)
 	add_pane(/datum/windowpane/debug)
 
 /mob/player/verb/setview()
 	client.view = input(src,"Set View Range") as num
 
 /mob/player/Stat()
-	/*statpanel("Character")
-
-	for(var/datum/stat/S in playerData.playerStats)
-		var/stattext = "<IMG CLASS=icon SRC=\ref['sprite/gui/staticons.dmi'] ICONSTATE='[S.statIcon]'>      "
-
-		if(S.isLimited)
-			stattext += "[S.statName]: [S.statModified]/[S.statMax] (Base: [S.statCur])"
-		else
-			stattext += "[S.statName]: [S.statModified] (Base: [S.statCur])"
-
-		stat(stattext)
-	stat("Your intent is: [intent2string()]")*/
 	statpanel("Abilities")
 	for(var/obj/spellHolder/A in playerSpellHolders)
 		A.updateName()
 		stat(A)
-	/*statpanel("Debug")
-	stat("CPU: [world.cpu]")
-	stat("FPS: [world.fps]")
-	stat("Total Count: [world.contents.len]")
-	if(CS)
-		stat("==== SUBSYSTEMS ====")
-		for(var/datum/controller/C in CS.controllers)
-			C.Stat()*/
 
 //Saycode, brutally mashed together by MrSnapwalk.
 
