@@ -48,24 +48,25 @@
 /mob/player/proc/showPlayerSheet(var/mob/toWho)
 	if(!toWho)
 		toWho = src
+	var/shouldShowChange = toWho == src && hasReroll ? TRUE : FALSE
 	var/html = "<title>Player Sheet</title><html><center>[parseIcon(src.client,src,FALSE)]<br><body style='background:grey'>"
-	html += "<b>Name</b>: [playerData.playerName][hasReroll ? " - <a href=?src=\ref[src];function=name><i>Change</i></a>" : ""]<br>"
-	html += "<b>Gender</b>: [playerData.returnGender()][hasReroll ? " - <a href=?src=\ref[src];function=gender><i>Change</i></a>" : ""]<br>"
-	html += "<b>Race</b>: <font color=[playerData.playerColor]>[playerData.playerRace.raceName]</font>[hasReroll ? " - <a href=?src=\ref[src];function=race><i>Change</i></a>" : ""]<br>"
-	html += "<b>Class</b>: <font color=[playerData.playerClass.classColor]>[playerData.playerClass.className]</font>[hasReroll ? " - <a href=?src=\ref[src];function=class><i>Change</i></a>" : ""]<br>"
+	html += "<b>Name</b>: [playerData.playerName][shouldShowChange ? " - <a href=?src=\ref[src];function=name><i>Change</i></a>" : ""]<br>"
+	html += "<b>Gender</b>: [playerData.returnGender()][shouldShowChange ? " - <a href=?src=\ref[src];function=gender><i>Change</i></a>" : ""]<br>"
+	html += "<b>Race</b>: <font color=[playerData.playerColor]>[playerData.playerRace.raceName]</font>[shouldShowChange ? " - <a href=?src=\ref[src];function=race><i>Change</i></a>" : ""]<br>"
+	html += "<b>Class</b>: <font color=[playerData.playerClass.classColor]>[playerData.playerClass.className]</font>[shouldShowChange ? " - <a href=?src=\ref[src];function=class><i>Change</i></a>" : ""]<br>"
 	html += "<b>Class Desc.</b>: [playerData.playerClass.classDesc]<br>"
 	html += "<b>Race Desc.</b>: [playerData.playerRace.raceDesc]<br>"
-	html += "<b>Hairstyle</b>: [playerData.playerHair][hasReroll ? " - <a href=?src=\ref[src];function=sethair><i>Change</i></a>" : ""]<br>"
-	html += "<b>Facial hair</b>: [playerData.playerFacial][hasReroll ? " - <a href=?src=\ref[src];function=setfacial><i>Change</i></a>" : ""]<br>"
-	html += "<b>Eye Color</b>: <font color=[playerData.eyeColor]>Preview</font>[hasReroll ? " - <a href=?src=\ref[src];function=eyes><i>Change</i></a>" : ""]<br>"
-	html += "<b>Hair Color</b>: <font color=[playerData.hairColor]>Preview</font>[hasReroll ? " - <a href=?src=\ref[src];function=haircolor><i>Change</i></a>" : ""]<br>"
-	html += "<b>Description</b>: [playerData.playerDesc] - <a href=?src=\ref[src];function=desc><i>Add</i></a>/<a href=?src=\ref[src];function=descdelete><i>Remove</i></a><br><br>"
+	html += "<b>Hairstyle</b>: [playerData.playerHair][shouldShowChange ? " - <a href=?src=\ref[src];function=sethair><i>Change</i></a>" : ""]<br>"
+	html += "<b>Facial hair</b>: [playerData.playerFacial][shouldShowChange ? " - <a href=?src=\ref[src];function=setfacial><i>Change</i></a>" : ""]<br>"
+	html += "<b>Eye Color</b>: <font color=[playerData.eyeColor]>Preview</font>[shouldShowChange ? " - <a href=?src=\ref[src];function=eyes><i>Change</i></a>" : ""]<br>"
+	html += "<b>Hair Color</b>: <font color=[playerData.hairColor]>Preview</font>[shouldShowChange ? " - <a href=?src=\ref[src];function=haircolor><i>Change</i></a>" : ""]<br>"
+	html += "<b>Description</b>: [playerData.playerDesc] [shouldShowChange ? "- <a href=?src=\ref[src];function=desc><i>Add</i></a>/<a href=?src=\ref[src];function=descdelete><i>Remove</i></a>" : ""]<br><br>"
 	for(var/datum/stat/S in playerData.playerStats)
 		if(S.isLimited)
 			html += "<b>[S.statName]</b>: [S.statModified]/[S.statMax]<br>"
 		else
 			html += "<b>[S.statName]</b>: [S.statModified]<br>"
-	html += "[hasReroll ? "<a href=?src=\ref[src];function=statroll><b>Reroll Stats</b></a> <a href=?src=\ref[src];function=statkeep><b>Keep Stats</b></a>" : ""]<br>"
+	html += "[shouldShowChange ? "<a href=?src=\ref[src];function=statroll><b>Reroll Stats</b></a> <a href=?src=\ref[src];function=statkeep><b>Keep Stats</b></a>" : ""]<br>"
 	html += "</body></center></html>"
 	toWho << browse(html,"window=playersheet")
 

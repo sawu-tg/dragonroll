@@ -5,6 +5,8 @@ var/list/validBiomes = list(/datum/biome/grassland,
 	/datum/biome/snow,
 	/datum/biome/meteor)
 
+//var/list/validBiomes = list(/datum/biome/snow) //uncomment this for biome testing
+
 /datum/biome
 	var/name = "default"
 	var/desc = "default" //dunno, maybe at some point

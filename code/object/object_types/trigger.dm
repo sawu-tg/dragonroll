@@ -18,6 +18,7 @@ var/list/globalTriggers = list()
 	var/triggerIcon
 	var/triggerIconCD
 	var/atom/movable/triggerTarget
+	var/isTargetAI = FALSE
 	var/atom/movable/triggering
 
 	var/triggerCooldownTime = 0 //the the time it takes to cooldown
@@ -39,6 +40,8 @@ var/list/globalTriggers = list()
 		if(triggering == lastTrigger)
 			return
 	lastTrigger = triggering
+	if(istype(a,/mob/player/npc))
+		isTargetAI = TRUE
 	doTrigger()
 
 /obj/trigger/proc/canTrigger()
@@ -71,6 +74,7 @@ var/list/globalTriggers = list()
 /obj/trigger/proc/doTrigger()
 	if(canTrigger())
 		triggerAction()
+		isTargetAI = FALSE
 
 /obj/trigger/proc/updateIcons(var/cooldown = FALSE)
 	overlays.Cut()
@@ -152,18 +156,20 @@ var/list/globalTriggers = list()
 				continue
 			if(P.portalID == portalID)
 				valid |= P
-	var/obj/trigger/portal/teletar = input(triggering,"Take portal to where?") as null|anything in valid
+	var/obj/trigger/portal/teletar = isTargetAI ? pick(valid) : input(triggering,"Take portal to where?") as null|anything in valid
 	if(teletar)
 		var/choice
 		var/shouldTeleport = TRUE
-		if(Ply.hasReroll && !teletar.safe)
-			choice = alert(triggering,"You are leaving a safe-zone, this will disable character changes and sanctuary effects.","Safe-zone","Continue","Return")
+		var/reRoll = !istype(triggering,/mob/player) ? TRUE : Ply.hasReroll
+		if(reRoll && !teletar.safe)
+			choice = isTargetAI ? pick("Continue","Return") : alert(triggering,"You are leaving a safe-zone, this will disable character changes and sanctuary effects.","Safe-zone","Continue","Return")
 		if(choice)
 			switch(choice)
 				if("Continue")
 					shouldTeleport = TRUE
 				if("Return")
 					shouldTeleport = FALSE
+					forceCooldown()
 				else
 					lastTrigger = null
 		else
@@ -181,4 +187,6 @@ var/list/globalTriggers = list()
 /obj/trigger/portal/doProcess()
 	..()
 	if(triggerCooldown <= 0)
+		if(lastTrigger)
+			lastTrigger = null
 		updateIcons(FALSE)

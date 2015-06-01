@@ -30,7 +30,8 @@
 /datum/race/Human
 	raceName = "Human"
 	raceDesc = "The Human race, descended from the Terran people, are a well rounded, hardy people with no particular upsides, or downsides."
-	icon_prefix = list("caucasian1","caucasian2","caucasian3","latino","mediterranean","asian1","asian2","arab","indian","african1","african2","albino")
+	icon_prefix = list("human")
+	shouldColorRace = TRUE
 
 /datum/race/Golem
 	raceName = "Golem"
