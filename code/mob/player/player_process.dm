@@ -13,6 +13,10 @@
 	if(playerData.hp.statCur > 0 && !isDisabled())
 		if(!canMove)
 			canMove = TRUE
+
+	for(var/datum/organ/O in playerOrgans)
+		O.organProc()
+
 	if(playerData.hp.statCur <= 0)
 		if(canMove)
 			canMove = FALSE

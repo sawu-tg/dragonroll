@@ -6,6 +6,7 @@
 
 	var/list/playerInventory = list()
 	var/list/playerEquipped = list()
+	var/list/playerOrgans = list()
 
 	var/list/persistingEffects = list()
 	var/active_states = 0
@@ -33,6 +34,17 @@
 	equipItem(J)
 	equipItem(LBL)
 	equipItem(LBR)
+
+	///
+	playerOrgans |= new/datum/organ/l_arm
+	playerOrgans |= new/datum/organ/r_arm
+	playerOrgans |= new/datum/organ/l_leg
+	playerOrgans |= new/datum/organ/r_leg
+	playerOrgans |= new/datum/organ/chest
+	playerOrgans |= new/datum/organ/head
+	playerOrgans |= new/datum/organ/brain
+	playerOrgans |= new/datum/organ/heart
+	///
 	..()
 
 /mob/player/verb/setview()
@@ -177,18 +189,25 @@
 	icon_state = "blank"
 	overlays.Cut()
 
+	var/list/addedOverlays = list()
+
 	var/state = "[prefix]_[playerData.playerGenderShort]_s"
 	var/image/player = image(icon,state)
 	player.color = playerData.playerColor
 	overlays |= player
 
+	for(var/datum/organ/O in playerOrgans)
+		if(O.internal)
+			continue
+		addedOverlays |= icon(O.icon,icon_state = O.icon_state)
+
 	var/image/eyes = image(icon,playerData.playerRace.raceEyes)
 	eyes.color = playerData.eyeColor
 
-	var/list/addedOverlays = list()
 	addedOverlays |= playerData.playerRace.race_overlays
 	addedOverlays |= eyes //fuck the what byond
 	addedOverlays |= playerData.playerOverlays
+
 	for(var/obj/item/I in playerEquipped)
 		addedOverlays |= image(icon=initial(I.icon),icon_state = initial(I.icon_state))
 
