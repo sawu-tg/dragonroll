@@ -90,6 +90,7 @@
 	var/damageVerb = ""
 	var/minDamDepth = 0
 	var/depth = 5 //1 - 100
+	var/liquidopacity = 128
 
 /turf/floor/outside/liquid/New()
 	..()
@@ -118,13 +119,52 @@
 	updateDepth()
 
 /turf/floor/outside/liquid/proc/updateDepth()
-	alpha = max(50,255 - depth*2)
+	//alpha = max(50,255 - depth*2)
+	var/color_a = max(50,255 - depth*4)
+	//color = rgb(color_a,color_a,color_a)
+
+	overlays.Cut()
+	//underlays.Cut()
+
+	var/image/I = image(icon,src,icon_state)
+	I.color = color
+	I.alpha = liquidopacity
+	I.pixel_z = depth
+
+	var/image/I2 = image(icon,src,"asteroid1")
+	I2.pixel_z = 0
+	I2.color = rgb(color_a,color_a,color_a)
+
+	var/image/I3 = image(icon,src,"asteroid1")
+	I3.layer = layer-0.1
+	I3.pixel_y = 32
+	I3.color = rgb(color_a*0.5,color_a*0.5,color_a*0.5)
+
+	/*var/image/I3 = image(icon,src,"asteroid1")
+	I3.pixel_z = -32
+	I3.pixel_y = 64
+	I3.color = rgb(color_a*0.5,color_a*0.5,color_a*0.5)*/
+
+	//alpha = 255
+
+	//var/image/I2 = image(icon,src,"asteroid1")
+	//I2.color = rgb(128,128,128)
+	//I2.pixel_z = -depth-32
+
+	//underlays += I3
+	overlays += I3
+	overlays += I2
+	overlays += I
+
+
 	if(solid)
 		name = solidName
 		icon_state = "[initial(icon_state)]_solid"
 	else
 		name = initial(name)
 		icon_state = "[initial(icon_state)]"
+
+	pixel_z = -depth
 
 /turf/floor/outside/liquid/Enter(atom/movable/O)
 	if(istype(O,/mob/player))
@@ -180,6 +220,7 @@
 	name = "Pit"
 	icon_state = "asteroid1"
 	color = "#999999"
+	liquidopacity = 0
 
 /turf/floor/outside/liquid/pit/New()
 	..()
@@ -198,6 +239,7 @@
 	icon_state = "lava"
 	damage = 1
 	damageVerb = "burning"
+	liquidopacity = 200
 
 	New()
 		..()
