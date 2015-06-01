@@ -5,7 +5,7 @@ var/list/validBiomes = list(/datum/biome/grassland,
 	/datum/biome/snow,
 	/datum/biome/meteor)
 
-//var/list/validBiomes = list(/datum/biome/snow) //uncomment this for biome testing
+//var/list/validBiomes = list(/datum/biome/ocean) //uncomment this for biome testing
 
 /datum/biome
 	var/name = "default"
@@ -25,6 +25,18 @@ var/list/validBiomes = list(/datum/biome/grassland,
 /datum/biome/grassland
 	name = "grassland"
 	desc = "grassy and full of life"
+
+	baseTurf = /turf/floor/outside/grass
+	validTurfs = list(/turf/floor/outside/grass,/turf/floor/outside/dirt)
+	validLiquids = list(/turf/floor/outside/liquid/water)
+	validDebris = list(/obj/interact/nature/bush,/obj/interact/nature/rock,/obj/interact/nature/tree)
+	validMobs = list(/mob/player/npc/chicken,/mob/player/npc/colonist)
+
+/datum/biome/ocean
+	name = "ocean"
+	desc = "lots of water"
+	liquidSize = 30
+	liquidErode = 0
 
 	baseTurf = /turf/floor/outside/grass
 	validTurfs = list(/turf/floor/outside/grass,/turf/floor/outside/dirt)
@@ -88,3 +100,4 @@ var/list/validBiomes = list(/datum/biome/grassland,
 	validLiquids = list(/turf/floor/outside/liquid/pit)
 	validDebris = list(/obj/interact/nature/bush,/obj/interact/nature/rock)
 	validMobs = list(/mob/player/npc/colonist)
+
