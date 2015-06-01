@@ -12,6 +12,9 @@ var/list/lighting_update_overlays = list()
 /datum/controller/lighting/Stat()
 	stat("[name] | [round(cost,0.001)]ds | (CPU:[round(cpu,1)]%) (Lightcount: [lighting_update_lights.len]) (Overlaycount: [lighting_update_overlays.len])")
 
+/datum/controller/lighting/getStat()
+	return "[name] | [round(cost,0.001)]ds | (CPU:[round(cpu,1)]%) (Lightcount: [lighting_update_lights.len]) (Overlaycount: [lighting_update_overlays.len])"
+
 /datum/controller/doProcess()
 //	world << "updating [lighting_update_lights.len] lights"
 

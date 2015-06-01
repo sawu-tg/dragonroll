@@ -122,15 +122,19 @@
 	if(!a)
 		return
 	heldAbility = a
-	name = heldAbility.name
-	if(heldAbility.abilityCooldownTimer)
-		name += " ([round(heldAbility.abilityCooldownTimer/60)]-CD)"
-	desc = heldAbility.desc
+	updateName()
+//	name = heldAbility.name
+//	if(heldAbility.abilityCooldownTimer)
+//		name += " ([round(heldAbility.abilityCooldownTimer/60)]-CD)"
+
 
 /obj/spellHolder/proc/updateName()
 	name = heldAbility.name
 	if(heldAbility.abilityCooldownTimer)
 		name += " ([round(heldAbility.abilityCooldownTimer/60)]-CD)"
+	desc = heldAbility.desc
+	icon = heldAbility.abilityIcon
+	icon_state = heldAbility.abilityState
 
 /obj/spellHolder/Click()
 	usr << "<font color=green><b>Drag [name] to the slot slot you wish to assign it to!</b></font>"

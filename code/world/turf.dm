@@ -41,10 +41,15 @@
 
 /turf/floor/outside/grass
 	name = "Grass"
+	var/datum/material/grassMaterial = new/datum/material/grass1
 
 /turf/floor/outside/grass/New()
 	..()
-	icon_state = "grass[rand(1,4)]"
+	icon_state = "grassf[rand(1,4)]"
+	update_icon()
+
+/turf/floor/outside/grass/proc/update_icon()
+	color = grassMaterial.color
 
 /turf/floor/outside/snow
 	name = "Snow"

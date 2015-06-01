@@ -328,7 +328,7 @@ var/list/regions = list()
 						D = new chosenBiome.baseTurf(D)
 					P.name = "[levelNames[zLevel]] the [chosenBiome.name]"
 					P.safe = FALSE
-					P.set_light(9,9,"#66CCFF")
+					//P.set_light(9,9,"#66CCFF") //BAD SAWU BAAAD
 			else
 				if(prob(decoChance))
 					if(!(T.type in chosenBiome.validLiquids))
