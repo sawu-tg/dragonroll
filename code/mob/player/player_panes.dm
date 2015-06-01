@@ -1,6 +1,15 @@
 /mob
 	var/list/datum/windowpane/panes = list()
 
+	Del()
+		for(var/paneid in panes)
+			var/datum/windowpane/pane = panes[paneid]
+
+			if(pane)
+				del(pane)
+
+		..()
+
 	proc/update_panes()
 		var/panestring = ""
 
@@ -19,7 +28,7 @@
 
 		panestring = copytext(panestring,1,-1)
 
-		//world << "tabs=\"[panestring]\""
+		//world << "[panestring]"
 
 		winset(src,"tabwindow.tabs","tabs=\"[panestring]\"")
 

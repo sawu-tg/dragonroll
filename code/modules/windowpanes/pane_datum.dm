@@ -8,24 +8,31 @@
 	var/update_interval = 5
 	var/last_update = 0
 
+	var/initialized = 0
+
 	New(var/mob/M)
 		player = M
 
-		initialize()
-
 	Del()
-		winset(player, id, "parent=none")
+		if(player && player.client)
+			winset(player, id, "parent=none")
 		..()
 
 	proc/initialize()
 		if(!player || !player.client)
 			return
 
-		winclone(player, base_id, id)
+		if(id != base_id)
+			winclone(player, base_id, id)
+
+		initialized = 1
 
 	proc/update()
 		if(!player || !player.client)
 			return
+
+		if(!winexists(player,id))
+			initialize()
 
 		winset(player, id, "title=\"[title]\"")
 
@@ -83,7 +90,7 @@
 		allstats += "</tr></table>"
 		allstats += "Your intent is: [P.intent2string()]"
 
-		if(statcontent != allstats)
+		if(statcontent != allstats && initialized)
 			statcontent = allstats
 
 			for(var/img in imagestosend)
@@ -112,7 +119,7 @@
 			html += "<b>[I.name]</b> ([!P.isWorn(I) ? "<a href=?src=\ref[P];function=dropitem;item=\ref[I]><i>Drop</i></a>" : ""][P.isWearable(I) && !P.isWorn(I) ? " | <a href=?src=\ref[P];function=wearitem;item=\ref[I]><i>Equip</i></a>" : (P.isWorn(I) ? "<a href=?src=\ref[P];function=removeitem;item=\ref[I]><i>Remove</i></a>" : "")] | <a href=?src=\ref[P];function=useitem;item=\ref[I]><i>Use</i></a>)<br>"
 		html += "</body></center></html>"
 
-		if(htmlcontent != html)
+		if(htmlcontent != html && initialized)
 			htmlcontent = html
 
 			P << output(html, "[id].browser")
@@ -144,7 +151,7 @@
 				debuginfo += C.getStat()
 				debuginfo += "<BR>"
 
-		if(debugcontent != debuginfo)
+		if(debugcontent != debuginfo && initialized)
 			debugcontent = debuginfo
 
 			P << output(debuginfo, "[id].browser")
@@ -155,12 +162,43 @@
 
 /datum/windowpane/verbs
 	title = "Verbs"
-	base_id = "pane_info"
-	id = "verbs"
+	base_id = "pane_verbs"
+	id = "pane_verbs"
 	var/htmlcontent = ""
 
 	initialize()
 		..()
 
 		if(player && player.client)
+			//world << "setting [id] to default"
+
 			winset(player,"[id].info","is-default=\"true\"")
+
+/datum/windowpane/abilities
+	title = "Abilities"
+	base_id = "pane_grid"
+	id = "abilities"
+	var/list/spells = list()
+
+	update()
+		var/mob/player/P = player
+
+		if(!P || !P.client)	return
+
+		var/list/delta = P.playerSpellHolders ^ spells
+
+		if(!delta.len)
+			return
+
+		var/count
+
+		for(var/obj/spellHolder/A in P.playerSpellHolders)
+			count++
+
+			A.updateName()
+			P << output(A, "[id].grid:[count]")
+
+		winset(P,"[id].grid","cells = \"[count]\"")
+		//winset(P,null,null)
+
+		..()
