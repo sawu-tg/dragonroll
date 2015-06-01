@@ -35,6 +35,17 @@
 	equipItem(LBL)
 	equipItem(LBR)
 
+	///
+	playerOrgans |= new/datum/organ/l_arm
+	playerOrgans |= new/datum/organ/r_arm
+	playerOrgans |= new/datum/organ/l_leg
+	playerOrgans |= new/datum/organ/r_leg
+	playerOrgans |= new/datum/organ/chest
+	playerOrgans |= new/datum/organ/head
+	playerOrgans |= new/datum/organ/brain
+	playerOrgans |= new/datum/organ/heart
+	///
+
 	..()
 
 /mob/player/Login()
@@ -44,22 +55,6 @@
 	add_pane(/datum/windowpane/stats)
 	add_pane(/datum/windowpane/inventory)
 	add_pane(/datum/windowpane/debug)
-
-/mob/player/verb/relocate()
-	var/x = input(src,"Choose X") as num
-	var/y = input(src,"Choose Y") as num
-	var/z = input(src,"Choose Z") as num
-
-	playerOrgans |= new/datum/organ/l_arm
-	playerOrgans |= new/datum/organ/r_arm
-	playerOrgans |= new/datum/organ/l_leg
-	playerOrgans |= new/datum/organ/r_leg
-	playerOrgans |= new/datum/organ/chest
-	playerOrgans |= new/datum/organ/head
-	playerOrgans |= new/datum/organ/brain
-	playerOrgans |= new/datum/organ/heart
-
-	..()
 
 /mob/player/verb/setview()
 	client.view = input(src,"Set View Range") as num
