@@ -1,11 +1,17 @@
 
 
 //Can update this to better logic later on
+///
+// Returns a TRUE/FALSE whether the given atom is adjacent
+///
 /atom/proc/Adjacent(var/atom/A)
 	if(get_dist(A,src) > 1)
 		return 0
 	return 1
 
+///
+// Returns the angle between start and end.
+///
 /proc/Get_Angle(atom/movable/start,atom/movable/end)//For beams.
 	if(!start || !end) return 0
 	var/dy

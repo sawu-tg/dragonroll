@@ -5,6 +5,10 @@
 	var/list/materials = list() // associative list of ingredients and count
 	var/list/product = list() // associative list of produced objects and their count
 
+
+///
+// Returns whether the recipe can be crafted from the given list. Can be overidden with a boolean.
+///
 /datum/recipe/proc/canCraft(var/list/provided, var/override=FALSE)
 	if(override)
 		return TRUE
@@ -27,6 +31,9 @@
 			return TRUE
 	return FALSE
 
+///
+// Returns names of items needed, and their amount. Returns as a list of strings
+///
 /datum/recipe/proc/getNeededNames()
 	var/list/newList = list()
 	for(var/e in materials)
@@ -35,6 +42,10 @@
 		del(d)
 	return newList
 
+///
+// Completes the crafting recipe, from the provided list to the given crafting player.
+// Can be overidden with a boolean to spawn items instantly, for no cost.
+///
 /datum/recipe/proc/getResult(var/list/provided, var/mob/player/crafter, var/override=FALSE)
 	if(override)
 		for(var/a in product)

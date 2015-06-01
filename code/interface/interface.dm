@@ -1,3 +1,7 @@
+///
+// Various UI objects.
+///
+
 /obj/interface
 	name = "interface obj"
 	desc = "interface object"

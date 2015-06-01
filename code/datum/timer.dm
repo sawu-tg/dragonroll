@@ -1,8 +1,12 @@
+///
+// Basic timer datum that fires every decisecond/tick.
+///
+
 /datum/timer
-	var/totalTime = 1
-	var/owner
-	var/ownerProc
-	var/procVars
+	var/totalTime = 1 // The time it counts for
+	var/owner // Who called this timer
+	var/ownerProc // The proc to be called
+	var/procVars // Variables to be passed
 
 /datum/timer/proc/fire()
 	if(totalTime > 0)

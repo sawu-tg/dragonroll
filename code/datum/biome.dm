@@ -12,10 +12,10 @@ var/list/validBiomes = list(/datum/biome/grassland,
 	var/desc = "default" //dunno, maybe at some point
 
 	var/turfSize = 7 // size of turf spatters
-	var/turf/baseTurf
+	var/turf/baseTurf // the base turf of the biome
 	var/list/validTurfs = list() // valid turfs to generate (grass, dirt, floors)
 	var/liquidSize = 7 // size of liquid spatters
-	var/liquidErode = 7
+	var/liquidErode = 7 // size of erosion
 	var/list/validLiquids = list() //valid liquids to generate (lava, water, giant pools of tequila)
 	var/debrisChance = 15 // chance of placing debris
 	var/list/validDebris = list() //valid debris (ruins, obelisks, fat people's orbit)

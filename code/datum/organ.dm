@@ -6,13 +6,18 @@
 	var/icon_state = "l_arm" // icon state the organ displays
 	var/health = 100 // health of the organ
 
+///
+// What the organ does, called on a mob's process
+///
 /datum/organ/proc/organProc()
 	if(health <= 0)
 		organFail()
 		return 0
 	return 1 // return 1 for success, 0 for organ failiure
-
-/datum/organ/proc/organFail() // called when the organ fails
+///
+// When an organ fails, this is called
+///
+/datum/organ/proc/organFail()
 
 
 //organs

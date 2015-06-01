@@ -2,10 +2,10 @@
 	var/raceName = "raceless"
 	var/raceDesc = "pretty bad"
 
-	var/list/icon_prefix = list("caucasian1") //REEEEEEEEEEEEEEEEEE
-	var/raceEyes = "eyes"
-	var/list/race_overlays = list()
-	var/shouldColorRace = FALSE
+	var/list/icon_prefix = list("human") // The race prefix of a player, given to the player
+	var/raceEyes = "eyes" // The eye overlay the race uses
+	var/list/race_overlays = list() // Extra overlays added to the race on a player's icon rebuild
+	var/shouldColorRace = FALSE // If TRUE, the race is tinted
 
 	//All mods should balance to 0
 	var/hp_mod = 0
@@ -17,6 +17,7 @@
 	var/int_mod = 0
 	var/cha_mod = 0
 
+	// A List of slots that the race has
 	var/list/slots = list(/obj/interface/slot/hand/left,
 		/obj/interface/slot/hand/right,
 		/obj/interface/slot/foot/left,

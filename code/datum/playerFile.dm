@@ -2,28 +2,28 @@
 	var/playerName = "player"
 	var/playerDesc = "not really that interesting"
 
-	var/datum/race/playerRace
-	var/list/playerOverlays = list()
+	var/datum/race/playerRace // Race datum of the player
+	var/list/playerOverlays = list() // A list of extra overlays displayed on the rebuild of a player's icon
 
-	var/playerHair = "hair_bald_s"
-	var/playerFacial = "facial_bald_s"
+	var/playerHair = "hair_bald_s" // The icon_state of the player's hair
+	var/playerFacial = "facial_bald_s" // The icon_state of the player's facial hair
 
-	var/playerRacePrefix = "caucasian1"
+	var/playerRacePrefix = "human" // The racial prefix of the player, used for race checking
 
-	var/playerColor = "white"
-	var/hairColor = "white"
-	var/eyeColor = "white"
+	var/playerColor = "white" // The color of a player's skin, used to tint them
+	var/hairColor = "white" // The color of a player's hair, used to tint it
+	var/eyeColor = "white" // The color of a player's eyes, used to tint it.
 
 	var/list/playerExtraDesc = list()
 
 	var/playerGender = 0 //0 = male , 1 = female, 2 = other/genderless
-	var/playerGenderShort = "m"
-	var/customGender = "none"
-	var/customGenderA = "none"
+	var/playerGenderShort = "m" // The letter-designation of a race, used for icon changing
+	var/customGender = "none" // The custom gender of the player, noun
+	var/customGenderA = "none" // The custom gender of the player, pronoun
 
-	var/list/datum/ability/playerAbilities = new
-	var/list/datum/stat/playerStats = new
-	var/datum/class/playerClass = new
+	var/list/datum/ability/playerAbilities = new // A list of the player's abilities
+	var/list/datum/stat/playerStats = new // A list of player's stats
+	var/datum/class/playerClass = new // The player's class datum
 	var/datum/stat/hp = new("Health",TRUE,10,-10,10,staticon = "hp")
 	var/datum/stat/mp = new("Mana",TRUE,10,0,10,staticon = "mp")
 	var/datum/stat/ar = new("Armor Rating",FALSE,0,staticon = "res")
@@ -39,6 +39,7 @@
 	var/datum/stat/ref = new("Reflex Throw",FALSE,1,staticon = "reflex")
 	var/datum/stat/will = new("Will Throw",FALSE,1,staticon = "will")
 
+	// The recipes that the player knows for crafting
 	var/list/knownRecipes = list(new/datum/recipe/hatchet,new/datum/recipe/woodwall,new/datum/recipe/wooddoor)
 
 /datum/playerFile/New()
@@ -58,6 +59,9 @@
 	playerStats += ref
 	playerStats += will
 
+///
+// Returns the gender of the player for strings
+///
 /datum/playerFile/proc/returnGender(var/alternate=FALSE)
 	switch(playerGender)
 		if(0)
@@ -67,6 +71,9 @@
 		if(2)
 			return alternate ? customGenderA : customGender
 
+///
+// Assigns the class datum to the player
+///
 /datum/playerFile/proc/assignClass(var/datum/class/toAssign)
 	var/datum/class/T = new toAssign
 	playerAbilities.Add(T.classAbilities)
@@ -81,6 +88,9 @@
 	cha.change(T.cha_mod)
 	del(T)
 
+///
+// Assigns the race datum to the player
+///
 /datum/playerFile/proc/assignRace(var/datum/race/toAssign)
 	hp.change(toAssign.hp_mod)
 	mp.change(toAssign.mp_mod)

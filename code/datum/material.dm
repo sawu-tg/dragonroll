@@ -1,25 +1,30 @@
 /datum/material
 	var/name = "default material"
-	var/color = "#FF0000"
-	var/matLevel = 1 // 1 - 10
-	var/addedWeight = 0
-	var/addedForce = 0
+	var/color = "#FF0000" // the color of the material
+	var/matLevel = 1 // (1 - 10) how strong the material is, and what it adds to modifiers
+	var/addedWeight = 0 // how much weight is added when this is used
+	var/addedForce = 0 // how much force is added when this is used
 
-	var/list/adjectives = list()
-	var/prefix = ""
-	var/list/syllables = list("de","fault")
-	var/suffix = ""
+	var/list/adjectives = list() // ???
+	var/prefix = "" // prefix of the material
+	var/list/syllables = list("de","fault") // syllables of the material's name
+	var/suffix = "" // suffix of the amterial
 
 /datum/material/New()
 	..()
-
 	src.build_name()
 
+///
+// Reconstructs the name of the material
+///
 /datum/material/proc/build_name()
 	name = "[list2text(adjectives,", ")]"
 	if(adjectives.len) name += " "
 	name += list2text(list(prefix) + syllables + suffix)
 
+///
+// Mixes the name of two materials
+///
 /datum/material/proc/mix_name(var/datum/material/first, var/datum/material/second)
 	adjectives = first.adjectives | second.adjectives
 
@@ -47,6 +52,9 @@
 
 	build_name()
 
+///
+// Adds the properties of one material to this one
+///
 /datum/material/proc/inherit(var/obj/inheriting)
 	inheriting.color = color
 	inheriting.weight += addedWeight
@@ -56,6 +64,9 @@
 	if(name != "default") //sue me
 		inheriting.name = "[name] [inheriting.name]"
 
+///
+// DEBUG: Generates a number of test materials
+///
 /mob/verb/testAlloy()
 	var/mat1 = getRandomMaterial()
 	var/datum/material/sickterial = new mat1
@@ -65,11 +76,17 @@
 		var/mat2 = getRandomMaterial()
 		sickterial = combineMaterials(sickterial, new mat2)
 
+///
+// Returns a random material from all materials
+///
 /proc/getRandomMaterial()
 	var/list/selectionlist = typesof(/datum/material) - /datum/material
 
 	return pick(selectionlist)
 
+///
+// Creates a material name from two given names
+///
 /proc/alloyname(name1,name2)
 	var/N1 = lentext(name1)
 	var/N2 = lentext(name2)
@@ -80,6 +97,9 @@
 
 	return rname
 
+///
+// Cleanses a string of double letters
+///
 /proc/cullDoubleLetters(text)
 	var/currentletter
 	var/rtext = ""
@@ -97,6 +117,9 @@
 
 	return rtext
 
+///
+// Creates a new material as an average from the two given
+///
 /proc/combineMaterials(var/datum/material/first, var/datum/material/second)
 	var/datum/material/combined = new/datum/material/default
 	combined.matLevel = first.matLevel + second.matLevel

@@ -2,13 +2,13 @@
 	var/name = "default name"
 	var/desc = "no description"
 
-	var/suppressMessage = FALSE
+	var/suppressMessage = FALSE // Causes the ability to not show a message
 
-	var/requiresCheck = FALSE
+	var/requiresCheck = FALSE // Toggles the checking of required statistics
 	var/skillStatIndex = 1 //index in playerStats that will be rolled for a check
 	var/skillStatMin = 0 //minimum of roll required to actually cast
 	var/skillStatDifficultyLower = 1 // lower d upper + playerSkills[skillStatIndex] >= skillStatMin
-	var/skillStatDifficultyUpper = 6
+	var/skillStatDifficultyUpper = 6 // The upper of the check
 	var/skillStatMax = 10 //if the roll passes this, it's a critical cast
 	var/abilityManaMod = 2 //mana cost is level*manaMod
 
@@ -38,6 +38,9 @@
 
 	var/mob/holder // who holds this spell, for easy access
 
+///
+// Tests if the ability can be casted, and then casts it.
+///
 /datum/ability/proc/tryCast(var/mob/player/caster,var/target)
 	if(!caster)
 		return
@@ -49,6 +52,9 @@
 		Cast(caster,target)
 		postCast(caster,target)
 
+///
+// Checks if the player is able to cast the ability
+///
 /datum/ability/proc/canCast(var/mob/player/checked)
 	if(abilityCooldownTimer == 0)
 		var/datum/stat/checkStat = checked.playerData.playerStats[skillStatIndex]
@@ -64,17 +70,26 @@
 				displayInfo("You try to cast [name], but it fizzles!","[checked.name] attempts to cast [name], but it fizzles!",checked,image(abilityIcon,icon_state=abilityState))
 			return FALSE
 
+///
+// Called before casting.
+///
 /datum/ability/proc/preCast(var/mob/player/casting,var/target)
 	if(!suppressMessage)
 		displayInfo("You begin casting [name].","[casting.name] begins casting [name].",casting,image(abilityIcon,icon_state=abilityState))
 	if(abilityIconSelf)
 		new abilityIconSelf(casting.loc)
 
+///
+// Places an AOE for the ability on the given turf
+///
 /datum/ability/proc/placeAoe(var/turf/where)
 	var/obj/effect/aoe_tile/A = new abilityIconTarget(where)
 	A.damage = do_roll(1,abilityModifier*abilityLevel)
 	A.length = abilityLevel*25
 
+///
+// Casts the ability, from the given player, to the target
+///
 /datum/ability/proc/Cast(var/mob/player/caster,var/target)
 	abilityCooldownTimer = abilityCooldown
 	if(abilityHitsPlayers && !istype(target,/atom/movable))
@@ -113,12 +128,18 @@
 					P.takeDamage(-do_roll(1,abilityModifier*abilityLevel))
 	cooldownHandler |= src
 
+///
+// Called after a succseful cast.
+///
 /datum/ability/proc/postCast(var/mob/player/caster,var/target)
 	if(!suppressMessage)
 		displayInfo("You cast [name].","[caster.name] cast [name].",caster,image(abilityIcon,icon_state=abilityState))
 	if(abilityIconTarget)
 		new abilityIconTarget(target:loc)
 
+///
+// and Object that holds spells for casting.
+///
 /obj/spellHolder
 	name = "spell holder"
 	var/mob/mobHolding
@@ -133,7 +154,9 @@
 //	if(heldAbility.abilityCooldownTimer)
 //		name += " ([round(heldAbility.abilityCooldownTimer/60)]-CD)"
 
-
+///
+// Regenerates the spellHolder's name
+///
 /obj/spellHolder/proc/updateName()
 	name = heldAbility.name
 	if(heldAbility.abilityCooldownTimer)

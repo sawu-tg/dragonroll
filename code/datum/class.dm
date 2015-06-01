@@ -1,8 +1,9 @@
 /datum/class
 	var/className = "Default Class"
 	var/classDesc = "Generic Class"
-	var/classColor = "white"
-	var/list/classAbilities = list()
+	var/classColor = "white" // unique color for the class
+	var/list/classAbilities = list() // abilities the class can use
+	//Stat modifiers for the class
 	var/hp_mod = 0
 	var/mp_mod = 0
 	var/str_mod = 0
