@@ -50,6 +50,9 @@
 				A.beDropped()
 		if(A.thrown)
 			SpinAnimation(5,1)
+			if(!loc || !A.thrownTarget)
+				if(!A.thrownTarget:loc)
+					return
 			if(loc != A.thrownTarget:loc)
 				if(A.lastTurf == src.loc)
 					A.countedTimeout++

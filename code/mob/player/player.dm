@@ -40,14 +40,14 @@
 	add_pane(/datum/windowpane/inventory)
 
 	///
-	playerOrgans |= new/datum/organ/l_arm
-	playerOrgans |= new/datum/organ/r_arm
-	playerOrgans |= new/datum/organ/l_leg
-	playerOrgans |= new/datum/organ/r_leg
-	playerOrgans |= new/datum/organ/chest
-	playerOrgans |= new/datum/organ/head
-	playerOrgans |= new/datum/organ/brain
-	playerOrgans |= new/datum/organ/heart
+	playerOrgans |= new/datum/organ/l_arm(playerData.playerRace)
+	playerOrgans |= new/datum/organ/r_arm(playerData.playerRace)
+	playerOrgans |= new/datum/organ/l_leg(playerData.playerRace)
+	playerOrgans |= new/datum/organ/r_leg(playerData.playerRace)
+	playerOrgans |= new/datum/organ/chest(playerData.playerRace)
+	playerOrgans |= new/datum/organ/head(playerData.playerRace)
+	playerOrgans |= new/datum/organ/brain(playerData.playerRace)
+	playerOrgans |= new/datum/organ/heart(playerData.playerRace)
 	///
 
 	..()

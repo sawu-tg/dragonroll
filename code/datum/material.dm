@@ -145,6 +145,14 @@
 	matLevel = 10
 	addedForce = 0
 
+/datum/material/flesh
+	name = "flesh"
+	color = "#990000"
+	addedWeight = 1
+	matLevel = 1
+	addedForce = 1
+
+
 /datum/material/wood1
 	name = "hearthwood"
 	color = "#8B4513"
