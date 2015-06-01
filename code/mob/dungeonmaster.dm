@@ -1,38 +1,30 @@
 /mob/verb/becomeDM()
-	set name = "Toggle DM"
+	set name = "Be DM"
 	set desc = "Ascend to the level of a DM"
 	set src = usr
-	if(client.isDM)
-		var/mob/player/dm/NDM = src
-		NDM.originalMob.ckey = src.ckey
-		del(NDM)
-	else
-		var/mob/player/dm/NDM = new/mob/player/dm(src.loc)
-		NDM.ckey = src.ckey
-		NDM.originalMob = src
+	var/mob/dm/NDM = new/mob/dm(src.loc)
+	NDM.ckey = src.ckey
+	del(src)
 
-/mob/player/dm
+/mob/dm
 	name = "Dungeon Master"
 	desc = "Master of.. well more than just dungeons."
+	icon = 'sprite/mob/mob.dmi'
+	icon_state = "ghostking"
 	invisibility = 3
 	see_invisible  = 3
-	var/mob/originalMob
 
-/mob/player/dm/New()
-	..(TRUE)
+/mob/dm/New()
 	spawn(10)
-		raceChange(/datum/race/Genie,TRUE)
-
 		client.isDM = TRUE
-		defaultInterface()
-		refreshInterface()
-		addProcessingObject(src)
 
-/mob/player/dm/doProcess()
+	addProcessingObject(src)
+
+/mob/player/doProcess()
 	..()
 	refreshInterface()
 
-/mob/player/dm/verb/relocate()
+/mob/dm/verb/relocate()
 	set name = "Teleport"
 	set desc = "Teleports you to a new location"
 	set category = "DM"
@@ -42,7 +34,7 @@
 
 	loc = locate(x,y,z)
 
-/mob/player/dm/verb/SpawnMonster()
+/mob/dm/verb/SpawnMonster()
 	set name = "Spawn Monster"
 	set desc = "Spawns a monster at your location"
 	set category = "DM"
@@ -51,7 +43,7 @@
 		new toSpawn(src.loc)
 
 
-/mob/player/dm/verb/SpawnItem()
+/mob/dm/verb/SpawnItem()
 	set name = "Spawn Item"
 	set desc = "Spawns an Item at your location"
 	set category = "DM"
@@ -59,7 +51,7 @@
 	if(toSpawn)
 		new toSpawn(src.loc)
 
-/mob/player/dm/verb/SpawnEffect()
+/mob/dm/verb/SpawnEffect()
 	set name = "Spawn Effect"
 	set desc = "Spawns an Effect at your location"
 	set category = "DM"

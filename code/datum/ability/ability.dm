@@ -122,7 +122,8 @@
 				var/mob/player/P = target
 				mobAddFlag(P,ACTIVE_STATE_DAZED,abilityModifier*abilityLevel,TRUE)
 				if(abilityModifier > 0)
-					F_damage(P,abilityModifier*abilityLevel,rgb(0,255,0))
+					//F_damage(P,abilityModifier*abilityLevel,rgb(0,255,0))
+					P.popup(abilityModifier*abilityLevel,rgb(0,255,0))
 					P.playerData.hp.change(do_roll(1,abilityModifier*abilityLevel))
 				else
 					P.takeDamage(-do_roll(1,abilityModifier*abilityLevel))

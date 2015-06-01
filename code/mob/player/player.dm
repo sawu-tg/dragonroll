@@ -1,4 +1,7 @@
-/mob
+/mob/player
+	name = "unnamed"
+	icon = 'sprite/mob/human.dmi'
+	icon_state = "skeleton_s"
 	var/datum/playerFile/playerData = new
 
 	var/list/playerInventory = list()
@@ -17,26 +20,24 @@
 	var/actualSpeed = 1 //the actual speed
 	var/speed = 1 // the speed they move at
 
-/mob/player
-	name = "unnamed"
-	icon = 'sprite/mob/human.dmi'
-	icon_state = "skeleton_s"
-
-/mob/player/New(var/naked=FALSE)
+/mob/player/New()
 	addProcessingObject(src)
 	//selectedQuickSlot = leftHand
 	randomise()
 	set_light(6)
-	if(!naked)
-		var/obj/item/armor/jerkin/J = new
-		var/obj/item/armor/leather_boot_left/LBL = new
-		var/obj/item/armor/leather_boot_right/LBR = new
-		addToInventory(LBL)
-		addToInventory(LBR)
-		addToInventory(J)
-		equipItem(J)
-		equipItem(LBL)
-		equipItem(LBR)
+	var/obj/item/armor/jerkin/J = new
+	var/obj/item/armor/leather_boot_left/LBL = new
+	var/obj/item/armor/leather_boot_right/LBR = new
+	addToInventory(LBL)
+	addToInventory(LBR)
+	addToInventory(J)
+	equipItem(J)
+	equipItem(LBL)
+	equipItem(LBR)
+
+	add_pane(/datum/windowpane/stats)
+	add_pane(/datum/windowpane/abilities)
+	add_pane(/datum/windowpane/inventory)
 
 	///
 	playerOrgans |= new/datum/organ/l_arm
@@ -51,22 +52,34 @@
 
 	..()
 
-/mob/Login()
-	..()
-	add_pane(/datum/windowpane/verbs)
-	if(istype(src,/mob/player))
-		add_pane(/datum/windowpane/stats)
-		add_pane(/datum/windowpane/inventory)
-	add_pane(/datum/windowpane/debug)
-
 /mob/player/verb/setview()
 	client.view = input(src,"Set View Range") as num
 
 /mob/player/Stat()
-	statpanel("Abilities")
-	for(var/obj/spellHolder/A in playerSpellHolders)
-		A.updateName()
-		stat(A)
+	/*statpanel("Character")
+
+	for(var/datum/stat/S in playerData.playerStats)
+		var/stattext = "<IMG CLASS=icon SRC=\ref['sprite/gui/staticons.dmi'] ICONSTATE='[S.statIcon]'>      "
+
+		if(S.isLimited)
+			stattext += "[S.statName]: [S.statModified]/[S.statMax] (Base: [S.statCur])"
+		else
+			stattext += "[S.statName]: [S.statModified] (Base: [S.statCur])"
+
+		stat(stattext)
+	stat("Your intent is: [intent2string()]")*/
+	//statpanel("Abilities")
+	//for(var/obj/spellHolder/A in playerSpellHolders)
+	//	A.updateName()
+	//	stat(A)
+	/*statpanel("Debug")
+	stat("CPU: [world.cpu]")
+	stat("FPS: [world.fps]")
+	stat("Total Count: [world.contents.len]")
+	if(CS)
+		stat("==== SUBSYSTEMS ====")
+		for(var/datum/controller/C in CS.controllers)
+			C.Stat()*/
 
 //Saycode, brutally mashed together by MrSnapwalk.
 
@@ -115,12 +128,14 @@
 	if(type == DTYPE_MASSIVE)
 		if(!savingThrow(src,0,SAVING_FORTITUDE))
 			playerData.hp.setTo(-1)
-			F_damage(src,damage,rgb(255,0,255))
+			//F_damage(src,damage,rgb(255,0,255))
+			src.popup("[damage]",rgb(255,0,255))
 			doDamage = FALSE
 		else
 			doDamage = TRUE
 	if(doDamage)
-		F_damage(src,damage,rgb(255,0,0))
+		//F_damage(src,damage,rgb(255,0,0))
+		src.popup("[damage]",rgb(255,0,0))
 		playerData.hp.setTo(playerData.hp.statCur-damage)
 		if(playerData.hp.statCur == 0)
 			mobAddFlag(src,PASSIVE_STATE_DISABLED,active=0)
