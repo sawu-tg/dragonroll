@@ -32,6 +32,9 @@
 
 		//world << "current time [currTime] -- [world.timeofday]"
 
+		if(currTime < 0)
+			currTime = timeTotalLength + (currTime % timeTotalLength)
+
 		for(var/i = 1, i <= timeSegmentLength.len,i++)
 			currTime -= timeSegmentLength[i]
 

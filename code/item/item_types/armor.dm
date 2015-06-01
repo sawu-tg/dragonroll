@@ -1,6 +1,7 @@
 /obj/item/armor
 	name = "default armor"
 	desc = "protects a man against his problems"
+	showAsLoot = TRUE
 	var/armorRating = 1
 
 /obj/item/armor/New()

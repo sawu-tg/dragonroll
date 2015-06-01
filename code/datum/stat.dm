@@ -1,5 +1,6 @@
 /datum/stat
 	var/statName = "noname"
+	var/statIcon = ""
 	var/statOld = 0
 	var/statCur = 0 // the base stat
 	var/statModified = 0 // the modified stat (ie + racials, item stats)
@@ -9,7 +10,7 @@
 	var/isLimited = FALSE
 	var/list/affecting = list()
 
-/datum/stat/New(var/name = "error", var/limit=FALSE, var/cur=0, var/min=0, var/max=100)
+/datum/stat/New(var/name = "error", var/limit=FALSE, var/cur=0, var/min=0, var/max=100, var/staticon = "")
 	if(limit)
 		isLimited = limit
 		statMin = min
@@ -17,6 +18,9 @@
 	statName = name
 	statCur = cur
 	statModified = cur
+	statIcon = staticon
+
+	statOld = statCur
 
 /datum/stat/proc/changeMin(var/amount)
 	if(amount < statMax)
@@ -55,6 +59,8 @@
 	statModified += amount
 
 /datum/stat/proc/change(var/amount)
+	world << "changing [statName] to [statCur + amount]"
+
 	if(isLimited)
 		if(amount > 0)
 			setTo(min(statMax,statCur + amount))

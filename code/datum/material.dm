@@ -142,6 +142,16 @@
 	syllables = list()
 	suffix = "bush"
 
+/datum/material/grass1
+	name = "hearthgrass"
+	color = "#556B2F"
+	addedWeight = 0
+	addedForce = 0
+
+	prefix = "hearth"
+	syllables = list()
+	suffix = "grass"
+
 /datum/material/mineral1
 	name = "erdestein"
 	color = "#696969"

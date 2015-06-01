@@ -1,0 +1,166 @@
+/datum/windowpane
+	var/mob/player
+
+	var/title
+	var/base_id
+	var/id
+
+	var/update_interval = 5
+	var/last_update = 0
+
+	New(var/mob/M)
+		player = M
+
+		initialize()
+
+	Del()
+		winset(player, id, "parent=none")
+		..()
+
+	proc/initialize()
+		if(!player || !player.client)
+			return
+
+		winclone(player, base_id, id)
+
+	proc/update()
+		if(!player || !player.client)
+			return
+
+		winset(player, id, "title=\"[title]\"")
+
+/datum/windowpane/stats
+	title = "Stats"
+	base_id = "pane_browser"
+	id = "stats"
+	var/statcontent = ""
+
+	update()
+		var/mob/player/P = player
+
+		if(!P || !P.client)	return
+
+		var/allstats = "<table style=\"width: 100%;\"><tr>"
+		var/currentcolumn = 0
+		var/maxcolumn = 2
+
+		var/list/imagestosend = list()
+
+		imagestosend["stat_up"] = icon('sprite/gui/staticons.dmi',"up")
+		imagestosend["stat_down"] = icon('sprite/gui/staticons.dmi',"down")
+		imagestosend["stat_normal"] = icon('sprite/gui/staticons.dmi',"normal")
+
+		for(var/datum/stat/S in P.playerData.playerStats)
+			var/img = "stat_[S.statIcon].png"
+
+			imagestosend[img] = icon('sprite/gui/staticons.dmi',S.statIcon)
+
+			//var/stattext = "<IMG CLASS=icon SRC=\ref['sprite/gui/staticons.dmi'] ICONSTATE='[S.statIcon]'> "
+			var/stattext = "<IMG SRC=[img]> "
+			var/statprefix = "stat_normal"
+			var/statdelta = (S.isLimited ? S.statMax : S.statCur) - S.statOld
+			statdelta = S.statCur - S.statOld
+
+			//world << "[S.statName]: [S.statCur] - [S.statOld] = [statdelta]"
+
+			if(statdelta > 0)
+				statprefix = "stat_up"
+			else if(statdelta < 0)
+				statprefix = "stat_down"
+
+			if(S.isLimited)
+				stattext += "[S.statName]: </td><td><IMG SRC=[statprefix]>[S.statModified]/[S.statMax] (Base: [S.statCur])"
+			else
+				stattext += "[S.statName]: </td><td><IMG SRC=[statprefix]>[S.statModified] (Base: [S.statCur])"
+
+			allstats += "<td>[stattext]</td>"
+
+			currentcolumn++
+
+			if(currentcolumn >= maxcolumn)
+				allstats += "</tr><tr>"
+				currentcolumn = 0
+		allstats += "</tr></table>"
+		allstats += "Your intent is: [P.intent2string()]"
+
+		if(statcontent != allstats)
+			statcontent = allstats
+
+			for(var/img in imagestosend)
+				P << browse_rsc(imagestosend[img],img)
+
+			P << output(allstats, "[id].browser")
+			winset(P,null,null)
+
+		..()
+
+
+/datum/windowpane/inventory
+	title = "Inventory"
+	base_id = "pane_browser"
+	id = "inventory"
+	var/htmlcontent = ""
+
+	update()
+		var/mob/player/P = player
+
+		if(!P || !P.client)	return
+
+		//var/html = "<title>Inventory</title><html><center>[parseIcon(P.client,P,FALSE)]<br><body style='background:grey'>"
+		var/html = "<title>Inventory</title><html><center><br><body style='background:grey'>"
+		for(var/obj/I in P.playerInventory)
+			html += "<b>[I.name]</b> ([!P.isWorn(I) ? "<a href=?src=\ref[P];function=dropitem;item=\ref[I]><i>Drop</i></a>" : ""][P.isWearable(I) && !P.isWorn(I) ? " | <a href=?src=\ref[P];function=wearitem;item=\ref[I]><i>Equip</i></a>" : (P.isWorn(I) ? "<a href=?src=\ref[P];function=removeitem;item=\ref[I]><i>Remove</i></a>" : "")] | <a href=?src=\ref[P];function=useitem;item=\ref[I]><i>Use</i></a>)<br>"
+		html += "</body></center></html>"
+
+		if(htmlcontent != html)
+			htmlcontent = html
+
+			P << output(html, "[id].browser")
+			winset(P,null,null)
+
+		..()
+
+
+/datum/windowpane/debug
+	title = "Debug"
+	base_id = "pane_browser"
+	id = "debug"
+	update_interval = 5
+	var/debugcontent = ""
+
+	update()
+		var/mob/player/P = player
+
+		if(!P || !P.client)	return
+
+		//var/html = "<title>Inventory</title><html><center>[parseIcon(P.client,P,FALSE)]<br><body style='background:grey'>"
+		var/debuginfo
+		debuginfo += "CPU: [world.cpu]<BR>"
+		debuginfo += "FPS: [world.fps]<BR>"
+		debuginfo += "Total Count: [world.contents.len]<BR>"
+		if(CS)
+			debuginfo += "==== SUBSYSTEMS ====<BR>"
+			for(var/datum/controller/C in CS.controllers)
+				debuginfo += C.getStat()
+				debuginfo += "<BR>"
+
+		if(debugcontent != debuginfo)
+			debugcontent = debuginfo
+
+			P << output(debuginfo, "[id].browser")
+			winset(P,null,null)
+
+		..()
+
+
+/datum/windowpane/verbs
+	title = "Verbs"
+	base_id = "pane_info"
+	id = "verbs"
+	var/htmlcontent = ""
+
+	initialize()
+		..()
+
+		if(player && player.client)
+			winset(player,"[id].info","is-default=\"true\"")

@@ -45,31 +45,45 @@
 	playerOrgans |= new/datum/organ/brain
 	playerOrgans |= new/datum/organ/heart
 	///
+
 	..()
+
+/mob/player/Login()
+	..()
+
+	add_pane(/datum/windowpane/verbs)
+	add_pane(/datum/windowpane/stats)
+	add_pane(/datum/windowpane/inventory)
+	add_pane(/datum/windowpane/debug)
 
 /mob/player/verb/setview()
 	client.view = input(src,"Set View Range") as num
 
 /mob/player/Stat()
-	statpanel("Character")
+	/*statpanel("Character")
+
 	for(var/datum/stat/S in playerData.playerStats)
+		var/stattext = "<IMG CLASS=icon SRC=\ref['sprite/gui/staticons.dmi'] ICONSTATE='[S.statIcon]'>      "
+
 		if(S.isLimited)
-			stat("[S.statName]: [S.statModified]/[S.statMax] (Base: [S.statCur])")
+			stattext += "[S.statName]: [S.statModified]/[S.statMax] (Base: [S.statCur])"
 		else
-			stat("[S.statName]: [S.statModified] (Base: [S.statCur])")
-	stat("Your intent is: [intent2string()]")
+			stattext += "[S.statName]: [S.statModified] (Base: [S.statCur])"
+
+		stat(stattext)
+	stat("Your intent is: [intent2string()]")*/
 	statpanel("Abilities")
 	for(var/obj/spellHolder/A in playerSpellHolders)
 		A.updateName()
 		stat(A)
-	statpanel("Debug")
+	/*statpanel("Debug")
 	stat("CPU: [world.cpu]")
 	stat("FPS: [world.fps]")
 	stat("Total Count: [world.contents.len]")
 	if(CS)
 		stat("==== SUBSYSTEMS ====")
 		for(var/datum/controller/C in CS.controllers)
-			C.Stat()
+			C.Stat()*/
 
 //Saycode, brutally mashed together by MrSnapwalk.
 

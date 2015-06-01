@@ -142,3 +142,5 @@
 
 			S.align(src)
 			S.rebuild()
+
+		update_panes()

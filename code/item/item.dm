@@ -2,7 +2,7 @@
 	name = "default item"
 	desc = "not very interesting"
 	var/stackSize = 1
-	var/showAsLoot = TRUE
+	var/showAsLoot = FALSE
 	var/loot_icon = 'sprite/obj/items.dmi' //icon of the item ont he floor
 	var/loot_icon_state = "loot" //state of the item on the floor
 	var/list/stats = list()

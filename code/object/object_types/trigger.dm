@@ -12,7 +12,8 @@ var/list/globalTriggers = list()
 	var/atom/lastTrigger
 	var/shouldCheckLast = FALSE
 
-	var/list/triggerOverlay = list() //strided list of iconstate,tiles_x,tiles_y
+	var/list/extenders = list()
+	var/list/triggerOverlay = list() //strided list of iconstate,tiles_x,tiles_y //FUCKS A STRIDED LIST
 	var/list/triggerOverlayCD = list()
 	var/triggerIcon
 	var/triggerIconCD
@@ -26,6 +27,10 @@ var/list/globalTriggers = list()
 /obj/trigger/New()
 	..()
 	globalTriggers |= src
+
+	//set_light(11,9,"#66CCFF")
+	set_light(11,9,"#FFFFFF")
+
 	if(triggerOverlay.len)
 		updateIcons()
 
@@ -78,10 +83,27 @@ var/list/globalTriggers = list()
 	for(counter = 1; counter < iconlist.len; counter = counter + 3)
 		if(iconlist[counter])
 			if(counter != 1)
-				var/obj/triggerExpander/exp = new /obj/triggerExpander(src)
-				exp.loc = loc
-				exp.x += iconlist[counter+1]
-				exp.y += iconlist[counter+2]
+				//world << "Everyday we make another trigger extender" //WE REALLY DO YOU FUCKING NIGGER
+				//var/obj/triggerExpander/exp = new /obj/triggerExpander(src)
+				//exp.loc = loc
+				//exp.x += iconlist[counter+1]
+				//exp.y += iconlist[counter+2]
+				//If you fucking read this know that I am fucking disappointed.
+
+				var/xoff = iconlist[counter+1]
+				var/yoff = iconlist[counter+2]
+
+				var/obj/triggerExpander/E = extenders["[xoff],[yoff]"]
+
+				if(!E)
+					E = new /obj/triggerExpander(src)
+					E.loc = locate(x+xoff,y+yoff,z)
+					extenders["[xoff],[yoff]"] = E
+
+				if(light)
+					E.set_light(light.light_range,light.light_power,light.light_color)
+				else
+					E.set_light(0)
 			overlays |= image(icon=(cooldown ? triggerIconCD : triggerIcon),icon_state=iconlist[counter],pixel_x = iconlist[counter+1]*world.icon_size,pixel_y = iconlist[counter+2]*world.icon_size)
 
 /obj/triggerExpander
@@ -123,6 +145,9 @@ var/list/globalTriggers = list()
 
 /obj/trigger/portal/triggerAction()
 	var/mob/player/Ply = triggering
+
+	world << "Player entering [Ply]"
+
 	var/list/valid = list()
 	for(var/obj/trigger/T in globalTriggers)
 		if(istype(T,/obj/trigger/portal))
@@ -152,7 +177,7 @@ var/list/globalTriggers = list()
 		if(shouldTeleport)
 			..()
 			teletar.forceCooldown()
-			triggering.loc = teletar.loc
+			Ply.loc = teletar.loc
 			step(triggering,exitDir)
 		else
 			step(triggering,exitDir)

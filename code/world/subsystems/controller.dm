@@ -26,6 +26,9 @@
 /datum/controller/proc/Stat()
 	stat("[name] | [round(cost,0.001)]ds | (CPU:[round(cpu,1)]%)")
 
+/datum/controller/proc/getStat()
+	return "[name] | [round(cost,0.001)]ds | (CPU:[round(cpu,1)]%)"
+
 /datum/controller/proc/Initialize()
 	return
 
