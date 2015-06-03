@@ -19,7 +19,7 @@ var/list/validBiomes = list(/datum/biome/grassland,
 	var/list/validLiquids = list() //valid liquids to generate (lava, water, giant pools of tequila)
 	var/debrisChance = 15 // chance of placing debris
 	var/list/validDebris = list() //valid debris (ruins, obelisks, fat people's orbit)
-	var/mobChance = 5 // chance of placing mobs
+	var/mobChance = 25 // chance of placing mobs
 	var/list/validMobs = list() //valid mobs (animals, villagers, fat people of which the debris orbit)
 
 /datum/biome/grassland
@@ -30,7 +30,7 @@ var/list/validBiomes = list(/datum/biome/grassland,
 	validTurfs = list(/turf/floor/outside/grass,/turf/floor/outside/dirt)
 	validLiquids = list(/turf/floor/outside/liquid/water)
 	validDebris = list(/obj/interact/nature/bush,/obj/interact/nature/rock,/obj/interact/nature/tree)
-	validMobs = list(/mob/player/npc/chicken,/mob/player/npc/colonist)
+	validMobs = list(/mob/player/npc/animal/wasp,/mob/player/npc/animal/bat,/mob/player/npc/animal/spider,/mob/player/npc/animal/cat,/mob/player/npc/animal/bear,/mob/player/npc/animal/cow,/mob/player/npc/animal/chicken,/mob/player/npc/animal/dog,/mob/player/npc/animal/fox,/mob/player/npc/colonist)
 
 /datum/biome/ocean
 	name = "ocean"
@@ -42,7 +42,7 @@ var/list/validBiomes = list(/datum/biome/grassland,
 	validTurfs = list(/turf/floor/outside/grass,/turf/floor/outside/dirt)
 	validLiquids = list(/turf/floor/outside/liquid/water)
 	validDebris = list(/obj/interact/nature/bush,/obj/interact/nature/rock,/obj/interact/nature/tree)
-	validMobs = list(/mob/player/npc/chicken,/mob/player/npc/colonist)
+	validMobs = list(/mob/player/npc/animal/chicken,/mob/player/npc/animal/crab,/mob/player/npc/animal/dog,/mob/player/npc/colonist)
 
 /datum/biome/desert
 	name = "desert"
@@ -54,7 +54,7 @@ var/list/validBiomes = list(/datum/biome/grassland,
 	liquidErode = 2
 	validLiquids = list(/turf/floor/outside/liquid/water)
 	validDebris = list(/obj/interact/nature/bush,/obj/interact/nature/rock)
-	validMobs = list(/mob/player/npc/grey,/mob/player/npc/colonist)
+	validMobs = list(/mob/player/npc/animal/wasp,/mob/player/npc/animal/cat,/mob/player/npc/animal/spider,/mob/player/npc/grey,/mob/player/npc/animal/dog,/mob/player/npc/animal/fox,/mob/player/npc/colonist)
 
 /datum/biome/lavaland
 	name = "lava-land"
@@ -66,7 +66,7 @@ var/list/validBiomes = list(/datum/biome/grassland,
 	liquidErode = 6
 	validLiquids = list(/turf/floor/outside/liquid/lava)
 	validDebris = list(/obj/interact/nature/rock)
-	validMobs = list(/mob/player/npc/grey)
+	validMobs = list(/mob/player/npc/animal/bat,/mob/player/npc/animal/spider,/mob/player/npc/grey)
 
 /datum/biome/alienlab
 	name = " ??? "
@@ -87,7 +87,7 @@ var/list/validBiomes = list(/datum/biome/grassland,
 	validTurfs = list(/turf/floor/outside/snow)
 	validLiquids = list(/turf/floor/outside/liquid/water/ice)
 	validDebris = list(/obj/interact/nature/tree/snow,/obj/interact/nature/bush/snow)
-	validMobs = list(/mob/player/npc/colonist)
+	validMobs = list(/mob/player/npc/animal/bear,/mob/player/npc/colonist,/mob/player/npc/animal/fox,/mob/player/npc/animal/dog)
 
 /datum/biome/meteor
 	name = "impact site"
@@ -99,5 +99,5 @@ var/list/validBiomes = list(/datum/biome/grassland,
 	liquidErode = 0
 	validLiquids = list(/turf/floor/outside/liquid/pit)
 	validDebris = list(/obj/interact/nature/bush,/obj/interact/nature/rock)
-	validMobs = list(/mob/player/npc/colonist)
+	validMobs = list(/mob/player/npc/animal/bat,/mob/player/npc/animal/spider,/mob/player/npc/grey,/mob/player/npc/colonist)
 

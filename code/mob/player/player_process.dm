@@ -9,6 +9,7 @@
 /mob/player/doProcess()
 	..()
 	refreshInterface()
+	processFlags(src)
 	//health management
 	if(playerData.hp.statCur > 0 && !isDisabled())
 		if(!canMove)
@@ -20,7 +21,7 @@
 	if(playerData.hp.statCur <= 0)
 		if(canMove)
 			canMove = FALSE
-	if(canMove && !checkFlag(active_states,ACTIVE_STATE_DAZED))
+	if(!checkFlag(active_states,ACTIVE_STATE_DAZED))
 		speed = actualSpeed
 	if(inDPSLiquid)
 		if(prob(5))

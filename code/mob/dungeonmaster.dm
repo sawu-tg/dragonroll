@@ -20,7 +20,7 @@
 
 	addProcessingObject(src)
 
-/mob/player/doProcess()
+/mob/dm/doProcess()
 	..()
 	refreshInterface()
 

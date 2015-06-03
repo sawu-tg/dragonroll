@@ -2,6 +2,7 @@
 	var/raceName = "raceless"
 	var/raceDesc = "pretty bad"
 
+	var/icon = 'sprite/mob/human.dmi'
 	var/list/icon_prefix = list("human") // The race prefix of a player, given to the player
 	var/raceEyes = "eyes" // The eye overlay the race uses
 	var/list/race_overlays = list() // Extra overlays added to the race on a player's icon rebuild
@@ -141,6 +142,7 @@
 
 
 //NPC only races
+
 /datum/race/Grey
 	raceName = "Greylien"
 	raceDesc = "If it starts screaming conjuctions, you better run."
@@ -157,3 +159,16 @@
 	shouldColorRace = TRUE
 	int_mod = 3
 	wis_mod = 3
+
+/datum/race/Beast
+	raceName = "Monster"
+	raceDesc = "Smelly, clucky and all too interested in your internal organs"
+	icon = 'sprite/mob/animal.dmi'
+	hp_mod = 5
+	mp_mod = 5
+	str_mod = 1
+	dex_mod = 1
+	con_mod = 1
+	wis_mod = -5
+	int_mod = -5
+	cha_mod = -5

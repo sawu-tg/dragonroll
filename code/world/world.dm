@@ -50,8 +50,8 @@ var/list/regions = list()
 /proc/processLiquids()
 	for(var/turf/floor/outside/liquid/T in world)
 		if(T && istype(T))
-			T.updateErodeDepth()
-
+			spawn(-1)
+				T.updateErodeDepth()
 	spawn(10)
 		processLiquids()
 
@@ -83,14 +83,16 @@ var/list/regions = list()
 /proc/processRegions()
 	if(regions.len)
 		for(var/datum/zregion/R in regions)
-			R.doProcess()
+			spawn(-1)
+				R.doProcess()
 	spawn(1)
 		processRegions()
 
 /proc/processObjects()
 	if(procObjects.len)
 		for(var/atom/i in procObjects)
-			i.doProcess()
+			spawn(1)
+				i.doProcess()
 	spawn(1)
 		processObjects()
 
@@ -122,7 +124,8 @@ var/list/regions = list()
 		remFlag(who.passive_states, flag)
 
 /proc/checkFlag(var/on, var/flag)
-	return (on & flag)
+	var/valid = (on & flag)
+	return valid
 
 /proc/setFlag(var/on, var/flag)
 	if(!checkFlag(on,flag))
@@ -245,7 +248,7 @@ var/list/regions = list()
 //terrain generation
 
 #define lowestChance 1
-#define maxColonists 5
+#define maxColonists 100
 
 /proc/generate(var/zLevel)
 	var/cB = pick(validBiomes)
