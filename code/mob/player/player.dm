@@ -52,6 +52,12 @@
 		refreshIcon(playerData.playerRacePrefix)
 	..()
 
+/mob/player/Cross(atom/movable/O)
+	if(layingDown)
+		return 1
+
+	return ..()
+
 /mob/player/proc/harvest()
 	var/turf/srcLoc = get_turf(src)
 	for(var/obj/item/I in src)
