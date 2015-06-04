@@ -1,5 +1,6 @@
 /mob/player
 	var/lastBleed = 0
+	var/layingDown = 0
 
 	//liquid stuff
 	var/inDPSLiquid = FALSE
@@ -29,9 +30,23 @@
 			if(isMonster)
 				icon_state = "[icon_state]_dead"
 			else
-				//do some shit with rotation
+				//do some shit with rotation //or don't do it here holy shit nigga
+
 	if(!checkEffectStack("daze"))
 		speed = actualSpeed
+
+	var/shouldLay = checkEffectStack("laydown") > 0
+
+	if(shouldLay != layingDown)
+		var/matrix/newtransform = matrix()
+
+		if(shouldLay)
+			newtransform.Turn(90)
+			newtransform.Translate(0,-12)
+
+		animate(src,transform = newtransform,time = 2,loop = 0)
+		layingDown = shouldLay
+
 	if(inDPSLiquid)
 		if(prob(5))
 			displayInfo("You are [liquidVerb]!","[src] screams!",src,src)
