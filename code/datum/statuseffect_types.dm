@@ -2,12 +2,12 @@
 	name = "Dead"
 	id = "dead"
 	desc = "You deadened."
-	addedstacks = list("dead")
+	addedstacks = list("dead","laydown")
 
 /datum/statuseffect/dazed
 	name = "Dazed"
 	id = "daze"
-	desc = "Probably does a thing but I forgot."
+	desc = "Probably does a thing but I forgot." //Give this an actual description you nigga
 	addedstacks = list("no_act","daze")
 
 /datum/statuseffect/disabled
@@ -20,6 +20,7 @@
 	name = "Dying"
 	id = "dying"
 	desc = "Not really that dead yet."
+	addedstacks = list("laydown")
 
 /datum/statuseffect/drowning
 	name = "Drowning"
@@ -31,7 +32,7 @@
 	name = "Stunned"
 	id = "stun"
 	desc = "No action possible (I think)"
-	addedstacks = list("no_move","no_act")
+	addedstacks = list("no_move","no_act","laydown")
 
 /datum/statuseffect/poison
 	name = "Poison"
