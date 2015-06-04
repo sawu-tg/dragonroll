@@ -85,7 +85,9 @@ var/list/alldirs = list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAS
 	while(!T.density)
 		count++
 		if(count <= maxDist)
-			T = get_step(T,dir)
+			var/turf/T2 = get_step(T,dir)
+			if(T2)
+				T = T2
 		else
 			break
 	return T
