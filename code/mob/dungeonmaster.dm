@@ -20,6 +20,9 @@
 
 	addProcessingObject(src)
 
+	add_pane(/datum/windowpane/verbs)
+	add_pane(/datum/windowpane/debug)
+
 /mob/dm/doProcess()
 	..()
 	refreshInterface()

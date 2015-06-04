@@ -40,6 +40,9 @@
 	raceDesc = "Golems, risen from the spell of a magical sorceror, or some natural occurence, aren't particularly bright, or charismatic, but their hardy earthen bodys make them durable in combat."
 	icon_prefix = list("golem")
 	shouldColorRace = TRUE
+
+	stat_mods = list("con" = 2, "str" = 1, "int" = -1, "cha" = -2)
+
 	con_mod = 2
 	str_mod = 1
 	int_mod = -1
@@ -50,6 +53,9 @@
 	raceDesc = "Lizard-people, from a distant, burning swamp planet, are deft, hardy (and ugly) people, but years of infighting, consuming toxic carp and swamp gas, has left them lacking the intelligence for all but the most menial tasks."
 	icon_prefix = list("lizard")
 	shouldColorRace = TRUE
+
+	stat_mods = list("dex" = 2, "con" = 1, "cha" = -1, "int" = -2)
+
 	dex_mod = 2
 	con_mod = 1
 	cha_mod = -1
@@ -60,6 +66,9 @@
 	raceDesc = "The result of chemical experimentation, a Slime-person is a regular human turned into a Slime-analogue. The process ruins most of the nervous system, making them a bit dim-witted, and their lack of any significant body form, makes them extremely hardy, at the cost of being weaker."
 	icon_prefix = list("slime")
 	shouldColorRace = TRUE
+
+	stat_mods = list("str" = -2, "int" = -2, "con" = 4)
+
 	str_mod = -2
 	int_mod = -2
 	con_mod = 4
@@ -80,6 +89,8 @@
 	int_mod = -2
 	cha_mod = -2
 
+	stat_mods = list("str" = 2, "dex" = 2, "int" = -2, "cha" = -2)
+
 /datum/race/Jelly
 	raceName = "Jelly-person"
 	raceDesc = "Jelly-people are large, humanoid shaped jellies, or perhaps a Slime trying to impersonate a person. Lacking any form of bodily besides what it has absorbed, it lacks any noticeable strength."
@@ -90,6 +101,8 @@
 	int_mod = -1
 	con_mod = 1
 	dex_mod = 2
+
+	stat_mods = list("str" = -2, "int" = -1, "con" = 1, "dex" = 2)
 
 /datum/race/Ape
 	raceName = "Ape-person"
@@ -102,6 +115,8 @@
 	int_mod = 1
 	wis_mod = -3
 
+	stat_mods = list("str" = 1, "dex" = 1, "int" = 1, "wis" = -3)
+
 /datum/race/Spider
 	raceName = "Spider-person"
 	raceDesc = "Spider-people are the result of freak lab accident, creating a mixture of spider and humanoid DNA. Possesses all of the natural upsides of a spider, with the downside of being horrifying to see."
@@ -112,6 +127,8 @@
 	int_mod = 1
 	cha_mod = -3
 
+	stat_mods = list("str" = 2, "int" = 1, "cha" = -3)
+
 /datum/race/Spidertaur
 	raceName = "Spidertaur"
 	raceDesc = "Spidertaurs are a freakier lab accident, the result of trying to repair the damage done with Spider-people. The result was a horrific merging of giant spiders and spider-people, with massive strength."
@@ -120,6 +137,8 @@
 	shouldColorRace = TRUE
 	str_mod = 3
 	cha_mod = -3
+
+	stat_mods = list("str" = 3, "cha" = -3)
 
 /datum/race/Robot
 	raceName = "Robot"

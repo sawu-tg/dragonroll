@@ -9,8 +9,10 @@
 	var/list/playerOrgans = list()
 
 	var/list/persistingEffects = list()
-	var/active_states = 0
-	var/passive_states = 0
+	//var/active_states = 0
+	//var/passive_states = 0
+
+	var/datum/statuseffect/deadeffect //The effect applied when you're at or below 0 hp
 
 	var/isMonster = FALSE // is the player a monster race?
 	var/actualIconState = "blank"
@@ -114,9 +116,9 @@
 		M.hear(msg, usr)
 
 /mob/player/proc/takeDamage(var/amount,var/type=DTYPE_BASIC)
-	var/damage = max(0,type == DTYPE_DIRECT ? amount : amount - playerData.def.statCur)
+	var/damage = max(0,type == DTYPE_DIRECT ? amount : amount - playerData.def.statCurr)
 	var/doDamage = FALSE
-	if(damage > playerData.con.statCur)
+	if(damage > playerData.con.statCurr)
 		if(type == DTYPE_NONLETHAL)
 			if(!savingThrow(src,0,SAVING_FORTITUDE))
 				//set unconcious 1d4 rounds
@@ -136,24 +138,37 @@
 	if(doDamage)
 		//F_damage(src,damage,rgb(255,0,0))
 		src.popup("[damage]",rgb(255,0,0))
-		playerData.hp.setTo(playerData.hp.statCur-damage)
-		if(playerData.hp.statCur == 0)
-			mobAddFlag(src,PASSIVE_STATE_DISABLED,active=0)
-		else if(playerData.hp.statCur <= -1 && playerData.hp.statCur >= -9)
-			mobRemFlag(src,PASSIVE_STATE_DISABLED,active=0)
-			mobAddFlag(src,ACTIVE_STATE_DYING,active=1)
-		else if(playerData.hp.statCur <= -10)
-			mobRemFlag(src,PASSIVE_STATE_DISABLED,active=0)
-			mobRemFlag(src,ACTIVE_STATE_DYING,active=1)
-			mobAddFlag(src,PASSIVE_STATE_DEAD,active=0)
+		playerData.hp.setTo(playerData.hp.statCurr-damage)
+
+		var/dyingtype
+
+		if(playerData.hp.statCurr == 0)
+			dyingtype = /datum/statuseffect/disabled
+			//mobAddFlag(src,PASSIVE_STATE_DISABLED,active=0)
+		else if(playerData.hp.statCurr <= -1 && playerData.hp.statCurr >= -9)
+			dyingtype = /datum/statuseffect/dying
+			//mobRemFlag(src,PASSIVE_STATE_DISABLED,active=0)
+			//mobAddFlag(src,ACTIVE_STATE_DYING,active=1)
+		else if(playerData.hp.statCurr <= -10)
+			dyingtype = /datum/statuseffect/dead
+			//mobRemFlag(src,PASSIVE_STATE_DISABLED,active=0)
+			//mobRemFlag(src,ACTIVE_STATE_DYING,active=1)
+			//mobAddFlag(src,PASSIVE_STATE_DEAD,active=0)
+
+
+		if(!istype(deadeffect,dyingtype))
+			src.remStatusEffect(deadeffect)
+			deadeffect = src.addStatusEffect(dyingtype)
 
 ///
 // BASIC FLAG STATES
 // Mob flags seem to be broken right now. Not sure why?
 ///
 /mob/player/proc/stun(var/amount)
-	canMove = FALSE
-	mobAddFlag(src, ACTIVE_STATE_STUNNED, amount, TRUE)
+	//canMove = FALSE
+	//mobAddFlag(src, ACTIVE_STATE_STUNNED, amount, TRUE)
+
+	src.addStatusEffect(/datum/statuseffect/stun,amount)
 
 /mob/player/proc/isDisabled()
 	if(beingCarried)
@@ -163,9 +178,11 @@
 	/*if(checkFlag(active_states,ACTIVE_STATE_DAZED))
 		return TRUE
 	if(checkFlag(active_states,ACTIVE_STATE_STUNNED))
+		return TRUE*/
+	if(checkEffectStack("no_move"))
 		return TRUE
-	WHY DO FLAGS NOT WORK? WHO KNOWS!
-		*/
+	if(checkEffectStack("no_act"))
+		return TRUE
 	return FALSE
 
 
@@ -240,6 +257,8 @@
 		if(playerData.playerRace.icon)
 			icon = playerData.playerRace.icon
 		playerData.assignRace(playerData.playerRace)
+		recalculateBaseStats(src)
+		recalculateStats(src)
 		var/prefix = ""
 		if(reselect)
 			if(playerData.playerRace.icon_prefix.len > 1)
@@ -304,13 +323,15 @@
 	refreshIcon(playerData.playerRacePrefix)
 
 /mob/player/proc/updateStats()
-	for(var/obj/item/I in playerEquipped)
+	recalculateStats()
+
+	/*for(var/obj/item/I in playerEquipped)
 		for(var/datum/stat/S in playerData.playerStats)
 			for(var/A in I.stats)
 				if(A == S.statName)
 					if(!S.affecting.Find(I))
 						S.addTo(I.stats[A])
-						S.affecting |= I
+						S.affecting |= I*/
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -366,17 +387,20 @@
 	var/min = 2
 	var/max = 17
 	//min/max are minus 1 for 1 starting score
-	playerData.def.setTo(rand(min,max))
-	playerData.str.setTo(rand(min,max))
-	playerData.dex.setTo(rand(min,max))
-	playerData.con.setTo(rand(min,max))
-	playerData.wis.setTo(rand(min,max))
-	playerData.int.setTo(rand(min,max))
-	playerData.cha.setTo(rand(min,max))
-	playerData.save.setTo(rand(min,max))
-	playerData.fort.setTo(rand(min,max))
-	playerData.ref.setTo(rand(min,max))
-	playerData.will.setTo(rand(min,max))
+	playerData.def.setBaseTo(rand(min,max))
+	playerData.str.setBaseTo(rand(min,max))
+	playerData.dex.setBaseTo(rand(min,max))
+	playerData.con.setBaseTo(rand(min,max))
+	playerData.wis.setBaseTo(rand(min,max))
+	playerData.int.setBaseTo(rand(min,max))
+	playerData.cha.setBaseTo(rand(min,max))
+	playerData.save.setBaseTo(rand(min,max))
+	playerData.fort.setBaseTo(rand(min,max))
+	playerData.ref.setBaseTo(rand(min,max))
+	playerData.will.setBaseTo(rand(min,max))
+
+	recalculateBaseStats()
+
 	if(prompt)
 		var/statAsString = ""
 		for(var/datum/stat/S in playerData.playerStats)
@@ -411,7 +435,7 @@
 		if(!playerData.playerAbilities.Find(s))
 			playerSpellHolders.Remove(s)
 
-	abilLoop:
+	abilLoop: //Who wrote this and where does he live
 		for(var/A in playerData.playerAbilities)
 			//prevent duplicates
 			for(var/obj/spellHolder/SH in playerSpellHolders)
@@ -437,12 +461,13 @@
 
 /mob/player/proc/unEquipItem(var/obj/item/what)
 	src.playerEquipped.Remove(what)
-	for(var/datum/stat/S in playerData.playerStats)
+	/*for(var/datum/stat/S in playerData.playerStats)
 		for(var/A in what.stats)
 			if(A == S.statName)
 				if(S.affecting.Find(what))
 					S.remFrom(what.stats[A])
-					S.affecting.Remove(what)
+					S.affecting.Remove(what)*/
+	updateStats()
 	refreshIcon(playerData.playerRacePrefix)
 
 /mob/player/proc/isWorn(var/obj/item/what)

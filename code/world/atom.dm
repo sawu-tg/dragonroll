@@ -43,7 +43,7 @@
 	if(istype(src,/atom/movable))
 		var/atom/movable/A = src
 		if(A.beingCarried)
-			if(do_roll(1,20,A.carriedBy.playerData.str.statCur) >= A.weight + A.size)
+			if(do_roll(1,20,A.carriedBy.playerData.str.statCurr) >= A.weight + A.size)
 				A.loc = A.carriedBy.loc
 			else
 				displayInfo("You fumble and lose your strength, dropping the [A.carriedBy.carrying]!","[src] drops the [A.carrying]!",A.carriedBy,src)

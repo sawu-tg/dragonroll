@@ -28,8 +28,6 @@
 
 		panestring = copytext(panestring,1,-1)
 
-		//world << "[panestring]"
-
 		winset(src,"tabwindow.tabs","tabs=\"[panestring]\"")
 
 	proc/add_pane(var/panetype)
