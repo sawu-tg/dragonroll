@@ -24,6 +24,12 @@
 	if(playerData.hp.statCurr <= 0)
 		if(canMove)
 			canMove = FALSE
+		if(playerData.hp.statCurr <= playerData.hp.statMin)
+			addEffectStack(/datum/statuseffect/dead)
+			if(isMonster)
+				icon_state = "[icon_state]_dead"
+			else
+				//do some shit with rotation
 	if(!checkEffectStack("daze"))
 		speed = actualSpeed
 	if(inDPSLiquid)

@@ -9,8 +9,6 @@
 	var/list/playerOrgans = list()
 
 	var/list/persistingEffects = list()
-	//var/active_states = 0
-	//var/passive_states = 0
 
 	var/datum/statuseffect/deadeffect //The effect applied when you're at or below 0 hp
 
@@ -54,34 +52,28 @@
 		refreshIcon(playerData.playerRacePrefix)
 	..()
 
+/mob/player/proc/harvest()
+	var/turf/srcLoc = get_turf(src)
+	for(var/obj/item/I in src)
+		unEquipItem(I)
+		if(!isMonster)
+			I.loc = srcLoc
+		else
+			if(!I.lootForm)
+				I.lootForm = I.type
+			var/type = I.lootForm
+			new type(srcLoc)
+			del(I)
+
+/mob/player/objFunction(var/mob/user,var/obj/inHand)
+	if(checkEffectStack("dead"))
+		displayTo("You remove some items from [src]",user,src)
+		harvest()
+		return
+	..()
+
 /mob/player/verb/setview()
 	client.view = input(src,"Set View Range") as num
-
-/mob/player/Stat()
-	/*statpanel("Character")
-
-	for(var/datum/stat/S in playerData.playerStats)
-		var/stattext = "<IMG CLASS=icon SRC=\ref['sprite/gui/staticons.dmi'] ICONSTATE='[S.statIcon]'>      "
-
-		if(S.isLimited)
-			stattext += "[S.statName]: [S.statModified]/[S.statMax] (Base: [S.statCur])"
-		else
-			stattext += "[S.statName]: [S.statModified] (Base: [S.statCur])"
-
-		stat(stattext)
-	stat("Your intent is: [intent2string()]")*/
-	//statpanel("Abilities")
-	//for(var/obj/spellHolder/A in playerSpellHolders)
-	//	A.updateName()
-	//	stat(A)
-	/*statpanel("Debug")
-	stat("CPU: [world.cpu]")
-	stat("FPS: [world.fps]")
-	stat("Total Count: [world.contents.len]")
-	if(CS)
-		stat("==== SUBSYSTEMS ====")
-		for(var/datum/controller/C in CS.controllers)
-			C.Stat()*/
 
 //Saycode, brutally mashed together by MrSnapwalk.
 
@@ -130,13 +122,11 @@
 	if(type == DTYPE_MASSIVE)
 		if(!savingThrow(src,0,SAVING_FORTITUDE))
 			playerData.hp.setTo(-1)
-			//F_damage(src,damage,rgb(255,0,255))
 			src.popup("[damage]",rgb(255,0,255))
 			doDamage = FALSE
 		else
 			doDamage = TRUE
 	if(doDamage)
-		//F_damage(src,damage,rgb(255,0,0))
 		src.popup("[damage]",rgb(255,0,0))
 		playerData.hp.setTo(playerData.hp.statCurr-damage)
 
@@ -144,18 +134,10 @@
 
 		if(playerData.hp.statCurr == 0)
 			dyingtype = /datum/statuseffect/disabled
-			//mobAddFlag(src,PASSIVE_STATE_DISABLED,active=0)
 		else if(playerData.hp.statCurr <= -1 && playerData.hp.statCurr >= -9)
 			dyingtype = /datum/statuseffect/dying
-			//mobRemFlag(src,PASSIVE_STATE_DISABLED,active=0)
-			//mobAddFlag(src,ACTIVE_STATE_DYING,active=1)
 		else if(playerData.hp.statCurr <= -10)
 			dyingtype = /datum/statuseffect/dead
-			//mobRemFlag(src,PASSIVE_STATE_DISABLED,active=0)
-			//mobRemFlag(src,ACTIVE_STATE_DYING,active=1)
-			//mobAddFlag(src,PASSIVE_STATE_DEAD,active=0)
-
-
 		if(!istype(deadeffect,dyingtype))
 			src.remStatusEffect(deadeffect)
 			deadeffect = src.addStatusEffect(dyingtype)
@@ -165,9 +147,6 @@
 // Mob flags seem to be broken right now. Not sure why?
 ///
 /mob/player/proc/stun(var/amount)
-	//canMove = FALSE
-	//mobAddFlag(src, ACTIVE_STATE_STUNNED, amount, TRUE)
-
 	src.addStatusEffect(/datum/statuseffect/stun,amount)
 
 /mob/player/proc/isDisabled()
@@ -175,10 +154,6 @@
 		return TRUE
 	if(thrown || thrownTarget || countedTimeout > 0)
 		return TRUE
-	/*if(checkFlag(active_states,ACTIVE_STATE_DAZED))
-		return TRUE
-	if(checkFlag(active_states,ACTIVE_STATE_STUNNED))
-		return TRUE*/
 	if(checkEffectStack("no_move"))
 		return TRUE
 	if(checkEffectStack("no_act"))
@@ -325,15 +300,6 @@
 /mob/player/proc/updateStats()
 	recalculateStats()
 
-	/*for(var/obj/item/I in playerEquipped)
-		for(var/datum/stat/S in playerData.playerStats)
-			for(var/A in I.stats)
-				if(A == S.statName)
-					if(!S.affecting.Find(I))
-						S.addTo(I.stats[A])
-						S.affecting |= I*/
-
-
 ///////////////////////////////////////////////////////////////////////////////////////////////
 //-Extraneous player functions
 //	*addPlayerAbility(ability): adds ability to player, if player already has it, levels it up
@@ -400,6 +366,7 @@
 	playerData.will.setBaseTo(rand(min,max))
 
 	recalculateBaseStats()
+	recalculateStats()
 
 	if(prompt)
 		var/statAsString = ""
@@ -461,12 +428,6 @@
 
 /mob/player/proc/unEquipItem(var/obj/item/what)
 	src.playerEquipped.Remove(what)
-	/*for(var/datum/stat/S in playerData.playerStats)
-		for(var/A in what.stats)
-			if(A == S.statName)
-				if(S.affecting.Find(what))
-					S.remFrom(what.stats[A])
-					S.affecting.Remove(what)*/
 	updateStats()
 	refreshIcon(playerData.playerRacePrefix)
 

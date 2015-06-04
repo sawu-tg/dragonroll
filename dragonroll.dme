@@ -38,6 +38,7 @@
 #include "code\helpers\noise.dm"
 #include "code\interface\interface.dm"
 #include "code\interface\skin_verbs.dm"
+#include "code\interface\skin.dmf"
 #include "code\interface\skin_tabs.dmf"
 #include "code\item\item.dm"
 #include "code\item\item_types\armor.dm"

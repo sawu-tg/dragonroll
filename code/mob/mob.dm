@@ -7,16 +7,6 @@
 	//spell vars
 	var/casting = FALSE
 
-	//var/obj/selectedQuickSlot
-	//var/obj/interface/quickSlotCursor
-	//var/list/interfaceHands = list()
-	//var/obj/leftHand
-	//var/obj/rightHand
-	//var/obj/leftPocket
-	//var/obj/rightPocket
-
-	//var/list/handOrder = list()
-
 	var/obj/spellHolder/castingSpell
 	var/obj/interface/Cursor
 	var/maxHotkeys = 9
@@ -27,12 +17,6 @@
 
 /mob/New()
 	spawn(1)
-		//leftHand = new(src)
-		//rightHand = new(src)
-		//rightPocket = new(src)
-		//leftPocket = new(src)
-		//handOrder = list(leftPocket,leftHand,rightHand,rightPocket)
-		//selectedQuickSlot = leftPocket
 		makeSlotsFromRace(new/datum/race)
 		spawn(1)
 			defaultInterface()
@@ -71,8 +55,8 @@
 //////////////////////////////////////////////////////
 
 /mob/proc/processAttack(var/mob/player/attacker,var/mob/player/victim)
-	var/damage = attacker.playerData.str.statCurr
-	var/def = victim.playerData.def.statCurr //only here for calculations in output
+	var/damage = attacker.playerData.str.statModified
+	var/def = victim.playerData.def.statModified //only here for calculations in output
 	var/obj/item/mainHand = attacker.activeHand()
 	var/attackString = "punch [victim]"
 	if(mainHand)

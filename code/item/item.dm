@@ -8,6 +8,7 @@
 	var/list/stats = list() // Stats that the object imparts to the player
 	// The slot the object occupies
 	var/slot //eyes, head, chest, groin, l_hand, r_hand, l_foot, r_foot, l_arm, r_arm, l_leg, r_leg, l_shoulder, r_shoulder
+	var/obj/item/lootForm // setting this makes the object be harvested as an alternate type
 
 /obj/item/New()
 	..()

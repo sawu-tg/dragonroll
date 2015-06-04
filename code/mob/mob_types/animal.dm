@@ -4,10 +4,11 @@
 	icon_state = "clown"
 	icon = 'sprite/mob/animal.dmi'
 	isMonster = TRUE
+	var/list/droppedItems = list()
 
 /mob/player/npc/animal/New()
+	actualIconState = icon_state
 	..()
-	actualIconState = initial(icon_state)
 
 /mob/player/npc/animal/chicken
 	name = "Chicken"
@@ -58,7 +59,7 @@
 /mob/player/npc/animal/spider
 	name = "Spider"
 	desc = "Spins webs and climbs aquaducts."
-	icon_state = "spider"
+	icon_state = "guard"
 
 /mob/player/npc/animal/spider/New()
 	icon_state = pick("guard","hunter","nurse")

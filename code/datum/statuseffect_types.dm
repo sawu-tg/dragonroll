@@ -2,6 +2,7 @@
 	name = "Dead"
 	id = "dead"
 	desc = "You deadened."
+	addedstacks = list("dead")
 
 /datum/statuseffect/dazed
 	name = "Dazed"
@@ -31,3 +32,9 @@
 	id = "stun"
 	desc = "No action possible (I think)"
 	addedstacks = list("no_move","no_act")
+
+/datum/statuseffect/poison
+	name = "Poison"
+	id = "poison"
+	desc = "It courses through your veins."
+	addedstacks = list("poison")
