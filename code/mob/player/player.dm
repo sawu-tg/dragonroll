@@ -14,7 +14,11 @@
 
 	var/datum/statuseffect/deadeffect //The effect applied when you're at or below 0 hp
 
+	var/isMonster = FALSE // is the player a monster race?
+	var/actualIconState = "blank"
+
 	var/list/playerSpellHolders = list()
+	var/list/defaultItems = list(/obj/item/armor/jerkin,/obj/item/armor/leather_boot_left,/obj/item/armor/leather_boot_right)
 
 	var/hasReroll = TRUE
 	size = 3
@@ -27,15 +31,10 @@
 	//selectedQuickSlot = leftHand
 	randomise()
 	set_light(6)
-	var/obj/item/armor/jerkin/J = new
-	var/obj/item/armor/leather_boot_left/LBL = new
-	var/obj/item/armor/leather_boot_right/LBR = new
-	addToInventory(LBL)
-	addToInventory(LBR)
-	addToInventory(J)
-	equipItem(J)
-	equipItem(LBL)
-	equipItem(LBR)
+	for(var/A in defaultItems)
+		var/obj/item/AB = new A()
+		addToInventory(AB)
+		equipItem(AB)
 
 	add_pane(/datum/windowpane/stats)
 	add_pane(/datum/windowpane/abilities)
@@ -51,7 +50,8 @@
 	playerOrgans |= new/datum/organ/brain(playerData.playerRace)
 	playerOrgans |= new/datum/organ/heart(playerData.playerRace)
 	///
-
+	spawn(20)
+		refreshIcon(playerData.playerRacePrefix)
 	..()
 
 /mob/player/verb/setview()
@@ -183,8 +183,6 @@
 		return TRUE
 	if(checkEffectStack("no_act"))
 		return TRUE
-	if(!canMove)
-		return TRUE
 	return FALSE
 
 
@@ -221,8 +219,11 @@
 	overlays.Cut()
 
 	var/list/addedOverlays = list()
-
-	var/state = "[prefix]_[playerData.playerGenderShort]_s"
+	var/state = icon_state
+	if(isMonster)
+		state = actualIconState
+	else
+		state = "[prefix]_[playerData.playerGenderShort]_s"
 	var/image/player = image(icon,state)
 	player.color = playerData.playerColor
 	overlays |= player
@@ -230,7 +231,7 @@
 	for(var/datum/organ/O in playerOrgans)
 		if(O.internal)
 			continue
-		addedOverlays |= icon(O.icon,icon_state = O.icon_state)
+		//addedOverlays |= icon(O.icon,icon_state = O.icon_state) UNCOMMENT WHEN WE GET RACIAL ORGANS
 
 	var/image/eyes = image(icon,playerData.playerRace.raceEyes)
 	eyes.color = playerData.eyeColor
@@ -253,6 +254,8 @@
 /mob/player/proc/raceChange(var/datum/race/toRace,var/reselect = TRUE)
 	if(toRace)
 		playerData.playerRace = new toRace
+		if(playerData.playerRace.icon)
+			icon = playerData.playerRace.icon
 		playerData.assignRace(playerData.playerRace)
 		recalculateBaseStats(src)
 		recalculateStats(src)

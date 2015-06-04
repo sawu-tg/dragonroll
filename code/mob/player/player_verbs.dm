@@ -1,6 +1,14 @@
 ///
 // DEBUG VERBS
 ///
+
+/mob/player/verb/teleportMob()
+	set name = "Transport to Mob"
+	set category = "Debug Verbs"
+	var/mob/target = input("To what?") as mob in world
+	if(target)
+		loc = get_turf(target)
+
 /mob/player/verb/switchController()
 	set name = "Toggle Controllers"
 	set category = "Debug Verbs"

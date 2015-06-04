@@ -87,7 +87,9 @@
 				allstats += "</tr><tr>"
 				currentcolumn = 0
 		allstats += "</tr></table>"
-		allstats += "Your intent is: [P.intent2string()]"
+		for(var/datum/organ/O in P.playerOrgans)
+			allstats += "<br> <b>[O.name]</b>: [O.health]%"
+		allstats += "<br>Your intent is: [P.intent2string()]"
 
 		if(statcontent != allstats && initialized)
 			statcontent = allstats

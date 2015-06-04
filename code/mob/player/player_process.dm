@@ -9,6 +9,7 @@
 /mob/player/doProcess()
 	..()
 	refreshInterface()
+	//processFlags(src)
 	//health management
 	if(playerData.hp.statModified > 0 && !isDisabled())
 		if(!canMove)
@@ -23,7 +24,7 @@
 	if(playerData.hp.statCurr <= 0)
 		if(canMove)
 			canMove = FALSE
-	if(canMove && !checkEffectStack("daze"))
+	if(!checkEffectStack("daze"))
 		speed = actualSpeed
 	if(inDPSLiquid)
 		if(prob(5))

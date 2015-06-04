@@ -84,7 +84,7 @@
 // Changes the stat by the given amount, calls setTo.
 ///
 /datum/stat/proc/change(var/amount)
-	world << "changing [statName] to [statCur + amount]"
+	//world << "changing [statName] to [statCur + amount]"
 
 	if(isLimited)
 		if(amount > 0)

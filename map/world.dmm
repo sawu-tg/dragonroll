@@ -71,8 +71,8 @@
 "bs" = (/obj/item/logicgate/constant,/turf/floor/lobbyFloor,/area)
 "bt" = (/obj/item/powerdevice/wiretool,/turf/floor/lobbyFloor,/area)
 "bu" = (/obj/furniture/seat/chair/podchair{tag = "icon-podchair (EAST)"; icon_state = "podchair"; dir = 4},/turf/floor/lobbyFloor,/area)
-"bv" = (/obj/furniture/seat/chair/podchair{tag = "icon-podchair (WEST)"; icon_state = "podchair"; dir = 8},/turf/floor/lobbyFloor,/area)
-"bw" = (/obj/furniture/table/wooden,/obj/item/mob_spawner/chicken,/turf/floor/lobbyFloor,/area)
+"bv" = (/obj/furniture/table/wooden,/obj/item/mob_spawner/chicken,/turf/floor/lobbyFloor,/area)
+"bw" = (/obj/furniture/seat/chair/podchair{tag = "icon-podchair (WEST)"; icon_state = "podchair"; dir = 8},/turf/floor/lobbyFloor,/area)
 "bx" = (/obj/structure/door,/turf/floor/lobbyFloor,/area)
 "by" = (/obj/structure/rail{tag = "icon-rail3"; icon_state = "rail3"},/obj/train/floor,/turf/floor,/area)
 "bz" = (/obj/train/floor,/turf/floor,/area)
@@ -213,7 +213,7 @@ abananbcbdbeanaUanananananaGababananbcbabeanaYananananananabacacaiaeajaeaeaeaeae
 abanbhanbiananaGbjbkblbmanaGababanbhanbianananananananananabacacahacahacacacacacacahacahbbababacahacahacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 abananananananaGanananananaGababanananananananananananananabacacahacahacacacacacacahacahacababacahacahacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 abananananbnanaGananboananaGababananananbnananananananananabacacbpbqbraeaeaeaeaeaeajaeajaeaeaeaeajaeakacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-abanbsbtbubabvaGanananananaGababanananbubwbvanananananananbxacacbybzbAacacacacacacahacahacacacacahacahacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+abanbsbtbubvbwaGanananananaGababanananbubvbwanananananananbxacacbybzbAacacacacacacahacahacacacacahacahacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 abbBanananbCanaGanbDanananaGababbBanananbCananananananananbxacacbEbFbGaeaeaeaeaeaeamaeamaeaeaeaeamaebHacabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 abananananananbIanananananbJababananananananananananananbJabacacacacacacacacacacacacacacacababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 ababababababababababababababababababababababababababababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa

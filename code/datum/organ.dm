@@ -17,6 +17,7 @@
 	set src = usr
 	for(var/datum/organ/O in playerOrgans)
 		O.gib(src)
+		playerOrgans -= O
 
 /datum/organ/proc/gib(var/where)
 	var/obj/item/organ/O = new/obj/item/organ(get_turf(where))

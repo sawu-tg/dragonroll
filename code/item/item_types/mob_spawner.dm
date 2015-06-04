@@ -23,4 +23,4 @@
 	name = "chicken infested spell book"
 	desc = "You wonder where all the chickens come from."
 	uuid = "mob_spawner_chicken"
-	spawned_mob = /mob/player/npc/chicken
+	spawned_mob = /mob/player/npc/animal/chicken
