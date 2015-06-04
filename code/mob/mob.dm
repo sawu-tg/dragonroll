@@ -101,6 +101,8 @@
 	screenObjs += new/obj/interface/useButton(12,1,"box",32)
 	screenObjs += new/obj/interface/dropIButton(12,2,"box",32)
 	screenObjs += new/obj/interface/throwButton(10,2,"box",32)
+	screenObjs += new/obj/interface/intentButton(13,1,"box",32)
+	screenObjs += new/obj/interface/leapButton(13,2,"box",32)
 
 /mob/proc/refreshInterface()
 	if(client)

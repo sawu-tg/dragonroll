@@ -147,30 +147,6 @@
 		selectedHotKey = 1
 	refreshInterface()
 
-/*/mob/verb/NextHand()
-	set hidden = TRUE
-	if(selectedQuickSlot == leftPocket)
-		selectedQuickSlot = leftHand
-	else if(selectedQuickSlot == leftHand)
-		selectedQuickSlot = rightHand
-	else if(selectedQuickSlot == rightHand)
-		selectedQuickSlot = rightPocket
-	else if(selectedQuickSlot == rightPocket)
-		selectedQuickSlot = leftPocket
-	refreshInterface()
-
-/mob/proc/ChooseHand(var/i)
-	set hidden = TRUE
-	if(i == 1)
-		selectedQuickSlot = leftPocket
-	else if(i == 2)
-		selectedQuickSlot = leftHand
-	else if(i == 3)
-		selectedQuickSlot = rightHand
-	else if(i == 4)
-		selectedQuickSlot = rightPocket
-	refreshInterface()*/
-
 ///
 // ITEM HANDLING SHORTCUTS
 //
@@ -250,6 +226,7 @@
 ///
 
 /mob/verb/changeIntent()
+	set hidden = 1
 	set name = "Change Intent"
 	if(intent < 3)
 		intent++
@@ -258,6 +235,7 @@
 	displayTo("Your intent is now [intent2string()]",src,src)
 
 /mob/player/verb/leap()
+	set hidden = 1
 	set name = "Leap to"
 	set desc = "Attempts to leap towards a target"
 	var/t = input("Leap at what") as null|anything in filterList(/atom/movable,oview(max( (playerData.str.statCurr+playerData.dex.statCurr)/src.weight ,1)))

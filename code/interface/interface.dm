@@ -121,6 +121,29 @@
 		P.addToInventory(A)
 	P.refreshInterface()
 
+///
+// Intent
+///
+/obj/interface/intentButton
+	name = "Change Intent"
+	desc = "Changes the player's intent"
+	mouse_opacity = 1
+
+/obj/interface/intentButton/proc/changeIcon(var/towhat)
+	overlays.Cut()
+	var/icon/I = icon(icon='sprite/gui/guiObj.dmi',icon_state="[towhat]")
+	overlays.Add(I)
+
+/obj/interface/intentButton/New(var/x,var/y,var/state="box",var/scale=32)
+	changeIcon("Helping")
+	..(x,y,state,scale)
+
+/obj/interface/intentButton/Click()
+	var/mob/player/P = usr
+	P.changeIntent()
+	changeIcon(P.intent2string())
+	P.refreshInterface()
+
 //use
 /obj/interface/useButton
 	name = "Use Item"
@@ -154,6 +177,22 @@
 /obj/interface/throwButton/Click()
 	var/mob/player/P = usr
 	P.throwObj()
+	P.refreshInterface()
+
+//leap
+/obj/interface/leapButton
+	name = "Leap At"
+	desc = "Leaps at a target"
+	mouse_opacity = 1
+
+/obj/interface/leapButton/New(var/x,var/y,var/state="box",var/scale=32)
+	overlays.Cut()
+	overlays.Add(icon(icon=icon,icon_state="leap"))
+	..(x,y,state,scale)
+
+/obj/interface/leapButton/Click()
+	var/mob/player/P = usr
+	P.leap()
 	P.refreshInterface()
 
 //drop item
