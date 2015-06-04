@@ -6,7 +6,7 @@
 	var/datum/biome/chosenBiome
 	var/zLevel = 0
 
-	var/ambientLight = "#FFFFFF"
+	var/ambientLight = "#000000"
 	var/ambientLight_Last = "#000000"
 	var/startTime = 0
 
@@ -38,7 +38,7 @@
 		for(var/i = 1, i <= timeSegmentLength.len,i++)
 			currTime -= timeSegmentLength[i]
 
-			if(currTime < 0) //This is the time we're on.
+			if(currTime <= 0) //This is the time we're on.
 				ambientLight = timeSegmentLight[i]
 				break
 

@@ -1,6 +1,7 @@
 /turf
 	var/mineral = "iron"
 	var/ambient_factor = 0
+	luminosity = 1
 
 /turf/floor
 	icon = 'sprite/world/floors.dmi'
@@ -184,7 +185,7 @@
 			return 1
 		else
 			displayTo("[src] is too deep for you to wade in! ([P.playerData.dex.statCurr-P.weight] v [depth])",P,src)
-			return 1
+			return 0
 	else
 		return 1
 
@@ -192,7 +193,7 @@
 	if(solid)
 		return
 	if(damage > 0 && depth >= minDamDepth)
-		world << "Entered"
+		//world << "Entered"
 		if(istype(O,/mob/player))
 			var/mob/player/P = O
 			//
