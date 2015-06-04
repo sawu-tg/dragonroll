@@ -20,7 +20,10 @@
 
 	addProcessingObject(src)
 
-/mob/player/doProcess()
+	add_pane(/datum/windowpane/verbs)
+	add_pane(/datum/windowpane/debug)
+
+/mob/dm/doProcess()
 	..()
 	refreshInterface()
 

@@ -22,7 +22,7 @@
 		if(!player || !player.client)
 			return
 
-		if(id != base_id)
+		if(id != base_id && !winexists(player,id))
 			winclone(player, base_id, id)
 
 		initialized = 1
@@ -31,7 +31,7 @@
 		if(!player || !player.client)
 			return
 
-		if(!winexists(player,id))
+		if(!winexists(player,id) || !initialized)
 			initialize()
 
 		winset(player, id, "title=\"[title]\"")
@@ -65,8 +65,7 @@
 			//var/stattext = "<IMG CLASS=icon SRC=\ref['sprite/gui/staticons.dmi'] ICONSTATE='[S.statIcon]'> "
 			var/stattext = "<IMG SRC=[img]> "
 			var/statprefix = "stat_normal"
-			var/statdelta = (S.isLimited ? S.statMax : S.statCur) - S.statOld
-			statdelta = S.statCur - S.statOld
+			var/statdelta = S.statModified - S.statNormal
 
 			//world << "[S.statName]: [S.statCur] - [S.statOld] = [statdelta]"
 
@@ -76,9 +75,9 @@
 				statprefix = "stat_down"
 
 			if(S.isLimited)
-				stattext += "[S.statName]: </td><td><IMG SRC=[statprefix]>[S.statModified]/[S.statMax] (Base: [S.statCur])"
+				stattext += "[S.statName]: </td><td><IMG SRC=[statprefix]>[S.statCurr]/[S.statModified] (Base: [S.statNormal])"
 			else
-				stattext += "[S.statName]: </td><td><IMG SRC=[statprefix]>[S.statModified] (Base: [S.statCur])"
+				stattext += "[S.statName]: </td><td><IMG SRC=[statprefix]>[S.statModified] (Base: [S.statNormal])"
 
 			allstats += "<td>[stattext]</td>"
 
@@ -136,7 +135,7 @@
 	var/debugcontent = ""
 
 	update()
-		var/mob/player/P = player
+		var/mob/P = player
 
 		if(!P || !P.client)	return
 

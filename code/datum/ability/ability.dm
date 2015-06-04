@@ -58,8 +58,8 @@
 /datum/ability/proc/canCast(var/mob/player/checked)
 	if(abilityCooldownTimer == 0)
 		var/datum/stat/checkStat = checked.playerData.playerStats[skillStatIndex]
-		if(do_roll(skillStatDifficultyLower,skillStatDifficultyUpper,checkStat.statCur) >= skillStatMin)
-			if(checked.playerData.mp.statCur >= abilityLevel * abilityManaMod)
+		if(do_roll(skillStatDifficultyLower,skillStatDifficultyUpper,checkStat.statCurr) >= skillStatMin)
+			if(checked.playerData.mp.statCurr >= abilityLevel * abilityManaMod)
 				return TRUE
 			else
 				displayTo("You don't have enough mana to cast the spell!",checked,checked)
@@ -120,7 +120,8 @@
 		else
 			if(istype(target,/mob/player))
 				var/mob/player/P = target
-				mobAddFlag(P,ACTIVE_STATE_DAZED,abilityModifier*abilityLevel,TRUE)
+				//mobAddFlag(P,ACTIVE_STATE_DAZED,abilityModifier*abilityLevel,TRUE)
+				P.addStatusEffect(/datum/statuseffect/dazed,abilityModifier*abilityLevel)
 				if(abilityModifier > 0)
 					//F_damage(P,abilityModifier*abilityLevel,rgb(0,255,0))
 					P.popup(abilityModifier*abilityLevel,rgb(0,255,0))

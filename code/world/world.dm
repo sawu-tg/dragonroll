@@ -94,7 +94,7 @@ var/list/regions = list()
 	spawn(1)
 		processObjects()
 
-/proc/processFlags(var/mob/player/who)
+/*/proc/processFlags(var/mob/player/who)
 	for(var/i in who.persistingEffects)
 		if(i == ACTIVE_STATE_DYING)
 			who.takeDamage(1,DTYPE_DIRECT)
@@ -105,9 +105,9 @@ var/list/regions = list()
 			mobRemFlag(who,i,1)
 		else if(who.persistingEffects[i] % 2)
 			if(who.persistingEffects[i] > 0)
-				--who.persistingEffects[i]
+				--who.persistingEffects[i]*/
 
-/proc/mobAddFlag(var/mob/player/who, var/flag, var/length=-1, var/active=0)
+/*/proc/mobAddFlag(var/mob/player/who, var/flag, var/length=-1, var/active=0)
 	if(active)
 		setFlag(who.active_states, flag)
 		who.persistingEffects["[flag]"] = length
@@ -130,7 +130,7 @@ var/list/regions = list()
 
 /proc/remFlag(var/on, var/flag)
 	if(checkFlag(on,flag))
-		on &= ~flag
+		on &= ~flag*/
 
 /proc/do_roll(var/times,var/dice,var/bonus)
 	var/rolled = 0
@@ -150,14 +150,14 @@ var/list/regions = list()
 	switch(stat)
 		if(SAVING_REFLEX)
 			compare = data.ref
-			bonus += data.dex.statCur
+			bonus += data.dex.statCurr
 		if(SAVING_WILL)
 			compare = data.will
-			bonus += data.wis.statCur
+			bonus += data.wis.statCurr
 		if(SAVING_FORTITUDE)
 			compare = data.fort
-			bonus += data.con.statCur
-	if(do_roll(1,20,bonus) >= data.save.statCur + compare.statCur)
+			bonus += data.con.statCurr
+	if(do_roll(1,20,bonus) >= data.save.statCurr + compare.statCurr)
 		return TRUE
 
 	return FALSE

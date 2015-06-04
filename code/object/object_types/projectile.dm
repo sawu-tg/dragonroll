@@ -27,7 +27,8 @@
 /obj/projectile/proc/doProjAct(var/atom/what)
 	if(istype(what,/mob/player))
 		var/mob/player/P = what
-		mobAddFlag(P,effect,damage,TRUE)
+		//mobAddFlag(P,effect,damage,TRUE)
+		//P.addStatusEffect()
 		P.playerData.hp.change(damage)
 	del(src)
 
@@ -73,7 +74,7 @@
 		var/atom/movable/AM = what
 		if(AM)
 			loc = AM.loc
-			if(do_roll(1,20,projectileOwner.playerData.str.statCur) >= AM.weight + AM.size)
+			if(do_roll(1,20,projectileOwner.playerData.str.statCurr) >= AM.weight + AM.size)
 				AM.throw_at(projectileOwner)
 				projectileOwner.Beam(AM,time=15,icon_state="c_beam")
 	..()

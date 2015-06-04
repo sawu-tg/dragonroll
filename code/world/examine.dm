@@ -3,7 +3,7 @@
 		var/f_name = "\a [src]"
 		var/mob/player/P = src
 		user << "That's <a href=?src=\ref[user];function=examine;what=\ref[P]><b>[f_name]</b></a>"
-		user << "[P.playerData.returnGender(TRUE)] looks [P.playerData.hp.statCur > P.playerData.hp.statMax/2 ? "Healthy" : "Hurt"]"
+		user << "[P.playerData.returnGender(TRUE)] looks [P.playerData.hp.statCurr > P.playerData.hp.statModified/2 ? "Healthy" : "Hurt"]"
 
 	if(desc)
 		user << " > [desc]"

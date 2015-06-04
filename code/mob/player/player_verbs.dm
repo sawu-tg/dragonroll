@@ -63,7 +63,7 @@
 	html += "<b>Description</b>: [playerData.playerDesc] [shouldShowChange ? "- <a href=?src=\ref[src];function=desc><i>Add</i></a>/<a href=?src=\ref[src];function=descdelete><i>Remove</i></a>" : ""]<br><br>"
 	for(var/datum/stat/S in playerData.playerStats)
 		if(S.isLimited)
-			html += "<b>[S.statName]</b>: [S.statModified]/[S.statMax]<br>"
+			html += "<b>[S.statName]</b>: [S.statCurr]/[S.statModified]<br>"
 		else
 			html += "<b>[S.statName]</b>: [S.statModified]<br>"
 	html += "[shouldShowChange ? "<a href=?src=\ref[src];function=statroll><b>Reroll Stats</b></a> <a href=?src=\ref[src];function=statkeep><b>Keep Stats</b></a>" : ""]<br>"
@@ -195,7 +195,7 @@
 		if(!Adjacent(lifted))
 			displayTo("[lifted] is too far away!",src,lifted)
 			return
-		if(do_roll(1,20,playerData.str.statCur) >= lifted.weight + lifted.size)
+		if(do_roll(1,20,playerData.str.statCurr) >= lifted.weight + lifted.size)
 			lifted.myOldLayer = lifted.layer
 			lifted.myOldPixelY = lifted.pixel_y
 			lifted.layer = LAYER_OVERLAY
@@ -223,8 +223,8 @@
 			if(target && !target.density)
 				walk_to(kickWhat,target)
 	else
-		if(do_roll(1,20,playerData.str.statCur) >= carrying.weight + carrying.size)
-			var/t = input("Throw at what") as null|anything in filterList(/atom/movable,oview(max(playerData.str.statCur - (carrying.weight + carrying.size),1)))
+		if(do_roll(1,20,playerData.str.statCurr) >= carrying.weight + carrying.size)
+			var/t = input("Throw at what") as null|anything in filterList(/atom/movable,oview(max(playerData.str.statCurr - (carrying.weight + carrying.size),1)))
 			if(t)
 				carrying.throw_at(t)
 				dropObj(src)
@@ -252,6 +252,15 @@
 /mob/player/verb/leap()
 	set name = "Leap to"
 	set desc = "Attempts to leap towards a target"
-	var/t = input("Leap at what") as null|anything in filterList(/atom/movable,oview(max( (playerData.str.statCur+playerData.dex.statCur)/src.weight ,1)))
+	var/t = input("Leap at what") as null|anything in filterList(/atom/movable,oview(max( (playerData.str.statCurr+playerData.dex.statCurr)/src.weight ,1)))
 	if(t)
 		src.throw_at(t)
+
+/mob/player/verb/decoy()
+	var/turf/t = get_turf(src)
+
+	var/image/I = image(src.icon,t,src.icon_state)
+	I.overlays += overlays
+
+	//animate(I, pixel_z = 50, alpha = 0, time = 90)
+	t.overlays += I

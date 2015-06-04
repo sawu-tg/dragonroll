@@ -56,7 +56,7 @@
 	if(client)
 		if(client.isDM)
 			..()
-	if(canMove && !newLoc.density && !anchored)
+	if(canMove && !checkEffectStack("no_move") && !newLoc.density && !anchored)
 		..()
 
 /client/Click(var/clickedOn)
@@ -71,8 +71,8 @@
 //////////////////////////////////////////////////////
 
 /mob/proc/processAttack(var/mob/player/attacker,var/mob/player/victim)
-	var/damage = attacker.playerData.str.statCur
-	var/def = victim.playerData.def.statCur //only here for calculations in output
+	var/damage = attacker.playerData.str.statCurr
+	var/def = victim.playerData.def.statCurr //only here for calculations in output
 	var/obj/item/mainHand = attacker.activeHand()
 	var/attackString = "punch [victim]"
 	if(mainHand)

@@ -1,11 +1,11 @@
-var/list/validBiomes = list(/datum/biome/grassland,
+/*var/list/validBiomes = list(/datum/biome/grassland,
 	/datum/biome/desert,
 	/datum/biome/lavaland,
 	/datum/biome/alienlab,
 	/datum/biome/snow,
-	/datum/biome/meteor)
+	/datum/biome/meteor)*/
 
-//var/list/validBiomes = list(/datum/biome/ocean) //uncomment this for biome testing
+var/list/validBiomes = list(/datum/biome/snow) //uncomment this for biome testing
 
 /datum/biome
 	var/name = "default"
