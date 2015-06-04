@@ -1,6 +1,7 @@
 /turf
 	var/mineral = "iron"
 	var/ambient_factor = 0
+	luminosity = 1
 
 /turf/floor
 	icon = 'sprite/world/floors.dmi'
@@ -121,6 +122,7 @@
 /turf/floor/outside/liquid/proc/updateDepth()
 	//alpha = max(50,255 - depth*2)
 	var/color_a = max(50,255 - depth*4)
+	color_a = 255 - depth*4
 	//color = rgb(color_a,color_a,color_a)
 
 	overlays.Cut()
@@ -170,17 +172,19 @@
 	if(istype(O,/mob/player))
 		var/mob/player/P = O
 		if(solid)
-			if(P.playerData.dex.statCur-P.weight <= depth)
-				displayTo("You lose your balance and fall on [src], cracking it! ([P.playerData.dex.statCur-P.weight] v [depth])",P,src)
+			if(P.playerData.dex.statCurr-P.weight <= depth)
+				displayTo("You lose your balance and fall on [src], cracking it! ([P.playerData.dex.statCurr-P.weight] v [depth])",P,src)
 				for(var/turf/floor/outside/liquid/L in range(src,1))
 					L.solid = 0
 					L.updateDepth()
+				var/datum/statuseffect/drowning/DReffect = P.addStatusEffect(/datum/statuseffect/drowning)
+				DReffect.setTile(src)
 				P.stun(depth*15)
 			return 1
-		if(P.playerData.dex.statCur-P.weight >= depth)
+		if(P.playerData.dex.statCurr-P.weight >= depth)
 			return 1
 		else
-			displayTo("[src] is too deep for you to wade in! ([P.playerData.dex.statCur-P.weight] v [depth])",P,src)
+			displayTo("[src] is too deep for you to wade in! ([P.playerData.dex.statCurr-P.weight] v [depth])",P,src)
 			return 0
 	else
 		return 1
@@ -189,10 +193,11 @@
 	if(solid)
 		return
 	if(damage > 0 && depth >= minDamDepth)
+		//world << "Entered"
 		if(istype(O,/mob/player))
 			var/mob/player/P = O
 			//
-			var/calcDepth = (depth + P.weight)-(P.playerData.dex.statCur + P.playerData.str.statCur)
+			var/calcDepth = (depth + P.weight)-(P.playerData.dex.statCurr + P.playerData.str.statCurr)
 			//
 			if(calcDepth >= minDamDepth)
 				P.inDPSLiquid = TRUE
@@ -214,7 +219,7 @@
 	icon_state = "water"
 	damage = 1
 	damageVerb = "drowning"
-	minDamDepth = 35
+	minDamDepth = 15
 
 /turf/floor/outside/liquid/pit //what even does this mean :^)
 	name = "Pit"
@@ -232,7 +237,7 @@
 	damage = 1
 	solid = 1
 	damageVerb = "drowning"
-	minDamDepth = 35
+	minDamDepth = 15
 
 /turf/floor/outside/liquid/lava
 	name = "Lava"
