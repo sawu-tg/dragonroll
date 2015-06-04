@@ -82,3 +82,8 @@
 	name = "Wasp"
 	desc = "Pollinates figs. And nightmares."
 	icon_state = "wasp"
+
+/mob/player/npc/animal/deer
+	name = "Deer"
+	desc = "Neigh!."
+	icon_state = "deer"

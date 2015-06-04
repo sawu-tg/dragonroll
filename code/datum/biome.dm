@@ -30,7 +30,7 @@ var/list/validBiomes = list(/datum/biome/grassland,
 	validTurfs = list(/turf/floor/outside/grass,/turf/floor/outside/dirt)
 	validLiquids = list(/turf/floor/outside/liquid/water)
 	validDebris = list(/obj/interact/nature/bush,/obj/interact/nature/rock,/obj/interact/nature/tree)
-	validMobs = list(/mob/player/npc/animal/wasp,/mob/player/npc/animal/bat,/mob/player/npc/animal/spider,/mob/player/npc/animal/cat,/mob/player/npc/animal/bear,/mob/player/npc/animal/cow,/mob/player/npc/animal/chicken,/mob/player/npc/animal/dog,/mob/player/npc/animal/fox,/mob/player/npc/colonist)
+	validMobs = list(/mob/player/npc/animal/deer,/mob/player/npc/animal/wasp,/mob/player/npc/animal/bat,/mob/player/npc/animal/spider,/mob/player/npc/animal/cat,/mob/player/npc/animal/bear,/mob/player/npc/animal/cow,/mob/player/npc/animal/chicken,/mob/player/npc/animal/dog,/mob/player/npc/animal/fox,/mob/player/npc/colonist)
 
 /datum/biome/ocean
 	name = "ocean"
@@ -87,7 +87,7 @@ var/list/validBiomes = list(/datum/biome/grassland,
 	validTurfs = list(/turf/floor/outside/snow)
 	validLiquids = list(/turf/floor/outside/liquid/water/ice)
 	validDebris = list(/obj/interact/nature/tree/snow,/obj/interact/nature/bush/snow)
-	validMobs = list(/mob/player/npc/animal/bear,/mob/player/npc/colonist,/mob/player/npc/animal/fox,/mob/player/npc/animal/dog)
+	validMobs = list(/mob/player/npc/animal/deer,/mob/player/npc/animal/bear,/mob/player/npc/colonist,/mob/player/npc/animal/fox,/mob/player/npc/animal/dog)
 
 /datum/biome/meteor
 	name = "impact site"
