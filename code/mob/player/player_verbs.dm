@@ -205,7 +205,7 @@
 			if(src in target)
 				return
 			if(target && !target.density)
-				walk_to(kickWhat,target)
+				kickWhat.Move(target)
 	else
 		if(do_roll(1,20,playerData.str.statCurr) >= carrying.weight + carrying.size)
 			var/t = input("Throw at what") as null|anything in filterList(/atom/movable,oview(max(playerData.str.statCurr - (carrying.weight + carrying.size),1)))

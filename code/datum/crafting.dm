@@ -92,3 +92,11 @@
 
 	materials = list(/obj/item/loot/processed/wood = 2)
 	product = list(/obj/item/buildable/woodenWall = 1)
+
+
+/datum/recipe/woodboat
+	name = "wood boat"
+	desc = "makes oceans seem smaller"
+
+	materials = list(/obj/item/loot/processed/wood = 4)
+	product = list(/obj/vehicle/boat = 1)

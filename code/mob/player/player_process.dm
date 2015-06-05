@@ -8,39 +8,30 @@
 	var/liquidVerb = ""
 	var/liquidDamage = 0
 
-/mob/player/doProcess()
-	..()
-	refreshInterface()
-	//processFlags(src)
-	//health management
+/mob/player/proc/processOrgans()
+	for(var/O in playerOrgans)
+		O:organProc()
+
+/mob/player/proc/processEffects()
 	if(playerData.hp.statModified > 0 && !isDisabled())
 		if(!canMove)
 			canMove = TRUE
-
-	for(var/datum/organ/O in playerOrgans)
-		O.organProc()
-
 	for(var/datum/statuseffect/S in statuseffects)
 		S.tickStatus()
 
+/mob/player/proc/processStates()
 	if(playerData.hp.statCurr <= 0)
 		if(canMove)
 			canMove = FALSE
-		if(playerData.hp.statCurr <= playerData.hp.statMin)
-			addEffectStack(/datum/statuseffect/dead)
-			if(isMonster)
-				icon_state = "[icon_state]_dead"
-			else
-				//do some shit with rotation //or don't do it here holy shit nigga
-
+	if(playerData.hp.statCurr <= playerData.hp.statMin)
+		addEffectStack(/datum/statuseffect/dead)
+		if(isMonster)
+			icon_state = "[icon_state]_dead"
 	if(!checkEffectStack("daze"))
 		speed = actualSpeed
-
 	var/shouldLay = checkEffectStack("laydown") > 0
-
 	if(shouldLay != layingDown)
 		var/matrix/newtransform = matrix()
-
 		if(shouldLay)
 			newtransform.Turn(90)
 			newtransform.Translate(0,-8)
@@ -48,6 +39,7 @@
 		animate(src,transform = newtransform,time = 2,loop = 0)
 		layingDown = shouldLay
 
+/mob/player/proc/processOther()
 	var/shouldDrown = checkEffectStack("drown") > 0
 
 	if(shouldDrown)
@@ -63,7 +55,7 @@
 
 			if(L && istype(L))
 				new_z = -L.depth
-				layer = L.layer
+				layer = L.layer+0.1
 
 		animate(src,pixel_z = new_z,time = 10)
 		if(!shouldDrown)
@@ -82,3 +74,12 @@
 			lastBleed = BLEEDING_INTERVAL
 		else
 			lastBleed--
+
+/mob/player/doProcess()
+	..()
+	if(src.client)
+		refreshInterface()
+	processEffects()
+	processOrgans()
+	processStates()
+	processOther()

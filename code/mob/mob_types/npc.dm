@@ -82,21 +82,30 @@
 /mob/player/npc/proc/changeState(var/state)
 	npcState = state
 
-/mob/player/npc/doProcess()
-	..()
-	if(isDisabled())
-		return
+/mob/player/npc/proc/updateLocation()
 	if(lastPos != loc)
 		inView = oview(src,wanderRange)
 		inRange = orange(src,wanderRange)
 		lastPos = loc
+
+/mob/player/npc/proc/npcIdle()
 	if(npcState == NPCSTATE_IDLE)
 		if(wander && timeSinceLast >= wanderFuzziness)
 			if(inView.len)
 				target = pick(inView)
 				changeState(NPCSTATE_MOVE)
 				timeSinceLast = 0
+
+/mob/player/npc/proc/npcMove()
 	if(npcState == NPCSTATE_MOVE)
 		MoveTo(target)
 		checkTimeout()
+
+/mob/player/npc/doProcess()
+	..()
+	if(isDisabled())
+		return
+	updateLocation()
+	npcIdle()
+	npcMove()
 	timeSinceLast++

@@ -13,6 +13,9 @@
 	var/selectedHotKey = 1
 	var/datum/faction/mobFaction
 
+	///vehicle shit, sue me
+	var/obj/vehicle/mounted
+
 	prevent_pickup = TRUE
 
 /mob/New()
@@ -35,6 +38,10 @@
 	..()
 
 /mob/Move(var/atom/newLoc)
+	if(mounted)
+		if(mounted.CanPass(newLoc))
+			mounted.Move(newLoc)
+			return ..()
 	if(!newLoc)
 		return
 	if(client)
@@ -118,8 +125,10 @@
 					if(SC.heldSpell.heldAbility.abilityCooldownTimer)
 						I.overlays.Cut()
 						var/cd = round(min(10,SC.heldSpell.heldAbility.abilityCooldownTimer/60),1)
-						SC.overlays |= image(icon=SC.heldSpell.heldAbility.abilityIcon,icon_state=SC.heldSpell.heldAbility.abilityState)
-						SC.overlays |= image(icon='sprite/obj/ability.dmi',icon_state="cd_[cd]")
+						var/image/sa = image(icon=SC.heldSpell.heldAbility.abilityIcon,icon_state=SC.heldSpell.heldAbility.abilityState)
+						var/image/scd = image(icon='sprite/obj/ability.dmi',icon_state="cd_[cd]")
+						SC.overlays |= sa
+						SC.overlays |= scd
 						//hacky, sue me
 						spawn(15)
 							I.overlays.Cut()
