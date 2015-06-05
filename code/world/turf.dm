@@ -177,15 +177,13 @@
 				for(var/turf/floor/outside/liquid/L in range(src,1))
 					L.solid = 0
 					L.updateDepth()
-				var/datum/statuseffect/drowning/DReffect = P.addStatusEffect(/datum/statuseffect/drowning)
-				DReffect.setTile(src)
 				P.stun(depth*15)
 			return 1
 		if(P.playerData.dex.statCurr-P.weight >= depth)
 			return 1
 		else
 			displayTo("[src] is too deep for you to wade in! ([P.playerData.dex.statCurr-P.weight] v [depth])",P,src)
-			return 0
+			return 1
 	else
 		return 1
 
@@ -200,6 +198,9 @@
 			var/calcDepth = (depth + P.weight)-(P.playerData.dex.statCurr + P.playerData.str.statCurr)
 			//
 			if(calcDepth >= minDamDepth)
+				var/datum/statuseffect/drowning/DReffect = P.addStatusEffect(/datum/statuseffect/drowning)
+				DReffect.setTile(src)
+
 				P.inDPSLiquid = TRUE
 				P.liquidVerb = damageVerb
 				P.liquidDamage = damage
