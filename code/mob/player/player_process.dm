@@ -1,6 +1,7 @@
 /mob/player
 	var/lastBleed = 0
 	var/layingDown = 0
+	var/inWater = 0
 
 	//liquid stuff
 	var/inDPSLiquid = FALSE
@@ -33,15 +34,35 @@
 		var/matrix/newtransform = matrix()
 		if(shouldLay)
 			newtransform.Turn(90)
-			newtransform.Translate(0,-12)
+			newtransform.Translate(0,-8)
+
 		animate(src,transform = newtransform,time = 2,loop = 0)
 		layingDown = shouldLay
 
 /mob/player/proc/processOther()
-	if(inDPSLiquid)
+	var/shouldDrown = checkEffectStack("drown") > 0
+
+	if(shouldDrown)
 		if(prob(5))
 			displayInfo("You are [liquidVerb]!","[src] screams!",src,src)
 			takeDamage(liquidDamage,DTYPE_DIRECT)
+
+	if(shouldDrown != inWater)
+		var/new_z = 0
+
+		if(shouldDrown)
+			var/turf/floor/outside/liquid/L = loc
+
+			if(L && istype(L))
+				new_z = -L.depth
+				layer = L.layer+0.1
+
+		animate(src,pixel_z = new_z,time = 10)
+		if(!shouldDrown)
+			animate(src,layer = initial(layer),time = 0)
+
+		inWater = shouldDrown
+
 	if(checkEffectStack("poison"))
 		if(prob(5))
 			displayInfo("You are poisoned!","[src] shudders and wretches",src,src)
