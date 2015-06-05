@@ -86,6 +86,7 @@
 	var/solidName = "liquidSolid"
 	icon_state = "water"
 	density = 0
+	layer = TURF_LAYER - 0.2
 	var/corrosive = FALSE // does it burn through vehicles?
 	var/solid = 0
 	var/damage = 0
@@ -130,16 +131,18 @@
 	//underlays.Cut()
 
 	var/image/I = image(icon,src,icon_state)
+	I.layer = layer+0.2
 	I.color = color
 	I.alpha = liquidopacity
 	I.pixel_z = depth
 
 	var/image/I2 = image(icon,src,"asteroid1")
+	I2.layer = layer+0.1
 	I2.pixel_z = 0
 	I2.color = rgb(color_a,color_a,color_a)
 
 	var/image/I3 = image(icon,src,"asteroid1")
-	I3.layer = layer-0.1
+	I3.layer = layer
 	I3.pixel_y = 32
 	I3.color = rgb(color_a*0.5,color_a*0.5,color_a*0.5)
 
@@ -181,15 +184,13 @@
 				for(var/turf/floor/outside/liquid/L in range(src,1))
 					L.solid = 0
 					L.updateDepth()
-				var/datum/statuseffect/drowning/DReffect = P.addStatusEffect(/datum/statuseffect/drowning)
-				DReffect.setTile(src)
 				P.stun(depth*15)
 			return 1
 		if(P.playerData.dex.statCurr-P.weight >= depth)
 			return 1
 		else
 			displayTo("[src] is too deep for you to wade in! ([P.playerData.dex.statCurr-P.weight] v [depth])",P,src)
-			return 0
+			return 1
 	else
 		return 1
 
@@ -204,6 +205,9 @@
 			var/calcDepth = (depth + P.weight)-(P.playerData.dex.statCurr + P.playerData.str.statCurr)
 			//
 			if(calcDepth >= minDamDepth && !P.mounted)
+				var/datum/statuseffect/drowning/DReffect = P.addStatusEffect(/datum/statuseffect/drowning)
+				DReffect.setTile(src)
+
 				P.inDPSLiquid = TRUE
 				P.liquidVerb = damageVerb
 				P.liquidDamage = damage
