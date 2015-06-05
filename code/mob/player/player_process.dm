@@ -7,46 +7,37 @@
 	var/liquidVerb = ""
 	var/liquidDamage = 0
 
-/mob/player/doProcess()
-	..()
-	refreshInterface()
-	//processFlags(src)
-	//health management
+/mob/player/proc/processOrgans()
+	for(var/O in playerOrgans)
+		O:organProc()
+
+/mob/player/proc/processEffects()
 	if(playerData.hp.statModified > 0 && !isDisabled())
 		if(!canMove)
 			canMove = TRUE
-
-	for(var/datum/organ/O in playerOrgans)
-		O.organProc()
-
 	for(var/datum/statuseffect/S in statuseffects)
 		S.tickStatus()
 
+/mob/player/proc/processStates()
 	if(playerData.hp.statCurr <= 0)
 		if(canMove)
 			canMove = FALSE
-		if(playerData.hp.statCurr <= playerData.hp.statMin)
-			addEffectStack(/datum/statuseffect/dead)
-			if(isMonster)
-				icon_state = "[icon_state]_dead"
-			else
-				//do some shit with rotation //or don't do it here holy shit nigga
-
+	if(playerData.hp.statCurr <= playerData.hp.statMin)
+		addEffectStack(/datum/statuseffect/dead)
+		if(isMonster)
+			icon_state = "[icon_state]_dead"
 	if(!checkEffectStack("daze"))
 		speed = actualSpeed
-
 	var/shouldLay = checkEffectStack("laydown") > 0
-
 	if(shouldLay != layingDown)
 		var/matrix/newtransform = matrix()
-
 		if(shouldLay)
 			newtransform.Turn(90)
 			newtransform.Translate(0,-12)
-
 		animate(src,transform = newtransform,time = 2,loop = 0)
 		layingDown = shouldLay
 
+/mob/player/proc/processOther()
 	if(inDPSLiquid)
 		if(prob(5))
 			displayInfo("You are [liquidVerb]!","[src] screams!",src,src)
@@ -62,3 +53,12 @@
 			lastBleed = BLEEDING_INTERVAL
 		else
 			lastBleed--
+
+/mob/player/doProcess()
+	..()
+	if(src.client)
+		refreshInterface()
+	processEffects()
+	processOrgans()
+	processStates()
+	processOther()
