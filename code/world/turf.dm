@@ -86,6 +86,7 @@
 	var/solidName = "liquidSolid"
 	icon_state = "water"
 	density = 0
+	var/corrosive = FALSE // does it burn through vehicles?
 	var/solid = 0
 	var/damage = 0
 	var/damageVerb = ""
@@ -171,6 +172,9 @@
 /turf/floor/outside/liquid/Enter(atom/movable/O)
 	if(istype(O,/mob/player))
 		var/mob/player/P = O
+		if(P.mounted)
+			//always allow mounted people to pass, the mounts handle passing
+			return 1
 		if(solid)
 			if(P.playerData.dex.statCurr-P.weight <= depth)
 				displayTo("You lose your balance and fall on [src], cracking it! ([P.playerData.dex.statCurr-P.weight] v [depth])",P,src)
@@ -199,7 +203,7 @@
 			//
 			var/calcDepth = (depth + P.weight)-(P.playerData.dex.statCurr + P.playerData.str.statCurr)
 			//
-			if(calcDepth >= minDamDepth)
+			if(calcDepth >= minDamDepth && !P.mounted)
 				P.inDPSLiquid = TRUE
 				P.liquidVerb = damageVerb
 				P.liquidDamage = damage
@@ -226,6 +230,7 @@
 	icon_state = "asteroid1"
 	color = "#999999"
 	liquidopacity = 0
+	corrosive = TRUE
 
 /turf/floor/outside/liquid/pit/New()
 	..()
@@ -245,6 +250,7 @@
 	damage = 1
 	damageVerb = "burning"
 	liquidopacity = 200
+	corrosive = TRUE
 
 	New()
 		..()

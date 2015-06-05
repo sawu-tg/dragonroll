@@ -70,5 +70,9 @@
 #define TURF_FULLBRIGHT 2
 #define TURF_NOLIGHT 3
 
+#define VEHICLE_PASS_LAND 2
+#define VEHICLE_PASS_LIQUID_WATER 4
+#define VEHICLE_PASS_LIQUID_ALL 8
+
 var/list/playerValidHair = list()
 var/list/playerValidFacial = list()

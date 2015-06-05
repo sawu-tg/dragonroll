@@ -13,6 +13,9 @@
 	var/selectedHotKey = 1
 	var/datum/faction/mobFaction
 
+	///vehicle shit, sue me
+	var/obj/vehicle/mounted
+
 	prevent_pickup = TRUE
 
 /mob/New()
@@ -35,6 +38,10 @@
 	..()
 
 /mob/Move(var/atom/newLoc)
+	if(mounted)
+		if(mounted.CanPass(newLoc))
+			mounted.Move(newLoc)
+			return ..()
 	if(!newLoc)
 		return
 	if(client)
