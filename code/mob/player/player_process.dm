@@ -15,8 +15,8 @@
 	if(playerData.hp.statModified > 0 && !isDisabled())
 		if(!canMove)
 			canMove = TRUE
-	for(var/datum/statuseffect/S in statuseffects)
-		S.tickStatus()
+	for(var/S in statuseffects)
+		S:tickStatus()
 
 /mob/player/proc/processStates()
 	if(playerData.hp.statCurr <= 0)
