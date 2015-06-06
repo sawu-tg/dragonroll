@@ -24,7 +24,7 @@
 		spawn(1)
 			defaultInterface()
 			refreshInterface()
-
+	mobFaction = new/datum/faction/colonist
 	add_pane(/datum/windowpane/verbs)
 	add_pane(/datum/windowpane/debug)
 
@@ -64,13 +64,21 @@
 /mob/proc/processAttack(var/mob/player/attacker,var/mob/player/victim)
 	var/damage = attacker.playerData.str.statModified
 	var/def = victim.playerData.def.statModified //only here for calculations in output
+	var/dex = victim.playerData.dex.statModified
 	var/obj/item/mainHand = attacker.activeHand()
 	var/attackString = "punch [victim]"
 	if(mainHand)
 		attackString = "hit [victim] with [mainHand.name]"
 		damage += (mainHand.force+mainHand.weight)*mainHand.size
-	victim.takeDamage(damage)
-	displayInfo("You [attackString] for [max(0,damage-def)]HP (1d[damage]-[def])","[attacker] hits [victim] for [max(0,damage-def)]HP (1d[damage]-[def])",attacker,victim,"red")
+	if(do_roll(1,def,dex) > damage)
+		var/tod = !victim.isMonster ? "parry" : "feint"
+		src.popup("[tod]",rgb(255,255,0))
+		var/newDamage = victim.isMonster ? damage/4 : damage/2
+		newDamage = round(newDamage)
+		attacker.takeDamage(newDamage)
+	else
+		var/realDamage = victim.takeDamage(damage)
+		displayInfo("You [attackString] for [realDamage]HP (1d[damage]-[def])","[attacker] hits [victim] for [realDamage]HP (1d[damage]-[def])",attacker,victim,"red")
 
 /mob/proc/intent2string()
 	if(intent == 1)

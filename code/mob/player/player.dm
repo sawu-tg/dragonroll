@@ -147,6 +147,8 @@
 		if(!istype(deadeffect,dyingtype))
 			src.remStatusEffect(deadeffect)
 			deadeffect = src.addStatusEffect(dyingtype)
+		return damage
+	return 0
 
 ///
 // BASIC FLAG STATES

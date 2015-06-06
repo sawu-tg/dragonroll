@@ -18,22 +18,22 @@
 ///
 /datum/faction/proc/isFriendly(var/datum/faction/F)
 	for(var/datum/faction/FA in friendlyTo)
-		if(FA.name == F)
+		if(FA.name == F.name)
 			return TRUE
 	return FALSE
 
 ///////////// FACTIONS /////////////////////////
 
-/datum/faction/crewmember
-	name = "Station Crew"
+/datum/faction/colonist
+	name = "Colonists"
 
 /datum/faction/wildlife
 	name = "Wildlife"
 
 /datum/faction/generic_hostile
 	name = "Hostile"
-	hostileTo = list(/datum/faction/wildlife, /datum/faction/crewmember)
+	hostileTo = list(new/datum/faction/wildlife, new/datum/faction/colonist)
 
 /datum/faction/grey
 	name = "Mothership"
-	hostileTo = list(/datum/faction/wildlife, /datum/faction/crewmember, /datum/faction/generic_hostile)
+	hostileTo = list(new/datum/faction/wildlife, new/datum/faction/colonist, new/datum/faction/generic_hostile)

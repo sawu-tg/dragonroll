@@ -7,6 +7,7 @@
 
 	var/wander = TRUE
 	var/wanderFuzziness = 15 // how high "timeSinceLast" should reach before wandering again
+	var/attackFuzziness = 25
 	var/wanderRange = 2
 
 	var/npcMaxWait = 5 //maximum time to wait in certain actions, before reverting to idle
@@ -18,6 +19,7 @@
 
 	var/target
 	var/turf/lastPos
+	var/list/actualView = list()
 	var/list/inView = list()
 	var/list/inRange = list()
 
@@ -55,6 +57,7 @@
 	usr << "lastpos: [lastPos]"
 	usr << "inView: [inView.len]"
 	usr << "inRange: [inRange.len]"
+	usr << "isMonster: [isMonster]"
 	usr << "<b>=============================</b>"
 
 /mob/player/npc/proc/MoveTo(var/target)
@@ -84,9 +87,17 @@
 
 /mob/player/npc/proc/updateLocation()
 	if(lastPos != loc)
+		actualView = oview(src,world.view)
 		inView = oview(src,wanderRange)
 		inRange = orange(src,wanderRange)
 		lastPos = loc
+
+/mob/player/npc/proc/processTargets()
+	for(var/a in actualView)
+		if(istype(a,/mob/player))
+			if(mobFaction.isHostile(a:mobFaction))
+				return a
+	return null
 
 /mob/player/npc/proc/npcIdle()
 	if(npcState == NPCSTATE_IDLE)
@@ -95,17 +106,43 @@
 				target = pick(inView)
 				changeState(NPCSTATE_MOVE)
 				timeSinceLast = 0
+		if(npcNature == NPCTYPE_AGGRESSIVE)
+			var/t = processTargets()
+			if(t)
+				target = t
+				npcState = NPCSTATE_FIGHTING
+				timeSinceLast = 0
 
 /mob/player/npc/proc/npcMove()
 	if(npcState == NPCSTATE_MOVE)
 		MoveTo(target)
 		checkTimeout()
 
+/mob/player/npc/proc/npcCombat()
+	if(npcNature == NPCTYPE_PASSIVE)
+		return
+	if(npcState == NPCSTATE_FIGHTING)
+		if(target)
+			if(timeSinceLast >= attackFuzziness)
+				if(istype(target,/mob/player))
+					if(Adjacent(target) && target:playerData.hp.statModified > 0)
+						intent = INTENT_HARM
+						target:objFunction(src)
+				timeSinceLast = 0
+
+/mob/player/npc/processAttack(var/mob/player/a,var/mob/player/v)
+	..(a,v)
+	if(v == src)
+		target = a
+		changeState(NPCSTATE_FIGHTING)
+
 /mob/player/npc/doProcess()
 	..()
 	if(isDisabled())
+		npcState = NPCSTATE_IDLE
 		return
 	updateLocation()
 	npcIdle()
 	npcMove()
+	npcCombat()
 	timeSinceLast++

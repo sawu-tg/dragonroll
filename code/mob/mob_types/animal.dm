@@ -4,11 +4,18 @@
 	icon_state = "clown"
 	icon = 'sprite/mob/animal.dmi'
 	isMonster = TRUE
+	var/isHostile = FALSE
 	var/list/droppedItems = list()
 
 /mob/player/npc/animal/New()
 	actualIconState = icon_state
 	..()
+	spawn(1)
+		if(isHostile)
+			npcNature = NPCTYPE_AGGRESSIVE
+			mobFaction = new/datum/faction/generic_hostile
+		else
+			mobFaction = new/datum/faction/wildlife
 
 /mob/player/npc/animal/chicken
 	name = "Chicken"
@@ -51,6 +58,7 @@
 	name = "Bear"
 	desc = "Smarter than the average."
 	icon_state = "bear"
+	isHostile = TRUE
 
 /mob/player/npc/animal/bear/New()
 	icon_state = pick("brownbear","bearfloor")
@@ -60,6 +68,7 @@
 	name = "Spider"
 	desc = "Spins webs and climbs aquaducts."
 	icon_state = "guard"
+	isHostile = TRUE
 
 /mob/player/npc/animal/spider/New()
 	icon_state = pick("guard","hunter","nurse")
@@ -83,6 +92,7 @@
 	name = "Wasp"
 	desc = "Pollinates figs. And nightmares."
 	icon_state = "wasp"
+	isHostile = TRUE
 
 /mob/player/npc/animal/deer
 	name = "Deer"

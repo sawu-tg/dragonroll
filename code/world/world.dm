@@ -197,18 +197,18 @@ var/list/regions = list()
 
 /proc/displayInfo(var/personal as text,var/others as text, var/mob/toWho, var/fromWhat,var/color="blue")
 	var/visibleMessage = toWho == fromWhat ? "[fromWhat:name]" : "[fromWhat:name] > [toWho:name]"
-	toWho << "<font color=[color]>[visibleMessage]: [personal]</font>"
+	toWho << "<font color=[color]><b>[visibleMessage]</b>: [personal]</font>"
 	for(var/mob/m in oview(world.view,toWho))
 		if(m == toWho)
 			continue
-		m << "<font color=[color]>[visibleMessage]: [others]</font>"
+		m << "<font color=[color]><b>[visibleMessage]</b>: [others]</font>"
 
 /proc/displayTo(var/personal as text, var/mob/toWho, var/fromWhat,var/color="blue")
 	var/visibleMessage = toWho == fromWhat ? "[fromWhat:name]" : "[fromWhat:name] > [toWho:name]"
-	toWho << "<font color=[color]>[visibleMessage]: [personal]</font>"
+	toWho << "<font color=[color]><b>[visibleMessage]</b>: [personal]</font>"
 
 /proc/chatSay(var/msg as text)
-	world << "<font color=black>[usr]: [msg]</font>"
+	world << "<font color=black><b>[usr]</b>: [msg]</font>"
 
 /proc/circle(turf/source,radius=1,var/expensive = FALSE)
 	var/list/l = list()
@@ -257,13 +257,11 @@ var/list/regions = list()
 
 	var/decoChance = chosenBiome.debrisChance
 	var/turfScale = chosenBiome.turfSize
-	var/colonyChance = chosenBiome.mobChance
 	var/liquidScale = chosenBiome.liquidSize
 	var/liquidErosion = chosenBiome.liquidErode
 
 	var/x = world.maxx
 	var/y = world.maxy
-	var/colonists = 0
 
 	if(zLevel == 1)
 		levelNames.Add("Lobby")
@@ -278,71 +276,79 @@ var/list/regions = list()
 	regions += R
 
 	world << "<i>GENERATING TURFS ON Z[zLevel]..</i>"
-	for(var/a = 1; a <= x; ++a)
-		for(var/b = 1; b <= y; ++b)
-			if(zLevel == 1)
-				continue
-			var/turf/T = locate(a,b,zLevel)
-			T = new chosenBiome.baseTurf(T)
-			if(prob(lowestChance))
-				for(var/turf/T2 in range(T,rand(0,turfScale)))
-					var/turf/T3 = pick(chosenBiome.validTurfs)
-					T2 = new T3(T2)
+	spawn(1)
+		for(var/a = 1; a <= x; ++a)
+			for(var/b = 1; b <= y; ++b)
+				if(zLevel == 1)
+					continue
+				var/turf/T = locate(a,b,zLevel)
+				T = new chosenBiome.baseTurf(T)
+				if(prob(lowestChance))
+					for(var/turf/T2 in range(T,rand(0,turfScale)))
+						var/turf/T3 = pick(chosenBiome.validTurfs)
+						T2 = new T3(T2)
 
 	world << "<i>GENERATING LIQUIDS ON Z[zLevel]..</i>"
 	var/list/liqMade = list()
-	for(var/a = 1; a <= x; ++a)
-		for(var/b = 1; b <= y; ++b)
-			if(zLevel == 1)
-				continue
-			var/turf/T = locate(a,b,zLevel)
-			if(chosenBiome.validLiquids.len)
-				if(prob(lowestChance) && tile2LiquidCounter <= 0)
-					tile2LiquidCounter = tilesBetweenLiquid
-					//for(var/i = liquidScale; i > 0; --i)
-					for(var/turf/T2 in circle(T,rand(liquidScale / 3,liquidScale)))
-						var/turf/T3 = pick(chosenBiome.validLiquids)
-						var/turf/floor/outside/liquid/T4 = new T3(T2)
-						T4.depth = 0
-						//T4.depth = (liquidScale - i) * 15
-						//T4.updateDepth()
-						liqMade |= T4
-				if(tile2LiquidCounter > 0)
-					tile2LiquidCounter--
+	spawn(1)
+		for(var/a = 1; a <= x; ++a)
+			for(var/b = 1; b <= y; ++b)
+				if(zLevel == 1)
+					continue
+				var/turf/T = locate(a,b,zLevel)
+				if(chosenBiome.validLiquids.len)
+					if(prob(lowestChance) && tile2LiquidCounter <= 0)
+						tile2LiquidCounter = tilesBetweenLiquid
+						//for(var/i = liquidScale; i > 0; --i)
+						for(var/turf/T2 in circle(T,rand(liquidScale / 3,liquidScale)))
+							var/turf/T3 = pick(chosenBiome.validLiquids)
+							var/turf/floor/outside/liquid/T4 = new T3(T2)
+							T4.depth = 0
+							//T4.depth = (liquidScale - i) * 15
+							//T4.updateDepth()
+							liqMade |= T4
+					if(tile2LiquidCounter > 0)
+						tile2LiquidCounter--
 
 	world << "<i>ERODING LIQUIDS ON Z[zLevel]..</i>"
-	for(var/turf/floor/outside/liquid/EL in liqMade)
-		if(prob(liquidErosion))
-			for(var/T in circle(EL,1))
-				if(istype(T,/turf/floor/outside/liquid))
-					var/turf/T2 = pick(chosenBiome.validTurfs)
-					EL = new T2(T)
+	spawn(1)
+		for(var/turf/floor/outside/liquid/EL in liqMade)
+			if(prob(liquidErosion))
+				for(var/T in circle(EL,1))
+					if(istype(T,/turf/floor/outside/liquid))
+						var/turf/T2 = pick(chosenBiome.validTurfs)
+						EL = new T2(T)
 
 
 	world << "<i>GENERATING DECORATIONS ON Z[zLevel]..</i>"
-	for(var/a = 1; a <= x; ++a)
-		for(var/b = 1; b <= y; ++b)
-			if(zLevel == 1)
-				continue
-			var/turf/T = locate(a,b,zLevel)
-			if(a == x/2 && b == y/2)
-				if(!T.light)
-					var/obj/trigger/portal/P = new/obj/trigger/portal(T)
-					for(var/turf/D in range(P,5))
-						D = new chosenBiome.baseTurf(D)
-					P.name = "[levelNames[zLevel]] the [chosenBiome.name]"
-					P.safe = FALSE
-					//P.set_light(9,9,"#66CCFF") //BAD SAWU BAAAD
-			else
-				if(prob(decoChance))
-					if(!(T.type in chosenBiome.validLiquids))
-						var/obj/o = pick(chosenBiome.validDebris)
-						new o(T)
-				if(prob(colonyChance))
-					if(colonists < maxColonists)
-						var/mob/m = pick(chosenBiome.validMobs)
-						new m(T)
-						colonists++
+	spawn(1)
+		for(var/a = 1; a <= x; ++a)
+			for(var/b = 1; b <= y; ++b)
+				if(zLevel == 1)
+					continue
+				var/turf/T = locate(a,b,zLevel)
+				if(a == x/2 && b == y/2)
+					if(!T.light)
+						var/obj/trigger/portal/P = new/obj/trigger/portal(T)
+						for(var/turf/D in range(P,5))
+							D = new chosenBiome.baseTurf(D)
+						P.name = "[levelNames[zLevel]] the [chosenBiome.name]"
+						P.safe = FALSE
+						//P.set_light(9,9,"#66CCFF") //BAD SAWU BAAAD
+				else
+					if(prob(decoChance))
+						if(!(T.type in chosenBiome.validLiquids))
+							var/obj/o = pick(chosenBiome.validDebris)
+							new o(T)
+
+
+	world << "<i>GENERATING NPCS ON Z[zLevel]..</i>"
+	spawn(1)
+		if(zLevel == 1) return
+		for(var/a = 0; a < maxColonists; ++a)
+			var/m = pick(chosenBiome.validMobs)
+			var/mob/b = new m()
+			b.loc = locate(rand(1,world.maxx),rand(1,world.maxy),zLevel)
 
 	//erodeLiquids |= liqMade
 #undef lowestChance
