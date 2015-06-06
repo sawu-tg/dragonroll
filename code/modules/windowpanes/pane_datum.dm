@@ -95,7 +95,12 @@
 		allstats += "<center><b>Buffs and Debuffs:</b></center><table style=\"width: 100%;\"><tr>"
 		for(var/S in P.statuseffects)
 			if(S)
-				allstats += "<td><b><center><font size=2>[S:name]</font></center></b><br><font size = 1.5> [S:desc]</font><br>[S:lossAmount > 0 ? "<font color = red>-" : "<font color = green>+"][S:lossAmount][S:lossStat]</font></td>"
+				allstats += "<td><b><center><font size=2>[S:name]</font></center></b><br><font size = 1.5> [S:desc]</font>"
+
+				for(var/statid in S:statchanges) //I'll kill you you nigga
+					var/modamt = S:statchanges[statid]
+					allstats += "<br>[modamt > 0 ? "<font color = green>+" : "<font color = red>-"][abs(modamt)][statid]</font>"
+				allstats += "</td>"
 		allstats += "</tr></table>"
 
 

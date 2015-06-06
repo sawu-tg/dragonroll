@@ -744,7 +744,7 @@ window "rightpane"
 		left = "tabwindow"
 		right = "outputwindow"
 		is-vert = false
-		splitter = 50
+		splitter = 60
 		show-splitter = true
 		lock = none
 

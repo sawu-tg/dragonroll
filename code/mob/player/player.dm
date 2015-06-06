@@ -240,8 +240,8 @@
 		if(playerData.playerRace.icon)
 			icon = playerData.playerRace.icon
 		playerData.assignRace(playerData.playerRace)
-		recalculateBaseStats(src)
-		recalculateStats(src)
+		recalculateBaseStats()
+		recalculateStats()
 		for(var/datum/organ/O in playerOrgans)
 			O.race = playerData.playerRace
 			var/icon/I = getfile("sprite/mob/dismemberment/r_def_[lowertext(O.race.raceName)].dmi")
