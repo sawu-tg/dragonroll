@@ -135,8 +135,8 @@
 /datum/ability/proc/postCast(var/mob/player/caster,var/target)
 	if(!suppressMessage)
 		displayInfo("You cast [name].","[caster.name] cast [name].",caster,image(abilityIcon,icon_state=abilityState))
-	if(abilityIconTarget)
-		new abilityIconTarget(target:loc)
+	//if(abilityIconTarget)
+	//	new abilityIconTarget(target:loc)
 
 ///
 // and Object that holds spells for casting.
