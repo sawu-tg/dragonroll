@@ -6,10 +6,26 @@
 	var/icon_state = "l_arm" // icon state the organ displays
 	var/health = 100 // health of the organ
 	var/datum/race/race
+	var/mob/owner
 
-/datum/organ/New(var/asrace)
+/datum/organ/New(var/asrace,var/toOwner)
 	..()
 	race = asrace
+	if(toOwner)
+		owner = toOwner
+	if(fexists("sprite/mob/dismemberment/r_def_[lowertext(race.raceName)].dmi"))
+		icon = file("sprite/mob/dismemberment/r_def_[lowertext(race.raceName)].dmi")
+	else
+		world << "<b>INVALID:</b> sprite/mob/dismemberment/r_def_[lowertext(race.raceName)].dmi"
+
+/mob/player/verb/debugOrgans()
+	set category = "Debug Verbs"
+	for(var/datum/organ/O in playerOrgans)
+		world << "[name]'s [O.name]"
+		world << "sprite/mob/dismemberment/r_def_[lowertext(O.race.raceName)].dmi"
+		var/icon/i = icon(O.icon,O.icon_state)
+		world << "\icon[i]"
+		world << "[O.icon_state]"
 
 /mob/player/verb/gibSelf()
 	set name = "Gib"
@@ -30,7 +46,7 @@
 	itemMaterial = new/datum/material/flesh
 
 /obj/item/organ/proc/createFrom(var/datum/organ/of)
-	name = of.name
+	name = "[of.race.raceName] [of.name]"
 	desc = of.desc
 	icon = of.icon
 	icon_state = of.icon_state
@@ -47,6 +63,7 @@
 // When an organ fails, this is called
 ///
 /datum/organ/proc/organFail()
+	gib(get_turf(owner))
 
 
 //organs
@@ -71,35 +88,29 @@
 /datum/organ/l_arm
 	name = "left arm"
 	desc = "the left beats the rest"
-	icon = 'sprite/mob/dismemberment/r_def_human.dmi'
 	icon_state = "l_arm"
 
 /datum/organ/r_arm
 	name = "right arm"
 	desc = "righty tighty, lefty loosey"
-	icon = 'sprite/mob/dismemberment/r_def_human.dmi'
 	icon_state = "r_arm"
 
 /datum/organ/l_leg
 	name = "left leg"
 	desc = "the left beats the rest"
-	icon = 'sprite/mob/dismemberment/r_def_human.dmi'
 	icon_state = "l_leg"
 
 /datum/organ/r_leg
 	name = "right leg"
 	desc = "righty tighty, lefty loosey"
-	icon = 'sprite/mob/dismemberment/r_def_human.dmi'
 	icon_state = "r_leg"
 
 /datum/organ/chest
 	name = "chest"
 	desc = "aim for this"
-	icon = 'sprite/mob/dismemberment/r_def_human.dmi'
 	icon_state = "torso_m"
 
 /datum/organ/head
 	name = "head"
 	desc = "most things go to this"
-	icon = 'sprite/mob/dismemberment/r_def_human.dmi'
-	icon_state = "head_m"
+	icon_state = "head"

@@ -39,14 +39,14 @@
 	add_pane(/datum/windowpane/inventory)
 
 	///
-	playerOrgans |= new/datum/organ/l_arm(playerData.playerRace)
-	playerOrgans |= new/datum/organ/r_arm(playerData.playerRace)
-	playerOrgans |= new/datum/organ/l_leg(playerData.playerRace)
-	playerOrgans |= new/datum/organ/r_leg(playerData.playerRace)
-	playerOrgans |= new/datum/organ/chest(playerData.playerRace)
-	playerOrgans |= new/datum/organ/head(playerData.playerRace)
-	playerOrgans |= new/datum/organ/brain(playerData.playerRace)
-	playerOrgans |= new/datum/organ/heart(playerData.playerRace)
+	playerOrgans |= new/datum/organ/l_arm(playerData.playerRace,src)
+	playerOrgans |= new/datum/organ/r_arm(playerData.playerRace,src)
+	playerOrgans |= new/datum/organ/l_leg(playerData.playerRace,src)
+	playerOrgans |= new/datum/organ/r_leg(playerData.playerRace,src)
+	playerOrgans |= new/datum/organ/chest(playerData.playerRace,src)
+	playerOrgans |= new/datum/organ/head(playerData.playerRace,src)
+	playerOrgans |= new/datum/organ/brain(playerData.playerRace,src)
+	playerOrgans |= new/datum/organ/heart(playerData.playerRace,src)
 	///
 	spawn(20)
 		refreshIcon(playerData.playerRacePrefix)
@@ -135,7 +135,9 @@
 	if(doDamage)
 		src.popup("[damage]",rgb(255,0,0))
 		playerData.hp.setTo(playerData.hp.statCurr-damage)
-
+		for(var/datum/organ/O in playerOrgans)
+			if(do_roll(1,playerData.con.statModified,playerData.str.statCurr) < damage)
+				O.health -= damage
 		var/dyingtype
 
 		if(playerData.hp.statCurr == 0)
@@ -211,11 +213,6 @@
 	player.color = playerData.playerColor
 	overlays |= player
 
-	for(var/datum/organ/O in playerOrgans)
-		if(O.internal)
-			continue
-		//addedOverlays |= icon(O.icon,icon_state = O.icon_state) UNCOMMENT WHEN WE GET RACIAL ORGANS
-
 	var/image/eyes = image(icon,playerData.playerRace.raceEyes)
 	eyes.color = playerData.eyeColor
 
@@ -242,6 +239,9 @@
 		playerData.assignRace(playerData.playerRace)
 		recalculateBaseStats(src)
 		recalculateStats(src)
+		for(var/datum/organ/O in playerOrgans)
+			O.race = playerData.playerRace
+			O.icon = file("sprite/mob/dismemberment/r_def_[lowertext(O.race.raceName)].dmi")
 		var/prefix = ""
 		if(reselect)
 			if(playerData.playerRace.icon_prefix.len > 1)
