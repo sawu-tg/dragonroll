@@ -44,21 +44,22 @@
 // katawa shoujo things
 /datum/statuseffect/decap
 	name = "decapitation effect"
+	var/lossStat = "str"
 
 /datum/statuseffect/decap/applyStatus()
-	..()
 	if(mymob)
 		var/datum/stat/S = mymob:findStat(lossStat)
 		if(S)
-			lossAmount = (S.statBase/4)
-			S.setTo(S.statCurr-lossAmount)
+			statchanges[lossStat] = -(S.statBase/4)
+			//S.setTo(S.statCurr-lossAmount)
+	..()
 
-/datum/statuseffect/decap/removeStatus()
-	if(mymob)
-		var/datum/stat/S = mymob:findStat(lossStat)
-		if(S)
-			S.setTo(S.statCurr+lossAmount)
-	..()
+///datum/statuseffect/decap/removeStatus()
+	//if(mymob)
+		//var/datum/stat/S = mymob:findStat(lossStat)
+		//if(S)
+			//S.setTo(S.statCurr+lossAmount)
+	//..()
 
 /datum/statuseffect/decap/norleg
 	name = "Missing Right Leg"

@@ -6,9 +6,20 @@
 	for(var/datum/stat/S in playerData.playerStats)
 		S.recap()
 
-/mob/player/proc/recalculateStats()
+/mob/player/proc/recalculateStats(var/list/filter)
 	for(var/datum/stat/S in playerData.playerStats)
+		if(filter && filter.len && !(S.statId in filter))
+			continue
+
 		S.recalculate()
+
+		for(var/datum/statuseffect/status in statuseffects)
+			if(status) //If sawu breaks a thing again
+				status.recalculateStat(S)
+
+		for(var/obj/item/I in playerEquipped)
+			if(I)
+				I.recalculateStat(S)
 
 /mob/player/proc/recalculateBaseStats()
 	var/datum/race/R = playerData.playerRace
@@ -16,8 +27,10 @@
 
 	for(var/datum/stat/S in playerData.playerStats)
 		S.recalculateBase()
-		R.recalculateStat(S)
-		C.recalculateStat(C)
+		if(R)
+			R.recalculateStat(S)
+		if(C)
+			C.recalculateStat(S)
 
 /mob/player/proc/findStat(var/ofname)
 	for(var/datum/stat/S in playerData.playerStats)

@@ -40,6 +40,16 @@
 
 		return effectstacks[id]
 
+/mob/player/addStatusEffect()
+	. = ..()
+
+	recalculateStats()
+
+/mob/player/remStatusEffect()
+	. = ..()
+
+	recalculateStats()
+
 /datum/statuseffect
 	var/id = ""
 	var/name = "normal"
@@ -51,9 +61,8 @@
 	var/applytime = 0
 	var/maxtime = 0
 
-	//for debuffing a stat
-	var/lossAmount = 5
-	var/lossStat = "str"
+	//for (de)buffing a stat
+	var/list/statchanges = list()
 
 	var/obj/item/equipment //For checking equipmentbound status effects
 
@@ -111,6 +120,12 @@
 		for(var/stack in addedstacks)
 			mymob.remEffectStack(stack)
 
+		mymob.statuseffects -= src
+
+		if(istype(mymob,/mob/player))
+			var/mob/player/P = mymob
+			P.recalculateStats()
+
 		del(src)
 
 	proc/tickStatus()
@@ -125,3 +140,11 @@
 
 		if((flags & STATUS_TILE) && !(tile && mymob in tile.contents))
 			removeStatus(1)
+
+	proc/recalculateStat(var/datum/stat/S)
+		var/statmod = statchanges[S.statId]
+
+		//world << "[S.statId]: [S.statModified] + [statmod]"
+
+		S.statModified += statmod
+

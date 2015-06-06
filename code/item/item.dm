@@ -15,3 +15,11 @@
 	if(showAsLoot)
 		icon = loot_icon
 		icon_state = loot_icon_state
+
+/obj/item/proc/recalculateStat(var/datum/stat/S)
+	if(!S || !istype(S))
+		return
+
+	var/statmod = stats[S.statId]
+
+	S.statModified += statmod
