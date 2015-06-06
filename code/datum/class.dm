@@ -64,6 +64,7 @@
 /datum/class/knightcommander
 	className = "Knight Commander"
 	classDesc = "Tough and Stalward, the Knight Commander focuses on buffing their allies and keeping enemies at bay."
+	classAbilities = list(/datum/ability/bolster)
 	str_mod = 2
 	con_mod = 2
 	cha_mod = 2

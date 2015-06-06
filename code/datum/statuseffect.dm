@@ -10,11 +10,20 @@
 		if(!effecttype) return
 
 		var/datum/statuseffect/eff = new effecttype(src)
+		if(checkStatusEffect(eff))
+			del(eff)
+			return
 		eff.setTime(length)
 
 		statuseffects |= eff
 
 		return eff
+
+	proc/checkStatusEffect(var/datum/statuseffect/effect)
+		for(var/a in statuseffects)
+			if(a:id == effect.id)
+				return TRUE
+		return FALSE
 
 	proc/remStatusEffect(var/datum/statuseffect/eff,var/natural=1)
 		if(!eff) return

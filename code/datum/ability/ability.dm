@@ -85,7 +85,7 @@
 /datum/ability/proc/placeAoe(var/turf/where)
 	var/obj/effect/aoe_tile/A = new abilityIconTarget(where)
 	A.damage = do_roll(1,abilityModifier*abilityLevel)
-	A.length = abilityLevel*25
+	A.length = (abilityModifier*abilityLevel)*60
 
 ///
 // Casts the ability, from the given player, to the target
@@ -100,7 +100,7 @@
 		var/max = abilityAoe < 0 ? -abilityAoe : abilityAoe
 		var/counter
 		for(counter = 1; counter <= max; ++counter)
-			for(var/turf/T in oview(counter,abilityAoe < 0 ? holder : target))
+			for(var/turf/T in circle(abilityAoe < 0 ? holder : target,counter))
 				if(!locate(abilityIconTarget) in T)
 					new/datum/timer(counter*5,src,"placeAoe",T)
 	else

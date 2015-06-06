@@ -40,6 +40,19 @@
 	desc = "It courses through your veins."
 	addedstacks = list("poison")
 
+/datum/statuseffect/bolster
+	name = "Bolster"
+	id = "bolster"
+	desc = "Your HP and DEF are increased"
+
+/datum/statuseffect/bolster/applyStatus()
+	if(mymob)
+		var/datum/stat/S = mymob:findStat("str")
+		var/datum/stat/SS = mymob:findStat("hp")
+		if(S && SS)
+			statchanges["str"] = 5
+			statchanges["hp"] = 5
+	..()
 
 // katawa shoujo things
 /datum/statuseffect/decap

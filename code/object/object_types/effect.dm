@@ -30,6 +30,13 @@
 	layer = LAYER_OVERLAY
 	var/damage = 1
 
+/obj/effect/aoe_tile/New()
+	..()
+	spawn(10)
+		for(var/a in loc)
+			if(istype(a,/mob/player))
+				doAOEAct(a)
+
 /obj/effect/aoe_tile/proc/doAOEAct(var/atom/what)
 	if(istype(what,/mob/player))
 		var/mob/player/P = what
@@ -58,6 +65,19 @@
 	icon_state = "[pick(1,2,3)]"
 	set_light(3,3,"#FF5500")
 	..()
+
+/obj/effect/aoe_tile/bolster
+	name = "Bolstering Force"
+	desc = "Gives you that pickup"
+	icon = 'sprite/obj/tg_effects/effects.dmi'
+	icon_state = "medi_holo"
+	length = 60 // FIX THIS, WHY IS THIS TAKING THE LENGTH
+
+/obj/effect/aoe_tile/bolster/doAOEAct(var/atom/what)
+	if(istype(what,/mob/player))
+		var/mob/player/P = what
+		P.addStatusEffect(/datum/statuseffect/bolster,length)
+	del(src)
 
 /obj/effect/target
 	name = "Targeted"

@@ -206,11 +206,11 @@
 			//
 			if(calcDepth >= minDamDepth && !P.mounted)
 				var/datum/statuseffect/drowning/DReffect = P.addStatusEffect(/datum/statuseffect/drowning)
-				DReffect.setTile(src)
-
-				P.inDPSLiquid = TRUE
-				P.liquidVerb = damageVerb
-				P.liquidDamage = damage
+				if(DReffect)
+					DReffect.setTile(src)
+					P.inDPSLiquid = TRUE
+					P.liquidVerb = damageVerb
+					P.liquidDamage = damage
 
 /turf/floor/outside/liquid/Exited(atom/movable/O)
 	if(solid)
