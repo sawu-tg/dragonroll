@@ -13,8 +13,9 @@
 	race = asrace
 	if(toOwner)
 		owner = toOwner
-	if(fexists("sprite/mob/dismemberment/r_def_[lowertext(race.raceName)].dmi"))
-		icon = file("sprite/mob/dismemberment/r_def_[lowertext(race.raceName)].dmi")
+	var/icon/I = getfile("sprite/mob/dismemberment/r_def_[lowertext(race.raceName)].dmi")
+	if(I)
+		icon = I
 	else
 		world << "<b>INVALID:</b> sprite/mob/dismemberment/r_def_[lowertext(race.raceName)].dmi"
 

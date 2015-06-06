@@ -242,7 +242,9 @@
 		recalculateStats(src)
 		for(var/datum/organ/O in playerOrgans)
 			O.race = playerData.playerRace
-			O.icon = file("sprite/mob/dismemberment/r_def_[lowertext(O.race.raceName)].dmi")
+			var/icon/I = getfile("sprite/mob/dismemberment/r_def_[lowertext(O.race.raceName)].dmi")
+			if(I)
+				O.icon = I
 		var/prefix = ""
 		if(reselect)
 			if(playerData.playerRace.icon_prefix.len > 1)
