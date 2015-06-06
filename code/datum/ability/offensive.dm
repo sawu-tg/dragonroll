@@ -48,7 +48,7 @@
 	abilityModifier = -1
 	abilityCooldown = 10*60
 	abilityState = "staff"
-	abilityEffect = ACTIVE_STATE_DAZED
+	abilityEffect = /datum/statuseffect/dazed
 	abilityIconSelf = /obj/effect/pow
 	abilityProjectile = /obj/projectile/manablast
 	abilityIconTarget = /obj/effect/target
@@ -64,7 +64,7 @@
 	abilityModifier = -1
 	abilityCooldown = 10*60
 	abilityState = "staff"
-	abilityEffect = ACTIVE_STATE_POISONED
+	abilityEffect = /datum/statuseffect/poison
 	abilityIconSelf = /obj/effect/pow
 	abilityProjectile = /obj/projectile/toxinthrow
 	abilityIconTarget = /obj/effect/target

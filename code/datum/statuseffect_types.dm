@@ -7,7 +7,7 @@
 /datum/statuseffect/dazed
 	name = "Dazed"
 	id = "daze"
-	desc = "Probably does a thing but I forgot." //Give this an actual description you nigga
+	desc = "You are dizzy."
 	addedstacks = list("no_act","daze")
 
 /datum/statuseffect/disabled
@@ -39,3 +39,53 @@
 	id = "poison"
 	desc = "It courses through your veins."
 	addedstacks = list("poison")
+
+
+// katawa shoujo things
+/datum/statuseffect/decap
+	name = "decapitation effect"
+
+/datum/statuseffect/decap/applyStatus()
+	..()
+	if(mymob)
+		var/datum/stat/S = mymob:findStat(lossStat)
+		if(S)
+			lossAmount = (S.statBase/4)
+			S.setTo(S.statCurr-lossAmount)
+
+/datum/statuseffect/decap/removeStatus()
+	if(mymob)
+		var/datum/stat/S = mymob:findStat(lossStat)
+		if(S)
+			S.setTo(S.statCurr+lossAmount)
+	..()
+
+/datum/statuseffect/decap/norleg
+	name = "Missing Right Leg"
+	id = "norleg"
+	desc = "You are missing your Right Leg."
+
+/datum/statuseffect/decap/nolleg
+	name = "Missing Left Leg"
+	id = "nolleg"
+	desc = "You are missing your Left Leg."
+
+/datum/statuseffect/decap/norarm
+	name = "Missing Right Arm"
+	id = "norarm"
+	desc = "You are missing your Right Arm."
+
+/datum/statuseffect/decap/nolarm
+	name = "Missing Left Arm"
+	id = "nolarm"
+	desc = "You are missing your Left Arm."
+
+/datum/statuseffect/decap/nochest
+	name = "Missing Chest"
+	id = "nochest"
+	desc = "You are missing your Chest."
+
+/datum/statuseffect/decap/nohead
+	name = "Missing Head"
+	id = "nohead"
+	desc = "You are missing your Head."

@@ -51,6 +51,10 @@
 	var/applytime = 0
 	var/maxtime = 0
 
+	//for debuffing a stat
+	var/lossAmount = 5
+	var/lossStat = "str"
+
 	var/obj/item/equipment //For checking equipmentbound status effects
 
 	var/turf/tile	//For checking tilebound status effects

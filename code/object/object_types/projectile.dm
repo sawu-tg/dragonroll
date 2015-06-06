@@ -10,6 +10,7 @@
 	var/guided = FALSE
 	var/atom/target
 	var/damage = 1
+	var/effectLength = 0
 	var/effect
 	var/mob/player/projectileOwner
 
@@ -27,8 +28,9 @@
 /obj/projectile/proc/doProjAct(var/atom/what)
 	if(istype(what,/mob/player))
 		var/mob/player/P = what
-		P.addStatusEffect(effect)
-		P.playerData.hp.change(damage)
+		if(effect)
+			P.addStatusEffect(effect,effectLength)
+		P.takeDamage(damage,DTYPE_DIRECT)
 	del(src)
 
 /obj/projectile/doProcess()
@@ -59,7 +61,6 @@
 	desc = "Does many things, but making you feel better is not one."
 	icon = 'sprite/obj/projectiles.dmi'
 	icon_state = "neurotoxin"
-	effect = /datum/statuseffect/poison
 	projectileLight = "#00CC00"
 
 /obj/projectile/spear

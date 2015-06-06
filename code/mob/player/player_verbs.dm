@@ -37,6 +37,18 @@
 	for(var/turf/t in range(7))
 		t = new/turf/floor/outside/grass(t)
 
+/mob/player/verb/damageOrgans()
+	set name = "Damage Organs"
+	set category = "Debug Verbs"
+	var/damage = input("How much?") as num
+	for(var/datum/organ/O in playerOrgans)
+		O.health -= damage
+
+/mob/player/verb/cleanseAll()
+	for(var/S in statuseffects)
+		if(S)
+			remStatusEffect(S)
+
 
 ///
 // INVENTORY AND STAT VERBS

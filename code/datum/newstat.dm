@@ -19,6 +19,12 @@
 		R.recalculateStat(S)
 		C.recalculateStat(C)
 
+/mob/player/proc/findStat(var/ofname)
+	for(var/datum/stat/S in playerData.playerStats)
+		if(S.statId == ofname)
+			return S
+	return null
+
 /datum/race
 	var/list/stat_mods = list() //Balance around 0
 
@@ -97,17 +103,17 @@
 	statBase = statBaseOld
 
 /datum/stat/proc/change(var/n)
-	statCurr += n
-
 	if(isLimited)
+		statCurr += n
 		statCurr = Clamp(statCurr,statMin,statModified)
 	else
+		statModified += n
 		statCurr = statModified
 
 /datum/stat/proc/setTo(var/n)
-	statCurr = n
-
 	if(isLimited)
+		statCurr = n
 		statCurr = Clamp(statCurr,statMin,statModified)
 	else
+		statModified = n
 		statCurr = statModified

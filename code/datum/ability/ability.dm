@@ -104,7 +104,7 @@
 				if(!locate(abilityIconTarget) in T)
 					new/datum/timer(counter*5,src,"placeAoe",T)
 	else
-		if(abilityProjectile && target != caster)
+		if(abilityProjectile && target != caster && !caster.Adjacent(target))
 			var/list/inArea = oview(abilityRange,caster)
 			var/spawned = 0
 			for(var/turf/T in inArea)
@@ -112,6 +112,7 @@
 					abilityCastedProjectile = new abilityProjectile(target,caster)
 					abilityCastedProjectile.loc = caster.loc
 					abilityCastedProjectile.effect = abilityEffect
+					abilityCastedProjectile.effectLength = ((abilityModifier < 0 ? -abilityModifier : abilityModifier)*abilityLevel)*60
 					if(abilityModifier > 0)
 						abilityCastedProjectile.damage = do_roll(1,abilityModifier*abilityLevel)
 					else
@@ -120,14 +121,12 @@
 		else
 			if(istype(target,/mob/player))
 				var/mob/player/P = target
-				//mobAddFlag(P,ACTIVE_STATE_DAZED,abilityModifier*abilityLevel,TRUE)
-				P.addStatusEffect(/datum/statuseffect/dazed,abilityModifier*abilityLevel)
+				P.addStatusEffect(abilityEffect,((abilityModifier < 0 ? -abilityModifier : abilityModifier)*abilityLevel)*60)
 				if(abilityModifier > 0)
-					//F_damage(P,abilityModifier*abilityLevel,rgb(0,255,0))
 					P.popup(abilityModifier*abilityLevel,rgb(0,255,0))
 					P.playerData.hp.change(do_roll(1,abilityModifier*abilityLevel))
 				else
-					P.takeDamage(-do_roll(1,abilityModifier*abilityLevel))
+					P.takeDamage(do_roll(1,(abilityModifier < 0 ? -abilityModifier : abilityModifier)*abilityLevel),DTYPE_DIRECT)
 	cooldownHandler |= src
 
 ///

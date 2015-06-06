@@ -331,7 +331,7 @@ window "outputwindow"
 	elem "outputwindow"
 		type = MAIN
 		pos = 281,0
-		size = 640x480
+		size = 640x250
 		anchor1 = none
 		anchor2 = none
 		font-family = ""
@@ -343,7 +343,7 @@ window "outputwindow"
 		is-disabled = false
 		is-transparent = false
 		is-default = false
-		border = none
+		border = sunken
 		drop-zone = false
 		right-click = false
 		saved-params = "pos;size;is-minimized;is-maximized"
@@ -357,7 +357,7 @@ window "outputwindow"
 		is-pane = true
 		is-minimized = false
 		is-maximized = false
-		can-scroll = none
+		can-scroll = vertical
 		icon = ""
 		image = ""
 		image-mode = stretch
@@ -370,7 +370,7 @@ window "outputwindow"
 	elem "output"
 		type = OUTPUT
 		pos = 0,0
-		size = 640x480
+		size = 640x250
 		anchor1 = 0,0
 		anchor2 = 100,100
 		font-family = ""
@@ -382,7 +382,7 @@ window "outputwindow"
 		is-disabled = false
 		is-transparent = false
 		is-default = true
-		border = none
+		border = sunken
 		drop-zone = false
 		right-click = false
 		saved-params = "max-lines"

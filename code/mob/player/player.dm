@@ -117,6 +117,8 @@
 /mob/player/proc/takeDamage(var/amount,var/type=DTYPE_BASIC)
 	var/damage = max(0,type == DTYPE_DIRECT ? amount : amount - playerData.def.statCurr)
 	var/doDamage = FALSE
+	if(damage == 0)
+		return 0
 	if(damage > playerData.con.statCurr)
 		if(type == DTYPE_NONLETHAL)
 			if(!savingThrow(src,0,SAVING_FORTITUDE))

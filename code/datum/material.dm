@@ -147,7 +147,7 @@
 
 /datum/material/flesh
 	name = "flesh"
-	color = "#990000"
+	color = "#FFFFFF"
 	addedWeight = 1
 	matLevel = 1
 	addedForce = 1

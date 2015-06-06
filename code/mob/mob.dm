@@ -78,7 +78,10 @@
 		attacker.takeDamage(newDamage)
 	else
 		var/realDamage = victim.takeDamage(damage)
-		displayInfo("You [attackString] for [realDamage]HP (1d[damage]-[def])","[attacker] hits [victim] for [realDamage]HP (1d[damage]-[def])",attacker,victim,"red")
+		if(realDamage > 0)
+			displayInfo("You [attackString] for [realDamage]HP (1d[damage]-[def])","[attacker] hits [victim] for [realDamage]HP (1d[damage]-[def])",attacker,victim,"red")
+		else
+			displayInfo("Your blow only glances! (1d[damage]-[def])","[attacker] hits [victim] with a glancing blow! (1d[damage]-[def])",attacker,victim,"green")
 
 /mob/proc/intent2string()
 	if(intent == 1)

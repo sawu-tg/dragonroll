@@ -75,9 +75,9 @@
 				statprefix = "stat_down"
 
 			if(S.isLimited)
-				stattext += "[S.statName]: </td><td><IMG SRC=[statprefix]>[S.statCurr]/[S.statModified] (Base: [S.statNormal])"
+				stattext += "[S.statName]: </td><td><IMG SRC=[statprefix]>[S.statCurr]/[S.statModified] (Base: [S.statBase])"
 			else
-				stattext += "[S.statName]: </td><td><IMG SRC=[statprefix]>[S.statModified] (Base: [S.statNormal])"
+				stattext += "[S.statName]: </td><td><IMG SRC=[statprefix]>[S.statModified] (Base: [S.statBase])"
 
 			allstats += "<td>[stattext]</td>"
 
@@ -86,10 +86,18 @@
 			if(currentcolumn >= maxcolumn)
 				allstats += "</tr><tr>"
 				currentcolumn = 0
-		allstats += "</tr></table>"
+		allstats += "</tr></table><br>"
+		allstats += "<center><b>Organs:</b></center><table style=\"width: 100%;\"><tr>"
 		for(var/datum/organ/O in P.playerOrgans)
-			allstats += "<br> <b>[O.name]</b>: [O.health]%"
-		allstats += "<br>Your intent is: [P.intent2string()]"
+			allstats += "<td><font color=[RGBtoHSV(rgb(max(255-(O.health*2.5),255),0,0))]><b>[O.name]</b>: [O.health]hp</font></td>"
+		allstats += "</tr></table>"
+
+		allstats += "<center><b>Buffs and Debuffs:</b></center><table style=\"width: 100%;\"><tr>"
+		for(var/S in P.statuseffects)
+			if(S)
+				allstats += "<td><b><center><font size=2>[S:name]</font></center></b><br><font size = 1.5> [S:desc]</font><br>[S:lossAmount > 0 ? "<font color = red>-" : "<font color = green>+"][S:lossAmount][S:lossStat]</font></td>"
+		allstats += "</tr></table>"
+
 
 		if(statcontent != allstats && initialized)
 			statcontent = allstats
