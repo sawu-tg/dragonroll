@@ -25,3 +25,10 @@
 		.+=180
 	else if(dx<0)
 		.+=360
+
+
+//Gets a file if it exists, including custom/dynamic paths using string manipulation
+/proc/getfile(var/filepath)
+	. = 0
+	if(fexists(filepath))
+		. = file(filepath)
