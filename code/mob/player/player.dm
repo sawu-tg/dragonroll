@@ -109,6 +109,7 @@
 	set name = "Say"
 	var/message_range = 7
 	var/list/listening = get_hear(message_range, usr)
+	popup(msg)//we wanted unformatted speech
 	msg = formatspeech(msg)
 	for (var/mob/M in listening)
 		M.hear(msg, usr)
