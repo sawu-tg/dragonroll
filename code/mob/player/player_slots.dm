@@ -18,6 +18,8 @@
 	var/can_see_self = 1
 	var/can_select = 0
 
+	var/blocked = FALSE // is the slot blocked (can not be used)?
+
 	var/is_hand = 0
 
 	var/hudx = 0 //Position relative to the centermost slot (0,0), so accepts negatives.
@@ -55,6 +57,9 @@
 
 		for(var/atom/A in contents)
 			overlays += icon(A.icon,A.icon_state)
+
+		if(blocked)
+			overlays += icon('sprite/gui/guiObj.dmi',"disabled")
 
 		if(M.selectedSlot == src)
 			overlays += icon('sprite/gui/guiObj.dmi',"active")
@@ -177,7 +182,7 @@
 	for(var/obj/interface/slot/S in handSlots)
 		//world << "Checking [S.id]"
 
-		if(S.is_free())
+		if(S.is_free() && !S.blocked)
 			return S
 
 	return null

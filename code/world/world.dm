@@ -39,6 +39,7 @@ var/list/newErodeLiquids = list()
 		CS = new
 		CS.addControl(new /datum/controller/machinery)
 		CS.addControl(new /datum/controller/lighting)
+		CS.addControl(new /datum/controller/hivemind)
 		CS.process()
 	..()
 
@@ -115,45 +116,6 @@ var/list/newErodeLiquids = list()
 					i.doProcess()
 	spawn(1)
 		processObjects()
-
-/*/proc/processFlags(var/mob/player/who)
-	for(var/i in who.persistingEffects)
-		if(i == ACTIVE_STATE_DYING)
-			who.takeDamage(1,DTYPE_DIRECT)
-		if(i == ACTIVE_STATE_DAZED)
-			who.speed = who.actualSpeed/4
-		//reduce time
-		if(who.persistingEffects[i] == 0)
-			mobRemFlag(who,i,1)
-		else if(who.persistingEffects[i] % 2)
-			if(who.persistingEffects[i] > 0)
-				--who.persistingEffects[i]*/
-
-/*/proc/mobAddFlag(var/mob/player/who, var/flag, var/length=-1, var/active=0)
-	if(active)
-		setFlag(who.active_states, flag)
-		who.persistingEffects["[flag]"] = length
-	else
-		setFlag(who.passive_states,flag)
-
-/proc/mobRemFlag(var/mob/player/who, var/flag, var/active=0)
-	if(active)
-		remFlag(who.active_states, flag)
-		who.persistingEffects["[flag]"] = null
-	else
-		remFlag(who.passive_states, flag)
-
-/proc/checkFlag(var/on, var/flag)
-	var/valid = (on & flag)
-	return valid
-
-/proc/setFlag(var/on, var/flag)
-	if(!checkFlag(on,flag))
-		on |= flag
-
-/proc/remFlag(var/on, var/flag)
-	if(checkFlag(on,flag))
-		on &= ~flag*/
 
 /proc/do_roll(var/times,var/dice,var/bonus)
 	var/rolled = 0

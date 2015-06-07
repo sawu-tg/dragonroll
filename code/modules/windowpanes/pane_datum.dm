@@ -174,14 +174,17 @@
 
 		//var/html = "<title>Inventory</title><html><center>[parseIcon(P.client,P,FALSE)]<br><body style='background:grey'>"
 		var/debuginfo
-		debuginfo += "CPU: [world.cpu]<BR>"
-		debuginfo += "FPS: [world.fps]<BR>"
-		debuginfo += "Total Count: [world.contents.len]<BR>"
+		debuginfo += "<b>CPU</b>: [world.cpu] | "
+		debuginfo += "<b>FPS</b>: [world.fps] | "
+		debuginfo += "<b>Total Atoms</b>: [world.contents.len]<BR><BR>"
 		if(CS)
-			debuginfo += "==== SUBSYSTEMS ====<BR>"
+			debuginfo += "<center>"
+			debuginfo += "<b>==== SUBSYSTEMS ====<BR></b>"
 			for(var/datum/controller/C in CS.controllers)
 				debuginfo += C.getStat()
 				debuginfo += "<BR>"
+			debuginfo += "<b>====================<BR></b>"
+			debuginfo += "</center>"
 
 		if(debugcontent != debuginfo && initialized)
 			debugcontent = debuginfo

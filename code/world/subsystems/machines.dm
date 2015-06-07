@@ -5,12 +5,12 @@ var/list/globalMachines = list()
 	execTime = 5
 
 datum/controller/machinery/Stat()
-	stat("[name] | [round(cost,0.001)]ds | (CPU:[round(cpu,1)]%) (Count: [globalMachines.len])")
+	stat("<b>[name]</b> | [round(cost,0.001)]ds | (CPU:[round(cpu,1)]%) (Count: [globalMachines.len])")
 
 datum/controller/machinery/getStat()
-	return "[name] | [round(cost,0.001)]ds | (CPU:[round(cpu,1)]%) (Count: [globalMachines.len])"
+	return "<b>[name]</b> | [round(cost,0.001)]ds | (CPU:[round(cpu,1)]%) (Count: [globalMachines.len])"
 
-/datum/controller/doProcess()
+/datum/controller/machinery/doProcess()
 	for(var/obj/structure/powered/A in globalMachines)
 		A.process()
 

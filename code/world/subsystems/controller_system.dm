@@ -26,6 +26,7 @@
 // ^ thanks carn
 
 /datum/controller_master/proc/process()
+	set background = 1
 	var/timer = world.time
 	for(var/datum/controller/C in controllers)
 		timer += interval

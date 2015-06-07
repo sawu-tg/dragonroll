@@ -18,6 +18,9 @@
 	var/list/playerSpellHolders = list()
 	var/list/defaultItems = list(/obj/item/armor/jerkin,/obj/item/armor/leather_boot_left,/obj/item/armor/leather_boot_right)
 
+	var/lastClick
+
+	var/doesProcessing = TRUE // does the player get added to processing
 	var/hasReroll = TRUE
 	size = 3
 	weight = 5
@@ -25,7 +28,8 @@
 	var/speed = 1 // the speed they move at
 
 /mob/player/New()
-	addProcessingObject(src)
+	if(doesProcessing)
+		addProcessingObject(src)
 	//selectedQuickSlot = leftHand
 	randomise()
 	set_light(6)

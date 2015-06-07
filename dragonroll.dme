@@ -88,6 +88,7 @@
 #include "code\world\world.dm"
 #include "code\world\subsystems\controller.dm"
 #include "code\world\subsystems\controller_system.dm"
+#include "code\world\subsystems\hivemind.dm"
 #include "code\world\subsystems\lighting.dm"
 #include "code\world\subsystems\machines.dm"
 #include "code\world\subsystems\mloc_lights\__lighting_docs.dm"

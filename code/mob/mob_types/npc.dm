@@ -16,7 +16,7 @@
 	var/npcNature = NPCTYPE_PASSIVE
 
 	speed = 4
-
+	doesProcessing = FALSE
 	var/target
 	var/turf/lastPos
 	var/list/actualView = list()
@@ -38,6 +38,7 @@
 		nameChange(name)
 	else
 		raceChange(/datum/race/Beast,TRUE)
+	globalNPCs |= src
 
 
 /mob/player/npc/verb/debug()
@@ -74,6 +75,7 @@
 			if(!validPoint)
 				checkTimeout()
 				return
+		lastPos = loc
 		walk_to(src,walkTarget,2,speed)
 
 /mob/player/npc/proc/checkTimeout()
@@ -136,12 +138,21 @@
 		target = a
 		changeState(NPCSTATE_FIGHTING)
 
+/mob/player/npc/proc/willProcess()
+	for(var/mob/a in actualView)
+		if(a.client)
+			world << "[src] will live!"
+			return TRUE
+	return FALSE
+
 /mob/player/npc/doProcess()
 	..()
 	if(isDisabled())
 		npcState = NPCSTATE_IDLE
 		return
 	updateLocation()
+	//if(!willProcess())
+	//	return
 	npcIdle()
 	npcMove()
 	npcCombat()
