@@ -58,48 +58,75 @@
 /datum/statuseffect/decap
 	name = "decapitation effect"
 	var/lossStat = "str"
+	var/idToLink
+	var/obj/interface/slot/linkedSlot
+
+/datum/statuseffect/decap/New()
+	..()
+	for(var/Sid in mymob:slots)
+		var/obj/interface/slot/S = mymob.slots[Sid]
+		if(S:id == idToLink)
+			linkedSlot = S
 
 /datum/statuseffect/decap/applyStatus()
 	if(mymob)
+		if(linkedSlot)
+			spawn(1)
+				if(linkedSlot.is_hand)
+					mymob.selectSlot(idToLink)
+					mymob.DropItem()
+				else
+					var/obj/item/I
+					for(var/obj/item/A in mymob)
+						if(A.slot == idToLink)
+							I = A
+					mymob:unEquipItem(I)
+					mymob:remFromInventory(I)
+			linkedSlot.blocked = TRUE
 		var/datum/stat/S = mymob:findStat(lossStat)
 		if(S)
 			statchanges[lossStat] = -(S.statBase/4)
 			//S.setTo(S.statCurr-lossAmount)
 	..()
 
-///datum/statuseffect/decap/removeStatus()
-	//if(mymob)
-		//var/datum/stat/S = mymob:findStat(lossStat)
-		//if(S)
-			//S.setTo(S.statCurr+lossAmount)
-	//..()
+datum/statuseffect/decap/removeStatus()
+	if(mymob)
+		if(linkedSlot)
+			linkedSlot.blocked = FALSE
+	..()
 
 /datum/statuseffect/decap/norleg
 	name = "Missing Right Leg"
 	id = "norleg"
+	idToLink = "r_foot"
 	desc = "You are missing your Right Leg."
 
 /datum/statuseffect/decap/nolleg
 	name = "Missing Left Leg"
 	id = "nolleg"
+	idToLink = "l_foot"
 	desc = "You are missing your Left Leg."
 
 /datum/statuseffect/decap/norarm
 	name = "Missing Right Arm"
 	id = "norarm"
+	idToLink = "r_hand"
 	desc = "You are missing your Right Arm."
 
 /datum/statuseffect/decap/nolarm
 	name = "Missing Left Arm"
 	id = "nolarm"
+	idToLink = "l_hand"
 	desc = "You are missing your Left Arm."
 
 /datum/statuseffect/decap/nochest
 	name = "Missing Chest"
 	id = "nochest"
+	idToLink = "chest"
 	desc = "You are missing your Chest."
 
 /datum/statuseffect/decap/nohead
 	name = "Missing Head"
 	id = "nohead"
+	idToLink = "head"
 	desc = "You are missing your Head."

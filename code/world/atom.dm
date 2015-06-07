@@ -93,6 +93,9 @@
 
 /atom/movable/Click()
 	var/mob/player/P = usr
+	if(world.time <= P.lastClick + GLOBAL_CLICK_DELAY)
+		return
+	P.lastClick = world.time
 	if(istype(src,/obj/interface))
 		objFunction(usr)
 		return

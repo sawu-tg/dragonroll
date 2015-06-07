@@ -82,8 +82,8 @@
 	New(var/mob/target)
 		mymob = target
 		applytime = world.time
-
-		applyStatus()
+		spawn(1)
+			applyStatus()
 
 	proc/setTime(var/time)
 		if(!time)

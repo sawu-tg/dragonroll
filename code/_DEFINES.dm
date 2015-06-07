@@ -69,5 +69,7 @@
 #define VEHICLE_PASS_LIQUID_WATER 4
 #define VEHICLE_PASS_LIQUID_ALL 8
 
+#define GLOBAL_CLICK_DELAY 25
+
 var/list/playerValidHair = list()
 var/list/playerValidFacial = list()

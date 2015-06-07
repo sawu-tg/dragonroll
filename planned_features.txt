@@ -5,9 +5,7 @@
 @sawu-tg
 
 Classes
-	* White mage Healing spell (aoe orbs)
-	* Knight templar buff (aoe "shout" to boost hp)
-	* NPC classes (ie animals, monsters)
+	* NPC classes (ie animals, monsters) ***PARTIALLY DONE***
 	
 Crafting
 	* Seperate into seperate sub-skills (woodcrafting, enchanting, leatherworking)
