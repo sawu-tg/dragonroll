@@ -61,11 +61,11 @@ var/list/alldirs = list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAS
 /atom/proc/total_y()
 	return (y+0.5) * 32 + pixel_y
 
-/proc/get_turf(atom/movable/AM)
-	if(istype(AM))
-		return locate(/turf) in AM.locs
-	else if(isturf(AM))
-		return AM
+/proc/get_turf(atom/A)
+	if (!istype(A))
+		return
+	for(A, A && !isturf(A), A=A.loc); //semicolon is for the empty statement
+	return A
 
 /proc/get_outermost_atom(atom/AM)
 	if(!AM.loc || isturf(AM.loc))
