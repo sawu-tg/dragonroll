@@ -94,6 +94,7 @@
 	var/minDamDepth = 0
 	var/depth = 5 //1 - 100
 	var/liquidopacity = 128
+	var/docile = 0
 
 /turf/floor/outside/liquid/New()
 	..()
@@ -104,6 +105,7 @@
 		return
 
 	var/surrounddepth = 9999999
+	var/list/tiles_to_activate = list()
 
 	for(var/d in alldirs)
 		var/turf/floor/outside/liquid/T = get_step(src,d)
@@ -117,6 +119,22 @@
 				surrounddepth = min(surrounddepth,5)
 			else
 				surrounddepth = min(surrounddepth,T.depth+cost)
+				tiles_to_activate |= T
+
+	if(depth != surrounddepth)
+		for(var/turf/floor/outside/liquid/T in tiles_to_activate)
+			T.docile = 0
+
+		newErodeLiquids |= tiles_to_activate
+
+		//world << "going active"
+	else
+		docile++
+
+		if(docile >= 2)
+			//world << "going docile"
+
+			erodeLiquids -= src
 
 	depth = surrounddepth
 	updateDepth()
@@ -207,6 +225,7 @@
 			if(calcDepth >= minDamDepth && !P.mounted)
 				var/datum/statuseffect/drowning/DReffect = P.addStatusEffect(/datum/statuseffect/drowning)
 				if(DReffect)
+					//world << "Drowning in [src]"
 					DReffect.setTile(src)
 					P.inDPSLiquid = TRUE
 					P.liquidVerb = damageVerb

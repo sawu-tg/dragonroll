@@ -94,15 +94,31 @@
 
 		allstats += "<center><b>Buffs and Debuffs:</b></center><table style=\"width: 100%;\"><tr>"
 		var/worldTime = world.time
+		var/list/statusids = list()
 		for(var/S in P.statuseffects)
 			if(S)
-				var/count = P.checkEffectStack(S:id)
-				allstats += "<td><b><center><font size=2>[S:name][count > 0 ? " x count" : ""] ([(S:applytime + S:maxtime) - worldTime])</font></b><br><font size = 1.5> [S:desc]</font>"
+				var/remaintime = (S:applytime + S:maxtime) - worldTime
+
+				statusids[S:id] = max(remaintime,statusids[S:id])
+
+		for(var/S in P.statuseffects)
+			if(S && S:id in statusids)
+				//var/count = P.checkEffectStack(S:id)
+				var/count = P.checkStatusEffect(S)
+				var/remaintime = statusids[S:id]
+
+				allstats += "<td><b><center><font size=2>[S:name]"
+				allstats += "[count > 1 ? " x [count]" : ""]"
+				if(remaintime)
+					allstats += "([remaintime])"
+				allstats += "</font></b><br>"
+				allstats += "<font size = 1.5> [S:desc]</font>"
 
 				for(var/statid in S:statchanges) //I'll kill you you nigga
 					var/modamt = S:statchanges[statid]
 					allstats += "<br>[modamt > 0 ? "<font color = green>+" : "<font color = red>-"][abs(modamt)][statid]</font>"
 				allstats += "</center></td>"
+				statusids.Remove(S:id)
 		allstats += "</tr></table>"
 
 
