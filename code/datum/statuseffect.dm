@@ -101,7 +101,7 @@
 		else
 			flags |= STATUS_TIMED
 
-			world << "Set [id] to timed ([time])"
+			//world << "Set [id] to timed ([time])"
 
 		maxtime = time
 
@@ -134,8 +134,8 @@
 		for(var/stack in addedstacks)
 			mymob.addEffectStack(stack)
 
-			if(mymob.client)
-				world << "adding [stack] to [mymob]"
+			//if(mymob.client)
+			//	world << "adding [stack] to [mymob]"
 
 	proc/removeStatus(var/natural = 1)
 		if(!mymob)
@@ -143,8 +143,8 @@
 
 		for(var/stack in addedstacks)
 			mymob.remEffectStack(stack)
-			if(mymob.client)
-				world << "removing [stack] from [mymob]"
+			//if(mymob.client)
+			//	world << "removing [stack] from [mymob]"
 
 		mymob.statuseffects -= src
 

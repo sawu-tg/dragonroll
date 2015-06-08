@@ -93,14 +93,16 @@
 
 
 //the function of something when used, IE switching modes or reading books
-/atom/movable/proc/objFunction(var/mob/user,var/obj/item/with)
+/atom/proc/objFunction(var/mob/user,var/obj/item/with)
+
+/atom/movable/objFunction(var/mob/user,var/obj/item/with)
 	user << "You use [with ? "the [with] with" : ""] [name]"
 
 //called when an object is used
 /atom/movable/proc/onUsed(var/mob/user,var/atom/onWhat)
 	user << "[src] was used [onWhat ? "the [onWhat] with" : ""] [onWhat]"
 
-/atom/movable/Click()
+/atom/Click()
 	var/mob/player/P = usr
 	if(world.time <= P.lastClick + GLOBAL_CLICK_DELAY)
 		return
@@ -111,8 +113,10 @@
 	if(!Adjacent(P))
 		return
 	if(P.activeHandEmpty())
-		if(!prevent_pickup && !anchored)
-			takeObject()
+		var/atom/movable/AM = src
+
+		if(istype(AM) && !AM.prevent_pickup && !AM.anchored)
+			AM.takeObject()
 		else
 			objFunction(usr)
 	else

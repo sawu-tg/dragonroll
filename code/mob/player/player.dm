@@ -228,7 +228,11 @@
 	addedOverlays |= playerData.playerOverlays
 
 	for(var/obj/item/I in playerEquipped)
-		addedOverlays |= image(icon=initial(I.icon),icon_state = initial(I.icon_state))
+		var/image/IMG = image(icon=initial(I.icon),icon_state = initial(I.icon_state))
+		IMG.color = I.color
+		IMG.alpha = I.alpha
+		IMG.blend_mode = I.blend_mode
+		addedOverlays |= IMG
 
 	for(var/ov in addedOverlays)
 		if(isicon(ov) || istype(ov,/image))
