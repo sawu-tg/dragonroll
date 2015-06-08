@@ -60,6 +60,39 @@ var/list/sqrtTable = list(1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 
 /proc/IsMultiple(x, y)
 	return x % y == 0
 
+/proc/IsPrime(n)
+	var/p=3,psq=9
+	if(n>2 && !(n%2)) return 0
+	while(psq<=n)
+		if(!(n%p)) return 0
+		psq+=4*p+4; p+=2
+	return 1
+
+/proc/GetNextPrimes(nstart,nlen)
+	var/list/rlist = list()
+
+	var/currnum = nstart
+
+	if(!(currnum % 2)) currnum++
+
+	while(rlist.len < nlen)
+		//world << "checking [currnum]"
+		if(IsPrime(currnum))
+			rlist += currnum
+			//world << "[currnum] is prime"
+		currnum += 2
+
+	return rlist
+
+/proc/GetNextPrime(nstart)
+	var/list/rlist = GetNextPrimes(nstart,1)
+
+	if(!rlist.len)
+		CRASH("No primes exist beyond [nstart]... HOOOOONK!")
+
+	return rlist[1]
+
+
 // Least Common Multiple
 /proc/Lcm(a, b)
 	return abs(a) / Gcd(a, b) * abs(b)

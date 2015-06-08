@@ -4,6 +4,8 @@ var/datum/controller_master/CS
 var/list/globalSuns = list()
 var/list/levelNames = list()
 var/list/regions = list()
+var/list/erodeLiquids = list()
+var/list/newErodeLiquids = list()
 
 /world
 	turf = /turf/floor/voidFloor
@@ -23,6 +25,7 @@ var/list/regions = list()
 			else if(copytext(i,1,5) == "hair")
 				playerValidHair |= i
 		world << "<b>GENERATING WORLD..</b>"
+		world << "TEST: [num2text(122422625747547.0,16)]"
 		spawn(1)
 			for(var/i = 1; i < world.maxz; i++)
 				generate(i)
@@ -31,7 +34,7 @@ var/list/regions = list()
 		processObjects()
 		processCooldowns()
 		processRegions()
-		processLiquids()
+		spawn(1) processLiquids()
 		//CONTROLLERS
 		CS = new
 		CS.addControl(new /datum/controller/machinery)
@@ -49,10 +52,26 @@ var/list/regions = list()
 	procObjects -= r
 
 /proc/processLiquids()
-	for(var/turf/floor/outside/liquid/T in world)
-		if(T && istype(T))
-			spawn(-1)
+	set background = 1
+	//if(erodeLiquids.len)
+		//world << "processing [erodeLiquids.len] liquids"
+
+	var/processed = 0
+
+	spawn(-1)
+		for(var/turf/floor/outside/liquid/T in erodeLiquids)
+			if(T && istype(T))
 				T.updateErodeDepth()
+				processed += 1
+			else
+				erodeLiquids -= T
+
+			if(processed > 100)
+				sleep(3)
+				processed = 0
+
+	//erodeLiquids |= newErodeLiquids
+	//newErodeLiquids.Cut()
 	spawn(10)
 		processLiquids()
 
@@ -231,9 +250,14 @@ var/list/regions = list()
 		levelNames.Add(generateName(0))
 
 	var/tilesBetweenLiquid = 1024
-	var/tile2LiquidCounter = 0
+	//var/tile2LiquidCounter = 0
+
+	//world << GetNextPrime(rand(1000000,100000000))
 
 	var/datum/zregion/R = new(zLevel,chosenBiome,levelNames[zLevel])
+	var/datum/noise/dirtnoise = new()
+
+	//world << dirtnoise.PerlinNoise2D(120,64,1,4)
 
 	regions += R
 
@@ -246,13 +270,19 @@ var/list/regions = list()
 				var/turf/T = locate(a,b,zLevel)
 				T = new chosenBiome.baseTurf(T)
 				if(prob(lowestChance))
+					//world << "[a],[b]"
+
+
+
+				//if(dirtnoise.PerlinNoise2D(a,b,0.25,4) > 0.5)
+					//world << dirtnoise.PerlinNoise2D(a,b,1,4)
 					for(var/turf/T2 in range(T,rand(0,turfScale)))
 						var/turf/T3 = pick(chosenBiome.validTurfs)
 						T2 = new T3(T2)
 
 	world << "<i>GENERATING LIQUIDS ON Z[zLevel]..</i>"
-	var/list/liqMade = list()
-	spawn(1)
+
+	/*spawn(1)
 		for(var/a = 1; a <= x; ++a)
 			for(var/b = 1; b <= y; ++b)
 				if(zLevel == 1)
@@ -270,16 +300,39 @@ var/list/regions = list()
 							//T4.updateDepth()
 							liqMade |= T4
 					if(tile2LiquidCounter > 0)
-						tile2LiquidCounter--
+						tile2LiquidCounter--*/
 
-	world << "<i>ERODING LIQUIDS ON Z[zLevel]..</i>"
+	spawn(1)
+		var/maxnoise = 0
+		var/list/liqMade = list()
+
+		for(var/a = 1; a <= x; ++a)
+			for(var/b = 1; b <= y; ++b)
+				if(zLevel == 1)
+					continue
+				var/turf/T = locate(a,b,zLevel)
+				var/noiseval = dirtnoise.PerlinNoise2D(a / 10,b / 10,1,1)
+				noiseval += dirtnoise.PerlinNoise2D(a,b,1,1) / 10
+				maxnoise = max(maxnoise,noiseval)
+				if(chosenBiome.validLiquids.len)
+					if(noiseval > 0.6)
+						//tile2LiquidCounter = tilesBetweenLiquid
+						var/turf/T3 = pick(chosenBiome.validLiquids)
+						var/turf/floor/outside/liquid/T4 = new T3(T)
+						T4.depth = 0
+						liqMade |= T4
+			//world << "row [a] of liquids"
+			erodeLiquids += liqMade
+			liqMade.Cut()
+
+	/*world << "<i>ERODING LIQUIDS ON Z[zLevel]..</i>"
 	spawn(1)
 		for(var/turf/floor/outside/liquid/EL in liqMade)
 			if(prob(liquidErosion))
 				for(var/T in circle(EL,1))
 					if(istype(T,/turf/floor/outside/liquid))
 						var/turf/T2 = pick(chosenBiome.validTurfs)
-						EL = new T2(T)
+						EL = new T2(T)*/
 
 
 	world << "<i>GENERATING DECORATIONS ON Z[zLevel]..</i>"
@@ -311,7 +364,5 @@ var/list/regions = list()
 			var/m = pick(chosenBiome.validMobs)
 			var/mob/b = new m()
 			b.loc = locate(rand(1,world.maxx),rand(1,world.maxy),zLevel)
-
-	//erodeLiquids |= liqMade
 #undef lowestChance
 #undef maxColonists

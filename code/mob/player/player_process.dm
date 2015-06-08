@@ -43,17 +43,12 @@
 /mob/player/proc/processOther()
 	var/shouldDrown = checkEffectStack("drown") > 0
 
-	if(shouldDrown)
-		if(prob(5))
-			displayInfo("You are [liquidVerb]!","[src] screams!",src,src)
-			takeDamage(liquidDamage,DTYPE_DIRECT)
+	var/turf/floor/outside/liquid/L = loc
 
-	if(shouldDrown != inWater)
+	if(shouldDrown != inWater || (istype(L) && pixel_z != -L.depth))
 		var/new_z = 0
 
 		if(shouldDrown)
-			var/turf/floor/outside/liquid/L = loc
-
 			if(L && istype(L))
 				new_z = -L.depth
 				layer = L.layer+0.1
@@ -63,6 +58,11 @@
 			animate(src,layer = initial(layer),time = 0)
 
 		inWater = shouldDrown
+
+	if(shouldDrown)
+		if(prob(5))
+			displayInfo("You are [liquidVerb]!","[src] screams!",src,src)
+			takeDamage(liquidDamage,DTYPE_DIRECT)
 
 	if(checkEffectStack("poison"))
 		if(prob(5))
