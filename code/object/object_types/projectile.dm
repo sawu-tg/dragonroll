@@ -57,7 +57,7 @@
 	if(!(target in range(detRange,src)))
 		if(spinning)
 			SpinAnimation(5,1)
-			Move(get_step_to(src,target))
+		Move(get_step_to(src,target))
 	else
 		var/hit = FALSE
 		for(var/a in loc)
