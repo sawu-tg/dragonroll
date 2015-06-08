@@ -7,6 +7,7 @@
 	var/inDPSLiquid = FALSE
 	var/liquidVerb = ""
 	var/liquidDamage = 0
+	var/datum/statuseffect/drowning/drownEffect = new
 
 /mob/player/proc/processOrgans()
 	for(var/O in playerOrgans)
@@ -41,7 +42,7 @@
 		layingDown = shouldLay
 
 /mob/player/proc/processOther()
-	var/shouldDrown = checkEffectStack("drown") > 0
+	var/shouldDrown = checkStatusEffect(drownEffect) > 0
 
 	var/turf/floor/outside/liquid/L = loc
 
