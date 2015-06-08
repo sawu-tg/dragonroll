@@ -34,7 +34,7 @@ var/list/newErodeLiquids = list()
 		processObjects()
 		processCooldowns()
 		processRegions()
-		spawn(1) processLiquids()
+		//spawn(1) processLiquids()
 		//CONTROLLERS
 		CS = new
 		CS.addControl(new /datum/controller/machinery)

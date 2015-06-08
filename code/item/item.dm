@@ -1,6 +1,7 @@
 /obj/item
 	name = "default item"
 	desc = "not very interesting"
+	var/range = 1 // usage range
 	var/stackSize = 1 // The amount of objects held with it
 	var/showAsLoot = FALSE // Whether the object is shown with a loot_icon
 	var/loot_icon = 'sprite/obj/items.dmi' //icon of the item ont he floor

@@ -45,6 +45,7 @@
 #include "code\item\item_types\mob_spawner.dm"
 #include "code\item\item_types\monster.dm"
 #include "code\item\item_types\weapon.dm"
+#include "code\item\item_types\weaponProjectile.dm"
 #include "code\item\item_types\wiretool.dm"
 #include "code\misc\files.dm"
 #include "code\misc\game.dm"
