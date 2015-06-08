@@ -91,6 +91,15 @@
 		p.takeToActiveHand(src)
 		p.refreshInterface()
 
+
+//the function of something when used, IE switching modes or reading books
+/atom/movable/proc/objFunction(var/mob/user,var/obj/item/with)
+	user << "You use [with ? "the [with] with" : ""] [name]"
+
+//called when an object is used
+/atom/movable/proc/onUsed(var/mob/user,var/atom/onWhat)
+	user << "[src] was used [onWhat ? "the [onWhat] with" : ""] [onWhat]"
+
 /atom/movable/Click()
 	var/mob/player/P = usr
 	if(world.time <= P.lastClick + GLOBAL_CLICK_DELAY)
@@ -107,7 +116,9 @@
 		else
 			objFunction(usr)
 	else
-		objFunction(usr,P.activeHand())
+		var/obj/A = P.activeHand()
+		objFunction(usr,A)
+		A.onUsed(usr,src)
 
 /atom/movable/proc/throw_at(var/target)
 	target = get_turf(target)
@@ -192,8 +203,3 @@ its easier to just keep the beam vertical.
 		sleep(3)	//Changing this to a lower value will cause the beam to follow more smoothly with movement, but it will also be more laggy.
 					//I've found that 3 ticks provided a nice balance for my use.
 	for(var/obj/effect/overlay/beam/O in orange(10,src)) if(O.BeamSource==src) del(O)
-
-
-//the function of something when used, IE switching modes or reading books
-/atom/movable/proc/objFunction(var/mob/user,var/obj/item/with)
-	user << "You use [with ? "the [with] with" : ""] [name]"

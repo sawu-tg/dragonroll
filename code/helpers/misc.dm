@@ -9,6 +9,12 @@
 		return 0
 	return 1
 
+/atom/proc/playerInRange(var/list/where)
+	for(var/a in where)
+		if(istype(a,/mob/player))
+			return a
+	return null
+
 ///
 // Returns the angle between start and end.
 ///
