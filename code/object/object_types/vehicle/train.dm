@@ -145,6 +145,9 @@
 		if(istype(with,/obj/item/powerdevice/wiretool))
 			var/obj/item/powerdevice/wiretool/WT = with
 			WT.default_wire_action(user,wires)
+		else
+			init_train()
+			update_train()
 
 	doProcess()
 		currspeed += speed
@@ -170,6 +173,10 @@
 
 	proc/init_train()
 		var/list/components = FloodFill(src,/proc/adjacent_trainsegments)
+
+		train_floors.Cut()
+		train_walls.Cut()
+		train_wheels.Cut()
 
 		for(var/obj/train/TR in components)
 			if(istype(TR,/obj/train/floor))

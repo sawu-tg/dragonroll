@@ -132,12 +132,10 @@
 		docile++
 
 		if(docile >= 2)
-			//world << "going docile"
-
+			updateDepth()
 			erodeLiquids -= src
 
 	depth = surrounddepth
-	updateDepth()
 
 /turf/floor/outside/liquid/proc/updateDepth()
 	//alpha = max(50,255 - depth*2)

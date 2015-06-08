@@ -1,30 +1,14 @@
-///
-// Construction Parts
-///
+/obj/item/loot/New()
+	..()
 
-/obj/item/buildable
-	name = "buildable"
-	icon = 'sprite/obj/items.dmi'
-	desc = "makes things"
-	anchored = 1
-	var/ofType
+	spawn(1)
+		update_icon()
 
-/obj/item/buildable/objFunction(var/mob/user)
-	new ofType(src.loc)
-	del(src)
+	pixel_x = rand(-12,12)
+	pixel_y = rand(-12,12)
 
-/obj/item/buildable/woodenWall
-	name = "wooden wall parts"
-	desc = "It would keep things out if you actually built it."
-	icon_state = "wood_tableparts"
-	ofType = /turf/wall/woodWall
-
-/obj/item/buildable/woodenDoor
-	name = "wooden door parts"
-	desc = "It would keep things out if you actually built it."
-	icon_state = "wood_tableparts"
-	ofType = /obj/structure/door
-
+/obj/item/loot/proc/update_icon()
+	color = itemMaterial.color
 
 ///
 // PROCESSED GOODS
@@ -37,7 +21,8 @@
 /obj/item/loot/processed/wood
 	name = "wood plank"
 	desc = "May be woody"
-	icon_state = "sheet-wood"
+	icon_state = "sheet-woodf"
+	itemMaterial = new/datum/material/wood1
 
 
 
@@ -53,7 +38,7 @@
 /obj/item/loot/nature/stick
 	name = "stick"
 	desc = "What's brown and sticky?"
-	icon_state = "c_tube"
+	icon_state = "branch"
 	itemMaterial = new/datum/material/wood1
 
 /obj/item/loot/nature/leaf
@@ -76,9 +61,21 @@
 	weight = 8
 	itemMaterial = new/datum/material/wood1
 
+/obj/item/loot/nature/log/update_icon()
+	overlays += image(icon,src,"tree_logo")
+
+	var/image/I = image(icon,src,"tree_logf")
+	I.color = itemMaterial.color
+	overlays += I
+
+	color = null
+
+
 /obj/item/loot/nature/log/objFunction(var/mob/user,var/obj/used)
 	if(istype(used,/obj/item/weapon/tool/hatchet))
 		displayTo("You harvest some logs from [src]",user,src)
 		for(var/i = 0; i < 4; ++i)
 			new/obj/item/loot/processed/wood(user.loc)
 		del(src)
+	else
+		..()

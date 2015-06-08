@@ -80,7 +80,7 @@
 // Returns a random material from all materials
 ///
 /proc/getRandomMaterial()
-	var/list/selectionlist = typesof(/datum/material) - /datum/material
+	var/list/selectionlist = typesof(/datum/material) - /datum/material - /datum/material/default
 
 	return pick(selectionlist)
 
@@ -198,6 +198,33 @@
 	addedForce = 2
 
 	syllables = list("ferr")
+	suffix = "um"
+
+/datum/material/iron2
+	name = "diferrum"
+	color = rgb(196,172,172)
+	addedWeight = 1
+	addedForce = 4
+
+	syllables = list("di","ferr")
+	suffix = "um"
+
+/datum/material/iron4
+	name = "quadferrum"
+	color = rgb(224,180,172)
+	addedWeight = 2
+	addedForce = 6
+
+	syllables = list("quad","ferr")
+	suffix = "um"
+
+/datum/material/iron8
+	name = "octaferrum"
+	color = rgb(255,196,172)
+	addedWeight = 4
+	addedForce = 12
+
+	syllables = list("octa","ferr")
 	suffix = "um"
 
 /datum/material/conducting

@@ -13,6 +13,7 @@ var/list/validBiomes = list(/datum/biome/grassland) //uncomment this for biome t
 
 	var/turfSize = 7 // size of turf spatters
 	var/turf/baseTurf // the base turf of the biome
+	var/turf/dirtTurf
 	var/list/validTurfs = list() // valid turfs to generate (grass, dirt, floors)
 	var/liquidSize = 7 // size of liquid spatters
 	var/liquidErode = 7 // size of erosion
@@ -27,6 +28,7 @@ var/list/validBiomes = list(/datum/biome/grassland) //uncomment this for biome t
 	desc = "grassy and full of life"
 
 	baseTurf = /turf/floor/outside/grass
+	dirtTurf = /turf/floor/outside/dirt
 	validTurfs = list(/turf/floor/outside/grass,/turf/floor/outside/dirt)
 	validLiquids = list(/turf/floor/outside/liquid/water)
 	validDebris = list(/obj/interact/nature/bush,/obj/interact/nature/rock,/obj/interact/nature/tree)
@@ -39,6 +41,7 @@ var/list/validBiomes = list(/datum/biome/grassland) //uncomment this for biome t
 	liquidErode = 0
 
 	baseTurf = /turf/floor/outside/grass
+	dirtTurf = /turf/floor/outside/dirt
 	validTurfs = list(/turf/floor/outside/grass,/turf/floor/outside/dirt)
 	validLiquids = list(/turf/floor/outside/liquid/water)
 	validDebris = list(/obj/interact/nature/bush,/obj/interact/nature/rock,/obj/interact/nature/tree)
