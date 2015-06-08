@@ -93,12 +93,12 @@
 
 
 //the function of something when used, IE switching modes or reading books
-/atom/movable/proc/objFunction(var/mob/user,var/obj/item/with)
+/atom/proc/objFunction(var/mob/user,var/obj/item/with)
 	//
 //called when an object is used
-/atom/movable/proc/onUsed(var/mob/user,var/atom/onWhat)
+/atom/proc/onUsed(var/mob/user,var/atom/onWhat)
 	//
-/atom/movable/Click()
+/atom/Click()
 	var/mob/player/P = usr
 	var/obj/item/A = P.activeHand()
 	if(world.time <= P.lastClick + GLOBAL_CLICK_DELAY)
@@ -113,9 +113,10 @@
 	else
 		if(get_dist(P,src) > A.range)
 			return
+	var/atom/movable/AM = src
 	if(P.activeHandEmpty())
-		if(!prevent_pickup && !anchored)
-			takeObject()
+		if(istype(AM) && !AM.prevent_pickup && !AM.anchored)
+			AM.takeObject()
 		else
 			objFunction(usr)
 	else

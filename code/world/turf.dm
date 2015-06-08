@@ -123,21 +123,21 @@
 
 	if(depth != surrounddepth)
 		for(var/turf/floor/outside/liquid/T in tiles_to_activate)
+			//if(T.docile >= 2)
+			//	world << "reactivating [T]"
 			T.docile = 0
 
-		newErodeLiquids |= tiles_to_activate
+		//newErodeLiquids |= tiles_to_activate
 
 		//world << "going active"
 	else
 		docile++
 
 		if(docile >= 2)
-			//world << "going docile"
-
+			updateDepth()
 			erodeLiquids -= src
 
 	depth = surrounddepth
-	updateDepth()
 
 /turf/floor/outside/liquid/proc/updateDepth()
 	//alpha = max(50,255 - depth*2)

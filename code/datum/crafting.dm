@@ -84,14 +84,14 @@
 	desc = "keeps things out"
 
 	materials = list(/obj/item/loot/processed/wood = 4)
-	product = list(/obj/item/buildable/woodenWall = 1)
+	product = list(/obj/item/buildable/turf/woodenWall = 1)
 
 /datum/recipe/wooddoor
 	name = "wooden door"
 	desc = "keeps things out"
 
 	materials = list(/obj/item/loot/processed/wood = 2)
-	product = list(/obj/item/buildable/woodenWall = 1)
+	product = list(/obj/item/buildable/turf/woodenDoor = 1)
 
 
 /datum/recipe/woodboat

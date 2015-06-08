@@ -53,10 +53,22 @@
 		for(var/obj/item/I in loc)
 			if(I.slot != id)
 				continue
-			overlays += icon(I.icon,I.icon_state)
+			var/image/img = image(I.icon,I,I.icon_state)
+			img.color = I.color
+			img.alpha = I.alpha
+			img.blend_mode = I.blend_mode
+			img.overlays = I.overlays
+			img.underlays = I.underlays
+			overlays += img
 
 		for(var/atom/A in contents)
-			overlays += icon(A.icon,A.icon_state)
+			var/image/img = image(A.icon,A,A.icon_state)
+			img.color = A.color
+			img.alpha = A.alpha
+			img.blend_mode = A.blend_mode
+			img.overlays = A.overlays
+			img.underlays = A.underlays
+			overlays += img
 
 		if(blocked)
 			overlays += icon('sprite/gui/guiObj.dmi',"disabled")
