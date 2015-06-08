@@ -26,7 +26,6 @@
 	name = "Drowning"
 	id = "drown"
 	desc = "Underwater and dying."
-	addedstacks = list("drown")
 
 /datum/statuseffect/stun
 	name = "Stunned"

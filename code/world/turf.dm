@@ -206,7 +206,7 @@
 			return 1
 		else
 			displayTo("[src] is too deep for you to wade in! ([P.playerData.dex.statCurr-P.weight] v [depth])",P,src)
-			return 1
+			return 0
 	else
 		return 1
 
@@ -231,6 +231,8 @@
 
 /turf/floor/outside/liquid/Exited(atom/movable/O)
 	if(solid)
+		return
+	if(istype(O.loc,/turf/floor/outside/liquid))
 		return
 	if(damage > 0 && depth >= minDamDepth)
 		if(istype(O,/mob/player))
