@@ -25,7 +25,7 @@ var/list/newErodeLiquids = list()
 			else if(copytext(i,1,5) == "hair")
 				playerValidHair |= i
 		world << "<b>GENERATING WORLD..</b>"
-		world << "TEST: [num2text(122422625747547.0,16)]"
+		//world << "TEST: [num2text(122422625747547.0,16)]"
 		spawn(1)
 			for(var/i = 1; i < world.maxz; i++)
 				generate(i)
@@ -52,9 +52,9 @@ var/list/newErodeLiquids = list()
 	procObjects -= r
 
 /proc/processLiquids()
-	set background = 1
+	//set background = 1
 	//if(erodeLiquids.len)
-		//world << "processing [erodeLiquids.len] liquids"
+	//	world << "processing [erodeLiquids.len] liquids"
 
 	var/processed = 0
 
@@ -68,6 +68,7 @@ var/list/newErodeLiquids = list()
 
 			if(processed > 100)
 				processed = 0
+				sleep(5)
 
 	//erodeLiquids |= newErodeLiquids
 	//newErodeLiquids.Cut()
@@ -263,8 +264,10 @@ var/list/newErodeLiquids = list()
 	regions += R
 
 	world << "<i>GENERATING TURFS ON Z[zLevel]..</i>"
+
 	spawn(1)
 		var/list/liqMade = list()
+		var/genstart = world.timeofday
 
 		for(var/a = 1; a <= x; ++a)
 			for(var/b = 1; b <= y; ++b)
@@ -304,6 +307,8 @@ var/list/newErodeLiquids = list()
 					//	T2 = new T3(T2)
 		erodeLiquids += liqMade
 		liqMade.Cut()
+
+		world << "<i>FINISHED GENERATING TURFS ON Z[zLevel].. TOOK [(world.timeofday - genstart) / 10]s</i>"
 
 	//world << "<i>GENERATING LIQUIDS ON Z[zLevel]..</i>"
 
@@ -361,7 +366,10 @@ var/list/newErodeLiquids = list()
 
 
 	world << "<i>GENERATING DECORATIONS ON Z[zLevel]..</i>"
+
 	spawn(1)
+		var/genstart = world.timeofday
+
 		for(var/a = 1; a <= x; ++a)
 			for(var/b = 1; b <= y; ++b)
 				if(zLevel == 1)
@@ -381,13 +389,19 @@ var/list/newErodeLiquids = list()
 							var/obj/o = pick(chosenBiome.validDebris)
 							new o(T)
 
+		world << "<i>FINISHED GENERATING DECORATIONS ON Z[zLevel].. TOOK [(world.timeofday - genstart) / 10]s</i>"
 
 	world << "<i>GENERATING NPCS ON Z[zLevel]..</i>"
+
 	spawn(1)
+		var/genstart = world.timeofday
+
 		if(zLevel == 1) return
 		for(var/a = 0; a < maxColonists; ++a)
 			var/m = pick(chosenBiome.validMobs)
 			var/mob/b = new m()
 			b.loc = locate(rand(1,world.maxx),rand(1,world.maxy),zLevel)
+
+		world << "<i>FINISHED GENERATING NPCS ON Z[zLevel].. TOOK [(world.timeofday - genstart) / 10]s</i>"
 #undef lowestChance
 #undef maxColonists

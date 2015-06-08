@@ -123,9 +123,11 @@
 
 	if(depth != surrounddepth)
 		for(var/turf/floor/outside/liquid/T in tiles_to_activate)
+			//if(T.docile >= 2)
+			//	world << "reactivating [T]"
 			T.docile = 0
 
-		newErodeLiquids |= tiles_to_activate
+		//newErodeLiquids |= tiles_to_activate
 
 		//world << "going active"
 	else
