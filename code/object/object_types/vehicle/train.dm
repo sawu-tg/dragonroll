@@ -16,6 +16,7 @@
 	desc = "A rail for trains to go on."
 	icon = 'sprite/obj/train.dmi'
 	icon_state = "rail15"
+	layer = TURF_LAYER+0.15
 
 	density = 0
 	opacity = 0
@@ -64,6 +65,12 @@
 		WT.default_wire_action(user,wires)
 
 /obj/train
+	name = "wooden floor"
+	desc = "choo choo"
+	icon = 'sprite/obj/train.dmi'
+	icon_state = "chassis"
+	layer = TURF_LAYER+0.3
+
 	weight = 5000 //Stop no don't lift this you fuck
 	anchored = 1
 
@@ -72,11 +79,17 @@
 
 	var/obj/train/train_control/controller
 
+	Del()
+		..()
+
+		controller.break_train()
+
 /obj/train/floor
 	name = "wooden floor"
 	desc = "choo choo"
 	icon = 'sprite/world/floors.dmi'
 	icon_state = "wood"
+	layer = TURF_LAYER+0.4
 
 /obj/train/floor/metal
 	name = "metal floor"
@@ -89,12 +102,14 @@
 	desc = "choo choo"
 	icon = 'sprite/obj/train.dmi'
 	icon_state = "wheel0"
+	layer = TURF_LAYER+0.35
 
 /obj/train/wall
 	name = "wooden wall"
 	desc = "choo choo"
 	icon = 'sprite/world/walls.dmi'
 	icon_state = "wood0"
+	layer = TURF_LAYER+0.45
 	density = 1
 	opacity = 1
 
@@ -103,6 +118,7 @@
 	desc = "choo choo"
 	icon = 'sprite/obj/train.dmi'
 	icon_state = "control"
+	layer = OBJ_LAYER-0.1
 
 	var/list/train_walls = list()
 	var/list/train_floors = list()
@@ -122,6 +138,8 @@
 	var/movedir = 1
 	var/steerdir = 0
 
+	var/broken = 0
+
 	var/list/blacklist = list(/obj/structure/rail,/atom/movable/lighting_overlay)
 	var/list/ancwhitelist = list(/obj/train,/obj/structure/lightswitch,/obj/structure/door)
 
@@ -139,17 +157,19 @@
 		wires.add_input("Speed")
 
 	receive_wiresignal(input,signal,is_pulse)
-		speed = wires.receive_wiresignal("Speed") ? 10 : 0
+		speed = wires.receive_wiresignal("Speed")
 
 	objFunction(var/mob/user,var/obj/item/with)
 		if(istype(with,/obj/item/powerdevice/wiretool))
 			var/obj/item/powerdevice/wiretool/WT = with
 			WT.default_wire_action(user,wires)
-		else
+		else if(!broken)
 			init_train()
 			update_train()
 
 	doProcess()
+		if(broken) return
+
 		currspeed += speed
 
 		var/list/possibledirs = list(movedir, turn(movedir,90), turn(movedir,-90), turn(movedir,180))
@@ -199,6 +219,17 @@
 
 		train |= src
 
+	proc/break_train()
+		if(broken)
+			return
+
+		broken = 1
+
+		spawn(30)
+			init_train()
+			update_train()
+			broken = 0
+
 	proc/check_validity(var/atom/movable/AM)
 		if(!AM)	return 0
 		if(is_type_in_list(AM, blacklist))	return 0
@@ -220,7 +251,7 @@
 						collisions |= cdir
 					if(!T.density)
 						for(var/atom/movable/A in T)
-							if(A.density)
+							if(A.density || istype(A,/obj/train))
 								if(train.Find(A))	continue
 								collisions |= cdir
 
@@ -241,7 +272,7 @@
 				wheels++
 
 				if(!(R.odir & cdir))
-					world << "trying [R.odir] against [cdir]"
+					//world << "trying [R.odir] against [cdir]"
 					collisions |= cdir
 
 			if(wheels < 2)
