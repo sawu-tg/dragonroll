@@ -76,7 +76,7 @@
 				checkTimeout()
 				return
 		lastPos = loc
-		walk_to(src,walkTarget,2,speed)
+		Move(get_step_towards(src,walkTarget))
 
 /mob/player/npc/proc/checkTimeout()
 	if(timeSinceLast >= npcMaxWait)
@@ -121,15 +121,26 @@
 		checkTimeout()
 
 /mob/player/npc/proc/npcCombat()
+	var/obj/item/AH = activeHand()
+	if(AH)
+		wanderRange = AH:range
+	else
+		wanderRange = initial(wanderRange)
 	if(npcNature == NPCTYPE_PASSIVE)
 		return
 	if(npcState == NPCSTATE_FIGHTING)
 		if(target)
 			if(timeSinceLast >= attackFuzziness)
 				if(istype(target,/mob/player))
-					if(Adjacent(target) && target:playerData.hp.statModified > 0)
+					if(get_dist(src,target) < wanderRange && target:playerData.hp.statModified > 0)
 						intent = INTENT_HARM
-						target:objFunction(src)
+						if(AH)
+							if(AH.range <= 1)
+								target:objFunction(src,AH)
+							else
+								AH.onUsed(src,target)
+						else
+							target:objFunction(src)
 				timeSinceLast = 0
 
 /mob/player/npc/processAttack(var/mob/player/a,var/mob/player/v)
@@ -138,21 +149,12 @@
 		target = a
 		changeState(NPCSTATE_FIGHTING)
 
-/mob/player/npc/proc/willProcess()
-	for(var/mob/a in actualView)
-		if(a.client)
-			world << "[src] will live!"
-			return TRUE
-	return FALSE
-
 /mob/player/npc/doProcess()
 	..()
 	if(isDisabled())
 		npcState = NPCSTATE_IDLE
 		return
 	updateLocation()
-	//if(!willProcess())
-	//	return
 	npcIdle()
 	npcMove()
 	npcCombat()

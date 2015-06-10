@@ -17,7 +17,7 @@
 /obj/interact/nature/bush
 	name = "small bush"
 	desc = "Needs a bit of a trim."
-	harvestables = list(/obj/item/loot/nature/stick = 4,/obj/item/loot/nature/leaf = 4)
+	harvestables = list(/obj/item/loot/nature/stick = 4,/obj/item/loot/nature/leaf = 4,/obj/item/seedpack = 1)
 
 /obj/interact/nature/bush/New()
 	icon_state = "grassybush_[rand(1,4)]"

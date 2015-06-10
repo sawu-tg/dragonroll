@@ -98,7 +98,7 @@
 //called when an object is used
 /atom/proc/onUsed(var/mob/user,var/atom/onWhat)
 	//
-/atom/Click()
+/atom/Click(var/object,var/location,var/control,var/params)
 	var/mob/player/P = usr
 	var/obj/item/A = P.activeHand()
 	if(world.time <= P.lastClick + GLOBAL_CLICK_DELAY)
