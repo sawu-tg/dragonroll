@@ -79,6 +79,13 @@
 	materials = list(/obj/item/loot/nature/stick = 1, /obj/item/loot/nature/rock = 1)
 	product = list(/obj/item/weapon/tool/hatchet = 1)
 
+/datum/recipe/hoe
+	name = "hoe"
+	desc = "a farming tool"
+
+	materials = list(/obj/item/loot/nature/stick = 2, /obj/item/loot/nature/rock = 1)
+	product = list(/obj/item/weapon/tool/hoe = 1)
+
 /datum/recipe/woodwall
 	name = "wooden wall"
 	desc = "keeps things out"
