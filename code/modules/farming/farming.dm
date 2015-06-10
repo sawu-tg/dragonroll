@@ -82,6 +82,9 @@
 	else
 		if(istype(with,/obj/item/seedpack))
 			FG = with:held_seed
+			spawn(1)
+				user.DropItem()
+				del(with)
 
 ///
 // FARMING ITEMS
