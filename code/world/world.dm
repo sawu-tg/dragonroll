@@ -40,6 +40,7 @@ var/list/newErodeLiquids = list()
 		CS.addControl(new /datum/controller/machinery)
 		CS.addControl(new /datum/controller/lighting)
 		CS.addControl(new /datum/controller/hivemind)
+		CS.addControl(new /datum/controller/chemicals)
 		CS.process()
 	..()
 

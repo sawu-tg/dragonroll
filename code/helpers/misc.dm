@@ -38,3 +38,8 @@
 	. = 0
 	if(fexists(filepath))
 		. = file(filepath)
+
+/proc/islist(list/L)
+	if(istype(L))
+		return 1
+	return 0

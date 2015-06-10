@@ -1,3 +1,5 @@
+#define INFINITY 1e31	//closer then enough
+
 #define SAVING_REFLEX 1
 #define SAVING_WILL 2
 #define SAVING_FORTITUDE 3
@@ -69,7 +71,7 @@
 #define VEHICLE_PASS_LIQUID_WATER 4
 #define VEHICLE_PASS_LIQUID_ALL 8
 
-#define GLOBAL_CLICK_DELAY 25
+#define GLOBAL_CLICK_DELAY 5
 
 var/list/playerValidHair = list()
 var/list/playerValidFacial = list()
