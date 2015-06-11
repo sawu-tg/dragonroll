@@ -129,3 +129,19 @@ datum/statuseffect/decap/removeStatus()
 	id = "nohead"
 	idToLink = "head"
 	desc = "You are missing your Head."
+
+
+///
+// FOOD STATUS
+///
+
+/datum/statuseffect/wellfed
+	name = "Well Fed"
+	id = "wellfed"
+	desc = "You have eaten something delicious, and are healing over time."
+	addedstacks = list("wellfed")
+
+/datum/statuseffect/wellfed/removeStatus()
+	mymob:popup(1,COL_INFOTICK)
+	mymob:playerData.hp.change(1)
+	..()
