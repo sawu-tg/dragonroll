@@ -135,16 +135,18 @@
 	if(type == DTYPE_MASSIVE)
 		if(!savingThrow(src,0,SAVING_FORTITUDE))
 			playerData.hp.setTo(-1)
-			src.popup("[damage]",rgb(255,0,255))
+			src.popup("Massive hit! [damage]",COL_INFOTICK)
 			doDamage = FALSE
 		else
 			doDamage = TRUE
 	if(doDamage)
-		src.popup("[damage]",rgb(255,0,0))
+		src.popup("Hit for [damage]",COL_HOSTILE)
 		playerData.hp.setTo(playerData.hp.statCurr-damage)
 		for(var/datum/organ/O in playerOrgans)
 			if(do_roll(1,playerData.con.statModified,playerData.str.statCurr) < damage)
 				O.health -= damage
+				spawn(5)
+					src.popup("[O.name] takes [damage] damage!",COL_HOSTILE)
 		var/dyingtype
 
 		if(playerData.hp.statCurr == 0)

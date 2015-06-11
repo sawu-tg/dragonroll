@@ -17,7 +17,7 @@
 /obj/item/food/grown/chilli
 	name = "Chilli"
 	desc = "Spicy-wawa!"
-	icon_state = "chillipepper"
+	icon_state = "chilipepper"
 
 /obj/item/food/grown/chilli/ice
 	name = "Icy Chilli"

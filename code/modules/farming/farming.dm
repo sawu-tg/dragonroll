@@ -82,6 +82,9 @@
 	else
 		if(istype(with,/obj/item/seedpack))
 			FG = with:held_seed
+			spawn(1)
+				user.DropItem()
+				del(with)
 
 ///
 // FARMING ITEMS
@@ -109,3 +112,33 @@
 		user << "You till the soil!"
 		onWhat = new/turf/floor/outside/farm(get_turf(onWhat))
 		onWhat:updateOverlay()
+
+/obj/item/weapon/tool/shovel
+	name = "Shovel"
+	desc = "Helps dig channels"
+	icon_state = "shovel"
+
+/obj/item/weapon/tool/shovel/onUsed(var/mob/user,var/atom/onWhat)
+	if(istype(onWhat,/turf/floor/outside/grass) || istype(onWhat,/turf/floor/outside/dirt) || istype(onWhat,/turf/floor/outside/snow))
+		user << "You dig a channel in the soil!"
+		onWhat = new/turf/floor/outside/waterChannel(get_turf(onWhat))
+
+/turf/floor/outside/waterChannel
+	name = "Channel"
+	desc = "Liquids can flow into this!"
+	icon_state = "asteroid_dug"
+
+/turf/floor/outside/waterChannel/New()
+	..()
+	addProcessingObject(src)
+
+/turf/floor/outside/waterChannel/doProcess()
+	..()
+	spawn(1)
+		for(var/A in range(src,2))
+			if(istype(A,/turf/floor/outside/liquid))
+				remProcessingObject(src)
+				var/T = new A:type(get_turf(src))
+				spawn(5)
+					T:updateDepth()
+					T:updateErodeDepth()

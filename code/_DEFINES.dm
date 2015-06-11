@@ -73,5 +73,13 @@
 
 #define GLOBAL_CLICK_DELAY 5
 
+///
+// RGB DEFINES
+///
+#define COL_HOSTILE rgb(255,0,0)
+#define COL_FRIENDLY rgb(0,255,0)
+#define COL_INFO rgb(255,255,0)
+#define COL_INFOTICK rgb(255,0,255)
+
 var/list/playerValidHair = list()
 var/list/playerValidFacial = list()
