@@ -77,7 +77,7 @@
 
 /mob/player/objFunction(var/mob/user,var/obj/inHand)
 	if(checkEffectStack("dead"))
-		displayTo("You remove some items from [src]",user,src)
+		messagePlayer("You remove some items from [src]",user,src)
 		harvest()
 		return
 	..()
@@ -91,23 +91,8 @@
 	var/list/heard = view(range, source)
 	return heard
 
-/proc/formatspeech(msg)
-	if(!msg)
-		return "says, \"...\"";
-
-	var/ending = copytext(msg, length(msg))
-
-	if (ending == "?")
-		return "asks, \"[msg]\"";
-
-	if (ending == "!")
-		return "exclaims, \"[msg]\"";
-
-	return "says, \"[msg]\"";
-
 /mob/proc/hear(msg, var/source)
-	var/name = source:name
-	src << "[parseIcon(src,source)] > [name] [msg]"
+	messageChat(src,"[msg]")
 
 /mob/player/verb/say(msg as text)
 	set name = "Say"
@@ -140,12 +125,13 @@
 		else
 			doDamage = TRUE
 	if(doDamage)
-		src.popup("Hit for [damage]",COL_HOSTILE)
+		spawn(rand(1,30))
+			src.popup("Hit for [damage]",COL_HOSTILE)
 		playerData.hp.setTo(playerData.hp.statCurr-damage)
 		for(var/datum/organ/O in playerOrgans)
 			if(do_roll(1,playerData.con.statModified,playerData.str.statCurr) < damage)
 				O.health -= damage
-				spawn(5)
+				spawn(rand(1,30))
 					src.popup("[O.name] takes [damage] damage!",COL_HOSTILE)
 		var/dyingtype
 
@@ -163,7 +149,6 @@
 
 ///
 // BASIC FLAG STATES
-// Mob flags seem to be broken right now. Not sure why?
 ///
 /mob/player/proc/stun(var/amount)
 	src.addStatusEffect(/datum/statuseffect/stun,amount)

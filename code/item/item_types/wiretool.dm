@@ -51,7 +51,7 @@
 	if(!node1 || !node2)
 		return
 
-	user << "You wire [node1.parent.myatom] up to [node2.parent.myatom]"
+	messageInfo("You wire [node1.parent.myatom] up to [node2.parent.myatom]",user,src)
 
 	node1.connect(node2)
 
@@ -62,7 +62,7 @@
 		return
 
 	if(!wirenodes.len)
-		user << "[wireobj] doesn't have any wires."
+		messageError("[wireobj] doesn't have any wires.",user,src)
 		return
 
 	var/chosennode = input(user,"Choose a node to wire.","Wiretool",null) in wirenodes

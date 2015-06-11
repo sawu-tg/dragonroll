@@ -18,7 +18,7 @@
 
 /obj/vehicle/proc/EnterVehicle(var/mob/user)
 	if(!driver)
-		displayTo("You start driving the [src]",user,src)
+		messagePlayer("You start driving the [src]",user,src)
 		driver = user
 		driver.loc = loc
 		user.mounted = src
@@ -32,13 +32,13 @@
 				Ride(user)
 
 /obj/vehicle/proc/Ride(var/mob/who)
-	displayTo("You start riding on the [src]",who,src)
+	messagePlayer("You start riding on the [src]",who,src)
 	if(driver)
 		passengers |= who
 	who.loc = loc
 
 /obj/vehicle/proc/Eject(var/mob/who)
-	displayTo("You leave the [src]",who,src)
+	messagePlayer("You leave the [src]",who,src)
 	if(who == driver)
 		driver = null
 		who.mounted = null

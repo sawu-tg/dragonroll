@@ -24,13 +24,12 @@ var/list/newErodeLiquids = list()
 				playerValidFacial |= i
 			else if(copytext(i,1,5) == "hair")
 				playerValidHair |= i
-		world << "<b>GENERATING WORLD..</b>"
-		//world << "TEST: [num2text(122422625747547.0,16)]"
+		messageSystemAll("GENERATING WORLD..")
 		spawn(1)
 			for(var/i = 1; i < world.maxz; i++)
 				generate(i)
 		spawn(10)
-			world << "<b>FINISHED!</b>"
+			messageSystemAll("FINISHED!")
 		processObjects()
 		processCooldowns()
 		processRegions()
@@ -118,36 +117,6 @@ var/list/newErodeLiquids = list()
 	spawn(1)
 		processObjects()
 
-/proc/do_roll(var/times,var/dice,var/bonus)
-	var/rolled = 0
-	var/count = times
-	while(count > 0)
-		rolled += rand(1,dice)
-		--count
-	rolled += bonus
-	return rolled
-
-/proc/savingThrow(var/mob/player/try, var/bonus, var/stat=SAVING_REFLEX)
-	if(!try.playerData)
-		return pick(TRUE,FALSE) //no stats? screw you have some rnd
-
-	var/datum/playerFile/data = try.playerData
-	var/datum/stat/compare
-	switch(stat)
-		if(SAVING_REFLEX)
-			compare = data.ref
-			bonus += data.dex.statCurr
-		if(SAVING_WILL)
-			compare = data.will
-			bonus += data.wis.statCurr
-		if(SAVING_FORTITUDE)
-			compare = data.fort
-			bonus += data.con.statCurr
-	if(do_roll(1,20,bonus) >= data.save.statCurr + compare.statCurr)
-		return TRUE
-
-	return FALSE
-
 /proc/parseIcon(var/toWhere, var/parse, var/chat = TRUE)
 	var/icon/i
 	if(istype(parse,/mob))
@@ -176,51 +145,6 @@ var/list/newErodeLiquids = list()
 			return {"<img src='[parse:icon_state].png'>"}
 	else
 		return "\icon[parse]"
-
-/proc/displayInfo(var/personal as text,var/others as text, var/mob/toWho, var/fromWhat,var/color="blue")
-	var/visibleMessage = toWho == fromWhat ? "[fromWhat:name]" : "[fromWhat:name] > [toWho:name]"
-	toWho << "<font color=[color]><b>[visibleMessage]</b>: [personal]</font>"
-	for(var/mob/m in oview(world.view,toWho))
-		if(m == toWho)
-			continue
-		m << "<font color=[color]><b>[visibleMessage]</b>: [others]</font>"
-
-/proc/displayTo(var/personal as text, var/mob/toWho, var/fromWhat,var/color="blue")
-	var/visibleMessage = toWho == fromWhat ? "[fromWhat:name]" : "[fromWhat:name] > [toWho:name]"
-	toWho << "<font color=[color]><b>[visibleMessage]</b>: [personal]</font>"
-
-/proc/chatSay(var/msg as text)
-	world << "<font color=black><b>[usr]</b>: [msg]</font>"
-
-/proc/circle(turf/source,radius=1,var/expensive = FALSE)
-	var/list/l = list()
-	var/rsq = radius * (radius+0.50)
-	var/path = text2path("/[expensive ? "atom" : "turf"]")
-	var/list/around = view(radius,source)
-	var/count = 0
-	for(count = 1; count < around.len; ++count)
-		var/T = around[count]
-		if(istype(T,path))
-			var/dx = T:x - source.x
-			var/dy = T:y - source.y
-			if(dx*dx + dy*dy <= rsq)
-				l |= T
-	. = l
-
-/proc/circleRange(turf/source,radius=1,var/expensive = FALSE)
-	var/list/l = list()
-	var/rsq = radius * (radius+0.50)
-	var/path = text2path("/[expensive ? "atom" : "turf"]")
-	var/list/around = range(radius,source)
-	var/count = 0
-	for(count = 1; count < around.len; ++count)
-		var/T = around[count]
-		if(istype(T,path))
-			var/dx = T:x - source.x
-			var/dy = T:y - source.y
-			if(dx*dx + dy*dy <= rsq)
-				l |= T
-	. = l
 
 /proc/generateName(var/forWhat)
 	if(forWhat == 0)
@@ -264,7 +188,7 @@ var/list/newErodeLiquids = list()
 
 	regions += R
 
-	world << "<i>GENERATING TURFS ON Z[zLevel]..</i>"
+	messageSystemAll("GENERATING TURFS ON Z[zLevel]..")
 
 	spawn(1)
 		var/list/liqMade = list()
@@ -309,7 +233,7 @@ var/list/newErodeLiquids = list()
 		erodeLiquids += liqMade
 		liqMade.Cut()
 
-		world << "<i>FINISHED GENERATING TURFS ON Z[zLevel].. TOOK [(world.timeofday - genstart) / 10]s</i>"
+		messageSystemAll("FINISHED GENERATING TURFS ON Z[zLevel].. TOOK [(world.timeofday - genstart) / 10]s")
 
 	//world << "<i>GENERATING LIQUIDS ON Z[zLevel]..</i>"
 
@@ -366,7 +290,7 @@ var/list/newErodeLiquids = list()
 						EL = new T2(T)*/
 
 
-	world << "<i>GENERATING DECORATIONS ON Z[zLevel]..</i>"
+	messageSystemAll("GENERATING DECORATIONS ON Z[zLevel]..")
 
 	spawn(1)
 		var/genstart = world.timeofday
@@ -390,9 +314,9 @@ var/list/newErodeLiquids = list()
 							var/obj/o = pick(chosenBiome.validDebris)
 							new o(T)
 
-		world << "<i>FINISHED GENERATING DECORATIONS ON Z[zLevel].. TOOK [(world.timeofday - genstart) / 10]s</i>"
+		messageSystemAll("FINISHED GENERATING DECORATIONS ON Z[zLevel].. TOOK [(world.timeofday - genstart) / 10]s")
 
-	world << "<i>GENERATING NPCS ON Z[zLevel]..</i>"
+	messageSystemAll("GENERATING NPCS ON Z[zLevel]..")
 
 	spawn(1)
 		var/genstart = world.timeofday
@@ -403,6 +327,6 @@ var/list/newErodeLiquids = list()
 			var/mob/b = new m()
 			b.loc = locate(rand(1,world.maxx),rand(1,world.maxy),zLevel)
 
-		world << "<i>FINISHED GENERATING NPCS ON Z[zLevel].. TOOK [(world.timeofday - genstart) / 10]s</i>"
+		messageSystemAll("FINISHED GENERATING NPCS ON Z[zLevel].. TOOK [(world.timeofday - genstart) / 10]s")
 #undef lowestChance
 #undef maxColonists

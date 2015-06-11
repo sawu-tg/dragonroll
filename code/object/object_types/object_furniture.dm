@@ -21,7 +21,7 @@
 
 /obj/furniture/chest/objFunction(var/mob/user)
 	chestOpen = !chestOpen
-	displayInfo("You [chestOpen ? "open" : "close"] the [src]","[user] [chestOpen ? "opens" : "closes"] the [src]",user,src)
+	messageArea("You [chestOpen ? "open" : "close"] the [src]","[user] [chestOpen ? "opens" : "closes"] the [src]",user,src)
 	icon_state = "chest[chestOpen ? "_open" : "_close"]"
 
 //OVER/UNDERLAYS
@@ -133,12 +133,12 @@
 			var/mob/player/ply = user
 			var/toHide = input(ply,"Hide what?") as null|anything in ply.playerInventory
 			if(toHide)
-				displayInfo("You hide \the [toHide] inside [src]","[user] slips something into [src]",user,src)
+				messageArea("You hide \the [toHide] inside [src]","[user] slips something into [src]",user,src)
 				ply.remFromInventory(toHide)
 				toHide:loc = src.loc
 				toHide:layer = LAYER_HIDDEN
 		if(choice == "Take Cushion")
-			displayInfo("You take the cushion from \the [src]","[user] takes the cushion from \the [src]",user,src)
+			messageArea("You take the cushion from \the [src]","[user] takes the cushion from \the [src]",user,src)
 			overlays |= image('sprite/world/furniture.dmi',icon_state="comfychair_nocushion",dir=dir)
 			var/obj/item/furniture/underlay/comfyPillow/P = new(loc)
 			P.icon_state = "[icon_state]_cushion"

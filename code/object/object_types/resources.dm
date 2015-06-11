@@ -73,7 +73,7 @@
 
 /obj/item/loot/nature/log/objFunction(var/mob/user,var/obj/used)
 	if(istype(used,/obj/item/weapon/tool/hatchet))
-		displayTo("You harvest some logs from [src]",user,src)
+		messagePlayer("You harvest some logs from [src]",user,src)
 		for(var/i = 0; i < 4; ++i)
 			new/obj/item/loot/processed/wood(user.loc)
 		del(src)

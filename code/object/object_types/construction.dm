@@ -13,8 +13,6 @@
 	var/list/requiredTools = list()
 
 /obj/item/buildable/objFunction(var/mob/user)
-	world << "using [src]"
-
 	if(loc != user)
 		return
 
@@ -29,8 +27,6 @@
 	..()
 
 /obj/item/buildable/onUsed(var/mob/user,var/atom/onWhat)
-	world << "using [src] on [onWhat]"
-
 	var/attempt = buildAt(onWhat)
 
 	if(!attempt)

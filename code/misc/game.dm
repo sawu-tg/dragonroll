@@ -106,3 +106,33 @@ var/list/alldirs = list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAS
 			. |= T
 			visited |= call(adjacency)(T)
 		i++
+
+/proc/circle(turf/source,radius=1,var/expensive = FALSE)
+	var/list/l = list()
+	var/rsq = radius * (radius+0.50)
+	var/path = text2path("/[expensive ? "atom" : "turf"]")
+	var/list/around = view(radius,source)
+	var/count = 0
+	for(count = 1; count < around.len; ++count)
+		var/T = around[count]
+		if(istype(T,path))
+			var/dx = T:x - source.x
+			var/dy = T:y - source.y
+			if(dx*dx + dy*dy <= rsq)
+				l |= T
+	. = l
+
+/proc/circleRange(turf/source,radius=1,var/expensive = FALSE)
+	var/list/l = list()
+	var/rsq = radius * (radius+0.50)
+	var/path = text2path("/[expensive ? "atom" : "turf"]")
+	var/list/around = range(radius,source)
+	var/count = 0
+	for(count = 1; count < around.len; ++count)
+		var/T = around[count]
+		if(istype(T,path))
+			var/dx = T:x - source.x
+			var/dy = T:y - source.y
+			if(dx*dx + dy*dy <= rsq)
+				l |= T
+	. = l

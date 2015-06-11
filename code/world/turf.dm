@@ -198,7 +198,7 @@
 			return 1
 		if(solid)
 			if(P.playerData.dex.statCurr-P.weight <= depth)
-				displayTo("You lose your balance and fall on [src], cracking it! ([P.playerData.dex.statCurr-P.weight] v [depth])",P,src)
+				messagePlayer("You lose your balance and fall on [src], cracking it! ([P.playerData.dex.statCurr-P.weight] v [depth])",P,src)
 				for(var/turf/floor/outside/liquid/L in range(src,1))
 					L.solid = 0
 					L.updateDepth()
@@ -207,7 +207,7 @@
 		if(P.playerData.dex.statCurr-P.weight >= depth)
 			return 1
 		else
-			displayTo("[src] is too deep for you to wade in! ([P.playerData.dex.statCurr-P.weight] v [depth])",P,src)
+			messagePlayer("[src] is too deep for you to wade in! ([P.playerData.dex.statCurr-P.weight] v [depth])",P,src)
 			return 0
 	else
 		return 1

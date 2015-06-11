@@ -91,8 +91,7 @@
 
 	Del()
 		if(!removed)
-			world << "HONK, STATUS EFFECT WAS DELETED WITHOUT REMOVING IT FIRST"
-			CRASH("WAKE ME UP INSIDE")
+			messageSystemAll("HONK, STATUS EFFECT WAS DELETED WITHOUT REMOVING IT FIRST")
 		..()
 
 	proc/setTime(var/time)

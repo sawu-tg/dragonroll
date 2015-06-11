@@ -62,12 +62,12 @@
 			if(checked.playerData.mp.statCurr >= abilityLevel * abilityManaMod)
 				return TRUE
 			else
-				displayTo("You don't have enough mana to cast the spell!",checked,checked)
+				messagePlayer("You don't have enough mana to cast the spell!",checked,checked)
 		else
 			if(abilityHasPenalty)
 				abilityCooldownTimer = abilityCooldown/abilityFizzlePenalty
 			if(!suppressMessage)
-				displayInfo("You try to cast [name], but it fizzles!","[checked.name] attempts to cast [name], but it fizzles!",checked,image(abilityIcon,icon_state=abilityState))
+				messageArea("You try to cast [name], but it fizzles!","[checked.name] attempts to cast [name], but it fizzles!",checked,image(abilityIcon,icon_state=abilityState))
 			return FALSE
 
 ///
@@ -75,7 +75,7 @@
 ///
 /datum/ability/proc/preCast(var/mob/player/casting,var/target)
 	if(!suppressMessage)
-		displayInfo("You begin casting [name].","[casting.name] begins casting [name].",casting,image(abilityIcon,icon_state=abilityState))
+		messageArea("You begin casting [name].","[casting.name] begins casting [name].",casting,image(abilityIcon,icon_state=abilityState))
 	if(abilityIconSelf)
 		new abilityIconSelf(casting.loc)
 
@@ -134,7 +134,7 @@
 ///
 /datum/ability/proc/postCast(var/mob/player/caster,var/target)
 	if(!suppressMessage)
-		displayInfo("You cast [name].","[caster.name] cast [name].",caster,image(abilityIcon,icon_state=abilityState))
+		messageArea("You cast [name].","[caster.name] cast [name].",caster,image(abilityIcon,icon_state=abilityState))
 	//if(abilityIconTarget)
 	//	new abilityIconTarget(target:loc)
 

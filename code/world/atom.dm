@@ -46,7 +46,7 @@
 			if(do_roll(1,20,A.carriedBy.playerData.str.statCurr) >= A.weight + A.size)
 				A.loc = A.carriedBy.loc
 			else
-				displayInfo("You fumble and lose your strength, dropping the [A.carriedBy.carrying]!","[src] drops the [A.carrying]!",A.carriedBy,src)
+				messageArea("You fumble and lose your strength, dropping the [A.carriedBy.carrying]!","[src] drops the [A.carrying]!",A.carriedBy,src)
 				A.beDropped()
 		if(A.thrown)
 			SpinAnimation(5,1)
