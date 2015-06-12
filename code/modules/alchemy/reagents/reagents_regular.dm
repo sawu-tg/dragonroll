@@ -22,7 +22,6 @@
 		who:addStatusEffect(/datum/statuseffect/wellfed,15)
 		..()
 
-
 /datum/reagent/rawess
 	name = "Raw Essence"
 	id = "rawess"
@@ -50,6 +49,14 @@
 		who:addStatusEffect(/datum/statuseffect/poison,15)
 		..()
 
+/datum/reagent/suffocatetoxin
+	name = "Suffocation Toxin"
+	id = "stox"
+	color = "#FF0000"
+
+	processMob(var/mob/player/who)
+		who:addStatusEffect(/datum/statuseffect/suffocating,15)
+		..()
 /*/datum/reagent/ew
 	name = "diluted milk"
 	id = "ew"

@@ -22,10 +22,10 @@
 	desc = "Not really that dead yet."
 	addedstacks = list("laydown")
 
-/datum/statuseffect/drowning
-	name = "Drowning"
+/datum/statuseffect/suffocating
+	name = "Suffocating"
 	id = "drown"
-	desc = "Underwater and dying."
+	desc = "Suffocating from something."
 
 /datum/statuseffect/stun
 	name = "Stunned"
@@ -154,7 +154,7 @@ datum/statuseffect/decap/removeStatus()
 
 /datum/statuseffect/regenerate
 	name = "Regeneration"
-	id = "wellfed"
+	id = "regenfed"
 	desc = "You have eaten something delicious, and are restoring over time."
 	addedstacks = list("wellfed")
 

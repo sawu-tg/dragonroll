@@ -7,7 +7,7 @@
 	var/inDPSLiquid = FALSE
 	var/liquidVerb = ""
 	var/liquidDamage = 0
-	var/datum/statuseffect/drowning/drownEffect = new
+	var/datum/statuseffect/suffocating/drownEffect = new
 
 /mob/player/proc/processOrgans()
 	for(var/O in playerOrgans)

@@ -51,12 +51,12 @@
 /obj/item/food/fish/New()
 	..()
 	color = rgb(rand(20,255),rand(20,255),rand(20,255))
-	var/extraType = pick(/datum/reagent/nutrients,/datum/reagent/rawess,/datum/reagent/paratoxin,/datum/reagent/neurotoxin)
+	var/extraType = pick(/datum/reagent/nutrients,/datum/reagent/rawess,/datum/reagent/paratoxin,/datum/reagent/neurotoxin,/datum/reagent/suffocatetoxin)
 	var/datum/reagent/RE = new extraType
 	reagents.addliquid(RE.id, rand(1,5))
 	for(var/datum/reagent/R in reagents.liquidlist)
-		if(R.id == "ntox" || R.id == "ptox")
-			name = "Bitter [name]"
+		if(R.id == "ntox" || R.id == "ptox" || R.id == "stox")
+			name = "[pick("Bitter","Sour","Infected","Sick")] [name]"
 		if(R.id == "rawess")
 			name = "Fey [name]"
 
