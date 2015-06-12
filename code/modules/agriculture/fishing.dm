@@ -47,10 +47,12 @@
 	desc = "Floats and glubs."
 	icon = 'sprite/obj/fish.dmi'
 	icon_state = "fish"
+	var/randColour = TRUE
 
 /obj/item/food/fish/New()
 	..()
-	color = rgb(rand(20,255),rand(20,255),rand(20,255))
+	if(randColour)
+		color = rgb(rand(20,255),rand(20,255),rand(20,255))
 	var/extraType = pick(/datum/reagent/nutrients,/datum/reagent/rawess,/datum/reagent/paratoxin,/datum/reagent/neurotoxin,/datum/reagent/suffocatetoxin)
 	var/datum/reagent/RE = new extraType
 	reagents.addliquid(RE.id, rand(1,5))
@@ -89,3 +91,16 @@
 	name = "Crab"
 	desc = "Pinchy Jr."
 	icon_state = "crab"
+
+/obj/item/food/fish/sponge
+	name = "Sponge"
+	desc = "Are you feeling it now Mr Krabs?"
+	icon_state = "bob"
+	randColour = FALSE
+
+
+/obj/item/food/fish/sponge/New()
+	..()
+	var/matrix/M = matrix(transform)
+	M.Turn(rand(1,360))
+	transform = M
