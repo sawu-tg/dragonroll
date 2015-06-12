@@ -35,7 +35,7 @@
 	messageInfo("You reel in a [catch]",fisherman,src)
 
 /turf/floor/outside/liquid
-	var/list/fishables = list(/obj/item/food/fish = 50, /obj/item/food/fish/squid = 50, /obj/item/food/fish/urchin = 25, /obj/item/food/fish/clam = 25, /obj/item/food/fish/shrimp = 75,/obj/item/food/fish/lobster = 15,/obj/item/food/fish/crab = 15)
+	var/list/fishables = list(/obj/item/food/fish = 50, /obj/item/food/fish/squid = 50, /obj/item/food/fish/urchin = 25, /obj/item/food/fish/clam = 25, /obj/item/food/fish/shrimp = 75,/obj/item/food/fish/lobster = 15,/obj/item/food/fish/crab = 15, /obj/item/food/fish/sponge = 5)
 
 
 ///
