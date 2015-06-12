@@ -4,3 +4,6 @@
 
 #define T0C 273.15
 #define T20C 293.15
+
+#define PIPE_NODE1 1
+#define PIPE_NODE2 2
