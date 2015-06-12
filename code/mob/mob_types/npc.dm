@@ -88,11 +88,13 @@
 	npcState = state
 
 /mob/player/npc/proc/updateLocation()
-	if(lastPos != loc)
-		actualView = oview(src,world.view)
-		inView = oview(src,wanderRange)
-		inRange = orange(src,wanderRange)
-		lastPos = loc
+	set background = 1
+	spawn(1)
+		if(lastPos != loc)
+			actualView = oview(src,world.view)
+			inView = oview(src,wanderRange)
+			inRange = orange(src,wanderRange)
+			lastPos = loc
 
 /mob/player/npc/proc/processTargets()
 	for(var/a in actualView)
@@ -154,8 +156,9 @@
 	if(isDisabled())
 		npcState = NPCSTATE_IDLE
 		return
-	updateLocation()
-	npcIdle()
-	npcMove()
-	npcCombat()
+	else
+		updateLocation()
+		npcIdle()
+		npcMove()
+		npcCombat()
 	timeSinceLast++

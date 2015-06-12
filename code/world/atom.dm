@@ -142,10 +142,17 @@
 	name="beam"
 	icon='sprite/obj/beam.dmi'
 	icon_state="b_beam"
+	length = 0
 	var/atom/BeamSource
 
 /obj/effect/overlay/beam/New()
 	..()
+	spawn(5)
+		addProcessingObject(src)
+
+/obj/effect/overlay/beam/doProcess()
+	if(!BeamSource)
+		del(src)
 
 /*
 Beam code by Gunbuddy
@@ -213,4 +220,3 @@ its easier to just keep the beam vertical.
 			X.pixel_y=Pixel_y
 		sleep(3)	//Changing this to a lower value will cause the beam to follow more smoothly with movement, but it will also be more laggy.
 					//I've found that 3 ticks provided a nice balance for my use.
-	for(var/obj/effect/overlay/beam/O in orange(10,src)) if(O.BeamSource==src) del(O)

@@ -11,8 +11,9 @@
 
 /obj/effect/New()
 	..()
-	procTime = length
-	addProcessingObject(src)
+	if(length > 0)
+		procTime = length
+		addProcessingObject(src)
 
 /obj/effect/proc/onDestroy()
 

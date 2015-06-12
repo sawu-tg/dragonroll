@@ -52,10 +52,7 @@ var/list/newErodeLiquids = list()
 	procObjects -= r
 
 /proc/processLiquids()
-	//set background = 1
-	//if(erodeLiquids.len)
-	//	world << "processing [erodeLiquids.len] liquids"
-
+	set background = 1
 	var/processed = 0
 
 	spawn(-1)
@@ -68,10 +65,6 @@ var/list/newErodeLiquids = list()
 
 			if(processed > 100)
 				processed = 0
-				sleep(5)
-
-	//erodeLiquids |= newErodeLiquids
-	//newErodeLiquids.Cut()
 	spawn(10)
 		processLiquids()
 
@@ -90,6 +83,7 @@ var/list/newErodeLiquids = list()
 	. = newList
 
 /proc/processCooldowns()
+	set background = 1
 	if(cooldownHandler.len)
 		for(var/datum/ability/a in cooldownHandler)
 			--a.abilityCooldownTimer
@@ -101,6 +95,7 @@ var/list/newErodeLiquids = list()
 		processCooldowns()
 
 /proc/processRegions()
+	set background = 1
 	if(regions.len)
 		for(var/datum/zregion/R in regions)
 			spawn(-1)
@@ -109,6 +104,7 @@ var/list/newErodeLiquids = list()
 		processRegions()
 
 /proc/processObjects()
+	set background = 1
 	if(procObjects.len)
 		for(var/atom/i in procObjects)
 			spawn(1)
@@ -155,7 +151,7 @@ var/list/newErodeLiquids = list()
 //terrain generation
 
 #define lowestChance 1
-#define maxColonists 100
+#define maxColonists 25
 
 /proc/generate(var/zLevel)
 	var/cB = pick(validBiomes)
