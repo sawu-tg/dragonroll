@@ -1,5 +1,12 @@
 /atom
 	var/anchored = FALSE
+	var/reagentSize = 0
+	var/datum/reagent_holder/reagents
+
+/atom/New()
+	..()
+	if(reagentSize > 0)
+		reagents = new(src,reagentSize)
 
 /atom/movable
 	// size and weight determine how difficult it is to pick up and whether the player can throw it far
@@ -16,6 +23,8 @@
 	var/myOldLayer = 0
 	var/myOldPixelY = 0
 	var/prevent_pickup = 0
+
+
 
 	//throwing stuff
 	var/thrown = FALSE

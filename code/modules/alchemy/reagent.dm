@@ -28,3 +28,13 @@ proc/generateReagentList()
 	//returns 1 to implicate that this liquid is burning
 	proc/process_fire()
 		return 0
+
+	//called when a reagent processes on a mob
+	proc/processMob(var/mob/on)
+		holder.removeliquid(id,1)
+		return
+
+	//called when a reagent processes on an obj
+	proc/processObj(var/obj/on)
+		holder.removeliquid(id,1)
+		return

@@ -39,6 +39,12 @@
 	desc = "It courses through your veins."
 	addedstacks = list("poison")
 
+/datum/statuseffect/poison/applyStatus()
+	if(mymob)
+		for(var/datum/organ/O in mymob:playerOrgans)
+			O.health -= rand(1,10)
+	..()
+
 /datum/statuseffect/bolster
 	name = "Bolster"
 	id = "bolster"
@@ -142,6 +148,19 @@ datum/statuseffect/decap/removeStatus()
 	addedstacks = list("wellfed")
 
 /datum/statuseffect/wellfed/removeStatus()
-	mymob:popup(1,COL_INFOTICK)
+	mymob:popup("1hp",COL_INFOTICK)
 	mymob:playerData.hp.change(1)
+	..()
+
+/datum/statuseffect/regenerate
+	name = "Regeneration"
+	id = "wellfed"
+	desc = "You have eaten something delicious, and are restoring over time."
+	addedstacks = list("wellfed")
+
+/datum/statuseffect/regenerate/removeStatus()
+	mymob:popup("1hp",COL_INFOTICK)
+	mymob:playerData.hp.change(1)
+	mymob:popup("1mp",COL_INFOTICK)
+	mymob:playerData.mp.change(1)
 	..()

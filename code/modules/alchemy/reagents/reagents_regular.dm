@@ -8,7 +8,49 @@
 	id = "milk"
 	color = "#FFFFFF"
 
-/datum/reagent/ew
+
+///
+// FOOD REAGENTS
+///
+
+/datum/reagent/nutrients
+	name = "nutrients"
+	id = "nutrient"
+	color = "#333300"
+
+	processMob(var/mob/player/who)
+		who:addStatusEffect(/datum/statuseffect/wellfed,15)
+		..()
+
+
+/datum/reagent/rawess
+	name = "Raw Essence"
+	id = "rawess"
+	color = "#FF3300"
+
+	processMob(var/mob/player/who)
+		who:addStatusEffect(/datum/statuseffect/regenerate,15)
+		..()
+
+/datum/reagent/paratoxin
+	name = "Paralytic Toxin"
+	id = "ptox"
+	color = "#6600FF"
+
+	processMob(var/mob/player/who)
+		who:addStatusEffect(/datum/statuseffect/stun,15)
+		..()
+
+/datum/reagent/neurotoxin
+	name = "Neurotoxin"
+	id = "ntox"
+	color = "#FF00FF"
+
+	processMob(var/mob/player/who)
+		who:addStatusEffect(/datum/statuseffect/poison,15)
+		..()
+
+/*/datum/reagent/ew
 	name = "diluted milk"
 	id = "ew"
 	color = "#FFFFFF55"
@@ -18,4 +60,4 @@
 	id = "ew"
 
 	required_reagents = list("milk" = 2, "water" = 3)
-	produced_reagents = list("ew" = 3,"pyrosium" = 1)
+	produced_reagents = list("ew" = 3,"pyrosium" = 1)*/

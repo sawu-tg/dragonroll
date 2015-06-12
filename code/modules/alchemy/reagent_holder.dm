@@ -258,3 +258,22 @@
 
 		for(var/datum/reagent/l in liquidlist)
 			currentvolume += l.volume
+
+	proc/handle_procs()
+		if(istype(myatom,/mob))
+			for(var/datum/reagent/R in liquidlist)
+				R.processMob(myatom)
+		else if(istype(myatom,/obj))
+			for(var/datum/reagent/R in liquidlist)
+				R.processObj(myatom)
+
+
+/atom/verb/debugChemicals()
+	set name = "Debug Reagents"
+	set category = "Debug Verbs"
+	set src in view()
+
+	for(var/datum/reagent/a in reagents.liquidlist)
+		world << "Reagent [a.name]"
+		world << "> ID: [a.id]"
+		world << "> Vol: [a.volume]"

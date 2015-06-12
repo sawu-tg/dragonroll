@@ -23,11 +23,13 @@
 	var/doesProcessing = TRUE // does the player get added to processing
 	var/hasReroll = TRUE
 	size = 3
+	reagentSize = 100
 	weight = 5
 	var/actualSpeed = 1 //the actual speed
 	var/speed = 1 // the speed they move at
 
 /mob/player/New()
+	..()
 	if(doesProcessing)
 		addProcessingObject(src)
 	//selectedQuickSlot = leftHand

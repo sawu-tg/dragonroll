@@ -46,6 +46,8 @@
 
 	var/turf/floor/outside/liquid/L = loc
 
+	reagents.handle_procs()
+
 	if(shouldDrown != inWater || (istype(L) && pixel_z != -L.depth))
 		var/new_z = 0
 

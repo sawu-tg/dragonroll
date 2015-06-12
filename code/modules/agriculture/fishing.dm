@@ -51,3 +51,11 @@
 /obj/item/food/fish/New()
 	..()
 	icon_state = "[pick("blue","red","green","orange","pink","dark")]fish"
+	var/extraType = pick(/datum/reagent/nutrients,/datum/reagent/rawess,/datum/reagent/paratoxin,/datum/reagent/neurotoxin)
+	var/datum/reagent/RE = new extraType
+	reagents.addliquid(RE.id, rand(1,5))
+	for(var/datum/reagent/R in reagents.liquidlist)
+		if(R.id == "ntox" || R.id == "ptox")
+			name = "Bitter [name]"
+		if(R.id == "rawess")
+			name = "Fey [name]"

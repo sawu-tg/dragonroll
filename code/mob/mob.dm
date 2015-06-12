@@ -19,6 +19,7 @@
 	prevent_pickup = TRUE
 
 /mob/New()
+	..()
 	spawn(1)
 		makeSlotsFromRace(new/datum/race)
 		spawn(1)
