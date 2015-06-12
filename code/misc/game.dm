@@ -107,6 +107,18 @@ var/list/alldirs = list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAS
 			visited |= call(adjacency)(T)
 		i++
 
+proc/pickweight(list/L)
+	var/total = 0
+	var/item
+	for(item in L)
+		if(!L[item]) L[item] = 1
+		total += L[item]
+		total=rand(1, total)
+	for(item in L)
+		total-=L[item]
+		if(total <= 0) return item
+	return null
+
 /proc/circle(turf/source,radius=1,var/expensive = FALSE)
 	var/list/l = list()
 	var/rsq = radius * (radius+0.50)

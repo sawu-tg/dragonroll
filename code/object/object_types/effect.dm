@@ -14,12 +14,15 @@
 	procTime = length
 	addProcessingObject(src)
 
+/obj/effect/proc/onDestroy()
+
 /obj/effect/doProcess()
 	if(procTime <= 0)
 		if(repeat && repeatCounter < repeatTimes)
 			procTime = length
 			++repeatCounter
 		else
+			onDestroy()
 			del(src)
 	else
 		--procTime

@@ -137,7 +137,6 @@
 
 /obj/effect/overlay/beam/New()
 	..()
-	spawn(10) del(src)
 
 /*
 Beam code by Gunbuddy
@@ -148,7 +147,7 @@ Also, the icon used for the beam will have to be vertical and 32x32.
 The math involved assumes that the icon is vertical to begin with so unless you want to adjust the math,
 its easier to just keep the beam vertical.
 */
-/atom/proc/Beam(atom/BeamTarget,icon_state="r_beam",icon='sprite/obj/beam.dmi',time=50, maxdistance=10)
+/atom/proc/Beam(atom/BeamTarget,icon_state="r_beam",icon='sprite/obj/beam.dmi',time=50, maxdistance=100)
 	//BeamTarget represents the target for the beam, basically just means the other end.
 	//Time is the duration to draw the beam
 	//Icon is obviously which icon to use for the beam, default is beam.dmi
