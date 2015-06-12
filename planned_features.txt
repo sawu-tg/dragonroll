@@ -34,7 +34,7 @@ Generation
 	* pre-generated villages and landmarks
 	
 Extra gubbins
-	* Fishing for food and loot
+	* More fish, and liquid specific fish (as well as special fish, ie poisonous)
 	* More items
 	* More crap to craft
 	* More NPCs
