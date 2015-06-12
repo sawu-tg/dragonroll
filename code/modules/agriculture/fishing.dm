@@ -35,7 +35,7 @@
 	messageInfo("You reel in a [catch]",fisherman,src)
 
 /turf/floor/outside/liquid
-	var/list/fishables = list(/obj/item/food/fish = 100)
+	var/list/fishables = list(/obj/item/food/fish = 50, /obj/item/food/fish/squid = 50, /obj/item/food/fish/urchin = 25, /obj/item/food/fish/clam = 25, /obj/item/food/fish/shrimp = 75,/obj/item/food/fish/lobster = 15,/obj/item/food/fish/crab = 15)
 
 
 ///
@@ -44,13 +44,13 @@
 
 /obj/item/food/fish
 	name = "Fish"
-	desc = "Floats and glubs"
+	desc = "Floats and glubs."
 	icon = 'sprite/obj/fish.dmi'
-	icon_state = "bluefish"
+	icon_state = "fish"
 
 /obj/item/food/fish/New()
 	..()
-	icon_state = "[pick("blue","red","green","orange","pink","dark")]fish"
+	color = rgb(rand(20,255),rand(20,255),rand(20,255))
 	var/extraType = pick(/datum/reagent/nutrients,/datum/reagent/rawess,/datum/reagent/paratoxin,/datum/reagent/neurotoxin)
 	var/datum/reagent/RE = new extraType
 	reagents.addliquid(RE.id, rand(1,5))
@@ -59,3 +59,33 @@
 			name = "Bitter [name]"
 		if(R.id == "rawess")
 			name = "Fey [name]"
+
+/obj/item/food/fish/squid
+	name = "Squid"
+	desc = "Bobs and Blibs."
+	icon_state = "squid"
+
+/obj/item/food/fish/urchin
+	name = "Urchin"
+	desc = "Like a sea-mine."
+	icon_state = "urchin"
+
+/obj/item/food/fish/clam
+	name = "Clam"
+	desc = "Portable sea-food in it's own packaging."
+	icon_state = "clam"
+
+/obj/item/food/fish/shrimp
+	name = "Shrimp"
+	desc = "It's other home is a barbeque."
+	icon_state = "shrimp"
+
+/obj/item/food/fish/lobster
+	name = "Lobster"
+	desc = "Pinchy!"
+	icon_state = "lobster"
+
+/obj/item/food/fish/crab
+	name = "Crab"
+	desc = "Pinchy Jr."
+	icon_state = "crab"
