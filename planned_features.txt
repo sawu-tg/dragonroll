@@ -11,6 +11,7 @@ Crafting
 	* Seperate into seperate sub-skills (woodcrafting, enchanting, leatherworking)
 	* Enchanting system (adds stats + overlay)
 	* Custom item crafting (choose hilt/blade/shaft etc of items crafted and colors to material)
+	* Add/expand cooking/baking etc, make very deep.
 	
 NPCs
 	* Redo AI
@@ -33,6 +34,7 @@ Generation
 	* pre-generated villages and landmarks
 	
 Extra gubbins
+	* Fishing for food and loot
 	* More items
 	* More crap to craft
 	* More NPCs
