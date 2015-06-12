@@ -79,9 +79,9 @@
 	else
 		var/realDamage = victim.takeDamage(damage)
 		if(realDamage > 0)
-			displayInfo("You [attackString] for [realDamage]HP (1d[damage]-[def])","[attacker] hits [victim] for [realDamage]HP (1d[damage]-[def])",attacker,victim,"red")
+			messageArea("You [attackString] for [realDamage]HP (1d[damage]-[def])","[attacker] hits [victim] for [realDamage]HP (1d[damage]-[def])",attacker,victim,"red")
 		else
-			displayInfo("Your blow only glances! (1d[damage]-[def])","[attacker] hits [victim] with a glancing blow! (1d[damage]-[def])",attacker,victim,"green")
+			messageArea("Your blow only glances! (1d[damage]-[def])","[attacker] hits [victim] with a glancing blow! (1d[damage]-[def])",attacker,victim,"green")
 
 /mob/proc/intent2string()
 	if(intent == 1)
@@ -94,9 +94,9 @@
 /mob/objFunction(var/mob/user,var/obj/inHand)
 	if(user.intent == INTENT_HELP)
 		if(user == src)
-			displayTo("You brush yourself off",src,src)
+			messagePlayer("You brush yourself off",src,src)
 		else
-			displayInfo("You hug [src]","[user] hugs [src]",user,src)
+			messageArea("You hug [src]","[user] hugs [src]",user,src)
 	if(user.intent == INTENT_HARM)
 		processAttack(user,src)
 

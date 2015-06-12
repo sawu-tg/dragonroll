@@ -32,7 +32,7 @@
 /mob/player/proc/takeToActiveHand(var/obj/item/what)
 	if(selectedSlot.contents.len <= 0)
 		if(selectedSlot.blocked)
-			displayTo("Your active hand is unavailable!",src,what)
+			messagePlayer("Your active hand is unavailable!",src,what)
 			return
 		what.loc = selectedSlot
 
@@ -41,4 +41,4 @@
 	if(hand)
 		what.loc = hand
 	else
-		displayTo("You have no available hand to take [what]",src,what)
+		messagePlayer("You have no available hand to take [what]",src,what)

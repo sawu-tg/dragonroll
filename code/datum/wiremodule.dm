@@ -75,8 +75,6 @@ datum/wirenode
 		set_value(value)
 
 		if(direct)
-			world << "connecting other side"
-
 			othernode.connect(src,0)
 
 	proc/disconnect(var/datum/wirenode/othernode,var/direct = 1)

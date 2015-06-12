@@ -226,9 +226,6 @@
 	for(var/slotid in slots)
 		if(slotid in slots)
 			continue
-
-		world << "get rid of [slotid]"
-
 		slots.Remove(slotid)
 
 	selectedSlot = getFreeHand()

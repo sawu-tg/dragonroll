@@ -69,9 +69,6 @@
 
 /obj/structure/powered/light/proc/updateIcon()
 	overlays -= tubeoverlay
-
-	world << "ntube[powerOn]"
-
 	icon_state = "ntube"
 
 	if(!tubeoverlay)
@@ -143,4 +140,4 @@
 		WT.default_wire_action(user,wires)
 	else
 		set_on(!on)
-		user << "You flip [src]."
+		messageInfo("You flip [src].",user,src)

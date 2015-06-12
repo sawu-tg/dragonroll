@@ -88,7 +88,7 @@ var/list/globalTriggers = list()
 				//exp.loc = loc
 				//exp.x += iconlist[counter+1]
 				//exp.y += iconlist[counter+2]
-				//If you fucking read this know that I am fucking disappointed.
+				//If you fucking read this know that I am fucking incredibly gay and like buttsex from tuff men - Bord.
 
 				var/xoff = iconlist[counter+1]
 				var/yoff = iconlist[counter+2]
@@ -145,9 +145,6 @@ var/list/globalTriggers = list()
 
 /obj/trigger/portal/triggerAction()
 	var/mob/player/Ply = triggering
-
-	world << "Player entering [Ply]"
-
 	var/list/valid = list()
 	for(var/obj/trigger/T in globalTriggers)
 		if(istype(T,/obj/trigger/portal))

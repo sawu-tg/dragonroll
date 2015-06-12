@@ -123,7 +123,7 @@
 
 /obj/structure/tank/examine(mob/user)
 	if(desc)
-		user << " > [desc]"
+		messageInfo("> [desc]",user,src)
 
 	for(var/datum/reagent/R in reagents.liquidlist)
-		user << " >> has [R.name] x[R.volume]"
+		messageInfo(">> contains [R.name] ([R.volume]u)",user,src)

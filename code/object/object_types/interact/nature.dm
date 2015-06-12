@@ -8,7 +8,7 @@
 
 /obj/interact/nature/objFunction(var/mob/user)
 	if(numOfHarvests > 0)
-		displayTo("You harvest some things from the [src]!",user,src)
+		messagePlayer("You harvest some things from the [src]!",user,src)
 		for(var/a in harvestables)
 			for(var/i = 0; i < harvestables[a]; i++)
 				new a(user.loc)
@@ -55,7 +55,7 @@
 
 /obj/interact/nature/tree/objFunction(var/mob/user)
 	..()
-	displayTo("The [src] collapses!",user,src)
+	messagePlayer("The [src] collapses!",user,src)
 	del(src)
 
 /obj/interact/nature/tree/New()

@@ -189,7 +189,7 @@
 		if(lifted.anchored || lifted == carrying || lifted.carriedBy == src)
 			return
 		if(!Adjacent(lifted))
-			displayTo("[lifted] is too far away!",src,lifted)
+			messagePlayer("[lifted] is too far away!",src,lifted)
 			return
 		if(do_roll(1,20,playerData.str.statCurr) >= lifted.weight + lifted.size)
 			lifted.myOldLayer = lifted.layer
@@ -201,7 +201,7 @@
 			carrying = lifted
 			addProcessingObject(lifted)
 		else
-			displayTo("You can't quite seem to pick [lifted] up!",src,lifted)
+			messagePlayer("You can't quite seem to pick [lifted] up!",src,lifted)
 
 /mob/player/verb/throwObj()
 	set name = "Throw/Kick Object"
@@ -230,7 +230,7 @@
 	set name = "Drop Held Object"
 	set src = usr
 	if(carrying)
-		displayInfo("You drop the [carrying]!","[src] drops the [carrying]!",src,carrying)
+		messageArea("You drop the [carrying]!","[src] drops the [carrying]!",src,carrying)
 		carrying.beDropped()
 
 ///
@@ -244,7 +244,7 @@
 		intent++
 	else
 		intent = 1
-	displayTo("Your intent is now [intent2string()]",src,src)
+	messagePlayer("Your intent is now [intent2string()]",src,src)
 
 /mob/player/verb/leap()
 	set hidden = 1

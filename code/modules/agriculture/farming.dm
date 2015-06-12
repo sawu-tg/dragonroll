@@ -109,7 +109,7 @@
 
 /obj/item/weapon/tool/hoe/onUsed(var/mob/user,var/atom/onWhat)
 	if(istype(onWhat,/turf/floor/outside/grass))
-		user << "You till the soil!"
+		messageInfo("You till the soil!",user,src)
 		onWhat = new/turf/floor/outside/farm(get_turf(onWhat))
 		onWhat:updateOverlay()
 
@@ -120,8 +120,13 @@
 
 /obj/item/weapon/tool/shovel/onUsed(var/mob/user,var/atom/onWhat)
 	if(istype(onWhat,/turf/floor/outside/grass) || istype(onWhat,/turf/floor/outside/dirt) || istype(onWhat,/turf/floor/outside/snow))
-		user << "You dig a channel in the soil!"
+		messageInfo("You dig a channel in the soil!",user,src)
 		onWhat = new/turf/floor/outside/waterChannel(get_turf(onWhat))
+	if(istype(onWhat,/turf/floor/outside/farm))
+		if(onWhat:FG)
+			messageInfo("You uproot the plant!",user,src)
+			onWhat:FG = null
+			onWhat:updateOverlay()
 
 /turf/floor/outside/waterChannel
 	name = "Channel"

@@ -62,17 +62,17 @@
 
 	if(shouldDrown)
 		if(prob(5))
-			displayInfo("You are [liquidVerb]!","[src] screams!",src,src)
+			messageArea("You are [liquidVerb]!","[src] screams!",src,src)
 			takeDamage(liquidDamage,DTYPE_DIRECT)
 
 	if(checkEffectStack("poison"))
 		if(prob(5))
-			displayInfo("You are poisoned!","[src] shudders and wretches",src,src)
+			messageArea("You are poisoned!","[src] shudders and wretches",src,src)
 			takeDamage(1,DTYPE_DIRECT)
 	if(playerData.hp.statCurr < 0 && playerData.hp.statCurr > playerData.hp.statMin)
 		if(lastBleed <= 0)
 			takeDamage(1,DTYPE_DIRECT)
-			displayInfo("You are bleeding out.","[src] is bleeding out.",src,src)
+			messageArea("You are bleeding out.","[src] is bleeding out.",src,src)
 			lastBleed = BLEEDING_INTERVAL
 		else
 			lastBleed--

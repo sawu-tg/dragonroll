@@ -9,7 +9,7 @@
 
 /obj/item/mob_spawner/objFunction(var/mob/user)
 	var/mob/m = new spawned_mob(user.loc)
-	user << "You pull a [m.name] from the bag!"
+	messageInfo("You pull a [m.name] from the bag!",user,src)
 	return
 
 /obj/item/mob_spawner/genie

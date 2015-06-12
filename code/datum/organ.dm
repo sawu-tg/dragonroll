@@ -14,12 +14,12 @@
 	if(toOwner)
 		owner = toOwner
 	else
-		world << "Warning: Limb made without owner!"
+		messageSystemAll("Warning: Limb made without owner!")
 	var/icon/I = getfile("sprite/mob/dismemberment/r_def_[lowertext(race.raceName)].dmi")
 	if(I)
 		icon = I
 	else
-		world << "<b>INVALID:</b> sprite/mob/dismemberment/r_def_[lowertext(race.raceName)].dmi"
+		messageSystemAll("<b>INVALID:</b> sprite/mob/dismemberment/r_def_[lowertext(race.raceName)].dmi")
 
 /mob/player/verb/debugOrgans()
 	set category = "Debug Verbs"
