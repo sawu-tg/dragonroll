@@ -1,4 +1,6 @@
-var/list/deleted = list()
+var/global/list/deleted = list()
+var/global/totalSDeletions = 0
+var/global/failedSDeletions = 0
 
 /datum
 	var/garbageCollecting = FALSE
@@ -13,6 +15,7 @@ var/list/deleted = list()
 	if(!what || what.garbageCollecting)
 		return
 	deleted += what
+	totalSDeletions++
 	what.garbageCollecting = TRUE
 	what.garbageTime = world.time
 	what.garbageCleanup()
@@ -29,6 +32,8 @@ var/list/deleted = list()
 	loc = null
 
 
+
+
 //Garbage collection controller
 /datum/controller/sdel
 	name = "Garbage"
@@ -36,10 +41,10 @@ var/list/deleted = list()
 	var/list/deletePass = list()
 
 datum/controller/sdel/Stat()
-	stat("<b>[name]</b> | [round(cost,0.001)]ds | (CPU:[round(cpu,1)]%) (Left: [deleted.len])")
+	stat("<b>[name]</b> | [round(cost,0.001)]ds | (CPU:[round(cpu,1)]%) | (Left: [deleted.len]) | (Failed: [getSDelFailures()])")
 
 datum/controller/sdel/getStat()
-	return "<b>[name]</b> | [round(cost,0.001)]ds | (CPU:[round(cpu,1)]%) (Left: [deleted.len])"
+	return "<b>[name]</b> | [round(cost,0.001)]ds | (CPU:[round(cpu,1)]%) | (Left: [deleted.len]) | (Failed: [getSDelFailures()])"
 
 /datum/controller/sdel/doProcess()
 	set background = 1
@@ -47,7 +52,19 @@ datum/controller/sdel/getStat()
 	for(var/datum/D in deleted)
 		if(D.garbageTime && ((D.garbageTime + GARBAGE_PATIENCE) < world.time)) //Only hard-delete if necessary
 			deleted -= D
+			failedSDeletions++
 			spawn(deleted.len)
 				del(D)
 
 	scheck()
+
+
+/proc/getSDelFailures()
+	. = 0
+	if(failedSDeletions && totalSDeletions)
+		. = failedSDeletions/totalSDeletions
+
+	. = "[.*100]%"
+
+
+
