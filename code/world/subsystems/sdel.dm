@@ -1,14 +1,35 @@
 var/list/deleted = list()
 
-/proc/sdel(var/what)
-	if(!what)
+/datum
+	var/garbageCollecting = FALSE
+	var/garbageTime = 0
+
+
+#define GARBAGE_PATIENCE	30 //How long a datum is allowed to sit in limbo before we hard-delete it
+
+
+//Call this on a datum to start GCing it
+/proc/sdel(var/datum/what)
+	if(!what || what.garbageCollecting)
 		return
 	deleted |= what
-	if(istype(what,/obj) || istype(what,/mob))
-		spawn(5)
-			if(what) // make sure we haven't already been collected
-				what:loc = null
+	what.garbageCollecting = TRUE
+	what.garbageTime = world.time
+	what.garbageCleanup()
 
+
+//Called when this datum is being garbage collected
+//use this to cleanup any references to this datum
+//so it GCs correctly
+/datum/proc/garbageCleanup()
+	return
+
+/atom/movable/garbageCleanup()
+	..()
+	loc = null
+
+
+//Garbage collection controller
 /datum/controller/sdel
 	name = "Garbage"
 	execTime = 2.5
@@ -22,9 +43,11 @@ datum/controller/sdel/getStat()
 
 /datum/controller/sdel/doProcess()
 	set background = 1
-	deletePass = deleted.Copy(0,deleted.len)
-	for(var/A in deletePass)
-		deleted -= A
-		spawn(deleted.len)
-			del(A)
+
+	for(var/datum/D in deleted)
+		if(D.garbageTime && ((D.garbageTime + GARBAGE_PATIENCE) < world.time)) //Only hard-delete if necessary
+			deleted -= D
+			spawn(deleted.len)
+				del(D)
+
 	scheck()
