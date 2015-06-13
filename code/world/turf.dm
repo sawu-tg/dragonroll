@@ -117,6 +117,7 @@
 		if(T)
 			if(!istype(T))
 				surrounddepth = min(surrounddepth,5)
+				break
 			else
 				surrounddepth = min(surrounddepth,T.depth+cost)
 				tiles_to_activate |= T

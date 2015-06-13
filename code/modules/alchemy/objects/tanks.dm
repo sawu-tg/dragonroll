@@ -4,6 +4,7 @@
 	icon_state = "tank"
 	density = 1
 	opacity = 0
+	anchored = 0
 
 	var/liquidid
 	var/glasscolor = "#66FFFF33"
