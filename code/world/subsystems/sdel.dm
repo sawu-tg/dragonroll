@@ -12,7 +12,7 @@ var/list/deleted = list()
 /proc/sdel(var/datum/what)
 	if(!what || what.garbageCollecting)
 		return
-	deleted |= what
+	deleted += what
 	what.garbageCollecting = TRUE
 	what.garbageTime = world.time
 	what.garbageCleanup()
