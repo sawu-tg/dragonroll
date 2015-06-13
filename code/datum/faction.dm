@@ -17,6 +17,8 @@
 // Checks whether a faciton is friendly to the given faction
 ///
 /datum/faction/proc/isFriendly(var/datum/faction/F)
+	if(F.name == name)
+		return TRUE
 	for(var/datum/faction/FA in friendlyTo)
 		if(FA.name == F.name)
 			return TRUE

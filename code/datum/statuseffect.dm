@@ -89,11 +89,6 @@
 		mymob = target
 		applytime = world.time
 
-	Del()
-		if(!removed)
-			messageSystemAll("HONK, STATUS EFFECT WAS DELETED WITHOUT REMOVING IT FIRST")
-		..()
-
 	proc/setTime(var/time)
 		if(!time)
 			flags &= ~STATUS_TIMED

@@ -36,7 +36,11 @@
 			var/mob/player/P = what
 			if(effect)
 				P.addStatusEffect(effect,effectLength)
-			P.takeDamage(damage,DTYPE_DIRECT)
+			if(damage > 0)
+				P.popup(damage,COL_FRIENDLY)
+				P.playerData.hp.change(damage)
+			else
+				P.takeDamage(damage,DTYPE_DIRECT)
 			hit = TRUE
 	sdel(src)
 

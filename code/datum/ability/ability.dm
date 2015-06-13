@@ -41,13 +41,14 @@
 ///
 // Tests if the ability can be casted, and then casts it.
 ///
-/datum/ability/proc/tryCast(var/mob/player/caster,var/target)
+/datum/ability/proc/tryCast(var/caster,var/target)
 	if(!caster)
 		return
 	if(!target)
 		return
 	if(canCast(caster))
-		caster.playerData.mp.change(abilityLevel * abilityManaMod)
+		if(istype(caster,/mob/player))
+			caster:playerData.mp.change(abilityLevel * abilityManaMod)
 		preCast(caster,target)
 		Cast(caster,target)
 		postCast(caster,target)
@@ -55,11 +56,13 @@
 ///
 // Checks if the player is able to cast the ability
 ///
-/datum/ability/proc/canCast(var/mob/player/checked)
+/datum/ability/proc/canCast(var/checked)
 	if(abilityCooldownTimer <= 0)
-		var/datum/stat/checkStat = checked.playerData.playerStats[skillStatIndex]
+		if(!istype(checked,/mob/player))
+			return TRUE
+		var/datum/stat/checkStat = checked:playerData.playerStats[skillStatIndex]
 		if(do_roll(skillStatDifficultyLower,skillStatDifficultyUpper,checkStat.statCurr) >= skillStatMin)
-			if(checked.playerData.mp.statCurr >= abilityLevel * abilityManaMod)
+			if(checked:playerData.mp.statCurr >= abilityLevel * abilityManaMod)
 				return TRUE
 			else
 				messagePlayer("You don't have enough mana to cast the spell!",checked,checked)
@@ -67,7 +70,7 @@
 			if(abilityHasPenalty)
 				abilityCooldownTimer = abilityCooldown/abilityFizzlePenalty
 			if(!suppressMessage)
-				messageArea("You try to cast [name], but it fizzles!","[checked.name] attempts to cast [name], but it fizzles!",checked,image(abilityIcon,icon_state=abilityState))
+				messageArea("You try to cast [name], but it fizzles!","[checked:name] attempts to cast [name], but it fizzles!",checked,image(abilityIcon,icon_state=abilityState))
 			return FALSE
 
 ///

@@ -69,3 +69,41 @@
 	icon_state = "oldwood"
 	base_state = "oldwood"
 	doorToggleTime = 10
+
+
+///
+// RANDOM STRUCTURE GUBBINS
+///
+
+/obj/structure/magicbarrel
+	name = "magical barrel"
+	desc = "what's in here?"
+	icon = 'sprite/obj/alchemy/barrel.dmi'
+	icon_state = "barrel"
+	var/list/containedTypes
+
+/obj/structure/magicbarrel/objFunction(var/mob/user)
+	if(containedTypes)
+		var/toSpawn = input(user,"Pick what?") as null|anything in containedTypes
+		if(toSpawn)
+			new toSpawn(get_turf(user))
+
+
+/obj/structure/magicbarrel/seeds
+	name = "Seed Barrel"
+	desc = "A big barrel of seeds!"
+	containedTypes = list(/obj/item/seedpack)
+
+/obj/structure/magicbarrel/food
+	name = "Food Barrel"
+	desc = "A big barrel of food!"
+
+/obj/structure/magicbarrel/food/New()
+	containedTypes = typesof(/obj/item/food) - /obj/item/food
+
+/obj/structure/magicbarrel/tools
+	name = "Tool and Weapon Barrel"
+	desc = "A big barrel of hitting things!"
+
+/obj/structure/magicbarrel/tools/New()
+	containedTypes = typesof(/obj/item/weapon) - /obj/item/weapon

@@ -133,8 +133,9 @@
 		for(var/datum/organ/O in playerOrgans)
 			if(do_roll(1,playerData.con.statModified,playerData.str.statCurr) < damage)
 				O.health -= damage
+				var/heldName = O.name
 				spawn(rand(1,30))
-					src.popup("[O.name] takes [damage] damage!",COL_HOSTILE)
+					src.popup("[heldName] takes [damage] damage!",COL_HOSTILE)
 		var/dyingtype
 
 		if(playerData.hp.statCurr == 0)
@@ -163,6 +164,10 @@
 	if(checkEffectStack("no_move"))
 		return TRUE
 	if(checkEffectStack("no_act"))
+		return TRUE
+	if(checkEffectStack("dying"))
+		return TRUE
+	if(checkEffectStack("dead"))
 		return TRUE
 	return FALSE
 
