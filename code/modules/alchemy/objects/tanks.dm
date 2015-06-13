@@ -8,7 +8,6 @@
 
 	var/liquidid
 	var/glasscolor = "#66FFFF33"
-	var/datum/reagent_holder/reagents
 
 	var/image/fill
 	var/image/glass

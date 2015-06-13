@@ -6,8 +6,8 @@
 	controllers |= C
 	interval = Gcd(C.execTime, interval)
 	interval = round(interval)
-
 	C.Initialize()
+	return C
 
 /proc/isRunningSafe(var/what)
 	if(CS)

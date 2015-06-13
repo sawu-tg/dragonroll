@@ -7,7 +7,7 @@
 	var/inDPSLiquid = FALSE
 	var/liquidVerb = ""
 	var/liquidDamage = 0
-	var/datum/statuseffect/drowning/drownEffect = new
+	var/datum/statuseffect/suffocating/drownEffect = new
 
 /mob/player/proc/processOrgans()
 	for(var/O in playerOrgans)
@@ -45,6 +45,8 @@
 	var/shouldDrown = checkStatusEffect(drownEffect) > 0
 
 	var/turf/floor/outside/liquid/L = loc
+
+	reagents.handle_procs()
 
 	if(shouldDrown != inWater || (istype(L) && pixel_z != -L.depth))
 		var/new_z = 0

@@ -76,6 +76,6 @@
 		messagePlayer("You harvest some logs from [src]",user,src)
 		for(var/i = 0; i < 4; ++i)
 			new/obj/item/loot/processed/wood(user.loc)
-		del(src)
+		sdel(src)
 	else
 		..()

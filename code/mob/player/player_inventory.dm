@@ -22,14 +22,20 @@
 		return what
 
 /mob/player/proc/activeHandEmpty()
+	if(!selectedSlot)
+		return
 	return selectedSlot.contents.len > 0 ? FALSE : TRUE
 
 /mob/player/proc/activeHand()
+	if(!selectedSlot)
+		return
 	if(selectedSlot.contents.len > 0)
 		return selectedSlot.contents[1]
 	return null
 
 /mob/player/proc/takeToActiveHand(var/obj/item/what)
+	if(!selectedSlot)
+		return
 	if(selectedSlot.contents.len <= 0)
 		if(selectedSlot.blocked)
 			messagePlayer("Your active hand is unavailable!",src,what)

@@ -43,3 +43,13 @@
 	if(istype(L))
 		return 1
 	return 0
+
+proc/shuffle(list/givenList)
+	. = givenList
+	var/nextElement
+	for(var/i = 1; i <= givenList.len; i++)
+		nextElement = rand(1, givenList.len - i)
+		nextElement = givenList[nextElement]
+		. -= nextElement
+		. += nextElement
+	return .

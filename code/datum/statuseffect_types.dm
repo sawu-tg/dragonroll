@@ -22,10 +22,10 @@
 	desc = "Not really that dead yet."
 	addedstacks = list("laydown")
 
-/datum/statuseffect/drowning
-	name = "Drowning"
+/datum/statuseffect/suffocating
+	name = "Suffocating"
 	id = "drown"
-	desc = "Underwater and dying."
+	desc = "Suffocating from something."
 
 /datum/statuseffect/stun
 	name = "Stunned"
@@ -38,6 +38,12 @@
 	id = "poison"
 	desc = "It courses through your veins."
 	addedstacks = list("poison")
+
+/datum/statuseffect/poison/applyStatus()
+	if(mymob)
+		for(var/datum/organ/O in mymob:playerOrgans)
+			O.health -= rand(1,10)
+	..()
 
 /datum/statuseffect/bolster
 	name = "Bolster"
@@ -142,6 +148,19 @@ datum/statuseffect/decap/removeStatus()
 	addedstacks = list("wellfed")
 
 /datum/statuseffect/wellfed/removeStatus()
-	mymob:popup(1,COL_INFOTICK)
+	mymob:popup("1hp",COL_INFOTICK)
 	mymob:playerData.hp.change(1)
+	..()
+
+/datum/statuseffect/regenerate
+	name = "Regeneration"
+	id = "regenfed"
+	desc = "You have eaten something delicious, and are restoring over time."
+	addedstacks = list("wellfed")
+
+/datum/statuseffect/regenerate/removeStatus()
+	mymob:popup("1hp",COL_INFOTICK)
+	mymob:playerData.hp.change(1)
+	mymob:popup("1mp",COL_INFOTICK)
+	mymob:playerData.mp.change(1)
 	..()

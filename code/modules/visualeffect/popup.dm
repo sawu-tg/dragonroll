@@ -90,7 +90,7 @@
 	animate(I, pixel_z = 50, alpha = 0, time = fadetime)
 
 	spawn(fadetime)
-		del(I)
+		sdel(I)
 
 
 /mob/verb/popup_anything()

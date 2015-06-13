@@ -6,7 +6,7 @@
 			var/datum/windowpane/pane = panes[paneid]
 
 			if(pane)
-				del(pane)
+				sdel(pane)
 
 		..()
 

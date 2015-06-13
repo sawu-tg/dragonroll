@@ -11,8 +11,9 @@
 
 /obj/effect/New()
 	..()
-	procTime = length
-	addProcessingObject(src)
+	if(length > 0)
+		procTime = length
+		addProcessingObject(src)
 
 /obj/effect/proc/onDestroy()
 
@@ -23,7 +24,7 @@
 			++repeatCounter
 		else
 			onDestroy()
-			del(src)
+			sdel(src)
 	else
 		--procTime
 
@@ -44,7 +45,7 @@
 	if(istype(what,/mob/player))
 		var/mob/player/P = what
 		P.playerData.hp.change(damage)
-	del(src)
+	sdel(src)
 
 /obj/effect/aoe_tile/Bump(var/atom/what)
 	..()
@@ -80,7 +81,7 @@
 	if(istype(what,/mob/player))
 		var/mob/player/P = what
 		P.addStatusEffect(/datum/statuseffect/bolster,length)
-	del(src)
+	sdel(src)
 
 /obj/effect/target
 	name = "Targeted"
@@ -146,3 +147,11 @@
 	repeat = FALSE
 	icon = 'sprite/obj/tg_effects/effects.dmi'
 	icon_state = "sparks"
+
+/obj/effect/shield
+	name = "Mana Shield"
+	desc = "Magical problems for Magical issues."
+	length = 4.05
+	repeat = FALSE
+	icon = 'sprite/obj/tg_effects/effects.dmi'
+	icon_state = "shield"

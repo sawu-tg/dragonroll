@@ -7,8 +7,12 @@
 
 	var/wander = TRUE
 	var/wanderFuzziness = 15 // how high "timeSinceLast" should reach before wandering again
-	var/attackFuzziness = 25
 	var/wanderRange = 2
+
+	var/attackFuzziness = 25
+	var/nextAttack = 0
+
+	var/npcAbilityProb = 25 // the chance an NPC will select an ability to use
 
 	var/npcMaxWait = 5 //maximum time to wait in certain actions, before reverting to idle
 
@@ -40,6 +44,15 @@
 		raceChange(/datum/race/Beast,TRUE)
 	globalNPCs |= src
 
+	///
+	// NPCs are totes omnipotent
+	///
+	for(var/A in typesof(/datum/ability) - list(/datum/ability,/datum/ability/gigaheal,/datum/ability/gigabeam))
+		playerData.playerAbilities += A
+
+/mob/player/npc/Del()
+	globalNPCs -= src
+	..()
 
 /mob/player/npc/verb/debug()
 	set src in range(7)
@@ -88,11 +101,13 @@
 	npcState = state
 
 /mob/player/npc/proc/updateLocation()
-	if(lastPos != loc)
-		actualView = oview(src,world.view)
-		inView = oview(src,wanderRange)
-		inRange = orange(src,wanderRange)
-		lastPos = loc
+	set background = 1
+	spawn(1)
+		if(lastPos != loc)
+			actualView = oview(src,world.view)
+			inView = oview(src,wanderRange)
+			inRange = orange(src,wanderRange)
+			lastPos = loc
 
 /mob/player/npc/proc/processTargets()
 	for(var/a in actualView)
@@ -112,7 +127,7 @@
 			var/t = processTargets()
 			if(t)
 				target = t
-				npcState = NPCSTATE_FIGHTING
+				changeState(NPCSTATE_FIGHTING)
 				timeSinceLast = 0
 
 /mob/player/npc/proc/npcMove()
@@ -120,19 +135,53 @@
 		MoveTo(target)
 		checkTimeout()
 
+/mob/player/npc/proc/getCastableSpell(var/range)
+	shuffle(playerData.playerAbilities)
+	for(var/A in playerData.playerAbilities)
+		if(prob(npcAbilityProb))
+			return A
+	return null
+
+/mob/player/npc/proc/npcReset()
+	timeSinceLast = 0
+	nextAttack = 0
+	target = null
+	changeState(NPCSTATE_IDLE)
+
 /mob/player/npc/proc/npcCombat()
 	var/obj/item/AH = activeHand()
 	if(AH)
 		wanderRange = AH:range
 	else
 		wanderRange = initial(wanderRange)
-	if(npcNature == NPCTYPE_PASSIVE)
-		return
+	var/distTo = get_dist(src,target)
 	if(npcState == NPCSTATE_FIGHTING)
 		if(target)
-			if(timeSinceLast >= attackFuzziness)
-				if(istype(target,/mob/player))
-					if(get_dist(src,target) < wanderRange && target:playerData.hp.statModified > 0)
+			if(target:checkEffectStack("dead"))
+				npcReset()
+			if(world.time >= nextAttack)
+				var/A = getCastableSpell(distTo)
+				var/datum/ability/C
+				if(!ispath(A))
+					C = A
+				else
+					C = new A
+				spawn(1)
+					if(!target)
+						npcReset()
+						return
+					if(C)
+						if(C.abilityRange <= distTo)
+							changeState(NPCSTATE_MOVE)
+						else if(C.abilityModifier >= 0)
+							C.tryCast(src,src)
+						else
+							C.tryCast(src,target)
+				spawn(1)
+					if(!target)
+						npcReset()
+						return
+					if(distTo < wanderRange)
 						intent = INTENT_HARM
 						if(AH)
 							if(AH.range <= 1)
@@ -141,7 +190,10 @@
 								AH.onUsed(src,target)
 						else
 							target:objFunction(src)
+					else
+						changeState(NPCSTATE_MOVE)
 				timeSinceLast = 0
+				nextAttack = world.time + attackFuzziness
 
 /mob/player/npc/processAttack(var/mob/player/a,var/mob/player/v)
 	..(a,v)
@@ -154,8 +206,9 @@
 	if(isDisabled())
 		npcState = NPCSTATE_IDLE
 		return
-	updateLocation()
-	npcIdle()
-	npcMove()
-	npcCombat()
+	else
+		updateLocation()
+		npcIdle()
+		npcMove()
+		npcCombat()
 	timeSinceLast++

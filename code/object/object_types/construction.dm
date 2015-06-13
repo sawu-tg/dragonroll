@@ -22,7 +22,7 @@
 		attempt = buildAt(get_turf(user))
 
 	if(attempt)
-		del(src)
+		sdel(src)
 
 	..()
 
@@ -33,7 +33,7 @@
 		attempt = buildAt(get_turf(onWhat))
 
 	if(attempt)
-		del(src)
+		sdel(src)
 
 /obj/item/buildable/proc/buildAt(var/atom/targetloc)
 	if(!targetloc || !is_type_in_list(targetloc, canBuildOn))

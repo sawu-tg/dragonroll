@@ -23,11 +23,13 @@
 	var/doesProcessing = TRUE // does the player get added to processing
 	var/hasReroll = TRUE
 	size = 3
+	reagentSize = 100
 	weight = 5
 	var/actualSpeed = 1 //the actual speed
 	var/speed = 1 // the speed they move at
 
 /mob/player/New()
+	..()
 	if(doesProcessing)
 		addProcessingObject(src)
 	//selectedQuickSlot = leftHand
@@ -73,7 +75,7 @@
 				I.lootForm = I.type
 			var/type = I.lootForm
 			new type(srcLoc)
-			del(I)
+			sdel(I)
 
 /mob/player/objFunction(var/mob/user,var/obj/inHand)
 	if(checkEffectStack("dead"))
@@ -131,8 +133,9 @@
 		for(var/datum/organ/O in playerOrgans)
 			if(do_roll(1,playerData.con.statModified,playerData.str.statCurr) < damage)
 				O.health -= damage
+				var/heldName = O.name
 				spawn(rand(1,30))
-					src.popup("[O.name] takes [damage] damage!",COL_HOSTILE)
+					src.popup("[heldName] takes [damage] damage!",COL_HOSTILE)
 		var/dyingtype
 
 		if(playerData.hp.statCurr == 0)
@@ -161,6 +164,10 @@
 	if(checkEffectStack("no_move"))
 		return TRUE
 	if(checkEffectStack("no_act"))
+		return TRUE
+	if(checkEffectStack("dying"))
+		return TRUE
+	if(checkEffectStack("dead"))
 		return TRUE
 	return FALSE
 

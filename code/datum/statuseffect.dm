@@ -11,7 +11,7 @@
 
 		var/datum/statuseffect/eff = new effecttype(src)
 		if(eff.maxstack && checkStatusEffect(eff) >= eff.maxstack)
-			del(eff)
+			sdel(eff)
 			return
 		eff.applyStatus()
 		eff.setTime(length)
@@ -89,11 +89,6 @@
 		mymob = target
 		applytime = world.time
 
-	Del()
-		if(!removed)
-			messageSystemAll("HONK, STATUS EFFECT WAS DELETED WITHOUT REMOVING IT FIRST")
-		..()
-
 	proc/setTime(var/time)
 		if(!time)
 			flags &= ~STATUS_TIMED
@@ -153,7 +148,7 @@
 			var/mob/player/P = mymob
 			P.recalculateStats()
 
-		del(src)
+		sdel(src)
 
 	proc/tickStatus()
 		if(!mymob)

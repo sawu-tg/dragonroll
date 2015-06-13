@@ -4,7 +4,7 @@
 	set src = usr
 	var/mob/dm/NDM = new/mob/dm(src.loc)
 	NDM.ckey = src.ckey
-	del(src)
+	sdel(src)
 
 /mob/dm
 	name = "Dungeon Master"
@@ -27,7 +27,7 @@
 	..()
 	refreshInterface()
 
-/mob/dm/verb/relocate()
+/mob/verb/relocate()
 	set name = "Teleport"
 	set desc = "Teleports you to a new location"
 	set category = "DM"
@@ -37,27 +37,36 @@
 
 	loc = locate(x,y,z)
 
-/mob/dm/verb/SpawnMonster()
+/mob/verb/SpawnMonster()
 	set name = "Spawn Monster"
 	set desc = "Spawns a monster at your location"
 	set category = "DM"
 	var/toSpawn = input(src,"Spawn what?") as null|anything in typesof(/mob)
-	if(toSpawn)
-		new toSpawn(src.loc)
+	var/amount = input(src,"How many?") as num
+	if(toSpawn && amount)
+		while(amount)
+			new toSpawn(src.loc)
+			--amount
 
 
-/mob/dm/verb/SpawnItem()
+/mob/verb/SpawnItem()
 	set name = "Spawn Item"
 	set desc = "Spawns an Item at your location"
 	set category = "DM"
 	var/toSpawn = input(src,"Spawn what?") as null|anything in typesof(/obj/item)
-	if(toSpawn)
-		new toSpawn(src.loc)
+	var/amount = input(src,"How many?") as num
+	if(toSpawn && amount)
+		while(amount)
+			new toSpawn(src.loc)
+			--amount
 
-/mob/dm/verb/SpawnEffect()
+/mob/verb/SpawnEffect()
 	set name = "Spawn Effect"
 	set desc = "Spawns an Effect at your location"
 	set category = "DM"
 	var/toSpawn = input(src,"Spawn what?") as null|anything in typesof(/obj/effect)
-	if(toSpawn)
-		new toSpawn(src.loc)
+	var/amount = input(src,"How many?") as num
+	if(toSpawn && amount)
+		while(amount)
+			new toSpawn(src.loc)
+			--amount

@@ -48,7 +48,7 @@
 	O.createFrom(src)
 	O.throw_at(pick(orange(where,3)))
 	owner:playerOrgans -= src
-	del(src)
+	sdel(src)
 
 /obj/item/organ
 	name = "organ"

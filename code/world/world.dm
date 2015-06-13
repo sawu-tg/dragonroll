@@ -17,6 +17,15 @@ var/list/newErodeLiquids = list()
 
 /world/New()
 	. = ..()
+	spawn(1)
+		//CONTROLLERS
+		CS = new
+		CS.addControl(new /datum/controller/machinery)
+		CS.addControl(new /datum/controller/lighting)
+		CS.addControl(new /datum/controller/hivemind)
+		CS.addControl(new /datum/controller/chemicals)
+		CS.addControl(new /datum/controller/sdel)
+		CS.process()
 	spawn(10)
 		var/icon/face = icon('sprite/mob/human_face.dmi')
 		for(var/i in face.IconStates())
@@ -34,13 +43,6 @@ var/list/newErodeLiquids = list()
 		processCooldowns()
 		processRegions()
 		spawn(1) processLiquids()
-		//CONTROLLERS
-		CS = new
-		CS.addControl(new /datum/controller/machinery)
-		CS.addControl(new /datum/controller/lighting)
-		CS.addControl(new /datum/controller/hivemind)
-		CS.addControl(new /datum/controller/chemicals)
-		CS.process()
 	..()
 
 /proc/addProcessingObject(var/atom/movable/a)
@@ -52,10 +54,7 @@ var/list/newErodeLiquids = list()
 	procObjects -= r
 
 /proc/processLiquids()
-	//set background = 1
-	//if(erodeLiquids.len)
-	//	world << "processing [erodeLiquids.len] liquids"
-
+	set background = 1
 	var/processed = 0
 
 	spawn(-1)
@@ -68,10 +67,6 @@ var/list/newErodeLiquids = list()
 
 			if(processed > 100)
 				processed = 0
-				sleep(5)
-
-	//erodeLiquids |= newErodeLiquids
-	//newErodeLiquids.Cut()
 	spawn(10)
 		processLiquids()
 
@@ -90,17 +85,21 @@ var/list/newErodeLiquids = list()
 	. = newList
 
 /proc/processCooldowns()
+	set background = 1
 	if(cooldownHandler.len)
 		for(var/datum/ability/a in cooldownHandler)
 			--a.abilityCooldownTimer
 			if(a.abilityCooldownTimer <= 0)
 				a.abilityCooldownTimer = 0 //just to be sure
 				cooldownHandler.Remove(a)
-			a.holder.refreshInterface()
+			if(a.holder)
+				if(a.holder.client)
+					a.holder.refreshInterface()
 	spawn(1)
 		processCooldowns()
 
 /proc/processRegions()
+	set background = 1
 	if(regions.len)
 		for(var/datum/zregion/R in regions)
 			spawn(-1)
@@ -109,6 +108,7 @@ var/list/newErodeLiquids = list()
 		processRegions()
 
 /proc/processObjects()
+	set background = 1
 	if(procObjects.len)
 		for(var/atom/i in procObjects)
 			spawn(1)
@@ -155,7 +155,7 @@ var/list/newErodeLiquids = list()
 //terrain generation
 
 #define lowestChance 1
-#define maxColonists 100
+#define maxColonists 25
 
 /proc/generate(var/zLevel)
 	var/cB = pick(validBiomes)
@@ -326,6 +326,8 @@ var/list/newErodeLiquids = list()
 			var/m = pick(chosenBiome.validMobs)
 			var/mob/b = new m()
 			b.loc = locate(rand(1,world.maxx),rand(1,world.maxy),zLevel)
+			while(istype(b.loc,/turf/floor/outside/liquid))
+				b.loc = locate(rand(1,world.maxx),rand(1,world.maxy),zLevel)
 
 		messageSystemAll("FINISHED GENERATING NPCS ON Z[zLevel].. TOOK [(world.timeofday - genstart) / 10]s")
 #undef lowestChance

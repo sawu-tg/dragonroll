@@ -5,7 +5,6 @@
 	density = 0
 	opacity = 0
 
-	var/datum/reagent_holder/reagents
 	var/list/connectedpipes = list()
 	var/pipeid
 	var/maxrange = 6

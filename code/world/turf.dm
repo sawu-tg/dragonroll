@@ -224,7 +224,7 @@
 			var/calcDepth = (depth + P.weight)-(P.playerData.dex.statCurr + P.playerData.str.statCurr)
 			//
 			if(calcDepth >= minDamDepth && !P.mounted)
-				var/datum/statuseffect/drowning/DReffect = P.addStatusEffect(/datum/statuseffect/drowning)
+				var/datum/statuseffect/suffocating/DReffect = P.addStatusEffect(/datum/statuseffect/suffocating)
 				if(DReffect)
 					//world << "Drowning in [src]"
 					DReffect.setTile(src)
