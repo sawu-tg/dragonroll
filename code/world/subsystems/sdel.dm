@@ -5,7 +5,7 @@ var/list/deleted = list()
 	var/garbageTime = 0
 
 
-#define GARBAGE_PATIENCE	30 //How long a datum is allowed to sit in limbo before we hard-delete it
+#define GARBAGE_PATIENCE	300 //How long a datum is allowed to sit in limbo before we hard-delete it
 
 
 //Call this on a datum to start GCing it
