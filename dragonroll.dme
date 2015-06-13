@@ -87,6 +87,7 @@
 #include "code\object\object.dm"
 #include "code\object\object_types\construction.dm"
 #include "code\object\object_types\effect.dm"
+#include "code\object\object_types\guardian.dm"
 #include "code\object\object_types\interact.dm"
 #include "code\object\object_types\object_furniture.dm"
 #include "code\object\object_types\powered.dm"

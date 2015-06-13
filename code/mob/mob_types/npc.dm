@@ -47,8 +47,12 @@
 	///
 	// NPCs are totes omnipotent
 	///
-	for(var/A in typesof(/datum/ability) - /datum/ability)
+	for(var/A in typesof(/datum/ability) - list(/datum/ability,/datum/ability/gigaheal,/datum/ability/gigabeam))
 		playerData.playerAbilities += A
+
+/mob/player/npc/Del()
+	globalNPCs -= src
+	..()
 
 /mob/player/npc/verb/debug()
 	set src in range(7)

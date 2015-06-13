@@ -1,4 +1,5 @@
 var/list/globalNPCs = list()
+var/list/pendingRemoval = list()
 
 /datum/controller/hivemind
 	name = "NPC Hivemind"

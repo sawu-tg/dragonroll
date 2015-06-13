@@ -147,3 +147,11 @@
 	repeat = FALSE
 	icon = 'sprite/obj/tg_effects/effects.dmi'
 	icon_state = "sparks"
+
+/obj/effect/shield
+	name = "Mana Shield"
+	desc = "Magical problems for Magical issues."
+	length = 4.05
+	repeat = FALSE
+	icon = 'sprite/obj/tg_effects/effects.dmi'
+	icon_state = "shield"
