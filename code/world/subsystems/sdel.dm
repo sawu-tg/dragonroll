@@ -53,8 +53,7 @@ datum/controller/sdel/getStat()
 		if(D.garbageTime && ((D.garbageTime + GARBAGE_PATIENCE) < world.time)) //Only hard-delete if necessary
 			deleted -= D
 			failedSDeletions++
-			spawn(deleted.len)
-				del(D)
+			del(D)
 
 	scheck()
 
