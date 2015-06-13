@@ -21,7 +21,7 @@
 	var/customGender = "none" // The custom gender of the player, noun
 	var/customGenderA = "none" // The custom gender of the player, pronoun
 
-	var/list/datum/ability/playerAbilities = new // A list of the player's abilities
+	var/list/playerAbilities = new // A list of the player's abilities
 	var/list/datum/stat/playerStats = new // A list of player's stats
 	var/datum/class/playerClass = new // The player's class datum
 	var/datum/stat/hp = new("Health","hp",TRUE,10,-10,10,staticon = "hp")
@@ -86,7 +86,7 @@
 	//wis.change(T.wis_mod)
 	//int.change(T.int_mod)
 	//cha.change(T.cha_mod)
-	del(T)
+	sdel(T)
 
 ///
 // Assigns the race datum to the player

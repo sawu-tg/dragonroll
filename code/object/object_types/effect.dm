@@ -24,7 +24,7 @@
 			++repeatCounter
 		else
 			onDestroy()
-			del(src)
+			sdel(src)
 	else
 		--procTime
 
@@ -45,7 +45,7 @@
 	if(istype(what,/mob/player))
 		var/mob/player/P = what
 		P.playerData.hp.change(damage)
-	del(src)
+	sdel(src)
 
 /obj/effect/aoe_tile/Bump(var/atom/what)
 	..()
@@ -81,7 +81,7 @@
 	if(istype(what,/mob/player))
 		var/mob/player/P = what
 		P.addStatusEffect(/datum/statuseffect/bolster,length)
-	del(src)
+	sdel(src)
 
 /obj/effect/target
 	name = "Targeted"

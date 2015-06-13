@@ -75,7 +75,7 @@
 				I.lootForm = I.type
 			var/type = I.lootForm
 			new type(srcLoc)
-			del(I)
+			sdel(I)
 
 /mob/player/objFunction(var/mob/user,var/obj/inHand)
 	if(checkEffectStack("dead"))

@@ -56,7 +56,7 @@
 /obj/interact/nature/tree/objFunction(var/mob/user)
 	..()
 	messagePlayer("The [src] collapses!",user,src)
-	del(src)
+	sdel(src)
 
 /obj/interact/nature/tree/New()
 	//icon_state = "tree_[rand(1,6)]"

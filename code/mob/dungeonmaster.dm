@@ -4,7 +4,7 @@
 	set src = usr
 	var/mob/dm/NDM = new/mob/dm(src.loc)
 	NDM.ckey = src.ckey
-	del(src)
+	sdel(src)
 
 /mob/dm
 	name = "Dungeon Master"

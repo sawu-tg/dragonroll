@@ -17,6 +17,15 @@ var/list/newErodeLiquids = list()
 
 /world/New()
 	. = ..()
+	spawn(1)
+		//CONTROLLERS
+		CS = new
+		CS.addControl(new /datum/controller/machinery)
+		CS.addControl(new /datum/controller/lighting)
+		CS.addControl(new /datum/controller/hivemind)
+		CS.addControl(new /datum/controller/chemicals)
+		CS.addControl(new /datum/controller/sdel)
+		CS.process()
 	spawn(10)
 		var/icon/face = icon('sprite/mob/human_face.dmi')
 		for(var/i in face.IconStates())
@@ -34,13 +43,6 @@ var/list/newErodeLiquids = list()
 		processCooldowns()
 		processRegions()
 		spawn(1) processLiquids()
-		//CONTROLLERS
-		CS = new
-		CS.addControl(new /datum/controller/machinery)
-		CS.addControl(new /datum/controller/lighting)
-		CS.addControl(new /datum/controller/hivemind)
-		CS.addControl(new /datum/controller/chemicals)
-		CS.process()
 	..()
 
 /proc/addProcessingObject(var/atom/movable/a)
@@ -90,7 +92,9 @@ var/list/newErodeLiquids = list()
 			if(a.abilityCooldownTimer <= 0)
 				a.abilityCooldownTimer = 0 //just to be sure
 				cooldownHandler.Remove(a)
-			a.holder.refreshInterface()
+			if(a.holder)
+				if(a.holder.client)
+					a.holder.refreshInterface()
 	spawn(1)
 		processCooldowns()
 
@@ -322,6 +326,8 @@ var/list/newErodeLiquids = list()
 			var/m = pick(chosenBiome.validMobs)
 			var/mob/b = new m()
 			b.loc = locate(rand(1,world.maxx),rand(1,world.maxy),zLevel)
+			while(istype(b.loc,/turf/floor/outside/liquid))
+				b.loc = locate(rand(1,world.maxx),rand(1,world.maxy),zLevel)
 
 		messageSystemAll("FINISHED GENERATING NPCS ON Z[zLevel].. TOOK [(world.timeofday - genstart) / 10]s")
 #undef lowestChance

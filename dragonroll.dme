@@ -111,6 +111,7 @@
 #include "code\world\subsystems\hivemind.dm"
 #include "code\world\subsystems\lighting.dm"
 #include "code\world\subsystems\machines.dm"
+#include "code\world\subsystems\sdel.dm"
 #include "code\world\subsystems\mloc_lights\__lighting_docs.dm"
 #include "code\world\subsystems\mloc_lights\_lighting_defs.dm"
 #include "code\world\subsystems\mloc_lights\light_source.dm"

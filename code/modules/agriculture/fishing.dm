@@ -19,6 +19,7 @@
 	desc = "Dynamic fish attracting powers!"
 	icon_state = "effect_bouy"
 	length = 30
+	var/fishGiven = 1
 	var/mob/fisherman
 
 /obj/effect/fishingbouy/New(var/turf/atloc,var/owner,var/bait)
@@ -28,11 +29,13 @@
 		Beam(owner,time=length,icon_state="f_beam")
 
 /obj/effect/fishingbouy/onDestroy()
+	if(fishGiven > 0)
+		var/A = get_turf(src)
+		var/catchType = pickweight(A:fishables)
+		var/catch = new catchType(get_turf(fisherman))
+		messageInfo("You reel in a [catch]",fisherman,src)
+		--fishGiven
 	..()
-	var/A = get_turf(src)
-	var/catchType = pickweight(A:fishables)
-	var/catch = new catchType(get_turf(fisherman))
-	messageInfo("You reel in a [catch]",fisherman,src)
 
 /turf/floor/outside/liquid
 	var/list/fishables = list(/obj/item/food/fish = 50, /obj/item/food/fish/squid = 50, /obj/item/food/fish/urchin = 25, /obj/item/food/fish/clam = 25, /obj/item/food/fish/shrimp = 75,/obj/item/food/fish/lobster = 15,/obj/item/food/fish/crab = 15, /obj/item/food/fish/sponge = 5)

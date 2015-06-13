@@ -39,7 +39,7 @@
 	for(var/e in materials)
 		var/obj/d = new e(src)
 		newList += "[d.name] x [materials[e]]"
-		del(d)
+		sdel(d)
 	return newList
 
 ///
@@ -70,7 +70,7 @@
 					na.itemMaterial = nm
 					na.updateStats()
 				for(var/d in found)
-					del(crafter.remFromInventory(d))
+					sdel(crafter.remFromInventory(d))
 
 /datum/recipe/hatchet
 	name = "hatchet"

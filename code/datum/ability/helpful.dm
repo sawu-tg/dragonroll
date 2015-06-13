@@ -18,7 +18,7 @@
 	name = "Taunt"
 	desc = "Throws a chain at a target, dragging them to you."
 	abilityRange = 8
-	abilityModifier = 0
+	abilityModifier = -1
 	abilityCooldown = 5*60
 	abilityState = "shout"
 	abilityHitsPlayers = TRUE

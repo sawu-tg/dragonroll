@@ -11,7 +11,7 @@
 
 		var/datum/statuseffect/eff = new effecttype(src)
 		if(eff.maxstack && checkStatusEffect(eff) >= eff.maxstack)
-			del(eff)
+			sdel(eff)
 			return
 		eff.applyStatus()
 		eff.setTime(length)
@@ -153,7 +153,7 @@
 			var/mob/player/P = mymob
 			P.recalculateStats()
 
-		del(src)
+		sdel(src)
 
 	proc/tickStatus()
 		if(!mymob)

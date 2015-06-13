@@ -143,6 +143,7 @@
 	icon='sprite/obj/beam.dmi'
 	icon_state="b_beam"
 	length = 0
+	var/time = 0
 	var/atom/BeamSource
 
 /obj/effect/overlay/beam/New()
@@ -151,8 +152,8 @@
 		addProcessingObject(src)
 
 /obj/effect/overlay/beam/doProcess()
-	if(!BeamSource)
-		del(src)
+	if(!BeamSource || world.time > time)
+		sdel(src)
 
 /*
 Beam code by Gunbuddy
@@ -179,7 +180,7 @@ its easier to just keep the beam vertical.
 
 		for(var/obj/effect/overlay/beam/O in orange(10,src))	//This section erases the previously drawn beam because I found it was easier to
 			if(O.BeamSource==src)				//just draw another instance of the beam instead of trying to manipulate all the
-				del(O)							//pieces to a new orientation.
+				sdel(O)							//pieces to a new orientation.
 		var/Angle=round(Get_Angle(src,BeamTarget))
 		var/icon/I=new(icon,icon_state)
 		I.Turn(Angle)
@@ -189,6 +190,7 @@ its easier to just keep the beam vertical.
 		var/length=round(sqrt((DX)**2+(DY)**2))
 		for(N,N<length,N+=32)
 			var/obj/effect/overlay/beam/X=new(loc)
+			X.time = EndTime
 			X.BeamSource=src
 			if(N+32>length)
 				var/icon/II=new(icon,icon_state)

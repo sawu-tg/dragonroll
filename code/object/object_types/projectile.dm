@@ -14,6 +14,7 @@
 	var/effectLength = 0
 	var/effect
 	var/lastProjMove = 0
+	var/hit = FALSE
 	var/mob/player/projectileOwner
 
 /obj/projectile/New(var/atom/at,var/mob/owner,var/doesSpin)
@@ -30,12 +31,14 @@
 	addProcessingObject(src)
 
 /obj/projectile/proc/doProjAct(var/atom/what)
-	if(istype(what,/mob/player))
-		var/mob/player/P = what
-		if(effect)
-			P.addStatusEffect(effect,effectLength)
-		P.takeDamage(damage,DTYPE_DIRECT)
-	del(src)
+	if(!hit)
+		if(istype(what,/mob/player))
+			var/mob/player/P = what
+			if(effect)
+				P.addStatusEffect(effect,effectLength)
+			P.takeDamage(damage,DTYPE_DIRECT)
+			hit = TRUE
+	sdel(src)
 
 /obj/projectile/Bump(var/atom/a)
 	doProjAct(a)
@@ -65,7 +68,7 @@
 				doProjAct(a)
 				hit = TRUE
 		if(!hit)
-			del(src)
+			sdel(src)
 
 //projectiles
 

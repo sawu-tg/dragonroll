@@ -11,6 +11,8 @@ datum/controller/hivemind/getStat()
 	return "<b>[name]</b> | [round(cost,0.001)]ds | (CPU:[round(cpu,1)]%) (Count: [globalNPCs.len])"
 
 /datum/controller/hivemind/doProcess()
+	set background = 1
 	for(var/A in globalNPCs)
-		A:doProcess()
+		spawn(-1)
+			A:doProcess()
 	scheck()

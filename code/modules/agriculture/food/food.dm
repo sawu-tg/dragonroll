@@ -16,4 +16,4 @@
 	reagents.trans_to(user.reagents,reagents.maxvolume)
 	spawn(5)
 		user.refreshInterface()
-	del(src)
+	sdel(src)

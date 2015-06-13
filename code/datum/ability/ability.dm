@@ -56,7 +56,7 @@
 // Checks if the player is able to cast the ability
 ///
 /datum/ability/proc/canCast(var/mob/player/checked)
-	if(abilityCooldownTimer == 0)
+	if(abilityCooldownTimer <= 0)
 		var/datum/stat/checkStat = checked.playerData.playerStats[skillStatIndex]
 		if(do_roll(skillStatDifficultyLower,skillStatDifficultyUpper,checkStat.statCurr) >= skillStatMin)
 			if(checked.playerData.mp.statCurr >= abilityLevel * abilityManaMod)

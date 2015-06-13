@@ -84,7 +84,7 @@
 			FG = with:held_seed
 			spawn(1)
 				user.DropItem()
-				del(with)
+				sdel(with)
 
 ///
 // FARMING ITEMS
