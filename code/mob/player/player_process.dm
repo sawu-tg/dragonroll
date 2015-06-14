@@ -26,7 +26,6 @@
 		if(canMove)
 			canMove = FALSE
 	if(playerData.hp.statCurr <= playerData.hp.statMin)
-		addEffectStack(/datum/statuseffect/dead)
 		if(isMonster)
 			icon_state = "[icon_state]_dead"
 	if(!checkEffectStack("daze"))
@@ -37,7 +36,6 @@
 		if(shouldLay)
 			newtransform.Turn(90)
 			newtransform.Translate(0,-8)
-
 		animate(src,transform = newtransform,time = 2,loop = 0)
 		layingDown = shouldLay
 

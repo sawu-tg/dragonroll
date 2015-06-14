@@ -2,6 +2,7 @@
 	var/anchored = FALSE
 	var/reagentSize = 0
 	var/datum/reagent_holder/reagents
+	var/alignment = ALIGN_NEUTRAL
 
 /atom/New()
 	..()

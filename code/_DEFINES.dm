@@ -73,6 +73,10 @@
 
 #define GLOBAL_CLICK_DELAY 5
 
+#define ALIGN_NEUTRAL 0
+#define ALIGN_EVIL -1
+#define ALIGN_GOOD 1
+
 ///
 // RGB DEFINES
 ///
