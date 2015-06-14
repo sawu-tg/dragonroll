@@ -14,11 +14,7 @@
 /obj/vehicle/garbageCleanup()
 	..()
 
-	if(driver)
-		sdel(driver)
-
-	for(var/datum/D in passengers)
-		sdel(D)
+	driver = null
 	passengers = null
 
 

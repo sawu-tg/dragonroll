@@ -25,11 +25,12 @@ var/global/failedSDeletions = 0
 //use this to cleanup any references to this datum
 //so it GCs correctly
 
-//The simplest way to write a garbageCleanup() is to have the
-//object call sdel() on anything it references, then have those
-//individual objects clean up their references in their own
-//garbageCleanup(), this means each object is technically "chasing" the other
-//but since we check for garbageCollecting in sdel()  it's fine
+
+//The best way to write a garbageCleanup() proc
+//is to have the datum cleanup it's references to other objects
+//and those that reference it.
+//if the datum "contains" things (such as mobs + organs)
+//then it should sdel the things it "contains"
 /datum/proc/garbageCleanup()
 	return
 

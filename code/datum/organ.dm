@@ -11,12 +11,12 @@
 
 /datum/organ/garbageCleanup()
 	..()
+
 	if(race)
 		sdel(race)
 		race = null
-	if(owner)
-		sdel(owner)
-		owner = null
+
+	owner = null
 
 
 /datum/organ/New(var/asrace,var/toOwner)
