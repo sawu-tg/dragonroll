@@ -4,6 +4,12 @@
 	var/list/hostileTo = list() // who the faction is hostile to
 
 
+/datum/faction/garbageCleanup()
+	..()
+	friendlyTo = null
+	hostileTo = null
+
+
 ///
 // Checks whether a faciton is hostile to the given faction
 ///

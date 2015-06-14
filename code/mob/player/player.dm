@@ -28,6 +28,42 @@
 	var/actualSpeed = 1 //the actual speed
 	var/speed = 1 // the speed they move at
 
+
+/mob/player/garbageCleanup()
+	..()
+
+	if(playerData)
+		sdel(playerData)
+		playerData = null
+
+	for(var/datum/D in playerInventory)
+		sdel(D)
+	playerInventory = null
+
+	for(var/datum/D in playerEquipped)
+		sdel(D)
+	playerEquipped = null
+
+	for(var/datum/organ/O in playerOrgans)
+		sdel(O)
+	playerOrgans = null
+
+	for(var/datum/statuseffect/SE in statuseffects)
+		sdel(SE)
+
+	statuseffects = null
+
+	persistingEffects = null //I don't think this does anything yet, but null it anyways
+
+	if(deadeffect)
+		sdel(deadeffect)
+		deadeffect = null
+
+	for(var/obj/spellHolder/SH in playerSpellHolders)
+		sdel(SH)
+	playerSpellHolders = null
+
+
 /mob/player/New()
 	..()
 	if(doesProcessing)

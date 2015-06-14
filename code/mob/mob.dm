@@ -18,6 +18,24 @@
 
 	prevent_pickup = TRUE
 
+
+/mob/garbageCleanup()
+	..()
+
+	if(castingSpell)
+		sdel(castingSpell)
+		castingSpell = null
+	if(Cursor)
+		sdel(Cursor)
+		Cursor = null
+	if(mobFaction)
+		sdel(mobFaction)
+		mobFaction = null
+	if(mounted)
+		sdel(mounted)
+		mounted = null
+
+
 /mob/New()
 	..()
 	spawn(1)

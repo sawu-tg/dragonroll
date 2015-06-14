@@ -24,6 +24,12 @@ var/global/failedSDeletions = 0
 //Called when this datum is being garbage collected
 //use this to cleanup any references to this datum
 //so it GCs correctly
+
+//The simplest way to write a garbageCleanup() is to have the
+//object call sdel() on anything it references, then have those
+//individual objects clean up their references in their own
+//garbageCleanup(), this means each object is technically "chasing" the other
+//but since we check for garbageCollecting in sdel()  it's fine
 /datum/proc/garbageCleanup()
 	return
 
