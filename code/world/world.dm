@@ -1,11 +1,12 @@
 var/list/procObjects = list()
 var/list/cooldownHandler = list()
-var/datum/controller_master/CS
 var/list/globalSuns = list()
 var/list/levelNames = list()
 var/list/regions = list()
 var/list/erodeLiquids = list()
 var/list/newErodeLiquids = list()
+var/datum/controller_master/CS
+var/datum/controller/balance/balance
 
 /world
 	turf = /turf/floor/voidFloor
@@ -25,6 +26,7 @@ var/list/newErodeLiquids = list()
 		CS.addControl(new /datum/controller/hivemind)
 		CS.addControl(new /datum/controller/chemicals)
 		CS.addControl(new /datum/controller/sdel)
+		balance = CS.addControl(new /datum/controller/balance)
 		CS.process()
 	spawn(10)
 		var/icon/face = icon('sprite/mob/human_face.dmi')

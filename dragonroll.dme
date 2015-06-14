@@ -107,6 +107,7 @@
 #include "code\world\text.dm"
 #include "code\world\turf.dm"
 #include "code\world\world.dm"
+#include "code\world\subsystems\balance.dm"
 #include "code\world\subsystems\controller.dm"
 #include "code\world\subsystems\controller_system.dm"
 #include "code\world\subsystems\hivemind.dm"

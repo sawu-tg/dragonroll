@@ -14,10 +14,10 @@ var/list/deleted = list()
 	execTime = 2.5
 	var/list/deletePass = list()
 
-datum/controller/sdel/Stat()
+/datum/controller/sdel/Stat()
 	stat("<b>[name]</b> | [round(cost,0.001)]ds | (CPU:[round(cpu,1)]%) (Left: [deleted.len])")
 
-datum/controller/sdel/getStat()
+/datum/controller/sdel/getStat()
 	return "<b>[name]</b> | [round(cost,0.001)]ds | (CPU:[round(cpu,1)]%) (Left: [deleted.len])"
 
 /datum/controller/sdel/doProcess()
