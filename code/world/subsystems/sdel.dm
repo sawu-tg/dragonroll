@@ -57,7 +57,7 @@ datum/controller/sdel/getStat()
 	set background = 1
 
 	for(var/datum/D in deleted)
-		if(D.garbageTime && ((D.garbageTime + GARBAGE_PATIENCE) < world.time)) //Only hard-delete if necessary
+		if(D && D.garbageTime && ((D.garbageTime + GARBAGE_PATIENCE) < world.time)) //Only hard-delete if necessary
 			deleted -= D
 			failedSDeletions++
 			del(D)
@@ -71,6 +71,4 @@ datum/controller/sdel/getStat()
 		. = failedSDeletions/totalSDeletions
 
 	. = "[.*100]%"
-
-
 
