@@ -56,21 +56,19 @@ var/datum/controller/balance/balance
 	procObjects -= r
 
 /proc/processLiquids()
-	set background = 1
 	var/processed = 0
 
-	spawn(-1)
+	while(1)
 		for(var/turf/floor/outside/liquid/T in erodeLiquids)
 			if(T && istype(T))
 				T.updateErodeDepth()
-				processed += 1
+				processed++
 			else
 				erodeLiquids -= T
-
 			if(processed > 100)
 				processed = 0
-	spawn(10)
-		processLiquids()
+		sleep(10) //While I've optimised this loop, bord had it at spawn(10) so 1 whole second it is!
+
 
 /proc/filterList(var/filter, var/list/inList, var/list/explicitExcluded)
 	set background = 1
