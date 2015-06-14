@@ -10,6 +10,18 @@
 	var/mob/player/driver
 	var/list/passengers = list()
 
+
+/obj/vehicle/garbageCleanup()
+	..()
+
+	if(driver)
+		sdel(driver)
+
+	for(var/datum/D in passengers)
+		sdel(D)
+	passengers = null
+
+
 /obj/vehicle/verb/GetIn()
 	set name = "Ride"
 	set desc = "Ride the vehicle"
