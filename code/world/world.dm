@@ -1,11 +1,12 @@
 var/list/procObjects = list()
 var/list/cooldownHandler = list()
-var/datum/controller_master/CS
 var/list/globalSuns = list()
 var/list/levelNames = list()
 var/list/regions = list()
 var/list/erodeLiquids = list()
 var/list/newErodeLiquids = list()
+var/datum/controller_master/CS
+var/datum/controller/balance/balance
 
 /world
 	turf = /turf/floor/voidFloor
@@ -25,6 +26,7 @@ var/list/newErodeLiquids = list()
 		CS.addControl(new /datum/controller/hivemind)
 		CS.addControl(new /datum/controller/chemicals)
 		CS.addControl(new /datum/controller/sdel)
+		balance = CS.addControl(new /datum/controller/balance)
 		CS.process()
 	spawn(10)
 		var/icon/face = icon('sprite/mob/human_face.dmi')
@@ -54,21 +56,19 @@ var/list/newErodeLiquids = list()
 	procObjects -= r
 
 /proc/processLiquids()
-	set background = 1
 	var/processed = 0
 
-	spawn(-1)
+	while(1)
 		for(var/turf/floor/outside/liquid/T in erodeLiquids)
 			if(T && istype(T))
 				T.updateErodeDepth()
-				processed += 1
+				processed++
 			else
 				erodeLiquids -= T
-
 			if(processed > 100)
 				processed = 0
-	spawn(10)
-		processLiquids()
+		sleep(10) //While I've optimised this loop, bord had it at spawn(10) so 1 whole second it is!
+
 
 /proc/filterList(var/filter, var/list/inList, var/list/explicitExcluded)
 	set background = 1
@@ -85,37 +85,32 @@ var/list/newErodeLiquids = list()
 	. = newList
 
 /proc/processCooldowns()
-	set background = 1
-	if(cooldownHandler.len)
-		for(var/datum/ability/a in cooldownHandler)
-			--a.abilityCooldownTimer
-			if(a.abilityCooldownTimer <= 0)
-				a.abilityCooldownTimer = 0 //just to be sure
-				cooldownHandler.Remove(a)
-			if(a.holder)
-				if(a.holder.client)
-					a.holder.refreshInterface()
-	spawn(1)
-		processCooldowns()
+	while(1)
+		if(cooldownHandler.len)
+			for(var/datum/ability/a in cooldownHandler)
+				a.abilityCooldownTimer = max(0,--a.abilityCooldownTimer)
+				if(a.abilityCooldownTimer <= 0)
+					cooldownHandler -= a
+				if(a.holder)
+					if(a.holder.client)
+						a.holder.refreshInterface()
+		sleep(1)
 
 /proc/processRegions()
-	set background = 1
-	if(regions.len)
-		for(var/datum/zregion/R in regions)
-			spawn(-1)
+	while(1)
+		if(regions.len)
+			for(var/datum/zregion/R in regions)
 				R.doProcess()
-	spawn(1)
-		processRegions()
+		sleep(1)
+
 
 /proc/processObjects()
-	set background = 1
-	if(procObjects.len)
-		for(var/atom/i in procObjects)
-			spawn(1)
-				if(i)
-					i.doProcess()
-	spawn(1)
-		processObjects()
+	while(1)
+		if(procObjects.len)
+			for(var/atom/i in procObjects)
+				i.doProcess()
+		sleep(1)
+
 
 /proc/parseIcon(var/toWhere, var/parse, var/chat = TRUE)
 	var/icon/i

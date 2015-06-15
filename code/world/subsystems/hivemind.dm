@@ -5,10 +5,10 @@ var/list/pendingRemoval = list()
 	name = "NPC Hivemind"
 	execTime = 2.5
 
-datum/controller/hivemind/Stat()
+/datum/controller/hivemind/Stat()
 	stat("<b>[name]</b> | [round(cost,0.001)]ds | (CPU:[round(cpu,1)]%) (Count: [globalNPCs.len])")
 
-datum/controller/hivemind/getStat()
+/datum/controller/hivemind/getStat()
 	return "<b>[name]</b> | [round(cost,0.001)]ds | (CPU:[round(cpu,1)]%) (Count: [globalNPCs.len])"
 
 /datum/controller/hivemind/doProcess()

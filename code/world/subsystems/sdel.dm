@@ -1,4 +1,6 @@
-var/list/deleted = list()
+var/global/list/deleted = list()
+var/global/totalSDeletions = 0
+var/global/failedSDeletions = 0
 
 /datum
 	var/garbageCollecting = FALSE
@@ -13,6 +15,7 @@ var/list/deleted = list()
 	if(!what || what.garbageCollecting)
 		return
 	deleted += what
+	totalSDeletions++
 	what.garbageCollecting = TRUE
 	what.garbageTime = world.time
 	what.garbageCleanup()
@@ -21,12 +24,21 @@ var/list/deleted = list()
 //Called when this datum is being garbage collected
 //use this to cleanup any references to this datum
 //so it GCs correctly
+
+
+//The best way to write a garbageCleanup() proc
+//is to have the datum cleanup it's references to other objects
+//and those that reference it.
+//if the datum "contains" things (such as mobs + organs)
+//then it should sdel the things it "contains"
 /datum/proc/garbageCleanup()
 	return
 
 /atom/movable/garbageCleanup()
 	..()
 	loc = null
+
+
 
 
 //Garbage collection controller
@@ -36,18 +48,27 @@ var/list/deleted = list()
 	var/list/deletePass = list()
 
 datum/controller/sdel/Stat()
-	stat("<b>[name]</b> | [round(cost,0.001)]ds | (CPU:[round(cpu,1)]%) (Left: [deleted.len])")
+	stat("<b>[name]</b> | [round(cost,0.001)]ds | (CPU:[round(cpu,1)]%) | (Left: [deleted.len]) | (Failed: [getSDelFailures()])")
 
 datum/controller/sdel/getStat()
-	return "<b>[name]</b> | [round(cost,0.001)]ds | (CPU:[round(cpu,1)]%) (Left: [deleted.len])"
+	return "<b>[name]</b> | [round(cost,0.001)]ds | (CPU:[round(cpu,1)]%) | (Left: [deleted.len]) | (Failed: [getSDelFailures()])"
 
 /datum/controller/sdel/doProcess()
 	set background = 1
 
 	for(var/datum/D in deleted)
-		if(D.garbageTime && ((D.garbageTime + GARBAGE_PATIENCE) < world.time)) //Only hard-delete if necessary
+		if(D && D.garbageTime && ((D.garbageTime + GARBAGE_PATIENCE) < world.time)) //Only hard-delete if necessary
 			deleted -= D
-			spawn(deleted.len)
-				del(D)
+			failedSDeletions++
+			del(D)
 
 	scheck()
+
+
+/proc/getSDelFailures()
+	. = 0
+	if(failedSDeletions && totalSDeletions)
+		. = failedSDeletions/totalSDeletions
+
+	. = "[.*100]%"
+

@@ -8,7 +8,7 @@
 
 /turf/proc/lighting_clear_overlays()
 	for(var/atom/movable/lighting_overlay/L in src)
-		L.loc = null
+		sdel(L)
 
 /turf/proc/lighting_build_overlays()
 	if(!locate(/atom/movable/lighting_overlay) in src)

@@ -34,11 +34,26 @@
 	if(light_power && light_range)
 		update_light()
 
+
+
+/atom/garbageCleanup()
+	..()
+	if(light)
+		sdel(light)
+		light = null
+
 /atom/Del()
 	if(light)
 		light.destroy()
 		light = null
 	return ..()
+
+
+/atom/movable/garbageCleanup()
+	..()
+	var/turf/T = loc
+	if(opacity && istype(T))
+		T.reconsider_lights()
 
 /atom/movable/Del()
 	var/turf/T = loc

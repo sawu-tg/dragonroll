@@ -14,7 +14,7 @@
 		O:organProc()
 
 /mob/player/proc/processEffects()
-	if(playerData.hp.statModified > 0 && !isDisabled())
+	if(playerData && playerData.hp.statModified > 0 && !isDisabled())
 		if(!canMove)
 			canMove = TRUE
 	for(var/S in statuseffects)
@@ -22,11 +22,10 @@
 			S:tickStatus()
 
 /mob/player/proc/processStates()
-	if(playerData.hp.statCurr <= 0)
+	if(playerData && playerData.hp.statCurr <= 0)
 		if(canMove)
 			canMove = FALSE
-	if(playerData.hp.statCurr <= playerData.hp.statMin)
-		addEffectStack(/datum/statuseffect/dead)
+	if(playerData && playerData.hp.statCurr <= playerData.hp.statMin)
 		if(isMonster)
 			icon_state = "[icon_state]_dead"
 	if(!checkEffectStack("daze"))
@@ -37,7 +36,6 @@
 		if(shouldLay)
 			newtransform.Turn(90)
 			newtransform.Translate(0,-8)
-
 		animate(src,transform = newtransform,time = 2,loop = 0)
 		layingDown = shouldLay
 
@@ -71,7 +69,7 @@
 		if(prob(5))
 			messageArea("You are poisoned!","[src] shudders and wretches",src,src)
 			takeDamage(1,DTYPE_DIRECT)
-	if(playerData.hp.statCurr < 0 && playerData.hp.statCurr > playerData.hp.statMin)
+	if(playerData && playerData.hp.statCurr < 0 && playerData.hp.statCurr > playerData.hp.statMin)
 		if(lastBleed <= 0)
 			takeDamage(1,DTYPE_DIRECT)
 			messageArea("You are bleeding out.","[src] is bleeding out.",src,src)
