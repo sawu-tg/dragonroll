@@ -11,9 +11,34 @@
 	name = "magical wall"
 	desc = "where did this come from?"
 
+/obj/structure/balance
+	name = "balance structure"
+	desc = "balances things"
+	icon = 'sprite/world/stationobjs.dmi'
+
 ///
 // EVIL
 ///
+
+/obj/structure/balance/evilportal
+	name = "balance structure"
+	desc = "balances things"
+	icon_state = "portal1"
+	var/spawnRate = 120
+	var/list/spawnTypes = list(/mob/player/npc/animal/wasp,/mob/player/npc/animal/spider)
+
+/obj/structure/balance/evilportal/New()
+	..()
+	addProcessingObject(src)
+
+/obj/structure/balance/evilportal/doProcess()
+	if(spawnRate > 0)
+		--spawnRate
+	else
+		var/toSpawn = pick(spawnTypes)
+		if(toSpawn)
+			new toSpawn(get_turf(src))
+
 /turf/floor/balance/evil
 	name = "Hellish Tiling"
 	desc = "It seems to resonate with an evil presence."
@@ -27,7 +52,10 @@
 		sdel(A)
 		foundIn = TRUE
 	if(foundIn)
-		new/turf/wall/balance/evil(get_turf(src))
+		if(prob(5))
+			new/obj/structure/balance/evilportal(get_turf(src))
+		else
+			new/turf/wall/balance/evil(get_turf(src))
 
 /turf/wall/balance/evil
 	name = "Hellish Wall"
