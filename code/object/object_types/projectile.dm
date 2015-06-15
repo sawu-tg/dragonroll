@@ -30,6 +30,12 @@
 		spinning = TRUE
 	addProcessingObject(src)
 
+/obj/projectile/garbageCleanup()
+	..()
+	target = null
+	projectileOwner = null
+	remProcessingObject(src)
+
 /obj/projectile/proc/doProjAct(var/atom/what)
 	if(!hit)
 		if(istype(what,/mob/player))

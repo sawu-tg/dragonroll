@@ -1,6 +1,7 @@
 var/global/list/deleted = list()
 var/global/totalSDeletions = 0
 var/global/failedSDeletions = 0
+var/global/list/failedTypes = list()
 
 /datum
 	var/garbageCollecting = FALSE
@@ -14,11 +15,11 @@ var/global/failedSDeletions = 0
 /proc/sdel(var/datum/what)
 	if(!what || what.garbageCollecting)
 		return
-	deleted += what
 	totalSDeletions++
 	what.garbageCollecting = TRUE
 	what.garbageTime = world.time
 	what.garbageCleanup()
+	deleted["\ref[what]"] = what.garbageTime
 
 
 //Called when this datum is being garbage collected
@@ -32,14 +33,11 @@ var/global/failedSDeletions = 0
 //if the datum "contains" things (such as mobs + organs)
 //then it should sdel the things it "contains"
 /datum/proc/garbageCleanup()
-	return
+	tag = null //REMINDER THAT TAGGED OBJECTS ARE IMMORTAL
 
 /atom/movable/garbageCleanup()
 	..()
 	loc = null
-
-
-
 
 //Garbage collection controller
 /datum/controller/sdel
@@ -56,14 +54,29 @@ datum/controller/sdel/getStat()
 /datum/controller/sdel/doProcess()
 	set background = 1
 
-	for(var/datum/D in deleted)
-		if(D && D.garbageTime && ((D.garbageTime + GARBAGE_PATIENCE) < world.time)) //Only hard-delete if necessary
-			deleted -= D
-			failedSDeletions++
-			del(D)
+	for(var/dref in deleted)
+		var/datum/D = locate(dref)
+		var/gctime = deleted[dref]
 
-	scheck()
+		if(!D)
+			deleted -= dref
+			continue
+		else if((D.garbageTime + GARBAGE_PATIENCE) < world.time)
+			if(D.garbageTime && D.garbageTime == gctime) //Only hard-delete if necessary and it's the same object. I hope this works.
+				deleted -= D
+				failedSDeletions++
+				failedTypes["[D.type]"]++
+				del(D)
+			deleted -= dref
 
+	scheck() //why is this out here!?
+
+//This is a debug verb
+/client/verb/getFailedTypeDeletes()
+	set name = "why is there so many failures!?"
+
+	for(var/stype in failedTypes)
+		usr << "[stype]: x[failedTypes[stype]]"
 
 /proc/getSDelFailures()
 	. = 0

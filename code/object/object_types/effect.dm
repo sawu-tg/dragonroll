@@ -15,6 +15,10 @@
 		procTime = length
 		addProcessingObject(src)
 
+/obj/effect/garbageCleanup()
+	..()
+	remProcessingObject(src)
+
 /obj/effect/proc/onDestroy()
 
 /obj/effect/doProcess()

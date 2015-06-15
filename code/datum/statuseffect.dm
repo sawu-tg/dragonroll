@@ -89,6 +89,12 @@
 		mymob = target
 		applytime = world.time
 
+	garbageCleanup()
+		..()
+		tile = null
+		equipment = null
+		mymob = null
+
 	proc/setTime(var/time)
 		if(!time)
 			flags &= ~STATUS_TIMED

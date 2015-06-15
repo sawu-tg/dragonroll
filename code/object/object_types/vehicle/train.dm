@@ -65,7 +65,7 @@
 		WT.default_wire_action(user,wires)
 
 /obj/train
-	name = "wooden floor"
+	name = "metal chassis"
 	desc = "choo choo"
 	icon = 'sprite/obj/train.dmi'
 	icon_state = "chassis"

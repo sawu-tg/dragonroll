@@ -107,6 +107,53 @@ var/list/alldirs = list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAS
 			visited |= call(adjacency)(T)
 		i++
 
+//The setup for this algorithm takes longer than the algorithm itself honk honk
+/proc/BresenhamLine(var/turf/start,var/turf/end)
+	if(!istype(start))
+		start = get_turf(start)
+
+	if(!istype(end))
+		end = get_turf(end)
+
+	if(!start || !end || start.z != end.z)
+		return
+
+	var/list/rlist = list()
+
+	var/x0 = start.x
+	var/y0 = start.y
+
+	var/x1 = end.x
+	var/y1 = end.y
+
+	if(x0 > x1)
+		x0 ^= x1
+		x1 ^= x0
+		x0 ^= x1
+
+	if(y0 > y1)
+		y0 ^= y1
+		y1 ^= y0
+		y0 ^= y1
+
+	var/deltax = x1 - x0
+	var/deltay = y1 - y0
+	var/error = 0.0
+	var/deltaerr = abs(deltay / deltax)
+
+	var/y = y0
+	var/z = start.z
+
+	for(var/x=x0, x<=x1, x++)
+		rlist += locate(x,y,z)
+		error += deltaerr
+		while(error > 0.5)
+			rlist += locate(x,y,z)
+			y += sign(deltay)
+			error -= 1.0
+
+	return rlist
+
 proc/pickweight(list/L)
 	var/total = 0
 	var/item

@@ -5,6 +5,13 @@
 	icon_state = "chassis_construct"
 	ofType = /obj/train
 
+/obj/item/buildable/turf/shippart
+	name = "ship parts"
+	desc = "Contrary to the name these actually fit on a train just as well."
+	icon = 'sprite/obj/train.dmi'
+	icon_state = "woodframe_construct"
+	ofType = /obj/train/ship
+
 /obj/item/buildable/train/build(var/atom/targetloc)
 	var/turf/T = get_turf(targetloc)
 
@@ -54,4 +61,28 @@
 	icon = 'sprite/obj/train.dmi'
 	icon_state = "control_construct"
 	ofType = /obj/train/train_control
+	canBuildOn = list(/obj/train/wall)
+
+/obj/item/buildable/train/oven
+	name = "engine parts"
+	desc = "This looks important."
+	icon = 'sprite/obj/train.dmi'
+	icon_state = "oven_construct"
+	ofType = /obj/structure/oven
+	canBuildOn = list(/obj/train/floor)
+
+/obj/item/buildable/train/floater
+	name = "balloon"
+	desc = "Sturdy and can contain lots of air."
+	icon = 'sprite/obj/train.dmi'
+	icon_state = "balloon_construct"
+	ofType = /obj/train/floater
+	canBuildOn = list(/obj/train/ship)
+
+/obj/item/buildable/train/shipcontrol
+	name = "boat box"
+	desc = "Does not contain boat as advertised."
+	icon = 'sprite/obj/train.dmi'
+	icon_state = "shipcontrol_construct"
+	ofType = /obj/train/train_control/ship_control
 	canBuildOn = list(/obj/train/wall)

@@ -33,8 +33,9 @@
 	lum_g += delta_g
 	lum_b += delta_b
 
+	if(!needs_update)
+		lighting_update_overlays += src
 	needs_update = 1
-	lighting_update_overlays += src
 
 /atom/movable/lighting_overlay/proc/update_ambience(new_r, new_g, new_b)
 	var/turf/T = loc
@@ -45,8 +46,9 @@
 	amb_g = new_g * T.ambient_factor
 	amb_b = new_b * T.ambient_factor
 
+	if(!needs_update)
+		lighting_update_overlays += src
 	needs_update = 1
-	lighting_update_overlays |= src
 
 /atom/movable/lighting_overlay/proc/update_overlay()
 	var/total_r = lum_r + amb_r

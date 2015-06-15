@@ -38,8 +38,11 @@
 		for(var/i = 1, i <= timeSegmentLength.len,i++)
 			currTime -= timeSegmentLength[i]
 
+			var/nexti = (i % timeSegmentLength.len) + 1
+
 			if(currTime <= 0) //This is the time we're on.
-				ambientLight = timeSegmentLight[i]
+				var/nextratio = abs(currTime / timeSegmentLength[i])
+				ambientLight = BlendRGBasHSV(timeSegmentLight[i],timeSegmentLight[nexti],nextratio)
 				break
 
 		if(ambientLight != ambientLight_Last)
@@ -52,28 +55,32 @@
 			timeTotalLength += timeSegmentLength[i]
 
 	proc/ambientLightUpdate()
-		//set background = 1
+		set background = 1
+
+		return
 
 		var/lum_r = GetRedPart(ambientLight) / 255
 		var/lum_g = GetGreenPart(ambientLight) / 255
 		var/lum_b = GetBluePart(ambientLight) / 255
 
-		for(var/xseg = 0, xseg < world.maxx / AMBIENCE_SEGMENT, xseg++)
-			for(var/yseg = 0, yseg < world.maxy / AMBIENCE_SEGMENT, yseg++)
+		for(var/atom/movable/lighting_overlay/O in bounds(1,1,world.maxx*32,world.maxy*32,zLevel))
+			O.update_ambience(lum_r,lum_g,lum_b)
+		//for(var/xseg = 0, xseg < world.maxx / AMBIENCE_SEGMENT, xseg++)
+		//	for(var/yseg = 0, yseg < world.maxy / AMBIENCE_SEGMENT, yseg++)
 				//world << "updating from [xseg * AMBIENCE_SEGMENT + 1],[yseg * AMBIENCE_SEGMENT + 1] with size [AMBIENCE_SEGMENT*32] on z[zLevel]"
 				//var/i = 0
 
-				for(var/atom/movable/lighting_overlay/O in bounds(xseg * AMBIENCE_SEGMENT * 32,yseg * AMBIENCE_SEGMENT * 32,AMBIENCE_SEGMENT*32,AMBIENCE_SEGMENT*32,zLevel))
+		//		for(var/atom/movable/lighting_overlay/O in bounds(xseg * AMBIENCE_SEGMENT * 32,yseg * AMBIENCE_SEGMENT * 32,AMBIENCE_SEGMENT*32,AMBIENCE_SEGMENT*32,zLevel))
 					//lighting_update_overlays |= O
 					//if(i == 0)
 						//world << "[O.x],[O.y] segment: [xseg],[yseg]"
 
-					O.update_ambience(lum_r,lum_g,lum_b)
+		//			O.update_ambience(lum_r,lum_g,lum_b)
 					//i++
 
 				//world << "updating [i] overlays"
 
-			sleep(10)
+		//	sleep(10)
 
 		//if(lighting_update_overlays.len)
 			//world << "updating [lighting_update_overlays.len]/[i] overlays"
