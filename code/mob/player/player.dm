@@ -44,13 +44,14 @@
 		sdel(D)
 	playerEquipped = null
 
-	for(var/datum/O in playerSpellHolders)
-		sdel(O)
-	playerSpellHolders = null
-
 	for(var/datum/organ/O in playerOrgans)
 		sdel(O)
 	playerOrgans = null
+
+	for(var/datum/statuseffect/SE in statuseffects)
+		sdel(SE)
+
+	statuseffects = null
 
 	persistingEffects = null //I don't think this does anything yet, but null it anyways
 
