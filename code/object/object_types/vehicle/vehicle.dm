@@ -10,6 +10,14 @@
 	var/mob/player/driver
 	var/list/passengers = list()
 
+
+/obj/vehicle/garbageCleanup()
+	..()
+
+	driver = null
+	passengers = null
+
+
 /obj/vehicle/verb/GetIn()
 	set name = "Ride"
 	set desc = "Ride the vehicle"

@@ -24,6 +24,13 @@ var/global/failedSDeletions = 0
 //Called when this datum is being garbage collected
 //use this to cleanup any references to this datum
 //so it GCs correctly
+
+
+//The best way to write a garbageCleanup() proc
+//is to have the datum cleanup it's references to other objects
+//and those that reference it.
+//if the datum "contains" things (such as mobs + organs)
+//then it should sdel the things it "contains"
 /datum/proc/garbageCleanup()
 	return
 
@@ -50,7 +57,7 @@ datum/controller/sdel/getStat()
 	set background = 1
 
 	for(var/datum/D in deleted)
-		if(D.garbageTime && ((D.garbageTime + GARBAGE_PATIENCE) < world.time)) //Only hard-delete if necessary
+		if(D && D.garbageTime && ((D.garbageTime + GARBAGE_PATIENCE) < world.time)) //Only hard-delete if necessary
 			deleted -= D
 			failedSDeletions++
 			del(D)
@@ -64,6 +71,4 @@ datum/controller/sdel/getStat()
 		. = failedSDeletions/totalSDeletions
 
 	. = "[.*100]%"
-
-
 

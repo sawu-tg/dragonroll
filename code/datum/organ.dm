@@ -8,6 +8,17 @@
 	var/datum/race/race
 	var/mob/owner
 
+
+/datum/organ/garbageCleanup()
+	..()
+
+	if(race)
+		sdel(race)
+		race = null
+
+	owner = null
+
+
 /datum/organ/New(var/asrace,var/toOwner)
 	..()
 	race = asrace

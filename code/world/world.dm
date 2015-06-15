@@ -56,21 +56,19 @@ var/datum/controller/balance/balance
 	procObjects -= r
 
 /proc/processLiquids()
-	set background = 1
 	var/processed = 0
 
-	spawn(-1)
+	while(1)
 		for(var/turf/floor/outside/liquid/T in erodeLiquids)
 			if(T && istype(T))
 				T.updateErodeDepth()
-				processed += 1
+				processed++
 			else
 				erodeLiquids -= T
-
 			if(processed > 100)
 				processed = 0
-	spawn(10)
-		processLiquids()
+		sleep(10) //While I've optimised this loop, bord had it at spawn(10) so 1 whole second it is!
+
 
 /proc/filterList(var/filter, var/list/inList, var/list/explicitExcluded)
 	set background = 1
@@ -87,37 +85,32 @@ var/datum/controller/balance/balance
 	. = newList
 
 /proc/processCooldowns()
-	set background = 1
-	if(cooldownHandler.len)
-		for(var/datum/ability/a in cooldownHandler)
-			--a.abilityCooldownTimer
-			if(a.abilityCooldownTimer <= 0)
-				a.abilityCooldownTimer = 0 //just to be sure
-				cooldownHandler.Remove(a)
-			if(a.holder)
-				if(a.holder.client)
-					a.holder.refreshInterface()
-	spawn(1)
-		processCooldowns()
+	while(1)
+		if(cooldownHandler.len)
+			for(var/datum/ability/a in cooldownHandler)
+				a.abilityCooldownTimer = max(0,--a.abilityCooldownTimer)
+				if(a.abilityCooldownTimer <= 0)
+					cooldownHandler -= a
+				if(a.holder)
+					if(a.holder.client)
+						a.holder.refreshInterface()
+		sleep(1)
 
 /proc/processRegions()
-	set background = 1
-	if(regions.len)
-		for(var/datum/zregion/R in regions)
-			spawn(-1)
+	while(1)
+		if(regions.len)
+			for(var/datum/zregion/R in regions)
 				R.doProcess()
-	spawn(1)
-		processRegions()
+		sleep(1)
+
 
 /proc/processObjects()
-	set background = 1
-	if(procObjects.len)
-		for(var/atom/i in procObjects)
-			spawn(1)
-				if(i)
-					i.doProcess()
-	spawn(1)
-		processObjects()
+	while(1)
+		if(procObjects.len)
+			for(var/atom/i in procObjects)
+				i.doProcess()
+		sleep(1)
+
 
 /proc/parseIcon(var/toWhere, var/parse, var/chat = TRUE)
 	var/icon/i
