@@ -59,7 +59,7 @@ datum/controller/sdel/getStat()
 		var/gctime = deleted[dref]
 
 		if(!D)
-			deleted.Remove(dref)
+			deleted -= dref
 			continue
 		else if((D.garbageTime + GARBAGE_PATIENCE) < world.time)
 			if(D.garbageTime && D.garbageTime == gctime) //Only hard-delete if necessary and it's the same object. I hope this works.
@@ -67,7 +67,7 @@ datum/controller/sdel/getStat()
 				failedSDeletions++
 				failedTypes["[D.type]"]++
 				del(D)
-			deleted.Remove(dref)
+			deleted -= dref
 
 	scheck() //why is this out here!?
 

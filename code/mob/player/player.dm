@@ -52,11 +52,6 @@
 		sdel(O)
 	playerOrgans = null
 
-	for(var/datum/statuseffect/SE in statuseffects)
-		sdel(SE)
-
-	statuseffects = null
-
 	persistingEffects = null //I don't think this does anything yet, but null it anyways
 
 	if(deadeffect)
