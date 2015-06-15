@@ -78,3 +78,11 @@
 	var/toSpawn = input(src,"Spawn what?") as null|anything in typesof(/turf)
 	if(toSpawn)
 		new toSpawn(get_turf(src))
+
+/mob/verb/SpawnStruct()
+	set name = "Spawn Structure"
+	set desc = "Spawns a structure at your location"
+	set category = "DM"
+	var/toSpawn = input(src,"Spawn what?") as null|anything in typesof(/obj/structure)
+	if(toSpawn)
+		new toSpawn(get_turf(src))

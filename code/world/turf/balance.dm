@@ -21,10 +21,11 @@
 ///
 
 /obj/structure/balance/evilportal
-	name = "balance structure"
-	desc = "balances things"
+	name = "Hellish Portal"
+	desc = "Licks of flame and magma flit in and out of the portal."
 	icon_state = "portal1"
-	var/spawnRate = 120
+	density = 0
+	var/spawnRate = 30
 	var/list/spawnTypes = list(/mob/player/npc/animal/wasp,/mob/player/npc/animal/spider)
 
 /obj/structure/balance/evilportal/New()
@@ -35,6 +36,7 @@
 	if(spawnRate > 0)
 		--spawnRate
 	else
+		spawnRate = initial(spawnRate)
 		var/toSpawn = pick(spawnTypes)
 		if(toSpawn)
 			new toSpawn(get_turf(src))
@@ -90,3 +92,30 @@
 /turf/wall/balance/good/New()
 	..()
 	balance.actsGood += src
+
+/obj/structure/balance/goodportal
+	name = "Pristine Portal"
+	desc = "A faint whistling sound is leaking from the portal."
+	icon_state = "portal"
+	density = 0
+	var/datum/ability/portalSpell = new/datum/ability/taunt
+	var/spawnRate = 30
+
+/obj/structure/balance/goodportal/New()
+	..()
+	addProcessingObject(src)
+
+/obj/structure/balance/goodportal/doProcess()
+	if(spawnRate > 0)
+		--spawnRate
+	else
+		spawnRate = initial(spawnRate)
+		for(var/mob/player/M in range(7,src))
+			spawn(1)
+				if(M.alignment == ALIGN_EVIL)
+					M.throw_at(src)
+					spawn(1)
+						if(M.checkEffectStack("dead") && !M.client)
+							sdel(M)
+						else
+							M.takeDamage(5,DTYPE_DIRECT)

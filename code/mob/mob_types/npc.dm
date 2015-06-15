@@ -19,6 +19,8 @@
 	var/npcState = NPCSTATE_IDLE
 	var/npcNature = NPCTYPE_PASSIVE
 
+	var/list/npcSpells // a list of spells given to the NPC on spawn
+
 	speed = 4
 	doesProcessing = FALSE
 	var/target
@@ -47,7 +49,7 @@
 	///
 	// NPCs are totes omnipotent
 	///
-	for(var/A in typesof(/datum/ability) - list(/datum/ability,/datum/ability/gigaheal,/datum/ability/gigabeam))
+	for(var/A in npcSpells)
 		playerData.playerAbilities += A
 
 /mob/player/npc/Del()

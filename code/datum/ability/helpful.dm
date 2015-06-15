@@ -15,7 +15,7 @@
 ///
 
 /datum/ability/taunt
-	name = "Taunt"
+	name = "Chain-Throw"
 	desc = "Throws a chain at a target, dragging them to you."
 	abilityRange = 8
 	abilityModifier = -1
@@ -25,9 +25,10 @@
 	abilityIconSelf = /obj/effect/pow
 	abilityProjectile = /obj/projectile/spear
 	abilityIconTarget = /obj/effect/target
+	var/beamIcon = "c_beam"
 
 /datum/ability/taunt/Cast(var/mob/player/caster,var/target)
 	..()
 	var/atom/movable/AM = target
 	if(AM)
-		caster.Beam(abilityCastedProjectile,time=15,icon_state="c_beam")
+		caster.Beam(abilityCastedProjectile,time=15,icon_state=beamIcon)

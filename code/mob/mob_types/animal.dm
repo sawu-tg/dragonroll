@@ -13,6 +13,7 @@
 	spawn(1)
 		if(isHostile)
 			npcNature = NPCTYPE_AGGRESSIVE
+			alignment = ALIGN_EVIL
 			mobFaction = new/datum/faction/generic_hostile
 		else
 			mobFaction = new/datum/faction/wildlife
@@ -21,6 +22,7 @@
 	name = "Chicken"
 	desc = "You wonder where it came from."
 	icon_state = "chicken_white"
+	npcSpells = list(/datum/ability/deathbeam/leer)
 
 /mob/player/npc/animal/chicken/New()
 	icon_state = "chicken_[pick("brown","white","black")]"
@@ -30,11 +32,13 @@
 	name = "Fox"
 	desc = "Smarter than most things."
 	icon_state = "fox"
+	npcSpells = list(/datum/ability/assassinate/leap,/datum/ability/deathbeam/leer)
 
 /mob/player/npc/animal/dog
 	name = "Dog"
 	desc = "Some call him \"Ian\""
 	icon_state = "corgi"
+	npcSpells = list(/datum/ability/assassinate/leap)
 
 /mob/player/npc/animal/dog/New()
 	icon_state = pick("corgi","lisa","pug")
@@ -44,6 +48,7 @@
 	name = "Crab"
 	desc = "Comes with six conveniently attached sticks."
 	icon_state = "crab"
+	npcSpells = list(/datum/ability/toxicthrow/spit)
 
 /mob/player/npc/animal/crab/New()
 	icon_state = pick("evilcrab","crab")
@@ -53,12 +58,14 @@
 	name = "Cow"
 	desc = "She likes to moo-ve it."
 	icon_state = "cow"
+	npcSpells = list(/datum/ability/deathbeam/leer)
 
 /mob/player/npc/animal/bear
 	name = "Bear"
 	desc = "Smarter than the average."
 	icon_state = "bear"
 	isHostile = TRUE
+	npcSpells = list(/datum/ability/assassinate/leap)
 
 /mob/player/npc/animal/bear/New()
 	icon_state = pick("brownbear","bearfloor")
@@ -69,6 +76,7 @@
 	desc = "Spins webs and climbs aquaducts."
 	icon_state = "guard"
 	isHostile = TRUE
+	npcSpells = list(/datum/ability/taunt/web,/datum/ability/assassinate/leap,/datum/ability/toxicthrow/spit)
 
 /mob/player/npc/animal/spider/New()
 	icon_state = pick("guard","hunter","nurse")
@@ -78,6 +86,7 @@
 	name = "Cat"
 	desc = "Fond of fiddles and spoons."
 	icon_state = "cat"
+	npcSpells = list(/datum/ability/assassinate/leap,/datum/ability/deathbeam/leer)
 
 /mob/player/npc/animal/cat/New()
 	icon_state = pick("cat","cat2")
@@ -87,14 +96,17 @@
 	name = "Bat"
 	desc = "No men here."
 	icon_state = "bat"
+	npcSpells = list(/datum/ability/deathbeam/leer)
 
 /mob/player/npc/animal/wasp
 	name = "Wasp"
 	desc = "Pollinates figs. And nightmares."
 	icon_state = "wasp"
 	isHostile = TRUE
+	npcSpells = list(/datum/ability/deathbeam/leer,/datum/ability/toxicthrow/spit)
 
 /mob/player/npc/animal/deer
 	name = "Deer"
 	desc = "Neigh!."
 	icon_state = "deer"
+	npcSpells = list(/datum/ability/deathbeam/leer)
