@@ -44,6 +44,10 @@
 		sdel(D)
 	playerEquipped = null
 
+	for(var/datum/O in playerSpellHolders)
+		sdel(O)
+	playerSpellHolders = null
+
 	for(var/datum/organ/O in playerOrgans)
 		sdel(O)
 	playerOrgans = null

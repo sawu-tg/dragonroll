@@ -38,6 +38,10 @@
 
 	var/mob/holder // who holds this spell, for easy access
 
+/datum/ability/garbageCleanup()
+	..()
+	holder = null
+
 ///
 // Tests if the ability can be casted, and then casts it.
 ///

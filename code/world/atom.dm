@@ -152,6 +152,11 @@
 	spawn(5)
 		addProcessingObject(src)
 
+/obj/effect/overlay/beam/garbageCleanup()
+	..()
+	remProcessingObject(src)
+	BeamSource = null
+
 /obj/effect/overlay/beam/doProcess()
 	if(!BeamSource || world.time > time)
 		sdel(src)
