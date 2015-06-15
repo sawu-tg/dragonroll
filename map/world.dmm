@@ -53,25 +53,26 @@
 "ba" = (/turf/floor/lobbyFloor{tag = "icon-carpet6-2"; icon_state = "carpet6-2"},/area)
 "bb" = (/turf/floor/lobbyFloor{tag = "icon-carpetnoconnect"; icon_state = "carpetnoconnect"},/area)
 "bc" = (/obj/furniture/seat/chair/comfy,/turf/floor/lobbyFloor{tag = "icon-carpetnoconnect"; icon_state = "carpetnoconnect"},/area)
-"bd" = (/obj/structure/rail{tag = "icon-rail7"; icon_state = "rail7"},/obj/train/wheel,/turf/floor/outside/dirt,/area)
-"be" = (/obj/structure/rail{tag = "icon-rail12"; icon_state = "rail12"},/obj/train/floor,/obj/train/train_control,/turf/floor/outside/dirt,/area)
-"bf" = (/obj/structure/rail,/obj/train/wheel,/turf/floor/outside/dirt,/area)
-"bg" = (/obj/furniture/seat/chair/comfy/beige{tag = "icon-comfychair_beige (EAST)"; icon_state = "comfychair_beige"; dir = 4},/turf/floor/lobbyFloor{tag = "icon-carpetnoconnect"; icon_state = "carpetnoconnect"},/area)
-"bh" = (/obj/furniture/table/wooden,/turf/floor/lobbyFloor{tag = "icon-carpetnoconnect"; icon_state = "carpetnoconnect"},/area)
-"bi" = (/obj/furniture/seat/chair/comfy/teal{tag = "icon-comfychair_teal (WEST)"; icon_state = "comfychair_teal"; dir = 8},/turf/floor/lobbyFloor{tag = "icon-carpetnoconnect"; icon_state = "carpetnoconnect"},/area)
-"bj" = (/obj/structure/door,/turf/floor/lobbyFloor,/area)
-"bk" = (/obj/structure/rail{tag = "icon-rail3"; icon_state = "rail3"},/obj/train/floor,/obj/item/logicgate/constant,/turf/floor/outside/dirt,/area)
-"bl" = (/obj/train/floor,/obj/item/powerdevice/wiretool,/turf/floor/outside/dirt,/area)
-"bm" = (/obj/structure/rail{tag = "icon-rail3"; icon_state = "rail3"},/obj/train/floor,/obj/structure/lightswitch,/turf/floor/outside/dirt,/area)
-"bn" = (/obj/furniture/seat/chair/comfy/lime{tag = "icon-comfychair_lime (NORTH)"; icon_state = "comfychair_lime"; dir = 1},/turf/floor/lobbyFloor{tag = "icon-carpetnoconnect"; icon_state = "carpetnoconnect"},/area)
-"bo" = (/obj/structure/rail{tag = "icon-rail5"; icon_state = "rail5"},/obj/train/wheel,/turf/floor/outside/dirt,/area)
-"bp" = (/obj/structure/rail{tag = "icon-rail12"; icon_state = "rail12"},/obj/train/floor,/turf/floor/outside/dirt,/area)
-"bq" = (/obj/structure/rail{tag = "icon-rail13"; icon_state = "rail13"},/obj/train/wheel,/turf/floor/outside/dirt,/area)
-"br" = (/obj/structure/rail{tag = "icon-rail13"; icon_state = "rail13"},/turf/floor/outside/dirt,/area)
-"bs" = (/obj/furniture/underlay/bed/bedframe,/obj/furniture/underlay/bed,/obj/item/furniture/overlay/bed/blanket,/obj/item/furniture/underlay/bed/pillow,/turf/floor/lobbyFloor{tag = "icon-carpet5-1"; icon_state = "carpet5-1"},/area)
-"bt" = (/obj/furniture/underlay/bed/bedframe,/obj/furniture/underlay/bed,/obj/item/furniture/overlay/bed/blanket,/obj/item/furniture/underlay/bed/pillow,/turf/floor/lobbyFloor{tag = "icon-carpetside"; icon_state = "carpetside"},/area)
-"bu" = (/obj/structure/powered/light{tag = "icon-tube0"; icon_state = "tube0"; dir = 2; tubelight = "#FFFFFF"},/turf/floor/lobbyFloor{tag = "icon-carpetside"; icon_state = "carpetside"},/area)
-"bv" = (/turf/floor/lobbyFloor{tag = "icon-carpet9-4"; icon_state = "carpet9-4"},/area)
+"bd" = (/obj/structure/tank/petrol,/turf/floor/outside/grass,/area)
+"be" = (/obj/structure/rail{tag = "icon-rail7"; icon_state = "rail7"},/obj/train/wheel,/turf/floor/outside/dirt,/area)
+"bf" = (/obj/structure/rail{tag = "icon-rail12"; icon_state = "rail12"},/obj/train/floor,/obj/train/train_control,/turf/floor/outside/dirt,/area)
+"bg" = (/obj/structure/rail,/obj/train/wheel,/turf/floor/outside/dirt,/area)
+"bh" = (/obj/furniture/seat/chair/comfy/beige{tag = "icon-comfychair_beige (EAST)"; icon_state = "comfychair_beige"; dir = 4},/turf/floor/lobbyFloor{tag = "icon-carpetnoconnect"; icon_state = "carpetnoconnect"},/area)
+"bi" = (/obj/furniture/table/wooden,/turf/floor/lobbyFloor{tag = "icon-carpetnoconnect"; icon_state = "carpetnoconnect"},/area)
+"bj" = (/obj/furniture/seat/chair/comfy/teal{tag = "icon-comfychair_teal (WEST)"; icon_state = "comfychair_teal"; dir = 8},/turf/floor/lobbyFloor{tag = "icon-carpetnoconnect"; icon_state = "carpetnoconnect"},/area)
+"bk" = (/obj/structure/door,/turf/floor/lobbyFloor,/area)
+"bl" = (/obj/structure/rail{tag = "icon-rail3"; icon_state = "rail3"},/obj/train/floor,/obj/item/logicgate/constant,/turf/floor/outside/dirt,/area)
+"bm" = (/obj/train/floor,/obj/item/powerdevice/wiretool,/turf/floor/outside/dirt,/area)
+"bn" = (/obj/structure/rail{tag = "icon-rail3"; icon_state = "rail3"},/obj/train/floor,/obj/structure/lightswitch,/turf/floor/outside/dirt,/area)
+"bo" = (/obj/furniture/seat/chair/comfy/lime{tag = "icon-comfychair_lime (NORTH)"; icon_state = "comfychair_lime"; dir = 1},/turf/floor/lobbyFloor{tag = "icon-carpetnoconnect"; icon_state = "carpetnoconnect"},/area)
+"bp" = (/obj/structure/rail{tag = "icon-rail5"; icon_state = "rail5"},/obj/train/wheel,/turf/floor/outside/dirt,/area)
+"bq" = (/obj/structure/rail{tag = "icon-rail12"; icon_state = "rail12"},/obj/train/floor,/turf/floor/outside/dirt,/area)
+"br" = (/obj/structure/rail{tag = "icon-rail13"; icon_state = "rail13"},/obj/train/wheel,/turf/floor/outside/dirt,/area)
+"bs" = (/obj/structure/rail{tag = "icon-rail13"; icon_state = "rail13"},/turf/floor/outside/dirt,/area)
+"bt" = (/obj/furniture/underlay/bed/bedframe,/obj/furniture/underlay/bed,/obj/item/furniture/overlay/bed/blanket,/obj/item/furniture/underlay/bed/pillow,/turf/floor/lobbyFloor{tag = "icon-carpet5-1"; icon_state = "carpet5-1"},/area)
+"bu" = (/obj/furniture/underlay/bed/bedframe,/obj/furniture/underlay/bed,/obj/item/furniture/overlay/bed/blanket,/obj/item/furniture/underlay/bed/pillow,/turf/floor/lobbyFloor{tag = "icon-carpetside"; icon_state = "carpetside"},/area)
+"bv" = (/obj/structure/powered/light{tag = "icon-tube0"; icon_state = "tube0"; dir = 2; tubelight = "#FFFFFF"},/turf/floor/lobbyFloor{tag = "icon-carpetside"; icon_state = "carpetside"},/area)
+"bw" = (/turf/floor/lobbyFloor{tag = "icon-carpet9-4"; icon_state = "carpet9-4"},/area)
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -197,10 +198,10 @@ abaDaLaMaMaMaMaMaMaMaMaMaMaMaMaMaMaMaMaMaMaMaMaMaMaMaMaMaNabajajakalakalalalalal
 abaPaQaQaRaQaQaQaQaQaRaQaQaQaQaQaQaRaQaQaQaQaQaQaQaRaQaQaSabajajaGauaHauauauauauauaHauaTaUabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 ababababaVabababababaVababababababaVabababababababaVababababaiajakalakalalalalalalakalakaWabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 abaXaMaMaYaMaZabbaaMaYaMaMaZabbaaMaYaMaMaMaZabbaaMaYaMaMaZabajajakalakalalalalalalakalakajabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-abaDbbbcbbbbazabaDbbbcbbbbazabaDbbbcbbbbbbazabaDbbbcbbbbazabajajbdbebfauauauauauauaHauaHauabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-abaDbgbhbibbazabaDbgbhbibbazabaDbgbhbibbbbazabaDbgbhbibbazbjajajbkblbmalalalalalalakalakalabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-abaDbbbnbbbbazabaDbbbnbbbbazabaDbbbnbbbbbbazabaDbbbnbbbbazbjajajbobpbqauauauauauaubraubrauabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-abbsbtbtbuaQbvabbsbtbtaQbubvabbsbtbtaQaQbubvabbsbtbtaQbuaSabaiajajajajajajajajajajajajajajabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+abaDbbbcbbbbazabaDbbbcbbbbazabaDbbbcbbbbbbazabaDbbbcbbbbazabbdajbebfbgauauauauauauaHauaHauabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+abaDbhbibjbbazabaDbhbibjbbazabaDbhbibjbbbbazabaDbhbibjbbazbkajajblbmbnalalalalalalakalakalabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+abaDbbbobbbbazabaDbbbobbbbazabaDbbbobbbbbbazabaDbbbobbbbazbkajajbpbqbrauauauauauaubsaubsauabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+abbtbububvaQbwabbtbubuaQbvbwabbtbubuaQaQbvbwabbtbubuaQbvaSabaiajajajajajajajajajajajajajajabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 ababababababababababababababababababababababababababababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 "}
 
