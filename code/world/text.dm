@@ -22,10 +22,18 @@
 /proc/messageSystem(var/personal as text, var/mob/toWho, var/fromWhat)
 	messagePlayer("<b><i>[personal]</i></b>",toWho,fromWhat,"purple")
 
+/proc/messageWarning(var/personal as text, var/mob/toWho, var/fromWhat)
+	messagePlayer("<font size = 6><b><i>[personal]</i></b></font>",toWho,fromWhat,"red")
+
 /proc/messageSystemAll(var/personal as text)
 	for(var/mob/player/M in world)
 		if(M.client)
 			messageSystem(personal,M,world)
+
+/proc/messageWarningAll(var/personal as text)
+	for(var/mob/player/M in world)
+		if(M.client)
+			messageWarning(personal,M,world)
 ///
 ///
 ///

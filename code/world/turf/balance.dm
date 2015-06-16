@@ -54,7 +54,7 @@
 		sdel(A)
 		foundIn = TRUE
 	if(foundIn)
-		if(prob(5))
+		if(prob(15))
 			new/obj/structure/balance/evilportal(get_turf(src))
 		else
 			new/turf/wall/balance/evil(get_turf(src))
@@ -81,6 +81,15 @@
 /turf/floor/balance/good/New()
 	..()
 	balance.actsGood += src
+	var/foundIn = FALSE
+	for(var/obj/interact/A in src)
+		sdel(A)
+		foundIn = TRUE
+	if(foundIn)
+		if(prob(15))
+			new/obj/structure/balance/goodportal(get_turf(src))
+		else
+			new/turf/wall/balance/good(get_turf(src))
 
 /turf/wall/balance/good
 	name = "Pristine Wall"
