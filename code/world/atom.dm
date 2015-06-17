@@ -25,7 +25,8 @@
 	var/myOldPixelY = 0
 	var/prevent_pickup = 0
 
-
+	var/move_delay = 2 * TICK_LAG
+	var/tmp/last_move = -1000
 
 	//throwing stuff
 	var/thrown = FALSE
@@ -33,6 +34,23 @@
 	var/thrownTimeout = 30
 	var/countedTimeout = 0
 	var/turf/lastTurf
+
+ /atom/movable/Move(atom/NewLoc,Dir=0,step_x=0,step_y=0)
+ 	if(src.loc && get_dist(src,NewLoc) == 1)
+ 		if(last_move + move_delay > world.time)
+ 			return 0
+ 		. = get_dir(src,NewLoc)
+ 		if(. & . - 1)
+ 			src.glide_size = sqrt(TILE_WIDTH**2 + TILE_HEIGHT**2) / move_delay * TICK_LAG
+ 		else if(. < 4)
+ 			src.glide_size = TILE_HEIGHT / move_delay * TICK_LAG
+ 		else
+ 			src.glide_size = TILE_WIDTH / move_delay * TICK_LAG
+ 		. = ..(NewLoc,Dir,step_x,step_y)
+ 		if(.)
+ 			last_move = world.time
+ 		return .
+ 	. = ..(NewLoc,Dir,step_x,step_y)
 
 //done as the atom is added to the processing list
 /atom/proc/preProc()

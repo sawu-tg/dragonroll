@@ -1,4 +1,7 @@
 #define INFINITY 1e31	//closer then enough
+#define TILE_WIDTH  32
+#define TILE_HEIGHT 32
+#define TICK_LAG 0.4
 
 #define SAVING_REFLEX 1
 #define SAVING_WILL 2
