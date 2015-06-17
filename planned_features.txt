@@ -11,7 +11,7 @@ Crafting
 	* Seperate into seperate sub-skills (woodcrafting, enchanting, leatherworking)
 	* Enchanting system (adds stats + overlay)
 	* Custom item crafting (choose hilt/blade/shaft etc of items crafted and colors to material)
-	* Add/expand cooking/baking etc, make very deep.
+	* Expand cooking/baking etc, make very deep.
 	
 NPCs
 	* Redo AI
