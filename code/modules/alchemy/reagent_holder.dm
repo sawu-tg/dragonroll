@@ -17,6 +17,15 @@
 		myatom = A
 		maxvolume = size
 
+	proc/isState(var/what)
+		var/test = text2num(what)
+		if(test == REAGENT_STATE_SOLID)
+			return TRUE
+		if(test == REAGENT_STATE_POWDER)
+			return TRUE
+		if(test == REAGENT_STATE_LIQUID)
+			return TRUE
+
 	proc/addliquid(var/ref,var/amt)
 		calctotal()
 
@@ -46,7 +55,7 @@
 
 	proc/removeliquid(var/ref,var/amt)
 		for(var/datum/reagent/l in liquidlist)
-			if(l.id == ref)
+			if(isState(ref) ? l.reagentState == text2num(ref) : l.id == ref)
 				l.volume = max(l.volume-amt,0)
 				if(l.volume <= 0)
 					liquidlist -= l

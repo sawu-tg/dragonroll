@@ -81,6 +81,14 @@
 #define ALIGN_GOOD 1
 
 ///
+// REAGENT STATES
+///
+
+#define REAGENT_STATE_SOLID 1
+#define REAGENT_STATE_LIQUID 2
+#define REAGENT_STATE_POWDER 3
+
+///
 // RGB DEFINES
 ///
 #define COL_HOSTILE rgb(255,0,0)

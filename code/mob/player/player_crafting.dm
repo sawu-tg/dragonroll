@@ -7,6 +7,14 @@
 	for(var/datum/recipe/r in playerData.knownRecipes)
 		topic += "<tr>"
 		topic += "<td>"
+		var/ableTC = r.canCraft(contents)
+		if(ableTC)
+			if(r.requiredType)
+				ableTC = FALSE
+				for(var/A in orange(src,1))
+					if(A:type == r.requiredType)
+						ableTC = TRUE
+						break
 		topic += "<a href=?src=\ref[src];recipe=\ref[r]><b><font color=[r.canCraft(contents) ? "green" : "red"]>[r.name]</font></b></a><br>"
 		topic += "</td>"
 		for(var/eb in r.getNeededNames())

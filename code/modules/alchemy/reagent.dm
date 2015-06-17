@@ -20,6 +20,8 @@ proc/generateReagentList()
 	var/volume
 	var/datum/reagent_holder/holder
 
+	var/reagentState = REAGENT_STATE_LIQUID
+
 	var/firecolor = "#FFFFFF"
 
 	proc/is_equivalent(var/datum/reagent/other)

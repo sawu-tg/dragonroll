@@ -2,6 +2,8 @@
 	name = "edible numnums"
 	desc = "tastey!"
 	icon = 'sprite/obj/food.dmi'
+	var/cooked_icon_state
+	var/cooked_name
 	var/foodLevel = 2
 	reagentSize = 25
 	var/list/containedReagents = list(/datum/reagent/nutrients = 1)

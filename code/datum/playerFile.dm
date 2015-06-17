@@ -40,7 +40,7 @@
 	var/datum/stat/will = new("Will Throw","will",FALSE,1,staticon = "will")
 
 	// The recipes that the player knows for crafting
-	var/list/knownRecipes = list(new/datum/recipe/hoe,new/datum/recipe/woodboat,new/datum/recipe/hatchet,new/datum/recipe/woodwall,new/datum/recipe/wooddoor)
+	var/list/knownRecipes = list(new/datum/recipe/tortilla,new/datum/recipe/piecrust,new/datum/recipe/pizzacrust,new/datum/recipe/dough,new/datum/recipe/hoe,new/datum/recipe/woodboat,new/datum/recipe/hatchet,new/datum/recipe/woodwall,new/datum/recipe/wooddoor)
 
 /datum/playerFile/New()
 	playerRace = new/datum/race/Human

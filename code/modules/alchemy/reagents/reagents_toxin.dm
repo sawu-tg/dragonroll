@@ -33,6 +33,7 @@
 	name = "bluestone"
 	id = "bluestone"
 	color = "#FFFFFF"
+	reagentState = REAGENT_STATE_SOLID
 
 /datum/chem_reaction/bluestone
 	id = "bluestone"
@@ -47,6 +48,7 @@
 	name = "cinnabar"
 	id = "cinnabar"
 	color = "#FFFFFF"
+	reagentState = REAGENT_STATE_SOLID
 
 //sulfuric acid. Probably sulfur in water. Also heat green or blue vitriol.
 /datum/reagent/vitriol
@@ -79,66 +81,77 @@
 	name = "marcasite"
 	id = "marcasite"
 	color = "#FFFFFF"
+	reagentState = REAGENT_STATE_POWDER
 
 //Ferric oxide. formed from burning green_vitriol.
 /datum/reagent/colcothar
 	name = "colcothar"
 	id = "colcothar"
 	color = "#FFFFFF"
+	reagentState = REAGENT_STATE_POWDER
 
 //silver nitrate. corrosive.
 /datum/reagent/lapis_infernalis
 	name = "lapis infernalis"
 	id = "lapis_infernalis"
 	color = "#FFFFFF"
+	reagentState = REAGENT_STATE_POWDER
 
 //potash in water.
 /datum/reagent/lye
 	name = "lye"
 	id = "lye"
 	color = "#FFFFFF"
+	reagentState = REAGENT_STATE_POWDER
 
 //potassium carbonate. evaporate lye.
 /datum/reagent/potash
 	name = "potash"
 	id = "potash"
 	color = "#FFFFFF"
+	reagentState = REAGENT_STATE_POWDER
 
 //bake potash
 /datum/reagent/pearlash
 	name = "pearlash"
 	id = "pearlash"
 	color = "#FFFFFF"
+	reagentState = REAGENT_STATE_POWDER
 
 //lead monoxide. mineral.
 /datum/reagent/massicot
 	name = "massicot"
 	id = "massicot"
 	color = "#FFFFFF"
+	reagentState = REAGENT_STATE_SOLID
 
 //fused and powdered massicot
 /datum/reagent/litharge
 	name = "litharge"
 	id = "litharge"
 	color = "#FFFFFF"
+	reagentState = REAGENT_STATE_POWDER
 
 //red lead. roast litharge.
 /datum/reagent/minium
 	name = "minium"
 	id = "minium"
 	color = "#FFFFFF"
+	reagentState = REAGENT_STATE_SOLID
 
 //this makes displays. Apparently made from reduction of barite with flour/coke
 /datum/reagent/lapis_solaris
 	name = "lapis solaris"
 	id = "lapis_solaris"
 	color = "#FFFFFF"
+	reagentState = REAGENT_STATE_POWDER
 
 //salt of the world/thaumaturge's salt
 /datum/reagent/salis_mundus
 	name = "salis mundus"
 	id = "salis_mundus"
 	color = "#FFFFFF"
+	reagentState = REAGENT_STATE_POWDER
 
 //hydrochloric acid. table salt + oil of vitriol
 /datum/reagent/acidum_salis
@@ -151,6 +164,7 @@
 	name = "sal ammoniac"
 	id = "sal_ammoniac"
 	color = "#FFFFFF"
+	reagentState = REAGENT_STATE_POWDER
 
 //ammonia. decompose sal ammonica in unslaked lime
 /datum/reagent/spirit_of_hartshorn
@@ -163,4 +177,5 @@
 	name = "sal volatile"
 	id = "sal_volatile"
 	color = "#FFFFFF"
+	reagentState = REAGENT_STATE_POWDER
 
