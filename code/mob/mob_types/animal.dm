@@ -41,7 +41,7 @@
 	npcSpells = list(/datum/ability/assassinate/leap)
 
 /mob/player/npc/animal/dog/New()
-	icon_state = pick("corgi","lisa","pug")
+	icon_state = pick("corgi","lisa","pug","tamaskan","shepard")
 	..()
 
 /mob/player/npc/animal/crab

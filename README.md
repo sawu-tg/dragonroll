@@ -96,3 +96,9 @@ Contributing Users
 * RemieRichards (Coder)
 * MrSnapwalk (Code and Sprites)
 * iamgoofball (Code and Sprites)
+
+Excess Copyright
+==========
+All code, images and content is covered under AGPLv2 license, unless otherwise stated.
+
+Many sprites, sounds and code snippets have been used under fair-use/AGPL attribution from [/tg/station13](https://github.com/tgstation/-tg-station)

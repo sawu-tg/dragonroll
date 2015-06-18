@@ -1,6 +1,6 @@
 /obj/structure/cooking
-	name = "cooking thingamabob"
-	desc = "cooks things, and mabobs"
+	name = "campfire"
+	desc = "keeps things warm."
 	icon = 'sprite/obj/alchemy/structures.dmi'
 	icon_state = "campfire"
 	var/burnTime = 1200

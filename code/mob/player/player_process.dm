@@ -36,6 +36,7 @@
 		if(shouldLay)
 			newtransform.Turn(90)
 			newtransform.Translate(0,-8)
+			newtransform.Scale(1)
 		animate(src,transform = newtransform,time = 2,loop = 0)
 		layingDown = shouldLay
 

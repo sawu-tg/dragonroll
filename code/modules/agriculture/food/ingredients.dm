@@ -8,7 +8,14 @@
 		user.DropItem()
 		if(I.reagents)
 			I.reagents.trans_to(src.reagents,I.reagents.currentvolume)
-		name = "[I.name] [name]"
+		if(!istype(I,/obj/item/food/prep))
+			var/matrix/newtransform = matrix()
+			newtransform.Turn(rand(90,270))
+			newtransform.Translate(rand(-16,16),rand(-16,16))
+			newtransform.Scale(0.3)
+			animate(I,transform = newtransform,time = 0.1,loop = 0)
+			name = "[I.name] [name]"
+		overlays += I
 		sdel(I)
 
 /obj/item/food/prep/dough
@@ -16,6 +23,23 @@
 	desc = "makes all sorts of good food."
 	cooked_name = "damper"
 	icon_state = "dough"
+	var/pieces = 4
+
+/obj/item/food/prep/dough/objFunction(var/mob/user,var/obj/item/I)
+	if(!I)
+		if(pieces > 0)
+			messageInfo("You tear off a piece of the [src]", user, src)
+			new/obj/item/food/prep/doughpiece(get_turf(src))
+			--pieces
+			if(pieces <= 0)
+				sdel(src)
+
+/obj/item/food/prep/doughpiece
+	name = "dough piece"
+	desc = "a tiny piece of a whole."
+	cooked_name = "toast"
+	cooked_icon_state = "breadslice"
+	icon_state = "doughslice"
 
 /obj/item/food/prep/cakebatter
 	name = "cake batter"
