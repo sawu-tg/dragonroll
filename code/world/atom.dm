@@ -25,7 +25,7 @@
 	var/myOldPixelY = 0
 	var/prevent_pickup = 0
 
-	var/move_delay = 2 * TICK_LAG
+	var/move_delay = 4 * TICK_LAG
 	var/tmp/last_move = -1000
 
 	//throwing stuff

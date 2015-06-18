@@ -12,7 +12,7 @@ var/datum/controller/balance/balance
 	turf = /turf/floor/voidFloor
 	mob = /mob/player
 	view = 9
-	fps = 40
+	fps = 20
 	icon_size = 32
 	loop_checks = 0
 
