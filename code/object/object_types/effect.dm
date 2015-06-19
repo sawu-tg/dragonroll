@@ -8,6 +8,7 @@
 	var/repeat = FALSE // repeat the animation?
 	var/repeatTimes = 2 //how many times to repeat
 	var/repeatCounter = 0 //counted repeats
+	var/fades = FALSE
 
 /obj/effect/New()
 	..()
@@ -27,8 +28,11 @@
 			procTime = length
 			++repeatCounter
 		else
-			onDestroy()
-			sdel(src)
+			if(fades && alpha > 0)
+				alpha = alpha - 10
+			else
+				onDestroy()
+				sdel(src)
 	else
 		--procTime
 
@@ -159,3 +163,66 @@
 	repeat = FALSE
 	icon = 'sprite/obj/tg_effects/effects.dmi'
 	icon_state = "shield"
+
+/obj/effect/blood
+	name = "Blood"
+	desc = "Nutritious and delicious for those who sparkle and those who not-so-much-sparkle."
+	length = 30
+	repeat = FALSE
+	icon = 'sprite/obj/tg_effects/blood.dmi'
+	icon_state = "floor1"
+	fades = TRUE
+
+/obj/effect/blood/New()
+	..()
+	icon_state = "floor[rand(1,7)]"
+
+/obj/effect/blood/trail
+	icon = 'sprite/obj/tg_effects/blood.dmi'
+	icon_state = "trail1"
+
+/obj/effect/blood/trail/New()
+	..()
+	icon_state = "trail[rand(1,4)]"
+
+///
+// EFFECT SPREADERS
+///
+
+
+/obj/effectBot
+	name = ""
+	invisibility = 3
+	icon = 'sprite/mob/mob.dmi'
+	icon_state = "harvester"
+	move_delay = 0.1
+	var/effectType
+	var/spatType
+	var/maxLength = 7
+	var/onDir = NORTH
+	var/first = TRUE
+
+/obj/effectBot/New(var/turf/start,var/ofType,var/ofSpat,var/toDir=NORTH,var/length=7)
+	..(start)
+	effectType = ofType
+	spatType = ofSpat
+	maxLength = length
+	onDir = toDir
+	addProcessingObject(src)
+
+/obj/effectBot/doProcess()
+	var/turf/T = get_turf(src)
+	var/obj/effect/E
+	if(spatType && maxLength == 0)
+		E = new spatType(T)
+	else
+		E = new effectType(T)
+	E.dir = first ? onDir : dir
+	T = get_step(src,onDir)
+	first = FALSE
+	if(maxLength > 0)
+		Move(T)
+		--maxLength
+	else
+		remProcessingObject(src)
+		sdel(src)

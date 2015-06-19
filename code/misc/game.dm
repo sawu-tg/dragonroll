@@ -139,7 +139,9 @@ var/list/alldirs = list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAS
 	var/deltax = x1 - x0
 	var/deltay = y1 - y0
 	var/error = 0.0
-	var/deltaerr = abs(deltay / deltax)
+	var/deltaerr = deltay
+	if(deltax != 0)
+		deltaerr = abs(deltay / deltax)
 
 	var/y = y0
 	var/z = start.z

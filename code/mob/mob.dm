@@ -78,6 +78,9 @@
 			mob.client.mouse_pointer_icon = null
 		else
 			..()
+
+/mob/proc/bloodSpray(var/dir,var/number,var/intensity)
+	new/obj/effectBot(get_turf(src),/obj/effect/blood/trail,/obj/effect/blood,dir,intensity)
 //////////////////////////////////////////////////////
 
 /mob/proc/processAttack(var/mob/player/attacker,var/mob/player/victim)
@@ -89,6 +92,12 @@
 	if(mainHand)
 		attackString = "hit [victim] with [mainHand.name]"
 		damage += (mainHand.force+mainHand.weight)*mainHand.size
+		if(mainHand.force > mainHand.weight) // higher force than weight, probably a sword or cutting thing
+			bloodSpray(turn(src.dir,90),max(mainHand.force/4,1),max(mainHand.weight/2,1))
+			bloodSpray(turn(src.dir,-90),max(mainHand.force/4,1),max(mainHand.weight/2,1))
+		else // its a smashy weapon
+			for(var/cdir in alldirs)
+				bloodSpray(cdir,max(mainHand.force/4,1),max(mainHand.weight/4,1))
 	if(do_roll(1,def,dex) > damage)
 		var/tod = !victim.isMonster ? "parry" : "feint"
 		src.popup("[tod]",rgb(255,255,0))
