@@ -21,6 +21,9 @@
 	var/customGender = "none" // The custom gender of the player, noun
 	var/customGenderA = "none" // The custom gender of the player, pronoun
 
+	var/playerStatPoints = 12 // how many stat points the player can buy
+	var/playerSkillPoints = 2 // how many skills the player can buy
+
 	var/list/playerAbilities = new // A list of the player's abilities
 	var/list/datum/stat/playerStats = new // A list of player's stats
 	var/datum/class/playerClass = new // The player's class datum

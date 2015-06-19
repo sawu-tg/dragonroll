@@ -69,7 +69,7 @@
 	if(!toWho)
 		toWho = src
 	var/shouldShowChange = toWho == src && hasReroll ? TRUE : FALSE
-	var/html = "<title>Player Sheet</title><html><center>[parseIcon(src.client,src,FALSE)]<br><body style='background:grey'>"
+	var/html = "<title>Player Sheet</title><html><center>[parseIcon(toWho,src,FALSE)]<br><body style='background:grey'>"
 	html += "<b>Name</b>: [playerData.playerName][shouldShowChange ? " - <a href=?src=\ref[src];function=name><i>Change</i></a>" : ""]<br>"
 	html += "<b>Gender</b>: [playerData.returnGender()][shouldShowChange ? " - <a href=?src=\ref[src];function=gender><i>Change</i></a>" : ""]<br>"
 	html += "<b>Race</b>: <font color=[playerData.playerColor]>[playerData.playerRace.raceName]</font>[shouldShowChange ? " - <a href=?src=\ref[src];function=race><i>Change</i></a>" : ""]<br>"
@@ -81,11 +81,15 @@
 	html += "<b>Eye Color</b>: <font color=[playerData.eyeColor]>Preview</font>[shouldShowChange ? " - <a href=?src=\ref[src];function=eyes><i>Change</i></a>" : ""]<br>"
 	html += "<b>Hair Color</b>: <font color=[playerData.hairColor]>Preview</font>[shouldShowChange ? " - <a href=?src=\ref[src];function=haircolor><i>Change</i></a>" : ""]<br>"
 	html += "<b>Description</b>: [playerData.playerDesc] [shouldShowChange ? "- <a href=?src=\ref[src];function=desc><i>Add</i></a>/<a href=?src=\ref[src];function=descdelete><i>Remove</i></a>" : ""]<br><br>"
+	html += "<b>Stat Points</b>: [playerData.playerStatPoints]<br>"
+	html += "<b>Skill Points</b>: [playerData.playerSkillPoints]<br>"
 	for(var/datum/stat/S in playerData.playerStats)
 		if(S.isLimited)
-			html += "<b>[S.statName]</b>: [S.statCurr]/[S.statModified]<br>"
+			html += "<b>[S.statName]</b>: [S.statCurr]/[S.statModified] \["
 		else
-			html += "<b>[S.statName]</b>: [S.statModified]<br>"
+			html += "<b>[S.statName]</b>: [S.statModified] \["
+		html += "<a href=?src=\ref[src];function=raise;stat=[S.statId]>+</a> / "
+		html += "<a href=?src=\ref[src];function=lower;stat=[S.statId]>-</a>]<br>"
 	html += "[shouldShowChange ? "<a href=?src=\ref[src];function=statroll><b>Reroll Stats</b></a> <a href=?src=\ref[src];function=statkeep><b>Keep Stats</b></a>" : ""]<br>"
 	html += "</body></center></html>"
 	toWho << browse(html,"window=playersheet")

@@ -402,7 +402,7 @@
 
 /mob/player/proc/rerollStats(var/prompt=TRUE)
 	var/min = 2
-	var/max = 17
+	var/max = 10
 	//min/max are minus 1 for 1 starting score
 	playerData.def.setBaseTo(rand(min,max))
 	playerData.str.setBaseTo(rand(min,max))
@@ -539,6 +539,26 @@
 			src.playerSheet()
 		if("descdelete")
 			descRemove(input(src,"Remove what character note?") as null|anything in playerData.playerExtraDesc)
+			src.playerSheet()
+		if("raise")
+			var/stat = href_list["stat"]
+			if(stat)
+				if(src.playerData.playerStatPoints > 0)
+					var/datum/stat/S = src.findStat(stat)
+					S.setBaseTo(S.statBase + 1)
+					src.playerData.playerStatPoints--
+					recalculateBaseStats()
+					recalculateStats()
+			src.playerSheet()
+		if("lower")
+			var/stat = href_list["stat"]
+			if(stat)
+				var/datum/stat/S = src.findStat(stat)
+				if(S.statBase > 1)
+					S.setBaseTo(S.statBase - 1)
+					src.playerData.playerStatPoints++
+					recalculateBaseStats()
+					recalculateStats()
 			src.playerSheet()
 		if("dropitem")
 			src.remFromInventory(locate(href_list["item"]))

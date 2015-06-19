@@ -83,6 +83,8 @@
 	proc/trans_to(var/datum/reagent_holder/target, var/amount=1, var/multiplier=1)
 		if (!target)
 			return remove_any(amount)
+		if(src.currentvolume <= 0 || amount <= 0)
+			return 0
 		amount = min(min(amount, src.currentvolume), target.maxvolume-target.currentvolume)
 		var/part = amount / src.currentvolume
 		for (var/datum/reagent/current_reagent in src.liquidlist)

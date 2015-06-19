@@ -113,33 +113,10 @@ var/datum/controller/balance/balance
 
 
 /proc/parseIcon(var/toWhere, var/parse, var/chat = TRUE)
-	var/icon/i
-	if(istype(parse,/mob))
-		var/mob/m = parse
-		i = icon(m.icon)
-		for(var/o in m.overlays)
-			i.Blend(icon(icon=o:icon,icon_state=o:icon_state),ICON_OVERLAY)
-			if(o:color)
-				i.Blend(o:color,ICON_MULTIPLY)
-		toWhere << browse_rsc(i,"[parse:icon_state].png")
-		if(chat)
-			return {"<img src="\ref[fcopy_rsc(i)]">"}
-		else
-			return {"<img src='[parse:icon_state].png'>"}
-	if(istype(parse,/obj))
-		var/obj/m = parse
-		i = icon(m.icon,m.icon_state)
-		for(var/o in m.overlays)
-			i.Blend(icon(icon=o:icon,icon_state=o:icon_state),ICON_OVERLAY)
-			if(o:color)
-				i.Blend(o:color,ICON_MULTIPLY)
-		toWhere << browse_rsc(i,"[parse:icon_state].png")
-		if(chat)
-			return {"<img src="\ref[fcopy_rsc(i)]">"}
-		else
-			return {"<img src='[parse:icon_state].png'>"}
-	else
-		return "\icon[parse]"
+	var/ID = rand(1,100000)
+	var/icon/I = getFlatIcon(parse)
+	toWhere << browse_rsc(I,"[ID].png")
+	return "<img src='[ID].png'>"
 
 /proc/generateName(var/forWhat)
 	if(forWhat == 0)
