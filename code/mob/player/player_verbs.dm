@@ -100,10 +100,9 @@
 		for(var/datum/stat/S in playerData.playerSkills)
 			if(count == 0)
 				html += "<tr>"
-			if(S.isLimited)
-				html += "<td style=\"text-align:center\"><b>[S.statName]</b>: [S.statCurr]/[S.statModified]</td><br>"
-			else
-				html += "<td style=\"text-align:center\"><b>[S.statName]</b>: [S.statModified]</td><br>"
+			html += "<td style=\"text-align:center\"><b>[S.statName]</b>: [S.statModified]<br> \["
+			html += "[S.totalXP] / "
+			html += "[S.xpToLevel]]</td>"
 			count--
 			if(count == 0)
 				html += "</tr>"

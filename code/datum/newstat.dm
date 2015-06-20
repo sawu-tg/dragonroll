@@ -79,6 +79,10 @@
 
 	var/isLimited = FALSE // Toggles depletion on, like hp
 
+	var/totalXP = 0 // total gained XP
+	var/xpToLevel = 120 // base XP per level
+	var/xpModifier = 1.5 // the amount xpToLevel is times'd by each level
+
 /datum/stat/New(var/name = "error", var/id = "", var/limit=FALSE, var/cur=0, var/min=0, var/max=100, var/staticon = "")
 	if(limit)
 		isLimited = limit
@@ -114,6 +118,12 @@
 //Revert the base stat
 /datum/stat/proc/revert()
 	statBase = statBaseOld
+
+/datum/stat/proc/addxp(var/n)
+	totalXP += n
+	if(totalXP >= xpToLevel)
+		change(1)
+		xpToLevel *= xpModifier
 
 /datum/stat/proc/change(var/n)
 	if(isLimited)
