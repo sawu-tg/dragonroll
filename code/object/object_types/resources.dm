@@ -24,7 +24,15 @@
 	icon_state = "sheet-woodf"
 	itemMaterial = new/datum/material/wood1
 
+/obj/item/loot/processed/random
+	icon_state = "mat_sphere"
 
+/obj/item/loot/processed/random/New()
+	..()
+	var/randmat = getRandomMaterial()
+	itemMaterial = new randmat
+	color = itemMaterial.color
+	name = "[itemMaterial.name] chunk"
 
 ///
 // HARVESTED GOODS

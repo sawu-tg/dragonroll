@@ -3,6 +3,8 @@
 	var/layingDown = 0
 	var/inWater = 0
 
+	var/balanceWorth = 1 // how much this rewards when killed
+
 	//liquid stuff
 	var/inDPSLiquid = FALSE
 	var/liquidVerb = ""
@@ -11,7 +13,11 @@
 
 /mob/player/proc/processOrgans()
 	for(var/O in playerOrgans)
-		O:organProc()
+		if(O:processTime > 0)
+			--O:processTime
+		else
+			O:organProc()
+			O:processTime = initial(O:processTime)
 
 /mob/player/proc/processEffects()
 	if(playerData && playerData.hp.statModified > 0 && !isDisabled())
@@ -28,6 +34,12 @@
 	if(playerData && playerData.hp.statCurr <= playerData.hp.statMin)
 		if(isMonster)
 			icon_state = "[icon_state]_dead"
+		if(balanceWorth > 0)
+			--balanceWorth
+			if(alignment == ALIGN_EVIL)
+				balance.changeBalance(-1)
+			else
+				balance.changeBalance(1)
 	if(!checkEffectStack("daze"))
 		speed = actualSpeed
 	var/shouldLay = checkEffectStack("laydown") > 0

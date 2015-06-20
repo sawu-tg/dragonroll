@@ -6,7 +6,8 @@
 	var/icon_state = "l_arm" // icon state the organ displays
 	var/health = 50 // health of the organ
 	var/datum/race/race
-	var/mob/owner
+	var/mob/player/owner
+	var/processTime = 60
 
 
 /datum/organ/garbageCleanup()
@@ -76,7 +77,7 @@
 // What the organ does, called on a mob's process
 ///
 /datum/organ/proc/organProc()
-	if(health <= 0)
+	if(health <= 0 && owner)
 		organFail()
 		return 0
 	return 1 // return 1 for success, 0 for organ failiure
@@ -101,6 +102,16 @@
 	name = "heart"
 	desc = "9/10 are probably broken"
 	internal = TRUE
+
+/datum/organ/heart/organProc()
+	..()
+	if(!owner)
+		return
+	owner.popup(1,COL_FRIENDLY)
+	owner.playerData.hp.change(1)
+	owner.popup(1,COL_FRIENDLY)
+	owner.playerData.mp.change(1)
+
 
 /datum/organ/heart/organFail()
 	//makem dem ded

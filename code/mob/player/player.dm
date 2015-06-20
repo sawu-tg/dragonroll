@@ -582,3 +582,14 @@
 		if("examine")
 			var/mob/player/P = locate(href_list["what"])
 			P.showPlayerSheet(src)
+		if("togglestat")
+			playerSheetPage = playerSheetPage > 0 ? 0 : 1
+			src.playerSheet()
+		if("train")
+			if(playerData.playerSkillPoints > 0)
+				var/datum/ability/A = locate(href_list["skill"])
+				if(A)
+					if(A.abilityLevel+1 <= A.abilityMaxLevel)
+						A.abilityLevel++
+						playerData.playerSkillPoints--
+			src.playerSheet()

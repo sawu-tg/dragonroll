@@ -107,3 +107,10 @@
 
 /obj/structure/magicbarrel/tools/New()
 	containedTypes = typesof(/obj/item/weapon) - /obj/item/weapon
+
+/obj/structure/magicbarrel/procres
+	name = "Proc. Resources Barrel"
+	desc = "A big barrel of processed resources!"
+
+/obj/structure/magicbarrel/procres/New()
+	containedTypes = typesof(/obj/item/loot/processed) - /obj/item/loot/processed

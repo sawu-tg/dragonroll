@@ -65,6 +65,9 @@
 	set name = "View Player Sheet"
 	showPlayerSheet(src)
 
+/mob/player
+	var/playerSheetPage = 0
+
 /mob/player/proc/showPlayerSheet(var/mob/toWho)
 	if(!toWho)
 		toWho = src
@@ -82,24 +85,39 @@
 	html += "<b>Hair Color</b>: <font color=[playerData.hairColor]>Preview</font>[shouldShowChange ? " - <a href=?src=\ref[src];function=haircolor><i>Change</i></a>" : ""]<br>"
 	html += "<b>Description</b>: [playerData.playerDesc] [shouldShowChange ? "- <a href=?src=\ref[src];function=desc><i>Add</i></a>/<a href=?src=\ref[src];function=descdelete><i>Remove</i></a>" : ""]<br><br>"
 	html += "<b>Stat Points</b>: [playerData.playerStatPoints]<br>"
-	html += "<b>Skill Points</b>: [playerData.playerSkillPoints]<br>"
-	var/count = 2
-	html += "<table width = 100% style=\"border: 1px solid black;\">"
-	for(var/datum/stat/S in playerData.playerStats)
-		if(count == 0)
-			html += "<tr>"
-		if(S.isLimited)
-			html += "<td style=\"text-align:center\"><b>[S.statName]</b>: [S.statCurr]/[S.statModified]<br> \["
-		else
-			html += "<td style=\"text-align:center\"><b>[S.statName]</b>: [S.statModified]<br> \["
-		html += "<a href=?src=\ref[src];function=raise;stat=[S.statId]>+</a> / "
-		html += "<a href=?src=\ref[src];function=lower;stat=[S.statId]>-</a>]</td>"
-		count--
-		if(count == 0)
-			html += "</tr>"
-			count = 2
-	html += "</table>"
-	html += "[shouldShowChange ? "<a href=?src=\ref[src];function=statroll><b>Reroll Stats</b></a> <a href=?src=\ref[src];function=statkeep><b>Keep Stats</b></a>" : ""]<br>"
+	html += "<a href=?src=\ref[src];function=togglestat>[playerSheetPage == 1 ? "Skills" : "Stats"]</a>"
+	if(playerSheetPage == 1)
+		html += "<br><b>Skills Points</b>: [playerData.playerSkillPoints]<br>"
+		var/count = 2
+		html += "<table width = 100% style=\"border: 1px solid black;\">"
+		for(var/datum/ability/S in playerData.playerAbilities)
+			if(count == 0)
+				html += "<tr>"
+			html += "<td style=\"text-align:center\"><b><a href=?src=\ref[src];function=train;skill=\ref[S]>[parseIcon(toWho,image(S.abilityIcon,icon_state=S.abilityState))]</a></b><br> \["
+			html += "[S.abilityLevel]/[S.abilityMaxLevel]]</td>"
+			count--
+			if(count == 0)
+				html += "</tr>"
+				count = 2
+		html += "</table>"
+	if(playerSheetPage == 0)
+		var/count = 2
+		html += "<table width = 100% style=\"border: 1px solid black;\">"
+		for(var/datum/stat/S in playerData.playerStats)
+			if(count == 0)
+				html += "<tr>"
+			if(S.isLimited)
+				html += "<td style=\"text-align:center\"><b>[S.statName]</b>: [S.statCurr]/[S.statModified]<br> \["
+			else
+				html += "<td style=\"text-align:center\"><b>[S.statName]</b>: [S.statModified]<br> \["
+			html += "<a href=?src=\ref[src];function=raise;stat=[S.statId]>+</a> / "
+			html += "<a href=?src=\ref[src];function=lower;stat=[S.statId]>-</a>]</td>"
+			count--
+			if(count == 0)
+				html += "</tr>"
+				count = 2
+		html += "</table>"
+		html += "[shouldShowChange ? "<a href=?src=\ref[src];function=statroll><b>Reroll Stats</b></a> <a href=?src=\ref[src];function=statkeep><b>Keep Stats</b></a>" : ""]<br>"
 	html += "</body></center></html>"
 	toWho << browse(html,"window=playersheet")
 
