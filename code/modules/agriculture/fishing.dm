@@ -20,7 +20,7 @@
 	icon_state = "effect_bouy"
 	length = 30
 	var/fishGiven = 1
-	var/mob/fisherman
+	var/mob/player/fisherman
 
 /obj/effect/fishingbouy/New(var/turf/atloc,var/owner,var/bait)
 	..(atloc)
@@ -33,6 +33,7 @@
 		var/A = get_turf(src)
 		var/catchType = pickweight(A:fishables)
 		var/catch = new catchType(get_turf(fisherman))
+		fisherman.playerData.fishing.change(1)
 		messageInfo("You reel in a [catch]",fisherman,src)
 		--fishGiven
 	..()

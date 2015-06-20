@@ -71,6 +71,14 @@
 /mob/player/proc/showPlayerSheet(var/mob/toWho)
 	if(!toWho)
 		toWho = src
+	var/pageTitle
+	switch(playerSheetPage)
+		if(0)
+			pageTitle = "Stats"
+		if(1)
+			pageTitle = "Abilities"
+		if(2)
+			pageTitle = "Skills"
 	var/shouldShowChange = toWho == src && hasReroll ? TRUE : FALSE
 	var/html = "<title>Player Sheet</title><html><center>[parseIcon(toWho,src,FALSE)]<br><body style='background:grey'>"
 	html += "<b>Name</b>: [playerData.playerName][shouldShowChange ? " - <a href=?src=\ref[src];function=name><i>Change</i></a>" : ""]<br>"
@@ -85,7 +93,22 @@
 	html += "<b>Hair Color</b>: <font color=[playerData.hairColor]>Preview</font>[shouldShowChange ? " - <a href=?src=\ref[src];function=haircolor><i>Change</i></a>" : ""]<br>"
 	html += "<b>Description</b>: [playerData.playerDesc] [shouldShowChange ? "- <a href=?src=\ref[src];function=desc><i>Add</i></a>/<a href=?src=\ref[src];function=descdelete><i>Remove</i></a>" : ""]<br><br>"
 	html += "<b>Stat Points</b>: [playerData.playerStatPoints]<br>"
-	html += "<a href=?src=\ref[src];function=togglestat>[playerSheetPage == 1 ? "Skills" : "Stats"]</a>"
+	html += "<a href=?src=\ref[src];function=togglestat>[pageTitle]</a>"
+	if(playerSheetPage == 2)
+		var/count = 2
+		html += "<table width = 100% style=\"border: 1px solid black;\">"
+		for(var/datum/stat/S in playerData.playerSkills)
+			if(count == 0)
+				html += "<tr>"
+			if(S.isLimited)
+				html += "<td style=\"text-align:center\"><b>[S.statName]</b>: [S.statCurr]/[S.statModified]</td><br>"
+			else
+				html += "<td style=\"text-align:center\"><b>[S.statName]</b>: [S.statModified]</td><br>"
+			count--
+			if(count == 0)
+				html += "</tr>"
+				count = 2
+		html += "</table>"
 	if(playerSheetPage == 1)
 		html += "<br><b>Skills Points</b>: [playerData.playerSkillPoints]<br>"
 		var/count = 2

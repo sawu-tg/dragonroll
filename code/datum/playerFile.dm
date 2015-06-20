@@ -25,8 +25,11 @@
 	var/playerSkillPoints = 2 // how many skills the player can buy
 
 	var/list/playerAbilities = new // A list of the player's abilities
+	var/list/playerSkills = list()
 	var/list/datum/stat/playerStats = new // A list of player's stats
 	var/datum/class/playerClass = new // The player's class datum
+
+	//Stats
 	var/datum/stat/hp = new("Health","hp",TRUE,10,-10,10,staticon = "hp")
 	var/datum/stat/mp = new("Mana","mp",TRUE,10,0,10,staticon = "mp")
 	var/datum/stat/ar = new("Armor Rating","ar",FALSE,0,staticon = "res")
@@ -42,11 +45,19 @@
 	var/datum/stat/ref = new("Reflex Throw","ref",FALSE,1,staticon = "reflex")
 	var/datum/stat/will = new("Will Throw","will",FALSE,1,staticon = "will")
 
+	//Skills
+	var/datum/stat/woodcutting = new("Woodcutting","wc",FALSE,0,staticon = "res")
+	var/datum/stat/mining = new("Mining","mn",FALSE,0,staticon = "res")
+	var/datum/stat/fishing = new("Fishing","fh",FALSE,0,staticon = "res")
+	var/datum/stat/crafting = new("Crafting","ct",FALSE,0,staticon = "res")
+	var/datum/stat/cooking = new("Cooking","ck",FALSE,0,staticon = "res")
+
 	// The recipes that the player knows for crafting
 	var/list/knownRecipes = list(new/datum/recipe/tortilla,new/datum/recipe/piecrust,new/datum/recipe/pizzacrust,new/datum/recipe/dough,new/datum/recipe/hoe,new/datum/recipe/woodboat,new/datum/recipe/hatchet,new/datum/recipe/woodwall,new/datum/recipe/wooddoor)
 
 /datum/playerFile/New()
 	playerRace = new/datum/race/Human
+	//stats
 	playerStats += hp
 	playerStats += mp
 	playerStats += ar
@@ -61,7 +72,12 @@
 	playerStats += fort
 	playerStats += ref
 	playerStats += will
-
+	//skills
+	playerSkills += woodcutting
+	playerSkills += mining
+	playerSkills += fishing
+	playerSkills += crafting
+	playerSkills += cooking
 ///
 // Returns the gender of the player for strings
 ///
@@ -80,27 +96,9 @@
 /datum/playerFile/proc/assignClass(var/datum/class/toAssign)
 	var/datum/class/T = new toAssign
 	playerAbilities.Add(T.classAbilities)
-	//hp.change(T.hp_mod)
-	//mp.change(T.mp_mod)
-	//str.change(T.str_mod)
-	//dex.change(T.dex_mod)
-	//def.change(def.statCur+T.dex_mod)
-	//con.change(T.con_mod)
-	//wis.change(T.wis_mod)
-	//int.change(T.int_mod)
-	//cha.change(T.cha_mod)
 	sdel(T)
 
 ///
 // Assigns the race datum to the player
 ///
 /datum/playerFile/proc/assignRace(var/datum/race/toAssign)
-	//hp.change(toAssign.hp_mod)
-	//mp.change(toAssign.mp_mod)
-	//str.change(toAssign.str_mod)
-	//dex.change(toAssign.dex_mod)
-	//def.change(def.statCur+toAssign.dex_mod)
-	//con.change(toAssign.con_mod)
-	//wis.change(toAssign.wis_mod)
-	//int.change(toAssign.int_mod)
-	//cha.change(toAssign.cha_mod)

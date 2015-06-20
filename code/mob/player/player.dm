@@ -583,7 +583,10 @@
 			var/mob/player/P = locate(href_list["what"])
 			P.showPlayerSheet(src)
 		if("togglestat")
-			playerSheetPage = playerSheetPage > 0 ? 0 : 1
+			if(playerSheetPage < 2)
+				playerSheetPage++
+			else
+				playerSheetPage = 0
 			src.playerSheet()
 		if("train")
 			if(playerData.playerSkillPoints > 0)
