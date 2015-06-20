@@ -1,6 +1,5 @@
 /datum/ability/taunt/web
 	name = "Web-Throw"
-	desc = "Throws a web at a target, dragging them to you."
 	beamIcon = "w_beam"
 
 /datum/ability/assassinate/leap
@@ -8,6 +7,7 @@
 
 /datum/ability/deathbeam/leer
 	name = "Leer"
+	abilityState = "r_beam"
 
 /datum/ability/toxicthrow/spit
 	name = "Toxic Spit"

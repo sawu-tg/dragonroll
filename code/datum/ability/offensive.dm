@@ -80,7 +80,7 @@
 	abilityRange = 8
 	abilityModifier = -2
 	abilityCooldown = 3*60
-	abilityState = "redline"
+	abilityState = "d_beam"
 	abilityIconSelf = /obj/effect/pow
 	abilityIconTarget = /obj/effect/target
 
@@ -88,7 +88,7 @@
 	var/atom/movable/AM = target
 	if(AM)
 		AM.anchored = 1
-		caster.Beam(AM,time=15,icon_state="d_beam")
+		caster.Beam(AM,time=15,icon_state=abilityState)
 		for(var/turf/T in range(1,AM))
 			if(prob(85))
 				var/obj/effect/sparks/EM = new/obj/effect/sparks(get_turf(caster))

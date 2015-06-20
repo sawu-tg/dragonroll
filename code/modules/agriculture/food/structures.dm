@@ -17,7 +17,7 @@
 
 /obj/structure/cooking/objFunction(var/mob/user,var/obj/item/I)
 	if(!lit)
-		if(istype(I,/obj/item/firelighter))
+		if(istype(I,/obj/item/weapon/tool/firelighter))
 			lit = TRUE
 			messageInfo("You light the fire.",user,src)
 			icon_state = "[icon_state]_lit"
@@ -26,7 +26,7 @@
 			return
 		return
 	else
-		if(istype(I,/obj/item/tongs))
+		if(istype(I,/obj/item/weapon/tool/tongs))
 			showCookingMenu(user)
 			return
 		if(!istype(I,/obj/item/food))

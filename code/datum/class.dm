@@ -76,3 +76,7 @@
 	int_mod = 2
 	wis_mod = 2
 	hp_mod = 2
+
+/datum/class/beast
+	className = "Beast"
+	classDesc = "Stalks it's prey with a discontent attitude."

@@ -42,7 +42,7 @@
 	shortcutTo = aswhat
 	if(aswhat)
 		if(istype(aswhat,/obj/item))
-			overlays.Add(icon(icon=initial(aswhat.icon),icon_state=initial(aswhat.icon_state)))
+			overlays += getFlatIcon(aswhat)
 		else
 			overlays.Add(icon(icon=aswhat.icon,icon_state=aswhat.icon_state))
 

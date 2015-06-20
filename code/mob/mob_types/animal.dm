@@ -17,6 +17,7 @@
 			mobFaction = new/datum/faction/generic_hostile
 		else
 			mobFaction = new/datum/faction/wildlife
+	classChange(/datum/class/beast)
 
 /mob/player/npc/animal/chicken
 	name = "Chicken"

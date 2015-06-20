@@ -83,13 +83,22 @@
 	html += "<b>Description</b>: [playerData.playerDesc] [shouldShowChange ? "- <a href=?src=\ref[src];function=desc><i>Add</i></a>/<a href=?src=\ref[src];function=descdelete><i>Remove</i></a>" : ""]<br><br>"
 	html += "<b>Stat Points</b>: [playerData.playerStatPoints]<br>"
 	html += "<b>Skill Points</b>: [playerData.playerSkillPoints]<br>"
+	var/count = 2
+	html += "<table width = 100% style=\"border: 1px solid black;\">"
 	for(var/datum/stat/S in playerData.playerStats)
+		if(count == 0)
+			html += "<tr>"
 		if(S.isLimited)
-			html += "<b>[S.statName]</b>: [S.statCurr]/[S.statModified] \["
+			html += "<td style=\"text-align:center\"><b>[S.statName]</b>: [S.statCurr]/[S.statModified]<br> \["
 		else
-			html += "<b>[S.statName]</b>: [S.statModified] \["
+			html += "<td style=\"text-align:center\"><b>[S.statName]</b>: [S.statModified]<br> \["
 		html += "<a href=?src=\ref[src];function=raise;stat=[S.statId]>+</a> / "
-		html += "<a href=?src=\ref[src];function=lower;stat=[S.statId]>-</a>]<br>"
+		html += "<a href=?src=\ref[src];function=lower;stat=[S.statId]>-</a>]</td>"
+		count--
+		if(count == 0)
+			html += "</tr>"
+			count = 2
+	html += "</table>"
 	html += "[shouldShowChange ? "<a href=?src=\ref[src];function=statroll><b>Reroll Stats</b></a> <a href=?src=\ref[src];function=statkeep><b>Keep Stats</b></a>" : ""]<br>"
 	html += "</body></center></html>"
 	toWho << browse(html,"window=playersheet")
