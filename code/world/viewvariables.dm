@@ -1,3 +1,7 @@
+/client/Topic(href, href_list, hsrc)
+	..()
+	view_var_Topic(href, href_list, hsrc)
+
 /client/verb/debug_variables(datum/D in world)
 	set category = "Debug Verbs"
 	set name = "View Variables"
