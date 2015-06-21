@@ -66,7 +66,7 @@
 	var/statId = ""			//Id of the stat for referencing it
 	var/statIcon = ""		//Iconstate of the stat
 
-	var/statBase = 1		//The rolled base stat
+	var/statBase = 0		//The rolled base stat
 	var/statBaseOld = 0		//For rerolls
 
 	var/statNormal = 0 		//The base stat with class and race modifiers
@@ -74,16 +74,15 @@
 	var/statModified = 0 	//The modified stat from buffs etc etc
 	var/statCurr = 100
 
-	var/statMin = 1 // The minimum a stat can reach
+	var/statMin = 0 // The minimum a stat can reach
 	var/statMax = 100 // The maximum a stat can reach
 
 	var/isLimited = FALSE // Toggles depletion on, like hp
 
 	var/totalXP = 0 // total gained XP
 	var/xpToLevel = 120 // base XP per level
-	var/xpModifier = 1.5 // the amount xpToLevel is times'd by each level
 
-/datum/stat/New(var/name = "error", var/id = "", var/limit=FALSE, var/cur=1, var/min=1, var/max=99, var/staticon = "")
+/datum/stat/New(var/name = "error", var/id = "", var/limit=FALSE, var/cur=0, var/min=0, var/max=100, var/staticon = "")
 	if(limit)
 		isLimited = limit
 		statMin = min
@@ -146,24 +145,28 @@
 
 /datum/stat/woodcutting // buying willow logs 200gp
 	xpToLevel = 83
-	xpModifier = 1.104
 	statMax = 99
 	statCurr = 1
 	statMin = 1
 
 /datum/stat/fishing // lobster is king
 	xpToLevel = 83
-	xpModifier = 1.104
 	statMax = 99
 	statCurr = 1
 	statMin = 1
 
 /datum/stat/firemaking // yes sir game master the swastika made out of yew log fires is totally coincidental
 	xpToLevel = 83
-	xpModifier = 1.104
 	statMax = 99
 	statCurr = 1
 	statMin = 1
+
+/datum/stat/cooking // yes sir game master the swastika made out of yew log fires is totally coincidental
+	xpToLevel = 83
+	statMax = 99
+	statCurr = 1
+	statMin = 1
+
 
 /datum/stat/firemaking/New(var/name = "error", var/id = "", var/limit=FALSE, var/cur=1, var/min=1, var/max=99, var/staticon = "")
 	..()
@@ -174,5 +177,9 @@
 	change(1)
 
 /datum/stat/woodcutting/New(var/name = "error", var/id = "", var/limit=FALSE, var/cur=1, var/min=1, var/max=99, var/staticon = "")
+	..()
+	change(1)
+
+/datum/stat/cooking/New(var/name = "error", var/id = "", var/limit=FALSE, var/cur=1, var/min=1, var/max=99, var/staticon = "")
 	..()
 	change(1)
