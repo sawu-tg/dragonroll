@@ -18,7 +18,7 @@
 
 /obj/structure/forge/objFunction(var/mob/user,var/obj/item/I)
 	if(!lit)
-		if(istype(I,/obj/item/weapon/tool/firelighter))
+		if(istype(I,/obj/item/weapon/tool/tinderbox))
 			lit = TRUE
 			messageInfo("You light the fire.",user,src)
 			set_light(4,4,"orange")

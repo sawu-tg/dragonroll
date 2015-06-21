@@ -48,7 +48,8 @@
 	//Skills
 	var/datum/stat/woodcutting/woodcutting = new("Woodcutting","wc",FALSE,1,staticon = "res")
 	var/datum/stat/mining = new("Mining","mn",FALSE,1,staticon = "res")
-	var/datum/stat/fishing = new("Fishing","fh",FALSE,1,staticon = "res")
+	var/datum/stat/fishing/fishing = new("Fishing","fh",FALSE,1,staticon = "res")
+	var/datum/stat/firemaking/firemaking = new("Firemaking","fm",FALSE,1,staticon = "res")
 	var/datum/stat/crafting = new("Crafting","ct",FALSE,1,staticon = "res")
 	var/datum/stat/cooking = new("Cooking","ck",FALSE,1,staticon = "res")
 
@@ -74,6 +75,7 @@
 	playerStats += will
 	//skills
 	playerSkills += woodcutting
+	playerSkills += firemaking
 	playerSkills += mining
 	playerSkills += fishing
 	playerSkills += crafting

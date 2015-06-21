@@ -3,21 +3,22 @@
 	desc = "keeps things warm."
 	icon = 'sprite/obj/alchemy/structures.dmi'
 	icon_state = "campfire"
-	var/burnTime = 1200
+	var/burnTime = 50
 	var/icon/cookOverlay // the overlay applied for cooking
 	var/lit = FALSE // is the cooking structure providing fire to cook
 	var/capacity = 2 // how many things can this pot use to cook?
 	var/cookingLevel = 1 // what level of ingredients this can cook
 	var/list/curCooking = list() // list of what is cooking and its times
-	var/mob/lastUsr
+	var/mob/player/lastUsr
+	density = 0
 
 /obj/structure/cooking/New()
 	..()
 	cookOverlay = icon('sprite/obj/alchemy/items.dmi',icon_state="cook_overlay")
 
-/obj/structure/cooking/objFunction(var/mob/user,var/obj/item/I)
+/obj/structure/cooking/objFunction(var/mob/player/user,var/obj/item/I)
 	if(!lit)
-		if(istype(I,/obj/item/weapon/tool/firelighter))
+		if(istype(I,/obj/item/weapon/tool/tinderbox))
 			lit = TRUE
 			messageInfo("You light the fire.",user,src)
 			icon_state = "[icon_state]_lit"
@@ -28,6 +29,21 @@
 	else
 		if(istype(I,/obj/item/weapon/tool/tongs))
 			showCookingMenu(user)
+			return
+		if(istype(I, /obj/item/loot/nature/log))
+			var/obj/item/loot/nature/log/L = I
+			if(L.required_level > user.playerData.firemaking.statCurr)
+				messagePlayer("You aren't good enough at firemaking to put that in the fire.",user,src)
+				return
+			messagePlayer("You throw [L] into [src].",user,src)
+			user.playerData.firemaking.addxp(L.exp_granted, user)
+			burnTime += L.light_length
+			if(!lit)
+				lit = TRUE
+				icon_state = "[icon_state]_lit"
+				set_light(4,4,"orange")
+				addProcessingObject(src)
+			sdel(L)
 			return
 		if(!istype(I,/obj/item/food))
 			messageInfo("Only food items can be cooked.",user,src)

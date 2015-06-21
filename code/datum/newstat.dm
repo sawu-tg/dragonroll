@@ -81,7 +81,6 @@
 
 	var/totalXP = 0 // total gained XP
 	var/xpToLevel = 120 // base XP per level
-	var/xpModifier = 1.5 // the amount xpToLevel is times'd by each level
 
 /datum/stat/New(var/name = "error", var/id = "", var/limit=FALSE, var/cur=0, var/min=0, var/max=100, var/staticon = "")
 	if(limit)
@@ -119,12 +118,14 @@
 /datum/stat/proc/revert()
 	statBase = statBaseOld
 
-/datum/stat/proc/addxp(var/n)
+/datum/stat/proc/addxp(var/n, var/mob/player/reciever)
 	totalXP += n
 	if(totalXP >= xpToLevel)
 		change(1)
-		var/temp_xp = xpToLevel * xpModifier
-		xpToLevel += temp_xp
+		reciever << "<text style='text-align: center; vertical-align: middle; font-size: 5;'>\blue Congratulations, you've just advanced a [statName] level.</text>"
+		reciever << "<text style='text-align: center; vertical-align: middle; font-size: 4;'>Your [statName] level is now [statCurr].</text>"
+		var/temp_xp = round(statCurr + 300 * 2 ** (statCurr/7)) / 4
+		xpToLevel += round(temp_xp)
 
 /datum/stat/proc/change(var/n)
 	if(isLimited)
@@ -144,5 +145,41 @@
 
 /datum/stat/woodcutting // buying willow logs 200gp
 	xpToLevel = 83
-	xpModifier = 1.104
-	statMax = 120
+	statMax = 99
+	statCurr = 1
+	statMin = 1
+
+/datum/stat/fishing // lobster is king
+	xpToLevel = 83
+	statMax = 99
+	statCurr = 1
+	statMin = 1
+
+/datum/stat/firemaking // yes sir game master the swastika made out of yew log fires is totally coincidental
+	xpToLevel = 83
+	statMax = 99
+	statCurr = 1
+	statMin = 1
+
+/datum/stat/cooking // yes sir game master the swastika made out of yew log fires is totally coincidental
+	xpToLevel = 83
+	statMax = 99
+	statCurr = 1
+	statMin = 1
+
+
+/datum/stat/firemaking/New(var/name = "error", var/id = "", var/limit=FALSE, var/cur=1, var/min=1, var/max=99, var/staticon = "")
+	..()
+	change(1)
+
+/datum/stat/fishing/New(var/name = "error", var/id = "", var/limit=FALSE, var/cur=1, var/min=1, var/max=99, var/staticon = "")
+	..()
+	change(1)
+
+/datum/stat/woodcutting/New(var/name = "error", var/id = "", var/limit=FALSE, var/cur=1, var/min=1, var/max=99, var/staticon = "")
+	..()
+	change(1)
+
+/datum/stat/cooking/New(var/name = "error", var/id = "", var/limit=FALSE, var/cur=1, var/min=1, var/max=99, var/staticon = "")
+	..()
+	change(1)
