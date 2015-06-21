@@ -2,7 +2,7 @@
 	name = "tree"
 	desc = "it's seen better days"
 	icon = 'sprite/world/actualtree.dmi' //was deadtrees.dmi
-	icon_state = "tree_stem"
+	icon_state = ""
 	//layer = LAYER_OVERLAY
 	layer = MOB_LAYER
 	density = 1
@@ -44,8 +44,10 @@
 		being_cut = FALSE
 		messagePlayer("You finish cutting down the tree!",user,src)
 		harvestable = FALSE
+		icon_update()
 		sleep(harvest_delay)
 		harvestable = TRUE
+		icon_update()
 		return
 
 /obj/interact/nature/tree/New()
@@ -54,29 +56,31 @@
 
 /obj/interact/nature/tree/proc/icon_update()
 	overlays -= treeIcons
+	overlays.Cut()
 	treeIcons.Cut()
 
 	//Stem
-	var/image/I1 = image('sprite/world/actualtree.dmi',src,"tree_stem",dir)
+	var/image/I1 = image('sprite/world/actualtree.dmi',src,"[harvestable ? "tree_stem" : "tree_stump"]",dir)
 	I1.layer = layer+0.1
 	I1.color = itemMaterial.color
 
-	//Leaves
-	var/image/I2
+	overlays |= I1
+	treeIcons |= I1
+	if(harvestable)
+		//Leaves
+		var/image/I2
 
-	if(leafMaterial)
-		I2 = image('sprite/world/actualtree.dmi',src,"tree_leaf",dir)
-		I2.layer = layer+0.1
-		I2.color = leafMaterial.color
+		if(leafMaterial)
+			I2 = image('sprite/world/actualtree.dmi',src,"tree_leaf",dir)
+			I2.layer = layer+0.1
+			I2.color = leafMaterial.color
+
+		overlays |= I2
+		treeIcons |= I2
 
 	//Shadow
 	var/image/I3 = image('sprite/world/actualtree.dmi',src,"tree_shadow",dir)
 	I3.layer = OBJ_LAYER-0.1
-
-	overlays |= I1
-	treeIcons |= I1
-	overlays |= I2
-	treeIcons |= I2
 	overlays |= I3
 	treeIcons |= I3
 
