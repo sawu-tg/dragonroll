@@ -23,7 +23,7 @@
 	if(being_cut)
 		return
 	if(!harvestable)
-		messagePlayer("This tree has already been chopped down, wait for it to regrow.",user,src)
+		messagePlayer("This tree has already been chopped down; wait for it to regrow.",user,src)
 		return
 	if(istype(I, /obj/item/weapon/tool/hatchet))
 		var/obj/item/weapon/tool/hatchet/H = I
@@ -40,7 +40,7 @@
 				sleep(cut_time*H.cut_speed)
 				new a(user.loc)
 				messagePlayer("You harvest a [src] log.",user,src)
-				user.playerData.woodcutting.addxp(exp_granted)
+				user.playerData.woodcutting.addxp(exp_granted, user)
 		being_cut = FALSE
 		messagePlayer("You finish cutting down the tree!",user,src)
 		harvestable = FALSE

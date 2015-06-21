@@ -1,5 +1,5 @@
-/obj/item/weapon/tool/firelighter
-	name = "Flint and Tinder"
+/obj/item/weapon/tool/tinderbox
+	name = "tinderbox"
 	desc = "Lights fires"
 	icon_state = "tinder"
 	icon = 'sprite/obj/items.dmi'
