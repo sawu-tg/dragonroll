@@ -61,23 +61,6 @@
 	icon_state = "rock"
 	itemMaterial = new/datum/material/mineral1
 
-/obj/item/loot/nature/log
-	name = "log"
-	desc = "Has a future in housing."
-	icon_state = "tree_log"
-	size = 3
-	weight = 8
-	itemMaterial = new/datum/material/wood1
-
-/obj/item/loot/nature/log/update_icon()
-	overlays += image(icon,src,"tree_logo")
-
-	var/image/I = image(icon,src,"tree_logf")
-	I.color = itemMaterial.color
-	overlays += I
-
-	color = null
-
 
 /obj/item/loot/nature/log/objFunction(var/mob/user,var/obj/used)
 	if(istype(used,/obj/item/weapon/tool/hatchet))

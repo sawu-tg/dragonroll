@@ -86,3 +86,14 @@
 	var/toSpawn = input(src,"Spawn what?") as null|anything in typesof(/obj/structure)
 	if(toSpawn)
 		new toSpawn(get_turf(src))
+
+/mob/verb/SpawnInteract()
+	set name = "Spawn Interact"
+	set desc = "Spawns an Interact object at your location"
+	set category = "DM"
+	var/toSpawn = input(src,"Spawn what?") as null|anything in typesof(/obj/interact)
+	var/amount = input(src,"How many?") as num
+	if(toSpawn && amount)
+		while(amount)
+			new toSpawn(get_turf(src))
+			--amount
