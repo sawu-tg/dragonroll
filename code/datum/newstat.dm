@@ -144,5 +144,5 @@
 
 /datum/stat/woodcutting // buying willow logs 200gp
 	xpToLevel = 83
-	xpModifier = 1.10409
+	xpModifier = 1.104
 	statMax = 120

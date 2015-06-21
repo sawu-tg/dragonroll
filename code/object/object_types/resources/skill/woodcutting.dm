@@ -4,7 +4,7 @@
 	icon_state = "tree_log"
 	size = 3
 	weight = 8
-	itemMaterial = new/datum/material/wood1
+	itemMaterial = new/datum/material/wood
 
 /obj/item/loot/nature/log/update_icon()
 	overlays += image(icon,src,"tree_logo")
@@ -25,28 +25,20 @@
 		..()
 
 /obj/item/loot/nature/log/snowy
-	name = "snowy log"
-
+	itemMaterial = new/datum/material/snow_wood
 /obj/item/loot/nature/log/oak
-	name = "oak log"
-
+	itemMaterial = new/datum/material/oak
 /obj/item/loot/nature/log/willow
-	name = "willow log"
-
+	itemMaterial = new/datum/material/willow
 /obj/item/loot/nature/log/teak
-	name = "teak log"
-
+	itemMaterial = new/datum/material/teak
 /obj/item/loot/nature/log/maple
-	name = "maple log"
-
+	itemMaterial = new/datum/material/maple
 /obj/item/loot/nature/log/mahogany
-	name = "mahogany log"
-
+	itemMaterial = new/datum/material/mahogany
 /obj/item/loot/nature/log/yew
-	name = "yew log"
-
+	itemMaterial = new/datum/material/yew
 /obj/item/loot/nature/log/magic
-	name = "magic log"
-
+	itemMaterial = new/datum/material/magic
 /obj/item/loot/nature/log/elder
-	name = "elder log"
+	itemMaterial = new/datum/material/elder
