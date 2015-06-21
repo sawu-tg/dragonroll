@@ -31,9 +31,11 @@ var/list/validBiomes = list(/datum/biome/grassland) //uncomment this for biome t
 	dirtTurf = /turf/floor/outside/dirt
 	validTurfs = list(/turf/floor/outside/grass,/turf/floor/outside/dirt)
 	validLiquids = list(/turf/floor/outside/liquid/water)
-	validDebris = list(/obj/interact/nature/bush,/obj/interact/nature/rock,/obj/interact/nature/tree)
+	validDebris = list(/obj/interact/nature/bush,/obj/interact/nature/rock)
 	validMobs = list(/mob/player/npc/animal/deer,/mob/player/npc/animal/wasp,/mob/player/npc/animal/bat,/mob/player/npc/animal/spider,/mob/player/npc/animal/cat,/mob/player/npc/animal/bear,/mob/player/npc/animal/cow,/mob/player/npc/animal/chicken,/mob/player/npc/animal/dog,/mob/player/npc/animal/fox,/mob/player/npc/colonist)
-
+/datum/biome/grassland/New()
+	validDebris += typesof(/obj/interact/nature/tree)
+	..()
 /datum/biome/ocean
 	name = "ocean"
 	desc = "lots of water"

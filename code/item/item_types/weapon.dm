@@ -17,6 +17,9 @@
 	icon_state = "hatchet"
 	weight = 2
 	force = 5
+	var/cut_speed = 1
+	var/rating = 1
+	var/required_level = 1
 
 /obj/item/weapon/tool/hammer
 	name = "sledge"

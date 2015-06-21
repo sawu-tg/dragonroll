@@ -123,7 +123,8 @@
 	totalXP += n
 	if(totalXP >= xpToLevel)
 		change(1)
-		xpToLevel *= xpModifier
+		var/temp_xp = xpToLevel * xpModifier
+		xpToLevel += temp_xp
 
 /datum/stat/proc/change(var/n)
 	if(isLimited)
@@ -140,3 +141,8 @@
 	else
 		statModified = n
 		statCurr = statModified
+
+/datum/stat/woodcutting // buying willow logs 200gp
+	xpToLevel = 83
+	xpModifier = 1.104
+	statMax = 120

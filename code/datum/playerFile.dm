@@ -46,11 +46,11 @@
 	var/datum/stat/will = new("Will Throw","will",FALSE,1,staticon = "will")
 
 	//Skills
-	var/datum/stat/woodcutting = new("Woodcutting","wc",FALSE,0,staticon = "res")
-	var/datum/stat/mining = new("Mining","mn",FALSE,0,staticon = "res")
-	var/datum/stat/fishing = new("Fishing","fh",FALSE,0,staticon = "res")
-	var/datum/stat/crafting = new("Crafting","ct",FALSE,0,staticon = "res")
-	var/datum/stat/cooking = new("Cooking","ck",FALSE,0,staticon = "res")
+	var/datum/stat/woodcutting/woodcutting = new("Woodcutting","wc",FALSE,1,staticon = "res")
+	var/datum/stat/mining = new("Mining","mn",FALSE,1,staticon = "res")
+	var/datum/stat/fishing = new("Fishing","fh",FALSE,1,staticon = "res")
+	var/datum/stat/crafting = new("Crafting","ct",FALSE,1,staticon = "res")
+	var/datum/stat/cooking = new("Cooking","ck",FALSE,1,staticon = "res")
 
 	// The recipes that the player knows for crafting
 	var/list/knownRecipes = list(new/datum/recipe/tortilla,new/datum/recipe/piecrust,new/datum/recipe/pizzacrust,new/datum/recipe/dough,new/datum/recipe/hoe,new/datum/recipe/woodboat,new/datum/recipe/hatchet,new/datum/recipe/woodwall,new/datum/recipe/wooddoor)
