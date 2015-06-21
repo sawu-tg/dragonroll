@@ -80,9 +80,6 @@
 	playerSkills += fishing
 	playerSkills += crafting
 	playerSkills += cooking
-	woodcutting.statCurr++
-	firemaking.statCurr++
-	fishing.statCurr++
 ///
 // Returns the gender of the player for strings
 ///
