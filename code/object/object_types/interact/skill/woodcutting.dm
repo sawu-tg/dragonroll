@@ -34,6 +34,9 @@
 			messagePlayer("You aren't good enough at woodcutting to use this hatchet.",user,src)
 			return
 		messagePlayer("You start chopping at [src]!",user,src)
+		for(var/i = 0; i < 4; ++i)
+			spawn(i*10)
+				playsound(get_turf(src), 'sound/effects/woodhit.ogg', 50, 1)
 		being_cut = TRUE
 		for(var/a in harvestables)
 			for(var/i = 0; i < harvestables[a]; i++)

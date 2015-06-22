@@ -76,7 +76,7 @@
 	if(shouldDrown)
 		if(prob(5))
 			messageArea("You are [liquidVerb]!","[src] screams!",src,src)
-			takeDamage(liquidDamage,DTYPE_DIRECT)
+			takeDamage(liquidDamage,DTYPE_ENVIRONMENT)
 
 	if(checkEffectStack("poison"))
 		if(prob(5))

@@ -7,10 +7,12 @@
 #define SAVING_WILL 2
 #define SAVING_FORTITUDE 3
 
-#define DTYPE_BASIC 1
+#define DTYPE_MELEE 1
 #define DTYPE_NONLETHAL 2
 #define DTYPE_MASSIVE 3
 #define DTYPE_DIRECT 4
+#define DTYPE_MAGIC 5
+#define DTYPE_ENVIRONMENT 6
 
 #define INTENT_HELP 1
 #define INTENT_HARM 2
@@ -80,6 +82,10 @@
 #define ALIGN_EVIL -1
 #define ALIGN_GOOD 1
 
+#define FALLOFF_SOUNDS	1
+#define SURROUND_CAP	7
+
+
 ///
 // REAGENT STATES
 ///
@@ -98,3 +104,4 @@
 
 var/list/playerValidHair = list()
 var/list/playerValidFacial = list()
+var/list/playerList = list()

@@ -122,6 +122,7 @@
 #include "code\world\atom.dm"
 #include "code\world\dice.dm"
 #include "code\world\examine.dm"
+#include "code\world\sound.dm"
 #include "code\world\text.dm"
 #include "code\world\viewvariables.dm"
 #include "code\world\world.dm"

@@ -59,6 +59,8 @@
 		sdel(deadeffect)
 		deadeffect = null
 
+	playerList -= src
+
 	for(var/obj/spellHolder/SH in playerSpellHolders)
 		sdel(SH)
 	playerSpellHolders = null
@@ -92,6 +94,7 @@
 	///
 	spawn(20)
 		refreshIcon(playerData.playerRacePrefix)
+		playerList += src
 	..()
 
 /mob/player/Cross(atom/movable/O)
@@ -141,39 +144,62 @@
 	for (var/mob/M in listening)
 		M.hear(msg, usr)
 
-/mob/player/proc/takeDamage(var/amount,var/type=DTYPE_BASIC)
+/mob/player/proc/healDamage(var/amount)
+	if(playerData.hp.statCurr < playerData.hp.statModified)
+		popup("Healed: [amount]",COL_FRIENDLY)
+	playerData.hp.change(amount)
+
+/mob/player/proc/takeDamage(var/amount,var/type=DTYPE_MELEE)
 	var/damage = max(0,type == DTYPE_DIRECT ? amount : amount - playerData.def.statCurr)
 	var/doDamage = FALSE
+
+	var/soundToPlay = "punch"
+
 	if(damage == 0)
 		return 0
+
 	if(damage > playerData.con.statCurr)
 		if(type == DTYPE_NONLETHAL)
 			if(!savingThrow(src,0,SAVING_FORTITUDE))
-				//set unconcious 1d4 rounds
+				addStatusEffect(/datum/statuseffect/disabled,15)
 			else
-				//set dazed 1 round
-		type = DTYPE_MASSIVE
-	if(type == DTYPE_BASIC || type == DTYPE_DIRECT)
+				addStatusEffect(/datum/statuseffect/dazed,15)
+		else
+			type = DTYPE_MASSIVE
+
+	if(type == DTYPE_ENVIRONMENT)
 		doDamage = TRUE
+		soundToPlay = "rustle"
+
+	if(type == DTYPE_MAGIC)
+		doDamage = TRUE
+		//something something magical armor oven
+		soundToPlay = "sear"
+
+	if(type == DTYPE_MELEE || type == DTYPE_DIRECT)
+		doDamage = TRUE
+
 	if(type == DTYPE_MASSIVE)
+		soundToPlay = "swing_hit"
 		if(!savingThrow(src,0,SAVING_FORTITUDE))
-			playerData.hp.setTo(-1)
+			playerData.hp.change(-(playerData.hp.statCurr + 1))
 			src.popup("Massive hit! [damage]",COL_INFOTICK)
 			doDamage = FALSE
 		else
 			doDamage = TRUE
+
 	if(doDamage)
 		spawn(rand(1,30))
 			src.popup("Hit for [damage]",COL_HOSTILE)
-		playerData.hp.setTo(playerData.hp.statCurr-damage)
+		playerData.hp.change(-damage)
 		for(var/datum/organ/O in playerOrgans)
 			if(do_roll(1,playerData.con.statModified,playerData.str.statCurr) < damage)
 				O.health -= damage
 				var/heldName = O.name
 				spawn(rand(1,30))
 					src.popup("[heldName] takes [damage] damage!",COL_HOSTILE)
+		playsound(get_turf(src), soundToPlay, 50, 1)
 		var/dyingtype
-
 		if(playerData.hp.statCurr == 0)
 			dyingtype = /datum/statuseffect/disabled
 		else if(playerData.hp.statCurr <= -1 && playerData.hp.statCurr >= -9)

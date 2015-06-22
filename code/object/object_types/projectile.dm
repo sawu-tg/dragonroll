@@ -43,10 +43,9 @@
 			if(effect)
 				P.addStatusEffect(effect,effectLength)
 			if(damage > 0)
-				P.popup(damage,COL_FRIENDLY)
-				P.playerData.hp.change(damage)
+				P.healDamage(damage)
 			else
-				P.takeDamage(damage,DTYPE_DIRECT)
+				P.takeDamage(damage,DTYPE_MAGIC)
 			hit = TRUE
 	sdel(src)
 

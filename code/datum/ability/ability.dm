@@ -130,10 +130,9 @@
 				var/mob/player/P = target
 				P.addStatusEffect(abilityEffect,((abilityModifier < 0 ? -abilityModifier : abilityModifier)*abilityLevel)*60)
 				if(abilityModifier > 0)
-					P.popup(abilityModifier*abilityLevel,COL_FRIENDLY)
-					P.playerData.hp.change(do_roll(1,abilityModifier*abilityLevel))
+					P.healDamage(do_roll(1,abilityModifier*abilityLevel))
 				else
-					P.takeDamage(do_roll(1,(abilityModifier < 0 ? -abilityModifier : abilityModifier)*abilityLevel),DTYPE_DIRECT)
+					P.takeDamage(do_roll(1,(abilityModifier < 0 ? -abilityModifier : abilityModifier)*abilityLevel),DTYPE_MAGIC)
 	cooldownHandler |= src
 
 ///

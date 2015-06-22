@@ -99,6 +99,7 @@
 			for(var/cdir in alldirs)
 				bloodSpray(cdir,max(mainHand.force/4,1),max(mainHand.weight/4,1))
 	if(do_roll(1,def,dex) > damage)
+		playsound(get_turf(src), 'sound/weapons/punchmiss.ogg', 50, 1)
 		var/tod = !victim.isMonster ? "parry" : "feint"
 		src.popup("[tod]",rgb(255,255,0))
 		var/newDamage = victim.isMonster ? damage/4 : damage/2
@@ -110,6 +111,7 @@
 			messageArea("You [attackString] for [realDamage]HP (1d[damage]-[def])","[attacker] hits [victim] for [realDamage]HP (1d[damage]-[def])",attacker,victim,"red")
 		else
 			messageArea("Your blow only glances! (1d[damage]-[def])","[attacker] hits [victim] with a glancing blow! (1d[damage]-[def])",attacker,victim,"green")
+			playsound(get_turf(src), 'sound/weapons/punchmiss.ogg', 50, 1)
 
 /mob/proc/intent2string()
 	if(intent == 1)
@@ -125,6 +127,7 @@
 			messagePlayer("You brush yourself off",src,src)
 		else
 			messageArea("You hug [src]","[user] hugs [src]",user,src)
+		playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1)
 	if(user.intent == INTENT_HARM)
 		processAttack(user,src)
 

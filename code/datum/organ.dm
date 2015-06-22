@@ -68,7 +68,10 @@
 	itemMaterial = new/datum/material/flesh
 
 /obj/item/organ/proc/createFrom(var/datum/organ/of)
-	name = "[of.race.raceName] [of.name]"
+	if(!of.owner || !of.race)
+		name = "[of.name]"
+	else
+		name = "[of.race.raceName] [of.name]"
 	desc = of.desc
 	icon = of.icon
 	icon_state = of.icon_state
@@ -107,8 +110,7 @@
 	..()
 	if(!owner)
 		return
-	owner.popup(1,COL_FRIENDLY)
-	owner.playerData.hp.change(1)
+	owner.healDamage(1)
 	owner.popup(1,COL_FRIENDLY)
 	owner.playerData.mp.change(1)
 
