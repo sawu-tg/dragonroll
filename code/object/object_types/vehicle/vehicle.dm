@@ -4,6 +4,7 @@
 	icon = 'sprite/obj/vehicles.dmi'
 	size = 3
 	weight = 5
+	var/maxSteps = -1
 	density = 0
 	var/vehicleFlags = VEHICLE_PASS_LAND
 	layer = LAYER_OVERLAY
@@ -13,7 +14,6 @@
 
 /obj/vehicle/garbageCleanup()
 	..()
-
 	driver = null
 	passengers = null
 
@@ -55,16 +55,22 @@
 
 /obj/vehicle/proc/driverCheck()
 	if(driver)
-		if(get_dist(src,driver) > 1)
+		if(get_dist(src,driver) > 2)
 			Eject(driver)
 
 /obj/vehicle/Move(var/newLoc)
+	if(maxSteps > 0)
+		--maxSteps
+	if(maxSteps == 0)
+		sdel(src)
 	for(var/mob/m in passengers)
 		m.Move(newLoc)
 	..()
 
 /obj/vehicle/proc/CanPass(var/turf/T)
 	driverCheck()
+	if(VEHICLE_PASS_ANY)
+		return TRUE
 	if(istype(T,/turf/floor/outside/liquid))
 		var/turf/floor/outside/liquid/L = T
 		if((vehicleFlags & VEHICLE_PASS_LIQUID_WATER) && !L.corrosive)

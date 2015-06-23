@@ -1,5 +1,4 @@
 var/list/procObjects = list()
-var/list/cooldownHandler = list()
 var/list/globalSuns = list()
 var/list/levelNames = list()
 var/list/regions = list()
@@ -26,6 +25,7 @@ var/datum/controller/balance/balance
 		CS.addControl(new /datum/controller/hivemind)
 		CS.addControl(new /datum/controller/chemicals)
 		CS.addControl(new /datum/controller/sdel)
+		CS.addControl(new /datum/controller/cooldowns)
 		balance = CS.addControl(new /datum/controller/balance)
 		CS.process()
 	spawn(10)
@@ -42,7 +42,6 @@ var/datum/controller/balance/balance
 		spawn(10)
 			messageSystemAll("FINISHED!")
 		processObjects()
-		processCooldowns()
 		processRegions()
 		spawn(1) processLiquids()
 	..()
@@ -83,18 +82,6 @@ var/datum/controller/balance/balance
 
 		newList += j
 	. = newList
-
-/proc/processCooldowns()
-	while(1)
-		if(cooldownHandler.len)
-			for(var/datum/ability/a in cooldownHandler)
-				a.abilityCooldownTimer = max(0,--a.abilityCooldownTimer)
-				if(a.abilityCooldownTimer <= 0)
-					cooldownHandler -= a
-				if(a.holder)
-					if(a.holder.client)
-						a.holder.refreshInterface()
-		sleep(1)
 
 /proc/processRegions()
 	while(1)

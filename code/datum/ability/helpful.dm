@@ -2,8 +2,8 @@
 	name = "Heal"
 	desc = "Heals a target"
 	abilityRange = 8
-	abilityModifier = 1
-	abilityCooldown = 1*60
+	abilityModifier = 5
+	abilityCooldown = 15
 	abilityProjectiles = 8
 	abilityState = "redcross"
 	abilityIconSelf = /obj/effect/pow
@@ -19,7 +19,7 @@
 	desc = "Throws a chain at a target, dragging them to you."
 	abilityRange = 8
 	abilityModifier = -1
-	abilityCooldown = 5*60
+	abilityCooldown = 10
 	abilityState = "shout"
 	abilityHitsPlayers = TRUE
 	abilityIconSelf = /obj/effect/pow

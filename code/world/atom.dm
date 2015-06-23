@@ -91,7 +91,7 @@
 				if(T)
 					//SUE ME, COMPLAIN, I DAR-null error
 					if(!T.density)
-						walk_to(src,T,0,0,2)
+						A.Move(T)
 						A.lastTurf = src.loc
 					else
 						A.thrown = FALSE
