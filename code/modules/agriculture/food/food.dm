@@ -7,6 +7,9 @@
 	var/foodLevel = 2
 	reagentSize = 25
 	var/list/containedReagents = list(/datum/reagent/nutrients = 1)
+	var/exp_granted_cooking = 1
+	var/level_required_cooking = 1
+	var/cooked = 0
 
 /obj/item/food/New()
 	..()

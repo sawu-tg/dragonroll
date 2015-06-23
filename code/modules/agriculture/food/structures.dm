@@ -49,9 +49,19 @@
 			messageInfo("Only food items can be cooked.",user,src)
 			return
 		if(contents.len < capacity)
+			if(istype(I,/obj/item/food))
+				var/obj/item/food/F = I
+				if(F.level_required_cooking > user.playerData.cooking.statCurr)
+					messageInfo("You aren't good enough at cooking to cook [F].",user,src)
+					return
+				if(F.cooked)
+					messageInfo("[F] is already cooked.",user,src)
+					return
 			user.DropItem()
 			messageInfo("You insert the [I] into the [src]!",user,src)
 			I.loc = src
+		else
+			messageInfo("[src] is full!",user,src)
 
 /obj/structure/cooking/doProcess()
 	if(lastUsr)
@@ -74,6 +84,8 @@
 						A.icon = 'sprite/obj/food.dmi'
 						A.icon_state = A.cooked_icon_state
 					A.loc = get_turf(pick(orange(src,1)))
+					A.cooked = TRUE
+					lastUsr.playerData.cooking.addxp(A.exp_granted_cooking, lastUsr)
 					showCookingMenu(lastUsr)
 				else
 					curCooking[A]--
