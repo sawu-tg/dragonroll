@@ -53,12 +53,13 @@
 	catch_message = "You catch "
 
 /obj/item/weapon/tool/fishingrod/cage
-	name = "Crayfish Cage"
+	name = "Fishing Cage"
 	desc = "A cage for fishing."
 	range = 1
 	length = 50
 	fish_given = 5
-	fishables = list(/obj/item/food/fish/crayfish = 100)
+	fishables = list(/obj/item/food/fish/crayfish = 50,
+					/obj/item/food/fish/lobster = 50)
 	cast_message = "You set the cage in the water!"
 	catch_message = "You catch a "
 

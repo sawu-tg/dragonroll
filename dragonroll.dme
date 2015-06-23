@@ -76,7 +76,7 @@
 #include "code\modules\agriculture\fishing.dm"
 #include "code\modules\agriculture\plants.dm"
 #include "code\modules\agriculture\fishing\fish_bait.dm"
-#include "code\modules\agriculture\fishing\fish_crayfish.dm"
+#include "code\modules\agriculture\fishing\fish_cage.dm"
 #include "code\modules\agriculture\fishing\fish_fly.dm"
 #include "code\modules\agriculture\fishing\fish_harpoon.dm"
 #include "code\modules\agriculture\fishing\fish_net.dm"
