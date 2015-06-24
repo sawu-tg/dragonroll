@@ -11,11 +11,14 @@
 	var/level_required_cooking = 1
 	var/cooked = 0
 
-/obj/item/food/New()
-	..()
+/obj/item/food/New(var/turf/atloc, var/mob/player/user)
+	..(atloc)
 	for(var/a in containedReagents)
 		var/datum/reagent/R = new a
-		reagents.addliquid(R.id, containedReagents[a])
+		if(user)
+			reagents.addliquid(R.id, containedReagents[a] * user.playerData.fishing.statModified)
+		else
+			reagents.addliquid(R.id, containedReagents[a])
 
 /obj/item/food/objFunction(var/mob/user)
 	reagents.trans_to(user.reagents,reagents.maxvolume)

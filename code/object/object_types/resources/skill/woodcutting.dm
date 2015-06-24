@@ -26,6 +26,7 @@
 		if(required_level > user.playerData.firemaking.statCurr)
 			messagePlayer("You aren't good enough at firemaking to light a fire here.",user,src)
 			return
+		new world
 		var/obj/structure/cooking/C = new/obj/structure/cooking(src.loc)
 		messagePlayer("You light [src].",user,src)
 		user.playerData.firemaking.addxp(exp_granted, user)

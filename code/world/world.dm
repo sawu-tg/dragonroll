@@ -37,8 +37,8 @@ var/datum/controller/balance/balance
 				playerValidHair |= i
 		messageSystemAll("GENERATING WORLD..")
 		spawn(1)
-			for(var/i = 1; i < world.maxz; i++)
-				generate(i)
+		//for(var/i = 1; i < world.maxz; i++)
+			//	generate(i)
 		spawn(10)
 			messageSystemAll("FINISHED!")
 		processObjects()
