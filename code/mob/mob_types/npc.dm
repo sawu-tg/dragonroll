@@ -43,12 +43,16 @@
 				raceChange(forceRace,TRUE)
 		nameChange(name)
 	else
-		raceChange(/datum/race/Beast,TRUE)
+		if(!forceRace)
+			raceChange(/datum/race/Beast,TRUE)
+		else
+			raceChange(forceRace,TRUE)
 	globalNPCs |= src
 
 	///
 	// NPCs are totes omnipotent
 	///
+	playerData.playerAbilities.Cut()
 	for(var/A in npcSpells)
 		playerData.playerAbilities += A
 

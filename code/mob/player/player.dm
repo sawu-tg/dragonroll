@@ -146,8 +146,13 @@
 
 /mob/player/proc/healDamage(var/amount)
 	if(playerData.hp.statCurr < playerData.hp.statModified)
-		popup("Healed: [amount]",COL_FRIENDLY)
+		popup("HP+: [amount]",COL_FRIENDLY)
 	playerData.hp.change(amount)
+
+/mob/player/proc/healMana(var/amount)
+	if(playerData.hp.statCurr < playerData.hp.statModified)
+		popup("MP+: [amount]",COL_FRIENDLY)
+	playerData.mp.change(amount)
 
 /mob/player/proc/takeDamage(var/amount,var/type=DTYPE_MELEE)
 	var/damage = max(0,type == DTYPE_DIRECT ? amount : amount - playerData.def.statCurr)
@@ -493,32 +498,6 @@
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 
-/mob/player/proc/equipItem(var/obj/item/what)
-	var/space = TRUE
-	for(var/obj/item/I in playerEquipped)
-		if(I.slot == what.slot)
-			space = FALSE
-	if(space)
-		src.playerEquipped |= what
-		updateStats()
-		refreshIcon(playerData.playerRacePrefix)
-
-/mob/player/proc/unEquipItem(var/obj/item/what)
-	src.playerEquipped.Remove(what)
-	updateStats()
-	refreshIcon(playerData.playerRacePrefix)
-
-/mob/player/proc/isWorn(var/obj/item/what)
-	if(playerEquipped.Find(what))
-		return TRUE
-	return FALSE
-
-/mob/player/proc/isWearable(var/obj/item/what)
-	if(istype(what,/obj/item))
-		if(what.slot)
-			return TRUE
-	return FALSE
-
 /////////////////////////////- END OF CUSTOM PROCS- /////////////////////////////////
 
 /mob/player/Topic(href,href_list[])
@@ -588,17 +567,14 @@
 			src.playerSheet()
 		if("dropitem")
 			src.remFromInventory(locate(href_list["item"]))
-			src.viewInventory()
 		if("wearitem")
 			equipItem(locate(href_list["item"]))
-			src.viewInventory()
 		if("removeitem")
 			unEquipItem(locate(href_list["item"]))
-			src.viewInventory()
 		if("useitem")
 			var/obj/item/I = locate(href_list["item"])
 			I.objFunction(src)
-			src.viewInventory()
+			playerInventory -= I
 		if("statroll")
 			rerollStats()
 			src.playerSheet()

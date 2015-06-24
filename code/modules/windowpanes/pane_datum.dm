@@ -148,7 +148,7 @@
 		//var/html = "<title>Inventory</title><html><center>[parseIcon(P.client,P,FALSE)]<br><body style='background:grey'>"
 		var/html = "<title>Inventory</title><html><center><br><body style='background:grey'>"
 		for(var/obj/I in P.playerInventory)
-			html += "<b>[I.name]</b> ([!P.isWorn(I) ? "<a href=?src=\ref[P];function=dropitem;item=\ref[I]><i>Drop</i></a>" : ""][P.isWearable(I) && !P.isWorn(I) ? " | <a href=?src=\ref[P];function=wearitem;item=\ref[I]><i>Equip</i></a>" : (P.isWorn(I) ? "<a href=?src=\ref[P];function=removeitem;item=\ref[I]><i>Remove</i></a>" : "")] | <a href=?src=\ref[P];function=useitem;item=\ref[I]><i>Use</i></a>)<br>"
+			html += "<b>[I.name]</b> ([!P.isWorn(I) ? "<a href=?src=\ref[P];function=dropitem;item=\ref[I]><i>Drop</i></a>" : ""][!P.isWorn(I) ? " | <a href=?src=\ref[P];function=wearitem;item=\ref[I]><i>Equip</i></a>" : (P.isWorn(I) ? "<a href=?src=\ref[P];function=removeitem;item=\ref[I]><i>Remove</i></a>" : "")] | <a href=?src=\ref[P];function=useitem;item=\ref[I]><i>Use</i></a>)<br>"
 		html += "</body></center></html>"
 
 		if(htmlcontent != html && initialized)

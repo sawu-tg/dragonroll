@@ -11,11 +11,11 @@
 ///
 // Calculates if a player can pass a saving throw
 ///
-/proc/savingThrow(var/mob/player/try, var/bonus, var/stat=SAVING_REFLEX)
-	if(!try.playerData)
+/proc/savingThrow(var/mob/player/toSave, var/bonus, var/stat=SAVING_REFLEX)
+	if(!toSave.playerData)
 		return pick(TRUE,FALSE) //no stats? screw you have some rnd
 
-	var/datum/playerFile/data = try.playerData
+	var/datum/playerFile/data = toSave.playerData
 	var/datum/stat/compare
 	switch(stat)
 		if(SAVING_REFLEX)

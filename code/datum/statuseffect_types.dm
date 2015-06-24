@@ -148,8 +148,7 @@ datum/statuseffect/decap/removeStatus()
 	addedstacks = list("wellfed")
 
 /datum/statuseffect/wellfed/removeStatus()
-	mymob:popup("1hp",COL_INFOTICK)
-	mymob:playerData.hp.change(1)
+	mymob:healDamage(1)
 	..()
 
 /datum/statuseffect/regenerate
@@ -159,8 +158,6 @@ datum/statuseffect/decap/removeStatus()
 	addedstacks = list("wellfed")
 
 /datum/statuseffect/regenerate/removeStatus()
-	mymob:popup("1hp",COL_INFOTICK)
-	mymob:playerData.hp.change(1)
-	mymob:popup("1mp",COL_INFOTICK)
-	mymob:playerData.mp.change(1)
+	mymob:healDamage(1)
+	mymob:healMana(1)
 	..()

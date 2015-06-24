@@ -11,8 +11,8 @@
 	name = "Assassinate"
 	desc = "Teleports you to the target, dealing a large amount of damage"
 	abilityRange = 4
-	abilityModifier = -5
-	abilityCooldown = 25*60
+	abilityModifier = -8
+	abilityCooldown = 40
 	abilityState = "duel"
 	abilityIconSelf = /obj/effect/pow
 	abilityIconTarget = /obj/effect/strike
@@ -31,7 +31,7 @@
 	desc = "Shoots a ball of pure mana."
 	abilityRange = 8
 	abilityModifier = -2
-	abilityCooldown = 10*60
+	abilityCooldown = 25
 	abilityState = "redline"
 	abilityIconSelf = /obj/effect/pow
 	abilityProjectile = /obj/projectile/manablast
@@ -46,7 +46,7 @@
 	desc = "Fires a bolt that slows a target."
 	abilityRange = 8
 	abilityModifier = -1
-	abilityCooldown = 10*60
+	abilityCooldown = 25
 	abilityState = "staff"
 	abilityEffect = /datum/statuseffect/dazed
 	abilityIconSelf = /obj/effect/pow
@@ -62,7 +62,7 @@
 	desc = "Flings a toxic sludge at the target."
 	abilityRange = 8
 	abilityModifier = -1
-	abilityCooldown = 10*60
+	abilityCooldown = 25
 	abilityState = "staff"
 	abilityEffect = /datum/statuseffect/poison
 	abilityIconSelf = /obj/effect/pow
@@ -79,7 +79,7 @@
 	desc = "Charges a target with entropy, binding them, and then forcefully blowing them backwards."
 	abilityRange = 8
 	abilityModifier = -2
-	abilityCooldown = 3*60
+	abilityCooldown = 35
 	abilityState = "d_beam"
 	abilityIconSelf = /obj/effect/pow
 	abilityIconTarget = /obj/effect/target

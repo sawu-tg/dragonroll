@@ -107,6 +107,7 @@
 	desc = "Dynamic fish attracting powers!"
 	icon_state = "effect_bouy"
 	icon = 'sprite/obj/effects.dmi'
+
 // FISHIES GLUB GLUB
 /obj/item/food/fish
 	name = "Fish"
@@ -121,7 +122,7 @@
 	..()
 	if(randColour)
 		color = rgb(rand(20,255),rand(20,255),rand(20,255))
-	var/extraType = pick(/datum/reagent/nutrients,/datum/reagent/rawess,/datum/reagent/paratoxin,/datum/reagent/neurotoxin,/datum/reagent/suffocatetoxin)
+	var/extraType = pick(/datum/reagent/nutrients,/datum/reagent/rawess,/datum/reagent/toxin/paratoxin,/datum/reagent/toxin/neurotoxin,/datum/reagent/toxin/suffocatetoxin)
 	var/datum/reagent/RE = new extraType
 	reagents.addliquid(RE.id, rand(1,5))
 	for(var/datum/reagent/R in reagents.liquidlist)

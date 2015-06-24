@@ -111,8 +111,7 @@
 	if(!owner)
 		return
 	owner.healDamage(1)
-	owner.popup(1,COL_FRIENDLY)
-	owner.playerData.mp.change(1)
+	owner.healMana(1)
 
 
 /datum/organ/heart/organFail()
