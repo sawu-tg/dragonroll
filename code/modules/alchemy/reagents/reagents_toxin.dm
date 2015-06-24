@@ -1,3 +1,40 @@
+/datum/reagent/toxin
+	name = "Toxin"
+	id = "tox"
+	color = "#6600FF"
+
+/datum/reagent/toxin/paratoxin
+	name = "Paralytic Toxin"
+	id = "ptox"
+	color = "#6600FF"
+	reagentState = REAGENT_STATE_POWDER
+
+	processMob(var/mob/player/who)
+		who:addStatusEffect(/datum/statuseffect/stun,15)
+		..()
+
+/datum/reagent/toxin/neurotoxin
+	name = "Neurotoxin"
+	id = "ntox"
+	color = "#FF00FF"
+	reagentState = REAGENT_STATE_POWDER
+
+	processMob(var/mob/player/who)
+		who:addStatusEffect(/datum/statuseffect/poison,15)
+		..()
+
+/datum/reagent/toxin/suffocatetoxin
+	name = "Suffocation Toxin"
+	id = "stox"
+	color = "#FF0000"
+	reagentState = REAGENT_STATE_POWDER
+
+	processMob(var/mob/player/who)
+		who:addStatusEffect(/datum/statuseffect/suffocating,15)
+		..()
+
+
+
 //nitric acid - 2 parts saltpetre in 1 part oil of vitriol
 /datum/reagent/aqua_fortis
 	name = "aqua fortis"
