@@ -81,10 +81,10 @@
 	if(checkEffectStack("poison"))
 		if(prob(5))
 			messageArea("You are poisoned!","[src] shudders and wretches",src,src)
-			takeDamage(1,DTYPE_DIRECT)
+			takeDamage(1,DTYPE_MAGIC)
 	if(playerData && playerData.hp.statCurr < 0 && playerData.hp.statCurr > playerData.hp.statMin)
 		if(lastBleed <= 0)
-			takeDamage(1,DTYPE_DIRECT)
+			takeDamage(1,DTYPE_MAGIC)
 			messageArea("You are bleeding out.","[src] is bleeding out.",src,src)
 			lastBleed = BLEEDING_INTERVAL
 		else

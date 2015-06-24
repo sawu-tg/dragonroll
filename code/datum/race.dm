@@ -191,3 +191,16 @@
 	wis_mod = -5
 	int_mod = -5
 	cha_mod = -5
+
+/datum/race/Boss
+	raceName = "Boss"
+	raceDesc = "Smelly, clucky and all too interested in your internal organs"
+	icon = 'sprite/mob/boss.dmi'
+	hp_mod = 5
+	mp_mod = 5
+	str_mod = 5
+	dex_mod = 5
+	con_mod = 5
+	wis_mod = 5
+	int_mod = 5
+	cha_mod = 5

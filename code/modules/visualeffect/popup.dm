@@ -58,18 +58,20 @@
 	timebar(list("#FF0000","#FFFF00","#00FF00"),fadetime = rand(30,60))
 
 
-/atom/proc/popup(var/text = "",var/color = "#FFFFFF",var/fadetime=30, var/xoffset = 0, var/yoffset = 0)
+/atom/proc/popup(var/text = "",var/color = "#FFFFFF",var/fadetime=30, var/xoffset = 0, var/yoffset = 0, var/tsize = 8)
 	if(!src)
 		return
 
-	var/actualtext = "<text style='text-align: center; vertical-align: middle; font: 8px arial;'>[text]</text>"
+	var/actualtext = "<text style='text-align: center; vertical-align: middle; font: [tsize]px arial;'>[text]</text>"
 
 	var/image/I = image(null,loc=src)
 	I.maptext = actualtext
-	I.maptext_width = world.icon_size*4
+	I.maptext_width = (world.icon_size*(tsize/2)) + (length(text)*tsize)
+	I.maptext_height = maptext_width
 	I.pixel_x = -(I.maptext_width/2) + 16 + xoffset
-	I.pixel_y = yoffset
+	I.pixel_y = -(I.maptext_height/2) + 16 + yoffset
 	I.color = color
+	I.layer = LAYER_INTERFACE
 
 	for(var/d in cardinal)
 		var/offx = (d & 4 ? 1 : 0) + (d & 8 ? -1 : 0)
@@ -77,17 +79,20 @@
 
 		var/image/I2 = image(null,loc=src)
 		I2.maptext_width = I.maptext_width
+		I2.maptext_height = I.maptext_height
 		I2.maptext = actualtext
 		I2.color = "#000000"
 		I2.pixel_x = offx
 		I2.pixel_y = offy
+		I2.layer = LAYER_INTERFACE
 
 		I.underlays += I2
 
 	for(var/mob/M in viewers(src))
 		M << I
 
-	animate(I, pixel_z = 50, alpha = 0, time = fadetime)
+	if(fadetime > 0)
+		animate(I, pixel_z = 50, alpha = 0, time = fadetime)
 
 	spawn(fadetime)
 		sdel(I)
@@ -97,12 +102,13 @@
 
 	var/thing = input("Popup text:") as text
 	if(!istext(thing))
-		src << "no"
+		src << "Invalid text"
 		return
 
 	var/xoff = input("X") as num
 	var/yoff = input("Y") as num
+	var/tosize = input("Size") as num
 
-	popup(thing, xoffset = xoff, yoffset = yoff)
+	popup(thing, xoffset = xoff, yoffset = yoff, tsize = tosize)
 
 

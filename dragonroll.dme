@@ -62,6 +62,7 @@
 #include "code\mob\dungeonmaster.dm"
 #include "code\mob\mob.dm"
 #include "code\mob\mob_types\animal.dm"
+#include "code\mob\mob_types\boss.dm"
 #include "code\mob\mob_types\colonist.dm"
 #include "code\mob\mob_types\genie.dm"
 #include "code\mob\mob_types\grey.dm"
