@@ -25,7 +25,8 @@
 	desc = "Licks of flame and magma flit in and out of the portal."
 	icon_state = "portal1"
 	density = 0
-	var/spawnRate = 30
+	var/ableToSpawn = 8
+	var/spawnRate = 120
 	var/list/spawnTypes = list(/mob/player/npc/animal/wasp,/mob/player/npc/animal/spider)
 
 /obj/structure/balance/evilportal/New()
@@ -34,12 +35,15 @@
 
 /obj/structure/balance/evilportal/doProcess()
 	if(spawnRate > 0)
+		if(prob(1))
+			ableToSpawn++
 		--spawnRate
 	else
 		spawnRate = initial(spawnRate)
-		var/toSpawn = pick(spawnTypes)
-		if(toSpawn)
-			new toSpawn(get_turf(src))
+		if(ableToSpawn > 0)
+			var/toSpawn = pick(spawnTypes)
+			if(toSpawn)
+				new toSpawn(get_turf(src))
 
 /turf/floor/balance/evil
 	name = "Hellish Tiling"
@@ -108,7 +112,7 @@
 	icon_state = "portal"
 	density = 0
 	var/datum/ability/portalSpell = new/datum/ability/taunt
-	var/spawnRate = 30
+	var/spawnRate = 25
 
 /obj/structure/balance/goodportal/New()
 	..()

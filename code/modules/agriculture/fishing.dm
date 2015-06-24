@@ -32,9 +32,9 @@
 	if(fishGiven > 0)
 		var/A = get_turf(src)
 		var/catchType = pickweight(A:fishables)
-		var/catch = new catchType(get_turf(fisherman))
+		var/caught = new catchType(get_turf(fisherman))
 		fisherman.playerData.fishing.change(1)
-		messageInfo("You reel in a [catch]",fisherman,src)
+		messageInfo("You reel in a [caught]",fisherman,src)
 		--fishGiven
 	..()
 

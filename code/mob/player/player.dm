@@ -146,8 +146,13 @@
 
 /mob/player/proc/healDamage(var/amount)
 	if(playerData.hp.statCurr < playerData.hp.statModified)
-		popup("Healed: [amount]",COL_FRIENDLY)
+		popup("HP+: [amount]",COL_FRIENDLY)
 	playerData.hp.change(amount)
+
+/mob/player/proc/healMana(var/amount)
+	if(playerData.hp.statCurr < playerData.hp.statModified)
+		popup("MP+: [amount]",COL_FRIENDLY)
+	playerData.mp.change(amount)
 
 /mob/player/proc/takeDamage(var/amount,var/type=DTYPE_MELEE)
 	var/damage = max(0,type == DTYPE_DIRECT ? amount : amount - playerData.def.statCurr)

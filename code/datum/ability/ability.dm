@@ -52,7 +52,7 @@
 		return
 	if(canCast(caster))
 		if(istype(caster,/mob/player))
-			caster:playerData.mp.change(abilityLevel * abilityManaMod)
+			caster:playerData.mp.change(-(abilityLevel * abilityManaMod))
 		preCast(caster,target)
 		Cast(caster,target)
 		postCast(caster,target)
