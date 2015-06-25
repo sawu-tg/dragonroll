@@ -85,6 +85,8 @@
 
 /mob/proc/processAttack(var/mob/player/attacker,var/mob/player/victim)
 	var/damage = attacker.playerData.str.statModified
+	var/adex = attacker.playerData.dex.statModified
+	damage += adex/2
 	var/def = victim.playerData.def.statModified //only here for calculations in output
 	var/dex = victim.playerData.dex.statModified
 	var/obj/item/mainHand = attacker.activeHand()
@@ -98,11 +100,11 @@
 		else // its a smashy weapon
 			for(var/cdir in alldirs)
 				bloodSpray(cdir,max(mainHand.force/4,1),max(mainHand.weight/4,1))
-	if(do_roll(1,def,dex) > damage)
+	if(do_roll(1,def/2,dex) > damage)
 		playsound(get_turf(src), 'sound/weapons/punchmiss.ogg', 50, 1)
 		var/tod = !victim.isMonster ? "parry" : "feint"
 		src.popup("[tod]",rgb(255,255,0))
-		var/newDamage = victim.isMonster ? damage/4 : damage/2
+		var/newDamage = victim.isMonster ? damage/2 : damage/2
 		newDamage = round(newDamage)
 		attacker.takeDamage(newDamage)
 	else
@@ -112,6 +114,7 @@
 		else
 			messageArea("Your blow only glances! (1d[damage]-[def])","[attacker] hits [victim] with a glancing blow! (1d[damage]-[def])",attacker,victim,"green")
 			playsound(get_turf(src), 'sound/weapons/punchmiss.ogg', 50, 1)
+			attacker.takeDamage(1,DTYPE_DIRECT)
 
 /mob/proc/intent2string()
 	if(intent == 1)

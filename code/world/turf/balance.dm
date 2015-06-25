@@ -20,6 +20,62 @@
 // EVIL
 ///
 
+///
+// The "Boatman"
+///
+
+/obj/structure/angelod
+	name = "Unidentified figure"
+	desc = "It flits in and out of your vision much like a gnat."
+	icon = 'sprite/mob/boss.dmi'
+	icon_state = "death"
+	var/mob/player/target
+	var/stage = 0
+	var/stageTimer = 45
+
+/obj/structure/angelod/New(var/turf/T, var/totarget)
+	if(!totarget)
+		sdel(src)
+	..(T)
+	target = totarget
+	addProcessingObject(src)
+
+/obj/structure/angelod/doProcess()
+	if(!Adjacent(target))
+		src.loc = get_turf(target)
+	else
+		if(stageTimer > 0)
+			--stageTimer
+		else
+			var/isDeath = target.alignment == ALIGN_GOOD
+			stageTimer = initial(stageTimer)
+			++stage
+			switch(stage)
+				if(1)
+					var/list/greetings = list("Taken before your time,", "Lost before you had lived,", "Torn from this world,","Stolen away from those who need you,")
+					var/brought = isDeath ? "I bring your end..." : "I bring comfort..."
+					messagePlayer("[pick(greetings)] [target.name], [brought]", target, src,COL_HOSTILE)
+				if(2)
+					var/toway = isDeath ? "Your time has passed," : "Your time is not yet up,"
+					messagePlayer("[toway] [target.name]", target, src,COL_HOSTILE)
+				if(3)
+					var/toway = isDeath ? "Leave," : "Rise,"
+					messagePlayer("[toway] [target.name]", target, src,COL_HOSTILE)
+					if(isDeath)
+						var/P = locate(/obj/structure/balance/evilportal) in range(src,16)
+						if(P)
+							var/turf/T = get_turf(P)
+							target.throw_at(T)
+					else
+						target.revive()
+					target.beingRezzed = FALSE
+					spawn(10)
+						target.addStatusEffect(/datum/statuseffect/regenerate,100)
+					sdel(src)
+
+
+///END
+
 /obj/structure/balance/evilportal
 	name = "Hellish Portal"
 	desc = "Licks of flame and magma flit in and out of the portal."
@@ -40,6 +96,11 @@
 		--spawnRate
 	else
 		spawnRate = initial(spawnRate)
+		for(var/mob/player/M in range(src,8))
+			if(M.checkEffectStack("dying") > 0 || M.checkEffectStack("dead") > 0)
+				if(!M.beingRezzed)
+					new/obj/structure/angelod(get_turf(src),M)
+				M.beingRezzed = TRUE
 		if(ableToSpawn > 0)
 			var/toSpawn = pick(spawnTypes)
 			if(toSpawn)

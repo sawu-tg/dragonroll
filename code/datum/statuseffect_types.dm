@@ -144,7 +144,7 @@ datum/statuseffect/decap/removeStatus()
 /datum/statuseffect/wellfed
 	name = "Well Fed"
 	id = "wellfed"
-	desc = "You have eaten something delicious, and are healing over time."
+	desc = "You feel satiated, and are healing over time."
 	addedstacks = list("wellfed")
 
 /datum/statuseffect/wellfed/removeStatus()
@@ -154,7 +154,7 @@ datum/statuseffect/decap/removeStatus()
 /datum/statuseffect/regenerate
 	name = "Regeneration"
 	id = "regenfed"
-	desc = "You have eaten something delicious, and are restoring over time."
+	desc = "You feel satiated, and are restoring over time."
 	addedstacks = list("wellfed")
 
 /datum/statuseffect/regenerate/removeStatus()

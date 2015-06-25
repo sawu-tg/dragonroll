@@ -22,6 +22,9 @@
 
 /datum/organ/New(var/asrace,var/toOwner)
 	..()
+	if(!asrace)
+		if(toOwner)
+			asrace = toOwner:playerData.playerRace
 	race = asrace
 	if(toOwner)
 		owner = toOwner
@@ -98,7 +101,6 @@
 	internal = TRUE
 
 /datum/organ/brain/organFail()
-	//makem dem dum
 	..()
 
 /datum/organ/heart
@@ -110,8 +112,9 @@
 	..()
 	if(!owner)
 		return
-	owner.healDamage(1)
-	owner.healMana(1)
+	if(prob(5))
+		owner.healDamage(1)
+		owner.healMana(1)
 
 
 /datum/organ/heart/organFail()

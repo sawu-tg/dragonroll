@@ -29,6 +29,8 @@
 
 /mob/player/proc/processStates()
 	if(playerData && playerData.hp.statCurr <= 0)
+		for(var/datum/organ/O in playerOrgans)
+			O.health -= 5
 		if(canMove)
 			canMove = FALSE
 	if(playerData && playerData.hp.statCurr <= playerData.hp.statMin)
@@ -81,7 +83,7 @@
 	if(checkEffectStack("poison"))
 		if(prob(5))
 			messageArea("You are poisoned!","[src] shudders and wretches",src,src)
-			takeDamage(1,DTYPE_MAGIC)
+		takeDamage(checkEffectStack("poison"),DTYPE_MAGIC)
 	if(playerData && playerData.hp.statCurr < 0 && playerData.hp.statCurr > playerData.hp.statMin)
 		if(lastBleed <= 0)
 			takeDamage(1,DTYPE_MAGIC)

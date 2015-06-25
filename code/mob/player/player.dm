@@ -28,6 +28,8 @@
 	var/actualSpeed = 1 //the actual speed
 	var/speed = 1 // the speed they move at
 
+	var/beingRezzed = FALSE
+
 
 /mob/player/garbageCleanup()
 	..()
@@ -65,6 +67,15 @@
 		sdel(SH)
 	playerSpellHolders = null
 
+/mob/player/proc/defaultOrgans()
+	playerOrgans |= new/datum/organ/l_arm(playerData.playerRace,src)
+	playerOrgans |= new/datum/organ/r_arm(playerData.playerRace,src)
+	playerOrgans |= new/datum/organ/l_leg(playerData.playerRace,src)
+	playerOrgans |= new/datum/organ/r_leg(playerData.playerRace,src)
+	playerOrgans |= new/datum/organ/chest(playerData.playerRace,src)
+	playerOrgans |= new/datum/organ/head(playerData.playerRace,src)
+	playerOrgans |= new/datum/organ/brain(playerData.playerRace,src)
+	playerOrgans |= new/datum/organ/heart(playerData.playerRace,src)
 
 /mob/player/New()
 	..()
@@ -83,14 +94,7 @@
 	add_pane(/datum/windowpane/inventory)
 
 	///
-	playerOrgans |= new/datum/organ/l_arm(playerData.playerRace,src)
-	playerOrgans |= new/datum/organ/r_arm(playerData.playerRace,src)
-	playerOrgans |= new/datum/organ/l_leg(playerData.playerRace,src)
-	playerOrgans |= new/datum/organ/r_leg(playerData.playerRace,src)
-	playerOrgans |= new/datum/organ/chest(playerData.playerRace,src)
-	playerOrgans |= new/datum/organ/head(playerData.playerRace,src)
-	playerOrgans |= new/datum/organ/brain(playerData.playerRace,src)
-	playerOrgans |= new/datum/organ/heart(playerData.playerRace,src)
+	defaultOrgans()
 	///
 	spawn(20)
 		refreshIcon(playerData.playerRacePrefix)
@@ -115,6 +119,17 @@
 			var/type = I.lootForm
 			new type(srcLoc)
 			sdel(I)
+
+/mob/player/proc/revive()
+	gibSelf()
+	playerOrgans.Cut()
+	defaultOrgans()
+
+	healDamage(99999)
+	healMana(99999)
+
+	for(var/datum/statuseffect/S in statuseffects)
+		remStatusEffect(S)
 
 /mob/player/objFunction(var/mob/user,var/obj/inHand)
 	if(checkEffectStack("dead"))
