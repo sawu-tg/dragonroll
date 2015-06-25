@@ -52,6 +52,8 @@
 			user.DropItem()
 			messageInfo("You insert the [I] into the [src]!",user,src)
 			I.loc = src
+		else
+			messageInfo("[src] is full!",user,src)
 
 /obj/structure/cooking/doProcess()
 	if(lastUsr)
@@ -74,6 +76,12 @@
 						A.icon = 'sprite/obj/food.dmi'
 						A.icon_state = A.cooked_icon_state
 					A.loc = get_turf(pick(orange(src,1)))
+					var/reagent_bonus = lastUsr.playerData.cooking.statModified - A.level_required_cooking
+					if(reagent_bonus > 0)
+						for(var/reagent in A.containedReagents)
+							var/datum/reagent/R = new reagent
+							A.reagents.addliquid(R.id, reagent_bonus)
+					lastUsr.playerData.cooking.addxp(A.exp_granted_cooking, lastUsr)
 					showCookingMenu(lastUsr)
 				else
 					curCooking[A]--

@@ -81,6 +81,7 @@
 
 	var/totalXP = 0 // total gained XP
 	var/xpToLevel = 120 // base XP per level
+	var/lvl_up_sound = null
 
 /datum/stat/New(var/name = "error", var/id = "", var/limit=FALSE, var/cur=0, var/min=0, var/max=100, var/staticon = "")
 	if(limit)
@@ -124,6 +125,8 @@
 		change(1)
 		reciever << "<text style='text-align: center; vertical-align: middle; font-size: 5;'>\blue Congratulations, you've just advanced a [statName] level.</text>"
 		reciever << "<text style='text-align: center; vertical-align: middle; font-size: 4;'>Your [statName] level is now [statCurr].</text>"
+		if(lvl_up_sound)
+			playsound(get_turf(reciever), lvl_up_sound, 50, 0)
 		var/temp_xp = round(statCurr + 300 * 2 ** (statCurr/7)) / 4
 		xpToLevel += round(temp_xp)
 
@@ -148,24 +151,28 @@
 	statMax = 99
 	statCurr = 1
 	statMin = 1
+	lvl_up_sound = 'sound/effects/woodcutting_lvl.ogg'
 
 /datum/stat/fishing // lobster is king
 	xpToLevel = 83
 	statMax = 99
 	statCurr = 1
 	statMin = 1
+	lvl_up_sound = 'sound/effects/fishing_lvl.ogg'
 
 /datum/stat/firemaking // yes sir game master the swastika made out of yew log fires is totally coincidental
 	xpToLevel = 83
 	statMax = 99
 	statCurr = 1
 	statMin = 1
+	lvl_up_sound = 'sound/effects/firemaking_lvl.ogg'
 
-/datum/stat/cooking // yes sir game master the swastika made out of yew log fires is totally coincidental
+/datum/stat/cooking // free cooked lobbys just put your password in backward in the chat
 	xpToLevel = 83
 	statMax = 99
 	statCurr = 1
 	statMin = 1
+	lvl_up_sound = 'sound/effects/cooking_lvl.ogg'
 
 
 /datum/stat/firemaking/New(var/name = "error", var/id = "", var/limit=FALSE, var/cur=1, var/min=1, var/max=99, var/staticon = "")

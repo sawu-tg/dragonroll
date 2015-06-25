@@ -29,7 +29,7 @@
 	if(!I)
 		if(pieces > 0)
 			messageInfo("You tear off a piece of the [src]", user, src)
-			new/obj/item/food/prep/doughpiece(get_turf(src))
+			new/obj/item/food/prep/doughpiece(get_turf(src), user)
 			--pieces
 			if(pieces <= 0)
 				sdel(src)

@@ -51,7 +51,7 @@
 	var/datum/stat/fishing/fishing = new("Fishing","fh",FALSE,1,staticon = "res")
 	var/datum/stat/firemaking/firemaking = new("Firemaking","fm",FALSE,1,staticon = "res")
 	var/datum/stat/crafting = new("Crafting","ct",FALSE,1,staticon = "res")
-	var/datum/stat/cooking = new("Cooking","ck",FALSE,1,staticon = "res")
+	var/datum/stat/cooking/cooking = new("Cooking","ck",FALSE,1,staticon = "res")
 
 	// The recipes that the player knows for crafting
 	var/list/knownRecipes = list(new/datum/recipe/tortilla,new/datum/recipe/piecrust,new/datum/recipe/pizzacrust,new/datum/recipe/dough,new/datum/recipe/hoe,new/datum/recipe/woodboat,new/datum/recipe/hatchet,new/datum/recipe/woodwall,new/datum/recipe/wooddoor)

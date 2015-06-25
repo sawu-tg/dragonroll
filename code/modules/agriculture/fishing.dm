@@ -3,55 +3,120 @@
 	desc = "A bit of string tied around a stick."
 	icon_state = "fishingrod"
 	var/obj/item/bait
-	var/obj/effect/fishingbouy/bouy
+	var/obj/fishingbouy/bouy
 	range = 5
-
-/obj/item/weapon/tool/fishingrod/onUsed(var/mob/user,var/atom/onWhat)
+	var/length = 50
+	var/fish_given = 1
+	var/list/fishables = list(/obj/item/food/fish/minnow,
+							/obj/item/food/fish/sardine,
+							/obj/item/food/fish/herring,
+							/obj/item/food/fish/pike)
+	var/fishing = FALSE
+	var/cast_message = "You cast out a line!"
+	var/catch_message = "You reel in "
+/obj/item/weapon/tool/fishingrod/onUsed(var/mob/player/user,var/atom/onWhat)
+	if(fishing)
+		return
 	if(istype(onWhat,/turf/floor/outside/liquid))
-		if(bouy)
-			return
-		messageInfo("You cast out a line!",user,src)
-		bouy = new/obj/effect/fishingbouy(get_turf(onWhat),user,bait)
+		messageInfo(cast_message,user,src)
+		bouy = new/obj/fishingbouy(get_turf(onWhat))
+		spawn(1)
+			user.Beam(bouy,time=length,icon_state="f_beam")
+		var/sleep_length = length / fish_given
+		fishing = TRUE
+		for(var/i = 0; i < fish_given; ++i)
+			sleep(sleep_length)
+			var/list/picked_fish = list()
+			for(var/F in fishables)
+				var/obj/item/food/fish/FF = new F()
+				if(user.playerData.fishing.statModified >= FF.required_level_fishing)
+					picked_fish.Add(F)
+					sdel(FF)
+			if(!picked_fish.len) // not pro enough to catch anything.
+				messageInfo("You fail to catch anything.",user,src)
+				fishing = FALSE
+				sdel(bouy)
+				return
+			var/obj/item/food/fish/catchType = pick(picked_fish)
+			var/obj/item/food/fish/catch = new catchType(get_turf(user))
+			user.playerData.fishing.addxp(catch.exp_granted_fishing, user)
+			messageInfo("[catch_message][catch].",user,src)
+		messageInfo("You finish fishing.",user,src)
+		fishing = FALSE
+		sdel(bouy)
 
+/obj/item/weapon/tool/fishingrod/net
+	name = "Fishing Net"
+	desc = "A net for fishing."
+	range = 1
+	length = 50
+	fish_given = 5
+	fishables = list(/obj/item/food/fish/shrimp,
+					/obj/item/food/fish/anchovies,
+					/obj/item/food/fish/monkfish)
+	cast_message = "You set the net in the water!"
+	catch_message = "You catch "
 
-/obj/effect/fishingbouy
+/obj/item/weapon/tool/fishingrod/cage
+	name = "Fishing Cage"
+	desc = "A cage for fishing."
+	range = 1
+	length = 50
+	fish_given = 5
+	fishables = list(/obj/item/food/fish/crayfish,
+					/obj/item/food/fish/lobster)
+	cast_message = "You set the cage in the water!"
+	catch_message = "You catch a "
+
+/obj/item/weapon/tool/fishingrod/net/big
+	name = "Big Fishing Net"
+	desc = "A net for fishing."
+	fish_given = 3
+	fishables = list(/obj/item/food/fish/mackerel,
+					/obj/item/food/fish/cod,
+					/obj/item/food/fish/bass)
+	cast_message = "You set the big net in the water!"
+	catch_message = "You catch a "
+
+/obj/item/weapon/tool/fishingrod/harpoon
+	name = "Harpoon"
+	desc = "A harpoon for fishing."
+	length = 30
+	fish_given = 3
+	fishables = list(/obj/item/food/fish/tuna,
+					/obj/item/food/fish/swordfish,
+					/obj/item/food/fish/shark,
+					/obj/item/food/fish/great_white_shark,
+					/obj/item/food/fish/sponge)
+	cast_message = "You start harpooning the water!"
+	catch_message = "You harpoon a "
+
+/obj/item/weapon/tool/fishingrod/fly
+	name = "Fly Fishing Rod"
+	desc = "A rod for fly fishing."
+	length = 30
+	fish_given = 1
+	fishables = list(/obj/item/food/fish/trout,
+					/obj/item/food/fish/salmon,
+					/obj/item/food/fish/rainbow_fish)
+	cast_message = "You start fly fishing!"
+	catch_message = "You catch a "
+
+/obj/fishingbouy
 	name = "Fishing Bouy"
 	desc = "Dynamic fish attracting powers!"
 	icon_state = "effect_bouy"
-	length = 30
-	var/fishGiven = 1
-	var/mob/player/fisherman
+	icon = 'sprite/obj/effects.dmi'
 
-/obj/effect/fishingbouy/New(var/turf/atloc,var/owner,var/bait)
-	..(atloc)
-	fisherman = owner
-	spawn(1)
-		Beam(owner,time=length,icon_state="f_beam")
-
-/obj/effect/fishingbouy/onDestroy()
-	if(fishGiven > 0)
-		var/A = get_turf(src)
-		var/catchType = pickweight(A:fishables)
-		var/caught = new catchType(get_turf(fisherman))
-		fisherman.playerData.fishing.change(1)
-		messageInfo("You reel in a [caught]",fisherman,src)
-		--fishGiven
-	..()
-
-/turf/floor/outside/liquid
-	var/list/fishables = list(/obj/item/food/fish = 50, /obj/item/food/fish/squid = 50, /obj/item/food/fish/urchin = 25, /obj/item/food/fish/clam = 25, /obj/item/food/fish/shrimp = 75,/obj/item/food/fish/lobster = 15,/obj/item/food/fish/crab = 15, /obj/item/food/fish/sponge = 5)
-
-
-///
 // FISHIES GLUB GLUB
-///
-
 /obj/item/food/fish
 	name = "Fish"
 	desc = "Floats and glubs."
 	icon = 'sprite/obj/fish.dmi'
 	icon_state = "fish"
 	var/randColour = TRUE
+	var/required_level_fishing = 1
+	var/exp_granted_fishing = 1
 
 /obj/item/food/fish/New()
 	..()
@@ -65,46 +130,3 @@
 			name = "[pick("Bitter","Sour","Infected","Sick")] [name]"
 		if(R.id == "rawess")
 			name = "Fey [name]"
-
-/obj/item/food/fish/squid
-	name = "Squid"
-	desc = "Bobs and Blibs."
-	icon_state = "squid"
-
-/obj/item/food/fish/urchin
-	name = "Urchin"
-	desc = "Like a sea-mine."
-	icon_state = "urchin"
-
-/obj/item/food/fish/clam
-	name = "Clam"
-	desc = "Portable sea-food in it's own packaging."
-	icon_state = "clam"
-
-/obj/item/food/fish/shrimp
-	name = "Shrimp"
-	desc = "It's other home is a barbeque."
-	icon_state = "shrimp"
-
-/obj/item/food/fish/lobster
-	name = "Lobster"
-	desc = "Pinchy!"
-	icon_state = "lobster"
-
-/obj/item/food/fish/crab
-	name = "Crab"
-	desc = "Pinchy Jr."
-	icon_state = "crab"
-
-/obj/item/food/fish/sponge
-	name = "Sponge"
-	desc = "Are you feeling it now Mr Krabs?"
-	icon_state = "bob"
-	randColour = FALSE
-
-
-/obj/item/food/fish/sponge/New()
-	..()
-	var/matrix/M = matrix(transform)
-	M.Turn(rand(1,360))
-	transform = M
