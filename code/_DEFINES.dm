@@ -103,6 +103,14 @@
 #define COL_INFO rgb(255,255,0)
 #define COL_INFOTICK rgb(255,0,255)
 
+///
+// PARTICLE TYPES
+///
+
+#define PART_PHYS_SCATTER 2
+#define PART_PHYS_WHIRL 4
+#define PART_PHYS_FALL 8
+
 var/list/playerValidHair = list()
 var/list/playerValidFacial = list()
 var/list/playerList = list()
