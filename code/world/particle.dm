@@ -1,4 +1,4 @@
-/proc/lerp(A, B, C) return A + (B - A) * C
+#define lerp(A, B, C) (A + (B - A) * C)
 
 /obj/structure/particleSystem
 	name = ""

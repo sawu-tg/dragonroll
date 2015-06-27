@@ -139,6 +139,7 @@
 #include "code\world\subsystems\controller.dm"
 #include "code\world\subsystems\controller_system.dm"
 #include "code\world\subsystems\cooldownmgr.dm"
+#include "code\world\subsystems\diplomacy.dm"
 #include "code\world\subsystems\hivemind.dm"
 #include "code\world\subsystems\machines.dm"
 #include "code\world\subsystems\sdel.dm"
