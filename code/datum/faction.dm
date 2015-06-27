@@ -1,8 +1,43 @@
+var/list/globalFactions = list()
+
+/proc/findFaction(var/name)
+	if(name)
+		for(var/datum/faction/F in globalFactions)
+			if(F.name == name)
+				return F
+	messageSystemAll("Cannot find Faction: [name] (findFaction check)")
+	return null
+
+/proc/findOwned(var/mob/player/P)
+	for(var/datum/faction/F in globalFactions)
+		var/FF = F.factionOwners.Find(P)
+		if(FF)
+			return F
+	return null
+
+/proc/setupFactions()
+	for(var/A in typesof(/datum/faction) - /datum/faction)
+		globalFactions += new A
+
 /datum/faction
 	var/name = "Neutral"
 	var/list/friendlyTo = list() // who the faction is friendly to
 	var/list/hostileTo = list() // who the faction is hostile to
+	var/icon/factionImage // the image of the faction
+	var/factionThreshold = 1000 // the extent of which a reputation can change
+	var/angerThreshold = -250 // what the standing of a faction to another has to be to trigger a change
+	var/happyThreshold = 250 // the same as above, but in reverse
+	var/list/fStandings = list() // an associative list of the standings of other factions
+	var/currencyType = /obj/item/loot/gold // the currency the faction uses
+	var/list/factionOwners = list() // a list of people authorized to modify the faction
 
+/datum/faction/New()
+	..()
+	factionImage = icon('sprite/obj/flags.dmi',icon_state = pick(icon_states('sprite/obj/flags.dmi')))
+	for(var/A in friendlyTo)
+		fStandings[A] = happyThreshold + (happyThreshold/2)
+	for(var/A in hostileTo)
+		fStandings[A] = angerThreshold + (angerThreshold/2)
 
 /datum/faction/garbageCleanup()
 	..()
@@ -10,38 +45,137 @@
 	hostileTo = null
 
 
+/datum/faction/proc/addStanding(var/datum/faction/F,var/amount)
+	if(F.name == name) // NO BULLY
+		return
+	if(!fStandings[F.name])
+		fStandings[F.name] = amount
+	else
+		if(fStandings[F.name] + amount > factionThreshold || fStandings[F.name] + amount < -factionThreshold)
+			fStandings[F.name] = amount > 0 ? factionThreshold : -factionThreshold
+		else
+			fStandings[F.name] += amount
+	if(fStandings[F.name] < angerThreshold)
+		if(!isHostile(F))
+			hostileTo += F.name
+			messageWarningAll("[name] is now hostile to [F.name]!")
+		if(isFriendly(F))
+			friendlyTo -= F.name
+	if(fStandings[F.name] > happyThreshold)
+		if(!isFriendly(F))
+			friendlyTo += F.name
+			messageWarningAll("[name] is now friendly with [F.name]!")
+		if(isHostile(F))
+			hostileTo -= F.name
+
+
 ///
-// Checks whether a faciton is hostile to the given faction
+// Checks whether a faction is hostile to the given faction
 ///
 /datum/faction/proc/isHostile(var/datum/faction/F)
-	for(var/datum/faction/FA in hostileTo)
-		if(FA.name == F.name)
+	if(!F)
+		messageSystemAll("Invalid faction [F] passed to isHostile check")
+		return
+	for(var/FA in hostileTo)
+		if(FA == F.name)
 			return TRUE
 	return FALSE
 
 ///
-// Checks whether a faciton is friendly to the given faction
+// Checks whether a faction is friendly to the given faction
 ///
 /datum/faction/proc/isFriendly(var/datum/faction/F)
+	if(!F)
+		messageSystemAll("Invalid faction [F] passed to isFriendly check")
+		return
 	if(F.name == name)
 		return TRUE
-	for(var/datum/faction/FA in friendlyTo)
-		if(FA.name == F.name)
+	for(var/FA in friendlyTo)
+		if(FA == F.name)
 			return TRUE
 	return FALSE
+
+///////////// FACTION VERBS ////////////////////
+
+/mob/verb/createFaction()
+	set name = "Create Faction"
+	set category = "Factions"
+	if(!findOwned(src))
+		var/fName = input("Name your faction") as text
+		var/fImage = input("Pick your Image") as null|anything in icon_states('sprite/obj/flags.dmi')
+		if(fName && fImage)
+			var/datum/faction/F = new
+			F.name = fName
+			F.factionOwners += src
+			F.factionImage = icon('sprite/obj/flags.dmi',icon_state = fImage)
+			globalFactions += F
+	else
+		messageError("You already own a faction!", src, src)
+
+/mob/verb/joinFaction()
+	set name = "Join Faction"
+	set category = "Factions"
+	if(!findOwned(src))
+		var/list/valid = list()
+		for(var/datum/faction/F in globalFactions)
+			valid += F.name
+		var/fName = input("Choose a Faction") as null|anything in valid
+		if(fName)
+			mobFaction = findFaction(fName)
+	else
+		messageError("You own a faction!", src, src)
+
+/mob/verb/adjustFaction()
+	set name = "Modify Faction Standing"
+	set category = "Factions"
+	var/datum/faction/F = input("Who's standing?") as null|anything in globalFactions
+	if(F)
+		var/datum/faction/FF = input("With who?") as null|anything in globalFactions
+		if(FF)
+			var/amt = input("Shift amount?") as num
+			if(amt)
+				FF.addStanding(F,amt)
+
+/mob/verb/debugFactions()
+	set name = "View Factions"
+	set category = "Factions"
+	var/html = "<title>Factions</title><html><center><body style='background:grey'>"
+	for(var/datum/faction/D in globalFactions)
+		html += "<b>===============</b><br>"
+		//html += "[parseIcon(D.factionImage,src,FALSE)]<br>" NEEDS A FIXIN
+		html += "<b>[D.name]</b><br>"
+		html += "<b>Currency:</b> [D.currencyType]<br>"
+		if(D.hostileTo.len)
+			html += "<i><b>~</b>Hostile To<b>~</b></i><br>"
+			for(var/A in D.hostileTo)
+				html += "[A]: [D.fStandings[A]]<br>"
+		if(D.friendlyTo.len)
+			html += "<i><b>~</b>Friendly To<b>~</b></i><br>"
+			for(var/A in D.friendlyTo)
+				html += "[A]: [D.fStandings[A]]<br>"
+		if(D.factionOwners.len)
+			html += "<i><b>~</b>Leaders<b>~</b></i><br>"
+			for(var/A in D.factionOwners)
+				html += "[A]<br>"
+	html += "</body></center></html>"
+	src << browse(html,"window=playersheet")
 
 ///////////// FACTIONS /////////////////////////
 
 /datum/faction/colonist
-	name = "Colonists"
+	name = "Colonist"
+	hostileTo = list("Hostile")
+	friendlyTo = list("Wildlife")
 
 /datum/faction/wildlife
 	name = "Wildlife"
+	hostileTo = list("Hostile")
+	friendlyTo = list("Colonist")
 
 /datum/faction/generic_hostile
 	name = "Hostile"
-	hostileTo = list(new/datum/faction/wildlife, new/datum/faction/colonist)
+	hostileTo = list("Wildlife", "Colonist")
 
 /datum/faction/grey
 	name = "Mothership"
-	hostileTo = list(new/datum/faction/wildlife, new/datum/faction/colonist, new/datum/faction/generic_hostile)
+	hostileTo = list("Wildlife", "Colonist","Hostile")

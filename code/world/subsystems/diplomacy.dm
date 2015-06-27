@@ -5,10 +5,10 @@
 	var/currType
 
 /datum/controller/diplomacy/Stat()
-	stat("<b>[name]</b> | [round(cost,0.001)]ds | (CPU:[round(cpu,1)]%) (Count: [globalMachines.len])")
+	stat("<b>[name]</b> | [round(cost,0.001)]ds | (CPU:[round(cpu,1)]%) (Factions: [globalFactions.len])")
 
 /datum/controller/diplomacy/getStat()
-	return "<b>[name]</b> | [round(cost,0.001)]ds | (CPU:[round(cpu,1)]%) (Count: [globalMachines.len])"
+	return "<b>[name]</b> | [round(cost,0.001)]ds | (CPU:[round(cpu,1)]%) (Factions: [globalFactions.len])"
 
 /datum/controller/diplomacy/doProcess()
 	scheck()
@@ -25,29 +25,48 @@
 
 /obj/item/loot/gold/New()
 	..()
+	stackSize = rand(1,25)
 	update_icon()
 
-/obj/item/loot/gold/verb/addMoney()
-	set src in view()
-	var/amount = input("Change by how?") as num
+/obj/item/loot/gold/objFunction(var/mob/player/P, var/obj/item/I)
+	if(!I)
+		var/count = input(P,"Take amount?") as num
+		if(count)
+			if(stackSize - count > 0)
+				var/obj/item/loot/gold/G = new(get_turf(src))
+				G.stackSize = count
+				G.update_icon()
+				return
+			else
+				messageInfo("You don't have enough to take [count]!")
+				return
+	else
+		if(istype(I,src.type))
+			stackSize += I:stackSize
+			update_icon()
+			sdel(I)
+
+
+/obj/item/loot/gold/proc/changeAmt(var/amount)
+	if(stackSize + amount < 0)
+		return
 	if(amount)
 		stackSize += amount
 		update_icon()
-		usr << "[src] now contains [stackSize] pieces!"
 
 /obj/item/loot/gold/update_icon()
 	..()
 	overlays.Cut()
 	var/count = max(1,round(stackSize/10))
 	if(count > 1)
-		name = "[initial(name)]s"
+		name = "[stackSize] [initial(name)]s"
 	else
 		name = "[initial(name)]"
-	for(var/i = 0; i < min(25,count); ++i)
+	for(var/i = 0; i < min(50,count); ++i)
 		var/modifier = rand(-45,45)
-		var/tint = i <= 3 ? rgb(255,255,0) : rgb((45+modifier)*(i+3),(45+modifier)*(i+3),0)
+		var/tint = rgb(((255+modifier)*(i+3))/4,((255+modifier)*(i+3))/4,0)
 		var/image/II = image('sprite/obj/items.dmi',icon_state = "mat_sphere")
 		II.color = tint
-		II.pixel_y = rand(-5,5)
+		II.pixel_y = rand(-5,5) + (i/8)
 		II.pixel_x = rand(-5,5)
 		overlays += II

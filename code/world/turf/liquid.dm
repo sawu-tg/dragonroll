@@ -139,13 +139,13 @@
 		return
 	if(istype(O.loc,/turf/floor/outside/liquid))
 		return
-	var/mob/player/P = O
-	if(damage > 0 && depth >= minDamDepth)
-		if(istype(O,/mob/player))
+	if(istype(O,/mob/player))
+		var/mob/player/P = O
+		if(damage > 0 && depth >= minDamDepth)
 			P.inDPSLiquid = FALSE
 			P.liquidVerb = ""
 			P.liquidDamage = 0
-	P.isSliding = FALSE
+		P.isSliding = FALSE
 
 /turf/floor/outside/liquid/water
 	name = "Water"

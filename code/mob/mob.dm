@@ -43,7 +43,7 @@
 		spawn(1)
 			defaultInterface()
 			refreshInterface()
-	mobFaction = new/datum/faction/colonist
+	mobFaction = findFaction("Colonist")
 	add_pane(/datum/windowpane/verbs)
 
 /mob/Login()

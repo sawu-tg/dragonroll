@@ -14,9 +14,9 @@
 		if(isHostile)
 			npcNature = NPCTYPE_AGGRESSIVE
 			alignment = ALIGN_EVIL
-			mobFaction = new/datum/faction/generic_hostile
+			mobFaction = findFaction("Hostile")
 		else
-			mobFaction = new/datum/faction/wildlife
+			mobFaction = findFaction("Wildlife")
 	classChange(/datum/class/beast)
 
 /mob/player/npc/animal/chicken

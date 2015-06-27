@@ -18,7 +18,7 @@
 			S.change(S.statModified)
 		recalculateBaseStats()
 		recalculateStats()
-	mobFaction = new/datum/faction/generic_hostile
+	mobFaction = findFaction("Hostile")
 	popup("<b>[name]</b>",COL_HOSTILE,tsize=16,fadetime=0)
 
 ///

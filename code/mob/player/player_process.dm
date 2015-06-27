@@ -62,6 +62,9 @@
 
 	reagents.handle_procs()
 
+	if(!mobFaction)
+		mobFaction = findFaction("Colonist")
+
 	if(istype(L,/turf/floor/outside/liquid))
 		if(L.slippery && L.solid)
 			isSliding = TRUE

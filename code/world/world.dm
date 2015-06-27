@@ -36,6 +36,8 @@ var/datum/controller/balance/balance
 				playerValidFacial |= i
 			else if(copytext(i,1,5) == "hair")
 				playerValidHair |= i
+		messageSystemAll("GENERATING FACTIONS..")
+		setupFactions()
 		messageSystemAll("GENERATING WORLD..")
 		for(var/i = 1; i < world.maxz; i++)
 			generate(i)
