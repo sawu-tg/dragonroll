@@ -9,6 +9,7 @@
 	var/inDPSLiquid = FALSE
 	var/liquidVerb = ""
 	var/liquidDamage = 0
+	var/isSliding = FALSE
 	var/datum/statuseffect/suffocating/drownEffect = new
 
 /mob/player/proc/processOrgans()
@@ -61,6 +62,11 @@
 
 	reagents.handle_procs()
 
+	if(istype(L,/turf/floor/outside/liquid))
+		if(L.slippery && L.solid)
+			isSliding = TRUE
+			Move(get_step(src,src.dir))
+
 	if(shouldDrown != inWater || (istype(L) && pixel_z != -L.depth))
 		var/new_z = 0
 
@@ -96,7 +102,7 @@
 	..()
 	if(src.client)
 		refreshInterface()
+	processOther()
 	processEffects()
 	processOrgans()
 	processStates()
-	processOther()

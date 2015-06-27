@@ -5,7 +5,7 @@
 	/datum/biome/snow,
 	/datum/biome/meteor)*/
 
-var/list/validBiomes = list(/datum/biome/grassland) //uncomment this for biome testing
+var/list/validBiomes = list(/datum/biome/snow) //uncomment this for biome testing
 
 /datum/biome
 	var/name = "default"

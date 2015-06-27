@@ -13,6 +13,7 @@
 	layer = TURF_LAYER - 0.2
 	var/corrosive = FALSE // does it burn through vehicles?
 	var/solid = 0
+	var/slippery = FALSE
 	var/damage = 0
 	var/damageVerb = ""
 	var/minDamDepth = 0
@@ -99,14 +100,15 @@
 			//always allow mounted people to pass, the mounts handle passing
 			return 1
 		if(solid)
-			if(P.playerData.dex.statCurr-P.weight <= depth)
+			if(P.playerData.dex.statModified-P.weight <= depth)
 				messagePlayer("You lose your balance and fall on [src], cracking it! ([P.playerData.dex.statCurr-P.weight] v [depth])",P,src)
 				for(var/turf/floor/outside/liquid/L in range(src,1))
 					L.solid = 0
 					L.updateDepth()
-				P.stun(depth*15)
+				if(!P.isSliding)
+					P.stun(depth*15)
 			return 1
-		if(P.playerData.dex.statCurr-P.weight >= depth)
+		if(P.playerData.dex.statModified-P.weight >= depth)
 			return 1
 		else
 			messagePlayer("[src] is too deep for you to wade in! ([P.playerData.dex.statCurr-P.weight] v [depth])",P,src)
@@ -137,12 +139,13 @@
 		return
 	if(istype(O.loc,/turf/floor/outside/liquid))
 		return
+	var/mob/player/P = O
 	if(damage > 0 && depth >= minDamDepth)
 		if(istype(O,/mob/player))
-			var/mob/player/P = O
 			P.inDPSLiquid = FALSE
 			P.liquidVerb = ""
 			P.liquidDamage = 0
+	P.isSliding = FALSE
 
 /turf/floor/outside/liquid/water
 	name = "Water"
@@ -167,6 +170,7 @@
 	icon_state = "water"
 	damage = 1
 	solid = 1
+	slippery = TRUE
 	damageVerb = "drowning"
 	minDamDepth = 15
 
