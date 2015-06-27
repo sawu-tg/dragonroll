@@ -26,6 +26,7 @@ var/datum/controller/balance/balance
 		CS.addControl(new /datum/controller/chemicals)
 		CS.addControl(new /datum/controller/sdel)
 		CS.addControl(new /datum/controller/cooldowns)
+		//CS.addControl(new /datum/controller/environment)
 		balance = CS.addControl(new /datum/controller/balance)
 		CS.process()
 	spawn(10)
@@ -36,13 +37,12 @@ var/datum/controller/balance/balance
 			else if(copytext(i,1,5) == "hair")
 				playerValidHair |= i
 		messageSystemAll("GENERATING WORLD..")
-		spawn(1)
 		for(var/i = 1; i < world.maxz; i++)
 			generate(i)
 		spawn(10)
 			messageSystemAll("FINISHED!")
-		processObjects()
-		processRegions()
+		spawn(1) processObjects()
+		spawn(1) processRegions()
 		spawn(1) processLiquids()
 	..()
 
@@ -56,7 +56,6 @@ var/datum/controller/balance/balance
 
 /proc/processLiquids()
 	var/processed = 0
-
 	while(1)
 		for(var/turf/floor/outside/liquid/T in erodeLiquids)
 			if(T && istype(T))
@@ -67,21 +66,6 @@ var/datum/controller/balance/balance
 			if(processed > 100)
 				processed = 0
 		sleep(10) //While I've optimised this loop, bord had it at spawn(10) so 1 whole second it is!
-
-
-/proc/filterList(var/filter, var/list/inList, var/list/explicitExcluded)
-	set background = 1
-	var/list/newList = list()
-	for(var/i = 1, i <= inList.len, i++)
-		var/j = inList[i]
-		if(explicitExcluded)
-			if(j in explicitExcluded)
-				continue
-		if(!istype(j, filter))
-			continue
-
-		newList += j
-	. = newList
 
 /proc/processRegions()
 	while(1)

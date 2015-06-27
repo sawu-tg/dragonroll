@@ -197,3 +197,19 @@ proc/pickweight(list/L)
 			if(dx*dx + dy*dy <= rsq)
 				l |= T
 	. = l
+
+
+
+/proc/filterList(var/filter, var/list/inList, var/list/explicitExcluded)
+	set background = 1
+	var/list/newList = list()
+	for(var/i = 1, i <= inList.len, i++)
+		var/j = inList[i]
+		if(explicitExcluded)
+			if(j in explicitExcluded)
+				continue
+		if(!istype(j, filter))
+			continue
+
+		newList += j
+	. = newList

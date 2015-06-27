@@ -34,3 +34,13 @@
 		var/datum/windowpane/pane = new panetype(src)
 		panes[pane.id] = pane
 		pane.update()
+
+	proc/rem_pane(var/panetype)
+		var/datum/windowpane/pane = new panetype(src)
+		for(var/datum/windowpane/P in panes)
+			if(P.id == pane.id)
+				panes -= P
+				del(P)
+				del(pane)
+				return
+		del(pane)

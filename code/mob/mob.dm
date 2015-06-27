@@ -45,7 +45,6 @@
 			refreshInterface()
 	mobFaction = new/datum/faction/colonist
 	add_pane(/datum/windowpane/verbs)
-	add_pane(/datum/windowpane/debug)
 
 /mob/Login()
 	if(!client.mob)

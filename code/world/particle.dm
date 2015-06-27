@@ -1,11 +1,50 @@
 /proc/lerp(A, B, C) return A + (B - A) * C
 
-/obj/structure/particle
-	name = "test"
-	desc = "desc"
+/obj/structure/particleSystem
+	name = ""
+	desc = ""
+
+	// Passed partical flags
+	var/mTarget
+	var/pFlags
+	var/pRotSpeed
+	var/pUsesStages
+	var/m_pStage
+	var/pTargDeath
+	var/maxParticles = 32
+	var/list/p_list = list()
+
+/obj/structure/particleSystem/New(var/turf/T, var/pTarget, var/pFlag, var/pRotSp, var/pStages, var/pDoesStage, var/pTargetDeath,var/maxParts)
+	..(T)
+	mTarget = pTarget
+	pFlags = pFlag
+	pRotSpeed = pRotSp
+	m_pStage = pStages
+	pUsesStages = pDoesStage
+	pTargDeath = pTargetDeath
+	maxParticles = maxParts
+	addProcessingObject(src)
+
+/obj/structure/particleSystem/doProcess()
+	if(p_list.len < maxParticles)
+		spawn(0)
+			var/obj/effect/particle/B = new/obj/effect/particle(get_turf(src))
+			B.mTarget = mTarget
+			B.pFlags = pFlags
+			B.pRotSpeed = pRotSpeed
+			B.m_pStage = m_pStage
+			B.pUsesStages = pUsesStages
+			B.deathOnTarget = pTargDeath
+			B.m_pSystem = src
+
+
+/obj/effect/particle
+	name = ""
+	desc = ""
 	icon = 'sprite/obj/projectiles.dmi'
-	density = 0
-	anchored = 0
+	length = 30
+	fades = TRUE
+	layer = LAYER_LIGHTING
 	var/mTarget
 	var/pFlags // defines behaviour
 	var/pRotSpeed = 30
@@ -14,32 +53,37 @@
 	var/m_pStage = 6
 	var/deathOnTarget = FALSE
 	var/pReverse = FALSE
+	var/obj/structure/particleSystem/m_pSystem
 
-/obj/structure/particle/New()
+/obj/effect/particle/New()
 	..()
 	icon_state = "[pick("red","blue","green","purple")]_laser"
 	addProcessingObject(src)
 
-/obj/structure/particle/proc/bScatter()
-	if(pStage <= 0 && !pUsesStages)
-		m_pStage = 1
-	pixel_x = lerp(pixel_x,rand(-pRotSpeed/pStage,pRotSpeed/pStage)*(16*pStage),0.25)
-	pixel_y = lerp(pixel_y,rand(-pRotSpeed/pStage,pRotSpeed/pStage)*(16*pStage),0.25)
+/obj/effect/particle/proc/bScatter()
+	pixel_x = lerp(pixel_x,rand(-pRotSpeed,pRotSpeed)*16,0.25)
+	pixel_y = lerp(pixel_y,rand(-pRotSpeed,pRotSpeed)*16,0.25)
 
-/obj/structure/particle/proc/bWhirl()
+/obj/effect/particle/proc/bWhirl()
 	pixel_x = lerp(pixel_x,sin(world.time*pRotSpeed)*(16*pStage),0.25)
 	pixel_y = lerp(pixel_y,cos(-(world.time*pRotSpeed))*(16*pStage),0.25)
 
-/obj/structure/particle/proc/bFall()
+/obj/effect/particle/proc/bFall()
 	pixel_y = lerp(pixel_y,pixel_y-pRotSpeed,0.25)
 
+/obj/effect/particle/garbageCleanup()
+	remProcessingObject(src)
+	m_pSystem.p_list -= src
+	m_pSystem = null
+	..()
 
-/obj/structure/particle/doProcess()
+
+/obj/effect/particle/doProcess()
 	//
 	if(mTarget)
-		step_towards(src,get_turf(mTarget),1)
+		step_towards(src,mTarget,1)
 	if(deathOnTarget)
-		if(get_dist(get_turf(src),get_turf(mTarget)) <= 1)
+		if(get_dist(get_turf(src),mTarget) <= 0)
 			sdel(src)
 	//
 	if(pFlags & PART_PHYS_SCATTER)
@@ -73,14 +117,4 @@
 	var/dies = input("Dies?") as null|anything in list("Yes","No")
 	var/particles = input("Amount?") as num
 	if(particles)
-		for(var/a = 0; a < particles; ++a)
-			spawn(1)
-				var/obj/structure/particle/B = new/obj/structure/particle(get_turf(src))
-				if(target)
-					B.mTarget = target
-				if(flags)
-					B.pFlags = flags
-				if(staged == "Yes")
-					B.pUsesStages = TRUE
-				if(dies == "Yes")
-					B.deathOnTarget = TRUE
+		new/obj/structure/particleSystem(get_turf(src), target, flags, 30, 6, staged == "Yes" ? TRUE : FALSE, dies == "Yes" ? TRUE : FALSE,particles)

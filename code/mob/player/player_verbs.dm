@@ -315,3 +315,14 @@
 
 	//animate(I, pixel_z = 50, alpha = 0, time = 90)
 	t.overlays += I
+
+/mob/player/verb/ToggleDebug()
+	name = "Toggle Debug"
+	if(debugModeOn)
+		rem_pane(/datum/windowpane/debug)
+		usr << "<b>Debug OFF</b>"
+		debugModeOn = FALSE
+	else
+		add_pane(/datum/windowpane/debug)
+		usr << "<b>Debug ON</b>"
+		debugModeOn = TRUE

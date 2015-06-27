@@ -28,6 +28,8 @@
 	var/actualSpeed = 1 //the actual speed
 	var/speed = 1 // the speed they move at
 
+	var/debugModeOn = FALSE
+
 	var/beingRezzed = FALSE
 
 

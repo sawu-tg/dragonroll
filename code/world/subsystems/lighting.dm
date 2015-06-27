@@ -1,2 +1,0 @@
-/turf
-	luminosity = 0
