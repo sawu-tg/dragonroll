@@ -222,6 +222,8 @@ proc/pickweight(list/L)
 /proc/gmRange(var/atom/center, var/inRange, var/list/ofList)
 	var/list/found = list()
 	for(var/atom/A in ofList)
+		if(A.z != center.z)
+			continue
 		if(!istype(A.loc,/turf))
 			continue
 		if(get_dist(center,A) <= inRange)

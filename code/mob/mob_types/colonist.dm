@@ -52,13 +52,13 @@
 				if(!AH)
 					TTL = TRUE
 				else
-					if(A:weight > AH.weight | A:force > AH.force)
+					if(A:weight > AH.weight || A:force > AH.force)
 						TTL = TRUE
 				if(!TTL)
 					if(!OH)
 						TTR = TRUE
 					else
-						if(A:weight > OH.weight | A:force > OH.force)
+						if(A:weight > OH.weight || A:force > OH.force)
 							TTR = TRUE
 				if(TTL | TTR)
 					if(Adjacent(A))

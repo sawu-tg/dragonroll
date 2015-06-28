@@ -19,7 +19,7 @@
 	abilityHitsPlayers = TRUE
 
 /datum/ability/assassinate/Cast(var/mob/player/caster,var/target)
-	caster.loc = target:loc
+	caster.loc = get_turf(target)
 	..()
 
 ///

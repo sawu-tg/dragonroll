@@ -82,7 +82,8 @@
 			..()
 
 /mob/proc/bloodSpray(var/dir,var/number,var/intensity)
-	new/obj/effectBot(get_turf(src),/obj/effect/blood/trail,/obj/effect/blood,dir,intensity)
+	for(var/i = 0; i < number; ++i)
+		new/obj/effectBot(get_turf(src),/obj/effect/blood/trail,/obj/effect/blood,dir,intensity)
 //////////////////////////////////////////////////////
 
 /mob/proc/processAttack(var/mob/player/attacker,var/mob/player/victim)

@@ -23,7 +23,7 @@
 	name = "Chicken"
 	desc = "You wonder where it came from."
 	icon_state = "chicken_white"
-	npcSpells = list(/datum/ability/heal/lickwounds,/datum/ability/deathbeam/leer)
+	npcSpells = list(/datum/ability/assassinate/gore,/datum/ability/heal/lickwounds,/datum/ability/deathbeam/leer)
 
 /mob/player/npc/animal/chicken/New()
 	icon_state = "chicken_[pick("brown","white","black")]"
@@ -39,7 +39,7 @@
 	name = "Dog"
 	desc = "Some call him \"Ian\""
 	icon_state = "corgi"
-	npcSpells = list(/datum/ability/heal/lickwounds,/datum/ability/assassinate/leap)
+	npcSpells = list(/datum/ability/assassinate/gore,/datum/ability/heal/lickwounds,/datum/ability/assassinate/leap)
 
 /mob/player/npc/animal/dog/New()
 	icon_state = pick("corgi","lisa","pug","tamaskan","shepard")
@@ -49,7 +49,7 @@
 	name = "Crab"
 	desc = "Comes with six conveniently attached sticks."
 	icon_state = "crab"
-	npcSpells = list(/datum/ability/heal/lickwounds,/datum/ability/toxicthrow/spit)
+	npcSpells = list(/datum/ability/assassinate/gore,/datum/ability/heal/lickwounds,/datum/ability/toxicthrow/spit)
 
 /mob/player/npc/animal/crab/New()
 	icon_state = pick("evilcrab","crab")
@@ -77,7 +77,7 @@
 	desc = "Spins webs and climbs aquaducts."
 	icon_state = "guard"
 	isHostile = TRUE
-	npcSpells = list(/datum/ability/heal/lickwounds,/datum/ability/taunt/web,/datum/ability/assassinate/leap,/datum/ability/toxicthrow/spit)
+	npcSpells = list(/datum/ability/assassinate/gore,/datum/ability/heal/lickwounds,/datum/ability/taunt/web,/datum/ability/assassinate/leap,/datum/ability/toxicthrow/spit)
 
 /mob/player/npc/animal/spider/New()
 	icon_state = pick("guard","hunter","nurse")
@@ -87,7 +87,7 @@
 	name = "Cat"
 	desc = "Fond of fiddles and spoons."
 	icon_state = "cat"
-	npcSpells = list(/datum/ability/heal/lickwounds,/datum/ability/assassinate/leap,/datum/ability/deathbeam/leer)
+	npcSpells = list(/datum/ability/assassinate/gore,/datum/ability/heal/lickwounds,/datum/ability/assassinate/leap,/datum/ability/deathbeam/leer)
 
 /mob/player/npc/animal/cat/New()
 	icon_state = pick("cat","cat2")
@@ -104,7 +104,7 @@
 	desc = "Pollinates figs. And nightmares."
 	icon_state = "wasp"
 	isHostile = TRUE
-	npcSpells = list(/datum/ability/heal/lickwounds,/datum/ability/deathbeam/leer,/datum/ability/toxicthrow/spit)
+	npcSpells = list(/datum/ability/assassinate/gore,/datum/ability/heal/lickwounds,/datum/ability/deathbeam/leer,/datum/ability/toxicthrow/spit)
 
 /mob/player/npc/animal/deer
 	name = "Deer"
