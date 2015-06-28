@@ -30,7 +30,7 @@
 		if(istype(I,/obj/item/weapon/tool/tongs))
 			showSmeltingMenu(user)
 			return
-		if(!istype(I,/obj/item/loot/processed))
+		if(I && !istype(I,/obj/item/loot/processed))
 			messageInfo("Only processed items can be cooked.",user,src)
 			return
 		if(contents.len < capacity)

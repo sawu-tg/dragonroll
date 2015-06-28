@@ -808,3 +808,14 @@ The _flatIcons list is a cache for generated icon files.
 /proc/GetBluePart(const/hexa)
 	return hex2num(copytext(hexa,6,8))
 
+/proc/parseIcon(var/toWhere, var/parse, var/chat = TRUE)
+	globalCacheIDs++
+	var/ID = globalCacheIDs
+	var/icon/I
+	if(isicon(parse))
+		var/image/II = new(parse)
+		I = getFlatIcon(II)
+	else
+		I = getFlatIcon(parse)
+	toWhere << browse_rsc(I,"[ID].png")
+	return "<img src=\"[ID].png\">"

@@ -7,6 +7,8 @@ var/list/newErodeLiquids = list()
 var/datum/controller_master/CS
 var/datum/controller/balance/balance
 
+var/globalCacheIDs = 0
+
 /world
 	turf = /turf/floor/voidFloor
 	mob = /mob/player
@@ -83,13 +85,6 @@ var/datum/controller/balance/balance
 			for(var/atom/i in procObjects)
 				i.doProcess()
 		sleep(1)
-
-
-/proc/parseIcon(var/toWhere, var/parse, var/chat = TRUE)
-	var/ID = rand(1,100000)
-	var/icon/I = getFlatIcon(parse)
-	toWhere << browse_rsc(I,"[ID].png")
-	return "<img src='[ID].png'>"
 
 /proc/generateName(var/forWhat)
 	if(forWhat == 0)

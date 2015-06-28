@@ -33,7 +33,7 @@ var/list/globalFactions = list()
 
 /datum/faction/New()
 	..()
-	factionImage = icon('sprite/obj/flags.dmi',icon_state = pick(icon_states('sprite/obj/flags.dmi')))
+	factionImage = new('sprite/obj/flags.dmi',icon_state = pick(icon_states('sprite/obj/flags.dmi')))
 	for(var/A in friendlyTo)
 		fStandings[A] = happyThreshold + (happyThreshold/2)
 	for(var/A in hostileTo)
@@ -95,6 +95,14 @@ var/list/globalFactions = list()
 			return TRUE
 	return FALSE
 
+/proc/makeFlag(var/I)
+	var/icon/work
+	var/image/II = new(I)
+	work = new(I)
+	work.Scale(64,32)
+	return work
+
+
 ///////////// FACTION VERBS ////////////////////
 
 /mob/verb/createFaction()
@@ -102,13 +110,26 @@ var/list/globalFactions = list()
 	set category = "Factions"
 	if(!findOwned(src))
 		var/fName = input("Name your faction") as text
-		var/fImage = input("Pick your Image") as null|anything in icon_states('sprite/obj/flags.dmi')
+		var/fImage
+		var/custFlag = input("Do you want to use a custom flag?") as null|anything in list("Yes", "No")
+		if(custFlag)
+			if(custFlag == "Yes")
+				fImage = input("Choose an Icon") as icon
+			else
+				fImage = input("Pick your Image") as null|anything in icon_states('sprite/obj/flags.dmi')
+		if(!fImage)
+			messageError("You need to pick a flag icon!",src,src)
+			return
 		if(fName && fImage)
 			var/datum/faction/F = new
 			F.name = fName
 			F.factionOwners += src
-			F.factionImage = icon('sprite/obj/flags.dmi',icon_state = fImage)
+			if(istext(fImage))
+				F.factionImage = new('sprite/obj/flags.dmi',icon_state = fImage)
+			else
+				F.factionImage = makeFlag(fImage)
 			globalFactions += F
+			messageInfo("[F.name] created!",src,src)
 	else
 		messageError("You already own a faction!", src, src)
 
@@ -142,7 +163,7 @@ var/list/globalFactions = list()
 	var/html = "<title>Factions</title><html><center><body style='background:grey'>"
 	for(var/datum/faction/D in globalFactions)
 		html += "<b>===============</b><br>"
-		//html += "[parseIcon(D.factionImage,src,FALSE)]<br>" NEEDS A FIXIN
+		html += "[parseIcon(src,D.factionImage,FALSE)]<br>"
 		html += "<b>[D.name]</b><br>"
 		html += "<b>Currency:</b> [D.currencyType]<br>"
 		if(D.hostileTo.len)

@@ -45,7 +45,7 @@
 				addProcessingObject(src)
 			sdel(L)
 			return
-		if(!istype(I,/obj/item/food))
+		if(I && !istype(I,/obj/item/food))
 			messageInfo("Only food items can be cooked.",user,src)
 			return
 		if(contents.len < capacity)
