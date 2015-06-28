@@ -20,10 +20,10 @@
 
 /datum/ability/assassinate/gore/Cast(var/mob/caster,var/mob/player/target)
 	..()
-	caster.loc = target
+	caster.Move(target)
 	messageInfo("You feel an unbearable pain inside you!",target,caster)
 	spawn(15)
-		target.bloodSpray(target.dir,1,-abilityModifier)
+		target.bloodSpray(target.dir,1,-abilityModifier/4)
 		messageInfo("[caster] bursts fourth from your chest!",target,caster)
 		for(var/datum/organ/O in target.playerOrgans)
 			O.health -= rand(1,-abilityModifier)

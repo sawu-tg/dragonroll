@@ -76,12 +76,33 @@
 	name = "Spider"
 	desc = "Spins webs and climbs aquaducts."
 	icon_state = "guard"
+	var/hasBabies = TRUE
 	isHostile = TRUE
 	npcSpells = list(/datum/ability/assassinate/gore,/datum/ability/heal/lickwounds,/datum/ability/taunt/web,/datum/ability/assassinate/leap,/datum/ability/toxicthrow/spit)
 
 /mob/player/npc/animal/spider/New()
 	icon_state = pick("guard","hunter","nurse")
 	..()
+
+/mob/player/npc/animal/spider/doProcess()
+	if(checkEffectStack("dead") > 0)
+		if(hasBabies)
+			messageArea("Your babies burst fourth!","Spiderlings burst fourth from the corpse of [src]", src, src,"red")
+			for(var/i = 0; i < rand(3,6); ++i)
+				new/mob/player/npc/animal/spider/baby(get_turf(src))
+			hasBabies = FALSE
+	..()
+
+/mob/player/npc/animal/spider/baby
+	name = "Spiderling"
+	hasBabies = FALSE
+
+/mob/player/npc/animal/spider/baby/New()
+	..()
+	playerData.hp.setBaseTo(1)
+	var/matrix/newtransform = matrix()
+	newtransform.Scale(0.5)
+	animate(src,transform = newtransform,time = 0.1,loop = 0)
 
 /mob/player/npc/animal/cat
 	name = "Cat"
