@@ -312,6 +312,20 @@
 		IMG.blend_mode = I.blend_mode
 		addedOverlays |= IMG
 
+	for(var/obj/interface/slot/S in handSlots)
+		if(S.contents.len)
+			var/sloticon
+			if(S.id == "r_hand")
+				sloticon = 'sprite/obj/items_righthand.dmi'
+			else
+				sloticon = 'sprite/obj/items_lefthand.dmi'
+			var/obj/item/I = S.contents[1]
+			var/image/IMG = image(icon=sloticon,icon_state = initial(I.icon_state))
+			IMG.color = I.color
+			IMG.alpha = I.alpha
+			IMG.blend_mode = I.blend_mode
+			addedOverlays |= IMG
+
 	for(var/ov in addedOverlays)
 		if(isicon(ov) || istype(ov,/image))
 			overlays |= ov

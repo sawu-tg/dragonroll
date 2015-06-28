@@ -17,9 +17,11 @@
 
 /obj/item/weapon/projectile/bow
 	name = "Bow"
-	icon_state = "bow"
+	icon_state = "lbow"
+	loot_icon_state = "bow"
 
 /obj/item/weapon/projectile/knife
 	name = "Thrown Knife"
 	thrownWep = TRUE
+	loot_icon_state = "knife"
 	icon_state = "knife"

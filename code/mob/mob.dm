@@ -18,6 +18,9 @@
 
 	prevent_pickup = TRUE
 
+	var/isDualWielding = FALSE
+	var/wieldedWeight = 0
+
 
 /mob/garbageCleanup()
 	..()
@@ -89,10 +92,19 @@
 	var/def = victim.playerData.def.statModified //only here for calculations in output
 	var/dex = victim.playerData.dex.statModified
 	var/obj/item/mainHand = attacker.activeHand()
+	var/obj/item/offHand = attacker.offHand()
 	var/attackString = "punch [victim]"
 	if(mainHand)
 		attackString = "hit [victim] with [mainHand.name]"
 		damage += (mainHand.force+mainHand.weight)*mainHand.size
+		if(attacker.isDualWielding)
+			attackString += " and [offHand.name]"
+			if(attacker.playerData.dex.statModified/2 >= attacker.wieldedWeight)
+				damage += ((offHand.force+offHand.weight)*offHand.size)/2
+			else
+				damage += ((offHand.force+offHand.weight)*offHand.size)/8
+				if(prob(100-attacker.playerData.dex.statModified))
+					attacker.addStatusEffect(/datum/statuseffect/stun,15)
 		if(mainHand.force > mainHand.weight) // higher force than weight, probably a sword or cutting thing
 			bloodSpray(turn(src.dir,90),max(mainHand.force/4,1),max(mainHand.weight/2,1))
 			bloodSpray(turn(src.dir,-90),max(mainHand.force/4,1),max(mainHand.weight/2,1))
@@ -154,6 +166,7 @@
 	screenObjs += new/obj/interface/throwButton(10,2,"box",32)
 	screenObjs += new/obj/interface/intentButton(13,1,"box",32)
 	screenObjs += new/obj/interface/leapButton(13,2,"box",32)
+	screenObjs += new/obj/interface/dwButton(14,1,"box",32)
 
 /mob/proc/refreshInterface()
 	if(client)

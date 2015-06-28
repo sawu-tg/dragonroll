@@ -144,6 +144,49 @@
 	changeIcon(P.intent2string())
 	P.refreshInterface()
 
+///
+// Dual Wield
+///
+/obj/interface/dwButton
+	name = "Dual Wield"
+	desc = "Toggles Dual Wielding"
+	mouse_opacity = 1
+
+/obj/interface/dwButton/proc/changeIcon(var/towhat)
+	overlays.Cut()
+	var/icon/I = icon(icon='sprite/gui/guiObj.dmi',icon_state="dw-[towhat]")
+	overlays.Add(I)
+
+/obj/interface/dwButton/New(var/x,var/y,var/state="box",var/scale=32)
+	changeIcon(0)
+	..(x,y,state,scale)
+
+/obj/interface/dwButton/Click()
+	var/mob/player/P = usr
+	var/wielded = 0
+	var/total = 0
+	if(P.isDualWielding)
+		changeIcon(0)
+		P.isDualWielding = FALSE
+		messageInfo("You stop Dual Wielding!",P,P)
+		return
+	for(var/obj/interface/slot/S in P.handSlots)
+		if(S.contents.len)
+			wielded++
+			var/obj/item/I = S.contents[1]
+			total += (I.weight*4)+I.size
+	if(wielded <= 1)
+		messageInfo("You need two weapons to dual wield!",P,P)
+	else
+		P.wieldedWeight = total
+		P.isDualWielding = TRUE
+		changeIcon(1)
+		if(P.playerData.dex.statModified/2 >= P.wieldedWeight)
+			messageInfo("You start Dual Wielding!",P,P)
+		else
+			messageInfo("You are unbalanced! ([P.playerData.dex.statModified/2] vs [total])",P,P)
+	P.refreshInterface()
+
 //use
 /obj/interface/useButton
 	name = "Use Item"

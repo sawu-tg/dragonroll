@@ -2,6 +2,8 @@
 	name = "weapon"
 	desc = "hits things in a hurty way"
 	icon = 'sprite/obj/weapons.dmi'
+	loot_icon = 'sprite/obj/weapons.dmi'
+	showAsLoot = TRUE
 
 ///
 // In the case of weapons, weight > force makes a bashing/crushing object
@@ -15,6 +17,7 @@
 	name = "hatchet"
 	desc = "slices and dices much easier than your fists."
 	icon_state = "hatchet"
+	loot_icon_state = "hatchet"
 	weight = 2
 	force = 5
 	var/cut_speed = 1
@@ -24,7 +27,8 @@
 /obj/item/weapon/tool/hammer
 	name = "sledge"
 	desc = "crushes and maims."
-	icon_state = "sledgehammer"
+	icon_state = "axe0"
+	loot_icon_state = "sledgehammer"
 	weight = 5
 	force = 3
 
@@ -162,8 +166,9 @@
 /obj/item/weapon/custom
 	name = "custom weapon"
 	desc = "Make it your Way!"
-	icon = 'sprite/obj/custom/base.dmi'
-	icon_state = "sword"
+	icon_state = "claymore"
+	loot_icon_state = "sword"
+	loot_icon = 'sprite/obj/custom/base.dmi'
 	var/constructed = FALSE
 	var/obj/item/part/blade/top
 	var/obj/item/part/hilt/middle

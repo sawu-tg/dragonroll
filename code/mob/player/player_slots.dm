@@ -73,8 +73,12 @@
 		if(blocked)
 			overlays += icon('sprite/gui/guiObj.dmi',"disabled")
 
-		if(M.selectedSlot == src)
-			overlays += icon('sprite/gui/guiObj.dmi',"active")
+		if(M.isDualWielding)
+			if(is_hand)
+				overlays += icon('sprite/gui/guiObj.dmi',"active")
+		else
+			if(M.selectedSlot == src)
+				overlays += icon('sprite/gui/guiObj.dmi',"active")
 
 	proc/align(var/mob/M)
 		if(!M || !M.client)

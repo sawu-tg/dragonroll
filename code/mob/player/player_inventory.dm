@@ -4,6 +4,7 @@
 
 /mob/player/proc/addToInventory(var/obj/item/what)
 	if(what)
+		what.toggleLoot(TRUE)
 		playerInventory += what
 		what.loc = src
 		return what
@@ -17,8 +18,10 @@
 
 /mob/player/proc/remFromInventory(var/obj/item/what)
 	if(what)
+		what.toggleLoot(FALSE)
 		playerInventory -= what
 		what.loc = src.loc
+		refreshIcon(playerData.playerRacePrefix)
 		return what
 
 /mob/player/proc/activeHandEmpty()
@@ -33,6 +36,16 @@
 		return selectedSlot.contents[1]
 	return null
 
+/mob/player/proc/offHand()
+	var/obj/interface/slot/OF
+	for(var/obj/interface/slot/S in handSlots)
+		if(S != selectedSlot)
+			OF = S
+	if(OF)
+		if(OF.contents.len > 0)
+			return OF.contents[1]
+	return null
+
 /mob/player/proc/takeToActiveHand(var/obj/item/what)
 	if(!selectedSlot)
 		return
@@ -42,17 +55,24 @@
 			return
 		playerInventory -= what
 		what.loc = selectedSlot
+		isDualWielding = FALSE
+		refreshIcon(playerData.playerRacePrefix)
 
 /mob/player/proc/takeToHand(var/obj/item/what)
 	var/obj/hand = getFreeHand()
 	if(hand)
 		playerInventory -= what
 		what.loc = hand
+		what.toggleLoot(FALSE)
+		isDualWielding = FALSE
+		refreshIcon(playerData.playerRacePrefix)
 	else
 		messagePlayer("You have no available hand to take [what]",src,what)
 
 /mob/player/proc/equipItem(var/obj/item/what)
 	var/space = TRUE
+	if(!what)
+		return
 	for(var/obj/item/I in playerEquipped)
 		if(I.slot == what.slot)
 			space = FALSE
@@ -61,11 +81,15 @@
 		updateStats()
 		refreshIcon(playerData.playerRacePrefix)
 	else
+		isDualWielding = FALSE
 		takeToHand(what)
+	what.toggleLoot(FALSE)
 
 /mob/player/proc/unEquipItem(var/obj/item/what)
-	src.playerEquipped.Remove(what)
-	updateStats()
+	if(what)
+		what.toggleLoot(TRUE)
+		src.playerEquipped.Remove(what)
+		updateStats()
 	refreshIcon(playerData.playerRacePrefix)
 
 /mob/player/proc/isWorn(var/obj/item/what)

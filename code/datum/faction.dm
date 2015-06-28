@@ -97,7 +97,6 @@ var/list/globalFactions = list()
 
 /proc/makeFlag(var/I)
 	var/icon/work
-	var/image/II = new(I)
 	work = new(I)
 	work.Scale(64,32)
 	return work

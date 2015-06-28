@@ -218,9 +218,14 @@
 
 /mob/verb/DropItem()
 	set name = "Drop Held Item"
+	set hidden = 1
 	if(selectedSlot.contents.len > 0)
 		var/obj/A = selectedSlot.contents[1]
 		A.loc = src.loc
+	isDualWielding = FALSE
+	if(istype(src,/mob/player))
+		var/mob/player/P = src
+		P.refreshIcon(P.playerData.playerRacePrefix)
 	refreshInterface()
 
 /mob/verb/UseHotkey()
