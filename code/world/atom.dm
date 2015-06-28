@@ -6,6 +6,10 @@
 
 /atom/New()
 	..()
+	if(istype(src,/mob/player))
+		globalMobList += src
+	if(istype(src,/obj))
+		globalObjList += src
 	if(reagentSize > 0)
 		reagents = new(src,reagentSize)
 

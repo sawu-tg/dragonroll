@@ -188,6 +188,13 @@
 	var/list/handSlots = list()
 	var/list/slots = list()
 
+/mob/verb/NextHand()
+	set hidden = 1
+	if(selectedSlot.id == "r_hand")
+		selectedSlot = slots["l_hand"]
+	else
+		selectedSlot = slots["r_hand"]
+
 /mob/proc/selectSlot(var/slotid)
 	var/obj/interface/slot/S = slots[slotid]
 

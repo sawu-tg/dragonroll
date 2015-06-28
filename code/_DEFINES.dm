@@ -114,3 +114,24 @@
 var/list/playerValidHair = list()
 var/list/playerValidFacial = list()
 var/list/playerList = list()
+var/list/procObjects = list()
+var/list/levelNames = list()
+var/list/regions = list()
+var/list/erodeLiquids = list()
+var/list/newErodeLiquids = list()
+
+var/list/globalMobList = list()
+var/list/globalObjList = list()
+
+var/datum/controller_master/CS
+var/datum/controller/balance/balance
+
+///
+// Non-define defines..?
+///
+
+client/AllowUpload(filename, filelength)
+	if(filelength >= 524288)  // 512K (0.5M)
+		messageError("[filename] is larger than 512k, unable to upload!",src,src)
+		return 0
+	return 1

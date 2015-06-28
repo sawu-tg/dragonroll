@@ -17,15 +17,18 @@
 	messagePlayer(personal,toWho,fromWhat,"blue")
 
 /proc/messageError(var/personal as text, var/mob/toWho, var/fromWhat)
+	world.log << "ERROR: [personal] from [fromWhat] to [toWho]"
 	messagePlayer("<b>[personal]</b>",toWho,fromWhat,"red")
 
 /proc/messageSystem(var/personal as text, var/mob/toWho, var/fromWhat)
 	messagePlayer("<b><i>[personal]</i></b>",toWho,fromWhat,"purple")
 
 /proc/messageWarning(var/personal as text, var/mob/toWho, var/fromWhat)
+	world.log << "WARNING: [personal] from [fromWhat] to [toWho]"
 	messagePlayer("<font size = 6><b><i>[personal]</i></b></font>",toWho,fromWhat,"red")
 
 /proc/messageSystemAll(var/personal as text)
+	world.log << "SYSTEM: [personal]"
 	for(var/mob/player/M in world)
 		if(M.client)
 			messageSystem(personal,M,world)

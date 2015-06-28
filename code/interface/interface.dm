@@ -161,6 +161,7 @@
 	changeIcon(0)
 	..(x,y,state,scale)
 
+
 /obj/interface/dwButton/Click()
 	var/mob/player/P = usr
 	var/wielded = 0

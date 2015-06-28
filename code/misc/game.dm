@@ -213,3 +213,17 @@ proc/pickweight(list/L)
 
 		newList += j
 	. = newList
+
+
+///
+// Procs to work with the global lists
+///
+
+/proc/gmRange(var/atom/center, var/inRange, var/list/ofList)
+	var/list/found = list()
+	for(var/atom/A in ofList)
+		if(!istype(A.loc,/turf))
+			continue
+		if(get_dist(center,A) <= inRange)
+			found += A
+	. = found

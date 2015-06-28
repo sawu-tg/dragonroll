@@ -1,11 +1,4 @@
-var/list/procObjects = list()
-var/list/globalSuns = list()
-var/list/levelNames = list()
-var/list/regions = list()
-var/list/erodeLiquids = list()
-var/list/newErodeLiquids = list()
-var/datum/controller_master/CS
-var/datum/controller/balance/balance
+
 
 var/globalCacheIDs = 0
 
@@ -19,6 +12,8 @@ var/globalCacheIDs = 0
 
 /world/New()
 	. = ..()
+	world.log = file("drlog.txt")
+	world.log << "Starting new game at [time2text(world.timeofday)]"
 	spawn(1)
 		//CONTROLLERS
 		CS = new

@@ -322,12 +322,15 @@
 	t.overlays += I
 
 /mob/player/verb/ToggleDebug()
-	name = "Toggle Debug"
+	set name = "Toggle Debug"
+	set category = "Debug Verbs"
 	if(debugModeOn)
 		rem_pane(/datum/windowpane/debug)
 		usr << "<b>Debug OFF</b>"
 		debugModeOn = FALSE
+		return
 	else
 		add_pane(/datum/windowpane/debug)
 		usr << "<b>Debug ON</b>"
 		debugModeOn = TRUE
+		return

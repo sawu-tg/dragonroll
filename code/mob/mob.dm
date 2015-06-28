@@ -24,7 +24,7 @@
 
 /mob/garbageCleanup()
 	..()
-
+	globalMobList -= src
 	if(castingSpell)
 		sdel(castingSpell)
 		castingSpell = null

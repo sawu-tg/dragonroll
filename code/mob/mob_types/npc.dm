@@ -25,9 +25,7 @@
 	doesProcessing = FALSE
 	var/target
 	var/turf/lastPos
-	var/list/actualView = list()
-	var/list/inView = list()
-	var/list/inRange = list()
+	var/list/nearbyPlayers = list()
 
 	var/list/firstName = list("Steve","John","Reggie","Oswald","Daniel","Delilah","Rudy","Christine","Chad","Roma","Jessy","Mike","Gabe")
 	var/list/secondName  = list("Smith","Rivers","Bombastic","Donalds","Stevens","Black","McRand","Compton","Chadswick","Hunt","Horn")
@@ -75,8 +73,7 @@
 	usr << "target: [target]"
 	usr << "disabled: [isDisabled()]"
 	usr << "lastpos: [lastPos]"
-	usr << "inView: [inView.len]"
-	usr << "inRange: [inRange.len]"
+	usr << "nearbyPlayers: [nearbyPlayers.len]"
 	usr << "isMonster: [isMonster]"
 	usr << "<b>=============================</b>"
 
@@ -85,12 +82,16 @@
 		npcState = NPCSTATE_MOVE
 	var/turf/walkTarget = get_turf(target)
 	if(walkTarget)
-		if(walkTarget.density)
+		var/isDense = walkTarget.density
+		for(var/atom/A in walkTarget)
+			if(A.density)
+				isDense = TRUE
+		if(isDense)
 			var/validPoint = FALSE
-			for(var/turf/T in range(walkTarget,2))
-				if(!T.density)
-					walkTarget = T
-					validPoint = TRUE
+			var/turf/T = get_step(walkTarget,pick(alldirs))
+			if(!T.density)
+				walkTarget = T
+				validPoint = TRUE
 			if(!validPoint)
 				checkTimeout()
 				return
@@ -110,25 +111,24 @@
 	set background = 1
 	spawn(1)
 		if(lastPos != loc)
-			actualView = oview(src,world.view)
-			inView = oview(src,wanderRange)
-			inRange = orange(src,wanderRange)
+			nearbyPlayers = gmRange(src,7,globalMobList)
 			lastPos = loc
 
 /mob/player/npc/proc/processTargets()
-	for(var/a in actualView)
+	for(var/a in nearbyPlayers)
 		if(istype(a,/mob/player))
-			if(mobFaction.isHostile(a:mobFaction))
-				return a
+			if(!mobFaction.isHostile(a:mobFaction))
+				if(prob(75))
+					continue
+			return a
 	return null
 
 /mob/player/npc/proc/npcIdle()
 	if(npcState == NPCSTATE_IDLE)
 		if(wander && timeSinceLast >= wanderFuzziness)
-			if(inView.len)
-				target = pick(inView)
-				changeState(NPCSTATE_MOVE)
-				timeSinceLast = 0
+			target = get_step(src,pick(alldirs))
+			changeState(NPCSTATE_MOVE)
+			timeSinceLast = 0
 		if(npcNature == NPCTYPE_AGGRESSIVE)
 			var/t = processTargets()
 			if(t)
@@ -163,8 +163,12 @@
 	var/distTo = get_dist(src,target)
 	if(npcState == NPCSTATE_FIGHTING)
 		if(target)
-			if(target:checkEffectStack("dead"))
-				npcReset()
+			var/isFT = FALSE
+			if(target:mobFaction)
+				isFT = target:mobFaction.isFriendly(mobFaction)
+			if(target:checkEffectStack("dead") || target:checkEffectStack("dying"))
+				if(!isFT)
+					npcReset()
 			if(world.time >= nextAttack)
 				var/A = getCastableSpell(distTo)
 				var/datum/ability/C
@@ -179,25 +183,30 @@
 					if(C)
 						if(C.abilityRange <= distTo)
 							changeState(NPCSTATE_MOVE)
-						else if(C.abilityModifier >= 0)
+						else if(!isFT && C.abilityModifier >= 0)
 							C.tryCast(src,src)
-						else
+						else if(isFT && C.abilityModifier >= 0)
 							C.tryCast(src,target)
-				spawn(1)
-					if(!target)
-						npcReset()
-						return
-					if(distTo < wanderRange)
-						intent = INTENT_HARM
-						if(AH)
-							if(AH.range <= 1)
-								target:objFunction(src,AH)
+						else if(!isFT && C.abilityModifier <= 0)
+							C.tryCast(src,target)
+				if(!isFT)
+					spawn(1)
+						if(!target)
+							npcReset()
+							return
+						if(distTo < wanderRange)
+							intent = INTENT_HARM
+							if(AH)
+								if(AH.range <= 1)
+									target:objFunction(src,AH)
+								else
+									AH.onUsed(src,target)
 							else
-								AH.onUsed(src,target)
+								target:objFunction(src)
 						else
-							target:objFunction(src)
-					else
-						changeState(NPCSTATE_MOVE)
+							changeState(NPCSTATE_MOVE)
+				else
+					changeState(NPCSTATE_MOVE)
 				timeSinceLast = 0
 				nextAttack = world.time + attackFuzziness
 

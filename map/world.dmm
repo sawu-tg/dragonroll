@@ -28,7 +28,7 @@
 "aB" = (/obj/structure/powered/light{dir = 8; icon_state = "tube0"; tag = "icon-tube0 (WEST)"; tubelight = "#00FFFF"},/turf/floor/lobbyFloor{tag = "icon-carpet7-3"; icon_state = "carpet7-3"},/area)
 "aC" = (/turf/floor/lobbyFloor{tag = "icon-carpet11-12"; icon_state = "carpet11-12"},/area)
 "aD" = (/obj/structure/realmguardian,/turf/floor/lobbyFloor,/area)
-"aE" = (/obj/furniture/table/wooden,/turf/floor/lobbyFloor,/area)
+"aE" = (/obj/furniture/table/wooden,/obj/item/weapon/tool/hammer,/turf/floor/lobbyFloor,/area)
 "aF" = (/obj/structure/magicbarrel/food,/turf/floor/lobbyFloor,/area)
 "aG" = (/obj/item/weapon/tool/fishingrod/cage,/turf/floor/outside/dirt,/area)
 "aH" = (/turf/floor/lobbyFloor{tag = "icon-carpet7-3"; icon_state = "carpet7-3"},/area)

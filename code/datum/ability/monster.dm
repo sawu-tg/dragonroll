@@ -1,9 +1,9 @@
 /datum/ability/taunt/web
-	name = "Web-Throw"
+	name = "Web Throw"
 	beamIcon = "w_beam"
 
 /datum/ability/assassinate/leap
-	name = "Leap"
+	name = "Pounce"
 
 /datum/ability/deathbeam/leer
 	name = "Leer"
@@ -11,3 +11,6 @@
 
 /datum/ability/toxicthrow/spit
 	name = "Toxic Spit"
+
+/datum/ability/heal/lickwounds
+	name = "Lick Wounds"
