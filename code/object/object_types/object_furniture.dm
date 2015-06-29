@@ -4,7 +4,7 @@
 	icon = 'sprite/world/furniture.dmi'
 	size = 3
 	weight = 5
-
+	prevent_pickup = 1
 /obj/item/furniture
 	//items for furniture, pillows etc
 	name = "furniture item"
@@ -74,6 +74,11 @@
 	name = "generic table"
 	density = 1
 
+/obj/furniture/table/objFunction(var/mob/user,var/obj/item/I)
+	if(I)
+		user.DropItem()
+		I.loc = get_turf(src)
+
 /obj/furniture/table/wooden
 	name = "Wooden table"
 	desc = "A round wooden table."
@@ -82,6 +87,13 @@
 /obj/furniture/seat
 	name = "generic seat"
 	var/seatArms = 0
+
+/obj/furniture/seat/objFunction(var/mob/user,var/obj/item/I)
+	if(user)
+		user.Move(get_turf(src))
+		if(Adjacent(user))
+			messageInfo("You take a seat on the [src]",user,src)
+			user.dir = dir
 
 /obj/furniture/seat/New()
 	if(seatArms)
@@ -126,23 +138,29 @@
 	icon_state = "comfychair_black"
 	var/hasPillow = TRUE
 
-/obj/furniture/seat/chair/comfy/objFunction(var/mob/user)
+/obj/furniture/seat/chair/comfy/verb/takePillow()
+	set name = "Take Pillow"
+	set category = "Objects"
+	set src in oview(1)
 	if(hasPillow)
-		var/choice = input(user,"What would you like to do") as null|anything in list("Hide Object","Take Cushion")
-		if(choice == "Hide Object")
-			var/mob/player/ply = user
-			var/toHide = input(ply,"Hide what?") as null|anything in ply.playerInventory
-			if(toHide)
-				messageArea("You hide \the [toHide] inside [src]","[user] slips something into [src]",user,src)
-				ply.remFromInventory(toHide)
-				toHide:loc = src.loc
-				toHide:layer = LAYER_HIDDEN
-		if(choice == "Take Cushion")
-			messageArea("You take the cushion from \the [src]","[user] takes the cushion from \the [src]",user,src)
-			overlays |= image('sprite/world/furniture.dmi',icon_state="comfychair_nocushion",dir=dir)
-			var/obj/item/furniture/underlay/comfyPillow/P = new(loc)
-			P.icon_state = "[icon_state]_cushion"
-			hasPillow = FALSE
+		messageArea("You take the cushion from \the [src]","[usr] takes the cushion from \the [src]",usr,src)
+		overlays |= image('sprite/world/furniture.dmi',icon_state="comfychair_nocushion",dir=dir)
+		var/obj/item/furniture/underlay/comfyPillow/P = new(loc)
+		P.icon_state = "[icon_state]_cushion"
+		hasPillow = FALSE
+
+/obj/furniture/seat/chair/comfy/verb/hideObject()
+	set name = "Hide in Chair"
+	set category = "Objects"
+
+/obj/furniture/seat/chair/comfy/objFunction(var/mob/user,var/obj/item/I)
+	if(I)
+		messageArea("You hide \the [I] inside [src]","[user] slips something into [src]",user,src)
+		user.DropItem()
+		I.loc = src.loc
+		I.layer = LAYER_HIDDEN
+	else
+		..(user)
 
 /obj/furniture/seat/chair/comfy/beige
 	name = "Beige comfy chair"

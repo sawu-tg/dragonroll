@@ -106,6 +106,7 @@
 	name = "Hoe"
 	desc = "Tills soil"
 	icon_state = "scythe0"
+	loot_icon_state = "scythe0"
 
 /obj/item/weapon/tool/hoe/onUsed(var/mob/user,var/atom/onWhat)
 	if(istype(onWhat,/turf/floor/outside/grass))
@@ -117,6 +118,7 @@
 	name = "Shovel"
 	desc = "Helps dig channels"
 	icon_state = "shovel"
+	loot_icon_state = "shovel"
 
 /obj/item/weapon/tool/shovel/onUsed(var/mob/user,var/atom/onWhat)
 	if(istype(onWhat,/turf/floor/outside/grass) || istype(onWhat,/turf/floor/outside/dirt) || istype(onWhat,/turf/floor/outside/snow))

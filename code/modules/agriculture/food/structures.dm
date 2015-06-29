@@ -16,14 +16,25 @@
 	..()
 	cookOverlay = icon('sprite/obj/alchemy/items.dmi',icon_state="cook_overlay")
 
+/obj/structure/cooking/proc/doLight(var/fromWho)
+	lit = TRUE
+	messageInfo("You light the fire.",fromWho,src)
+	icon_state = "[icon_state]_lit"
+	set_light(4,4,"orange")
+	addProcessingObject(src)
+
+/obj/structure/cooking/proc/doExtinguish()
+	lit = FALSE
+	burnTime = initial(burnTime)
+	icon_state = "[initial(icon_state)]"
+	messageArea("The [src] extinguishes!","The [src] extinguishes!", src, src)
+	set_light(0)
+	remProcessingObject(src)
+
 /obj/structure/cooking/objFunction(var/mob/player/user,var/obj/item/I)
 	if(!lit)
 		if(istype(I,/obj/item/weapon/tool/tinderbox))
-			lit = TRUE
-			messageInfo("You light the fire.",user,src)
-			icon_state = "[icon_state]_lit"
-			set_light(4,4,"orange")
-			addProcessingObject(src)
+			doLight(user)
 			return
 		return
 	else
@@ -38,11 +49,6 @@
 			messagePlayer("You throw [L] into [src].",user,src)
 			user.playerData.firemaking.addxp(L.exp_granted, user)
 			burnTime += L.light_length
-			if(!lit)
-				lit = TRUE
-				icon_state = "[icon_state]_lit"
-				set_light(4,4,"orange")
-				addProcessingObject(src)
 			sdel(L)
 			return
 		if(I && !istype(I,/obj/item/food))
@@ -86,12 +92,7 @@
 				else
 					curCooking[A]--
 	else
-		lit = FALSE
-		burnTime = initial(burnTime)
-		icon_state = "[initial(icon_state)]"
-		messageArea("The [src] extinguishes!","The [src] extinguishes!", src, src)
-		set_light(0,0,"white")
-		remProcessingObject(src)
+		doExtinguish()
 		return
 
 /obj/structure/cooking/proc/showCookingMenu(var/user)

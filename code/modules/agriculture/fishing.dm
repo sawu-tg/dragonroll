@@ -1,7 +1,9 @@
 /obj/item/weapon/tool/fishingrod
 	name = "Fishing Rod"
 	desc = "A bit of string tied around a stick."
-	icon_state = "fishingrod"
+	icon_state = "chain"
+	loot_icon_state = "fishingrod"
+	loot_icon = 'sprite/obj/weapons.dmi'
 	var/obj/item/bait
 	var/obj/fishingbouy/bouy
 	range = 5

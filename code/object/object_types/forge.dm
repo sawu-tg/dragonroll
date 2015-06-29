@@ -61,7 +61,7 @@
 		lit = FALSE
 		burnTime = initial(burnTime)
 		messageArea("The [src] extinguishes!","The [src] extinguishes!", src, src)
-		set_light(0,0,"white")
+		set_light(0)
 		overlays.Cut()
 		remProcessingObject(src)
 		return

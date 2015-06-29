@@ -110,16 +110,10 @@ var/globalCacheIDs = 0
 		levelNames.Add(generateName(0))
 
 	var/tilesBetweenLiquid = 1024
-	//var/tile2LiquidCounter = 0
-
-	//world << GetNextPrime(rand(1000000,100000000))
 
 	var/datum/zregion/R = new(zLevel,chosenBiome,levelNames[zLevel])
 	var/datum/noise/liquidnoise = new()
 	var/datum/noise/dirtnoise = new()
-	//var/datum/noise/rivernoise = new()
-
-	//world << dirtnoise.PerlinNoise2D(120,64,1,4)
 
 	regions += R
 
@@ -141,11 +135,6 @@ var/globalCacheIDs = 0
 				var/dirtval = dirtnoise.PerlinNoise2D(a / 4,b / 4,1,1)
 				dirtval += dirtnoise.PerlinNoise2D(a,b,1,1) / 10
 
-				/*var/riverval = rivernoise.PerlinNoise2D(a / 10,b / 10,1,1)
-				riverval += rivernoise.PerlinNoise2D(a,b,1,1) / 10
-
-				var/placeriver = riverval > 0.4 && riverval < 0.5*/
-
 				if(liquidval >= 0.6)
 					var/turf/T3 = pick(chosenBiome.validLiquids)
 					T = new T3(T)
@@ -155,75 +144,10 @@ var/globalCacheIDs = 0
 					T = new T3(T)
 				else
 					T = new chosenBiome.baseTurf(T)
-				//if(prob(lowestChance))
-					//world << "[a],[b]"
-
-
-
-				//if(dirtnoise.PerlinNoise2D(a,b,0.25,4) > 0.5)
-					//world << dirtnoise.PerlinNoise2D(a,b,1,4)
-					//for(var/turf/T2 in range(T,rand(0,turfScale)))
-					//	var/turf/T3 = pick(chosenBiome.validTurfs)
-					//	T2 = new T3(T2)
 		erodeLiquids += liqMade
 		liqMade.Cut()
 
-		messageSystemAll("FINISHED GENERATING TURFS ON Z[zLevel].. TOOK [(world.timeofday - genstart) / 10]s")
-
-	//world << "<i>GENERATING LIQUIDS ON Z[zLevel]..</i>"
-
-	/*spawn(1)
-		for(var/a = 1; a <= x; ++a)
-			for(var/b = 1; b <= y; ++b)
-				if(zLevel == 1)
-					continue
-				var/turf/T = locate(a,b,zLevel)
-				if(chosenBiome.validLiquids.len)
-					if(prob(lowestChance) && tile2LiquidCounter <= 0)
-						tile2LiquidCounter = tilesBetweenLiquid
-						//for(var/i = liquidScale; i > 0; --i)
-						for(var/turf/T2 in circle(T,rand(liquidScale / 3,liquidScale)))
-							var/turf/T3 = pick(chosenBiome.validLiquids)
-							var/turf/floor/outside/liquid/T4 = new T3(T2)
-							T4.depth = 0
-							//T4.depth = (liquidScale - i) * 15
-							//T4.updateDepth()
-							liqMade |= T4
-					if(tile2LiquidCounter > 0)
-						tile2LiquidCounter--*/
-
-	/*spawn(1)
-		var/maxnoise = 0
-		var/list/liqMade = list()
-
-		for(var/a = 1; a <= x; ++a)
-			for(var/b = 1; b <= y; ++b)
-				if(zLevel == 1)
-					continue
-				var/turf/T = locate(a,b,zLevel)
-				var/noiseval = liquidnoise.PerlinNoise2D(a / 10,b / 10,1,1)
-				noiseval += liquidnoise.PerlinNoise2D(a,b,1,1) / 10
-				maxnoise = max(maxnoise,noiseval)
-				if(chosenBiome.validLiquids.len)
-					if(noiseval > 0.6)
-						//tile2LiquidCounter = tilesBetweenLiquid
-						var/turf/T3 = pick(chosenBiome.validLiquids)
-						var/turf/floor/outside/liquid/T4 = new T3(T)
-						T4.depth = 0
-						liqMade |= T4
-			//world << "row [a] of liquids"
-		erodeLiquids += liqMade
-		liqMade.Cut()*/
-
-	/*world << "<i>ERODING LIQUIDS ON Z[zLevel]..</i>"
-	spawn(1)
-		for(var/turf/floor/outside/liquid/EL in liqMade)
-			if(prob(liquidErosion))
-				for(var/T in circle(EL,1))
-					if(istype(T,/turf/floor/outside/liquid))
-						var/turf/T2 = pick(chosenBiome.validTurfs)
-						EL = new T2(T)*/
-
+		messageSystemAll("FINISHED GENERATING TURFS ON Z[zLevel].. TOOK [(world.timeofday - genstart)]s")
 
 	messageSystemAll("GENERATING DECORATIONS ON Z[zLevel]..")
 
@@ -242,14 +166,13 @@ var/globalCacheIDs = 0
 							D = new chosenBiome.baseTurf(D)
 						P.name = "[levelNames[zLevel]] the [chosenBiome.name]"
 						P.safe = FALSE
-						//P.set_light(9,9,"#66CCFF") //BAD SAWU BAAAD
 				else
 					if(prob(decoChance))
 						if(!(T.type in chosenBiome.validLiquids))
 							var/obj/o = pick(chosenBiome.validDebris)
 							new o(T)
 
-		messageSystemAll("FINISHED GENERATING DECORATIONS ON Z[zLevel].. TOOK [(world.timeofday - genstart) / 10]s")
+		messageSystemAll("FINISHED GENERATING DECORATIONS ON Z[zLevel].. TOOK [(world.timeofday - genstart)]s")
 
 	messageSystemAll("GENERATING NPCS ON Z[zLevel]..")
 
@@ -264,6 +187,6 @@ var/globalCacheIDs = 0
 			while(istype(b.loc,/turf/floor/outside/liquid))
 				b.loc = locate(rand(1,world.maxx),rand(1,world.maxy),zLevel)
 
-		messageSystemAll("FINISHED GENERATING NPCS ON Z[zLevel].. TOOK [(world.timeofday - genstart) / 10]s")
+		messageSystemAll("FINISHED GENERATING NPCS ON Z[zLevel].. TOOK [(world.timeofday - genstart)]s")
 #undef lowestChance
 #undef maxColonists
