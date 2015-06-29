@@ -63,7 +63,9 @@
 
 //shows output on the powered item's vars
 /obj/structure/powered/verb/debugPower()
-	set src in view(32)
+	set name = "Debug Power Inf."
+	set category = "Debug Verbs"
+	set src in view(1)
 	world << "Held: [powerHeld]"
 	world << "Transferring: [powerTransfer]"
 	world << "Needed: [powerNeeded]"

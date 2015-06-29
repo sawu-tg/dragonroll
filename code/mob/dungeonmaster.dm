@@ -2,6 +2,7 @@
 	set name = "Be DM"
 	set desc = "Ascend to the level of a DM"
 	set src = usr
+	set hidden = 1
 	var/mob/dm/NDM = new/mob/dm(src.loc)
 	NDM.ckey = src.ckey
 	sdel(src)

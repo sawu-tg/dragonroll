@@ -65,18 +65,6 @@
 		inheriting.name = "[name] [inheriting.name]"
 
 ///
-// DEBUG: Generates a number of test materials
-///
-/mob/verb/testAlloy()
-	var/mat1 = getRandomMaterial()
-	var/datum/material/sickterial = new mat1
-
-	for(var/i = 0, i < 5,i++)
-		world << sickterial.name
-		var/mat2 = getRandomMaterial()
-		sickterial = combineMaterials(sickterial, new mat2)
-
-///
 // Returns a random material from all materials
 ///
 /proc/getRandomMaterial()

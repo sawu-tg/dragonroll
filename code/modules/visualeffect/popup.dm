@@ -54,9 +54,6 @@
 		del(I)
 		del(I3)
 
-/mob/verb/test_timebar()
-	timebar(list("#FF0000","#FFFF00","#00FF00"),fadetime = rand(30,60))
-
 
 /atom/proc/popup(var/text = "",var/color = "#FFFFFF",var/fadetime=30, var/xoffset = 0, var/yoffset = 0, var/tsize = 8)
 	if(!src)
@@ -99,7 +96,8 @@
 
 
 /mob/verb/popup_anything()
-
+	set name = "Spawn Text"
+	set category = "DM"
 	var/thing = input("Popup text:") as text
 	if(!istext(thing))
 		src << "Invalid text"

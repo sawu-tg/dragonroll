@@ -42,14 +42,6 @@
 
 	wires.doProcess()
 
-/obj/structure/powered/light/verb/toggle()
-	set src in view(32)
-	//powerOn = !powerOn
-	//light.toggle()
-	//light.update()
-	//icon_state = "tube[powerOn]"
-	set_on(!powerOn)
-
 /obj/structure/powered/light/proc/set_on(var/on)
 	powerOn = on
 

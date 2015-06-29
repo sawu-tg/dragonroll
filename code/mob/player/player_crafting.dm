@@ -1,6 +1,7 @@
 /mob/player/verb/craft()
 	set name = "Craft"
 	set desc = "Allows the player to craft an object"
+	set category = "Skills"
 
 	var/topic = "<title>Crafting</title><html><center>[parseIcon(src.client,src,FALSE)]<br><body style='background:grey'>"
 	topic += "<table style=\"width=100%; border: 1px solid black;\">"

@@ -141,6 +141,8 @@
 	..()
 
 /mob/player/verb/setview()
+	set name = "Change View Range"
+	set category = "Debug Verbs"
 	client.view = input(src,"Set View Range") as num
 
 //Saycode, brutally mashed together by MrSnapwalk.
@@ -154,6 +156,7 @@
 
 /mob/player/verb/say(msg as text)
 	set name = "Say"
+	set category = "Actions"
 	var/message_range = 7
 	var/list/listening = get_hear(message_range, usr)
 	popup(msg)//we wanted unformatted speech

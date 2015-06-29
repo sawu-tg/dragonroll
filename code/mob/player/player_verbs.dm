@@ -45,6 +45,8 @@
 		O.health -= damage
 
 /mob/player/verb/cleanseAll()
+	set name = "Cleanse all Statuses"
+	set category = "Debug Verbs"
 	for(var/S in statuseffects)
 		if(S)
 			remStatusEffect(S)
@@ -55,6 +57,7 @@
 ///
 /mob/player/verb/viewInventory()
 	set name = "Open Inventory"
+	set hidden = 1
 	var/html = "<title>Inventory</title><html><center>[parseIcon(src.client,src,FALSE)]<br><body style='background:grey'>"
 	for(var/obj/I in playerInventory)
 		html += "<b>[I.name]</b> ([!isWorn(I) ? "<a href=?src=\ref[src];function=dropitem;item=\ref[I]><i>Drop</i></a>" : ""][isWearable(I) && !isWorn(I) ? " | <a href=?src=\ref[src];function=wearitem;item=\ref[I]><i>Equip</i></a>" : (isWorn(I) ? "<a href=?src=\ref[src];function=removeitem;item=\ref[I]><i>Remove</i></a>" : "")] | <a href=?src=\ref[src];function=useitem;item=\ref[I]><i>Use</i></a>)<br>"
@@ -63,6 +66,7 @@
 
 /mob/player/verb/playerSheet()
 	set name = "View Player Sheet"
+	set category = "Player"
 	showPlayerSheet(src)
 
 /mob/player
@@ -229,9 +233,11 @@
 	refreshInterface()
 
 /mob/verb/UseHotkey()
+	set hidden = 1
 	call(usr,"KeyDown[selectedHotKey]")(usr)
 
 /mob/verb/LastHotkey()
+	set hidden = 1
 	if(selectedHotKey - 1 >= 1)
 		--selectedHotKey
 	else
@@ -240,6 +246,7 @@
 
 /mob/player/verb/liftObj()
 	set name = "Lift Object"
+	set category = "Actions"
 	set src = usr
 	var/excluded = list(src,carrying)
 	var/atom/movable/lifted = input("Pick up what?") as null|anything in filterList(/atom/movable/,oview(1),excluded)
@@ -263,6 +270,7 @@
 
 /mob/player/verb/throwObj()
 	set name = "Throw/Kick Object"
+	set category = "Actions"
 	set src = usr
 	if(!carrying)
 		var/list/excluded = list(src)
@@ -285,7 +293,8 @@
 
 
 /mob/player/verb/dropObj()
-	set name = "Drop Held Object"
+	set name = "Drop Lifted Object"
+	set category = "Actions"
 	set src = usr
 	if(carrying)
 		messageArea("You drop the [carrying]!","[src] drops the [carrying]!",src,carrying)
@@ -313,6 +322,7 @@
 		src.throw_at(t)
 
 /mob/player/verb/decoy()
+	set hidden = 1
 	var/turf/t = get_turf(src)
 
 	var/image/I = image(src.icon,t,src.icon_state)

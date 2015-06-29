@@ -110,7 +110,8 @@
 ///
 
 /mob/verb/spawnParticles()
-	set name = "Spawn particle"
+	set name = "Spawn Particle System"
+	set category = "DM"
 	var/target = input("Target?") as null|anything in range(usr,8)
 	var/flags = input("Flags?") as num|anything in list(PART_PHYS_SCATTER,PART_PHYS_WHIRL,PART_PHYS_FALL)
 	var/staged = input("Staged?") as null|anything in list("Yes","No")

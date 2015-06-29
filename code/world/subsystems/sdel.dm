@@ -73,7 +73,8 @@ datum/controller/sdel/getStat()
 
 //This is a debug verb
 /client/verb/getFailedTypeDeletes()
-	set name = "why is there so many failures!?"
+	set name = "List Failed GCs"
+	set category = "Debug Verbs"
 
 	for(var/stype in failedTypes)
 		usr << "[stype]: x[failedTypes[stype]]"

@@ -26,7 +26,8 @@ datum/controller/chemicals/getStat()
 		scheck()
 
 /client/verb/debug_chemical_list()
-
+	set name = "Debug Chemical Reactions"
+	set category = "Debug Verbs"
 	for (var/reaction in all_reactions)
 		. += "chemical_reactions_list\[\"[reaction]\"\] = \"[all_reactions[reaction]]\"\n"
 		if(islist(all_reactions[reaction]))

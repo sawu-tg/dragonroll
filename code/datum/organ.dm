@@ -53,6 +53,7 @@
 /mob/player/verb/gibSelf()
 	set name = "Gib"
 	set desc = "Auto gibs you"
+	set category = "Debug Verbs"
 	set src = usr
 	for(var/datum/organ/O in playerOrgans)
 		O.organFail()
