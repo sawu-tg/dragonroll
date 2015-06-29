@@ -53,6 +53,7 @@
 	range = 1
 	length = 50
 	fish_given = 5
+	loot_icon_state = "fishingnet"
 	fishables = list(/obj/item/food/fish/shrimp,
 					/obj/item/food/fish/anchovies,
 					/obj/item/food/fish/monkfish)
@@ -65,6 +66,7 @@
 	range = 1
 	length = 50
 	fish_given = 5
+	loot_icon_state = "fishingcage"
 	fishables = list(/obj/item/food/fish/crayfish,
 					/obj/item/food/fish/lobster)
 	cast_message = "You set the cage in the water!"
@@ -74,6 +76,7 @@
 	name = "Big Fishing Net"
 	desc = "A net for fishing."
 	fish_given = 3
+	loot_icon_state = "fishingnet"
 	fishables = list(/obj/item/food/fish/mackerel,
 					/obj/item/food/fish/cod,
 					/obj/item/food/fish/bass)
@@ -85,6 +88,7 @@
 	desc = "A harpoon for fishing."
 	length = 30
 	fish_given = 3
+	loot_icon_state = "spearglass1"
 	fishables = list(/obj/item/food/fish/tuna,
 					/obj/item/food/fish/swordfish,
 					/obj/item/food/fish/shark,
