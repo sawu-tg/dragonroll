@@ -54,11 +54,9 @@
 		del(I)
 		del(I3)
 
-
 /atom/proc/popup(var/text = "",var/color = "#FFFFFF",var/fadetime=30, var/xoffset = 0, var/yoffset = 0, var/tsize = 8)
 	if(!src)
 		return
-
 	var/actualtext = "<text style='text-align: center; vertical-align: middle; font: [tsize]px arial;'>[text]</text>"
 
 	var/image/I = image(null,loc=src)
@@ -90,7 +88,6 @@
 
 	if(fadetime > 0)
 		animate(I, pixel_z = 50, alpha = 0, time = fadetime)
-
 	spawn(fadetime)
 		sdel(I)
 

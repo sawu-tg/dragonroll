@@ -69,7 +69,20 @@
 /obj/item/organ
 	name = "organ"
 	desc = "tasty"
+	var/bloodLeft = 10
+	var/turf/lastHit
 	itemMaterial = new/datum/material/flesh
+
+/obj/item/organ/doProcess()
+	if(bloodLeft > 0)
+		var/turf/TT = get_turf(src)
+		if(TT != lastHit)
+			var/obj/effect/blood/trail/T = new(TT)
+			T.dir = dir
+			lastHit = TT
+			--bloodLeft
+	else
+		remProcessingObject(src)
 
 /obj/item/organ/proc/createFrom(var/datum/organ/of)
 	if(!of.owner || !of.race)
@@ -79,6 +92,8 @@
 	desc = of.desc
 	icon = of.icon
 	icon_state = of.icon_state
+	lastHit = get_turf(src)
+	addProcessingObject(src)
 
 ///
 // What the organ does, called on a mob's process

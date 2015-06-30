@@ -89,9 +89,10 @@
 		if(isDense)
 			var/validPoint = FALSE
 			var/turf/T = get_step(walkTarget,pick(alldirs))
-			if(!T.density)
-				walkTarget = T
-				validPoint = TRUE
+			if(T)
+				if(!T.density)
+					walkTarget = T
+					validPoint = TRUE
 			if(!validPoint)
 				checkTimeout()
 				return
