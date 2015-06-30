@@ -19,7 +19,7 @@
 	var/datum/farmedGood/FG
 	var/water = 0
 	var/nutrients = 0
-	var/helpInfo = "Use seeds on this tilled dirt to start growing fruits, vegetables and flowers!"
+	helpInfo = "Use seeds on this tilled dirt to start growing fruits, vegetables and flowers!"
 
 /turf/floor/outside/farm/New()
 	..()
