@@ -12,7 +12,6 @@ Crafting
 	* Expand cooking/baking etc, make very deep.
 	
 NPCs
-	* Redo AI
 	* Add building/crafting
 	* Add clan forming
 	* Add better, less laggier processing
@@ -24,6 +23,7 @@ Biomes
 	* New decorations
 	* Biome-specific special nodes (fountains for grassland, mineral deposits for lava etc)
 	* spawned loot chests
+	* Weather system
 	
 Generation
 	* Per-class starting items
