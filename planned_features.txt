@@ -6,16 +6,23 @@
 
 Classes
 	* NPC classes (ie animals, monsters) ***PARTIALLY DONE***
+	* Expand class skills
+	* Add per-class movement skills
 	
 Crafting
 	* Enchanting system (adds stats + overlay)
 	* Expand cooking/baking etc, make very deep.
+	* Add "Discovery" system, a-la Starbound
+	* Add more ways to make things
 	
 NPCs
 	* Add building/crafting
 	* Add clan forming
 	* Add better, less laggier processing
 	* Add interaction
+	* Add NPC faction "creation" and progress
+	* NPC chat (talk-to npcs via dialog windows)
+	* NPC stores
 	
 Biomes
 	* Add more
@@ -31,6 +38,11 @@ Generation
 	* pre-generated villages and landmarks
 	
 Extra gubbins
+	* Fill out thousands of helpInfos
+	* Converted beams to use particles (or rewrite Beam())
+	* Expand Factions and Factions controls
+	* Add respawn/population manager for NPCs
+	* Finish Dismemberment sprites.
 	* More items
 	* More crap to craft
 	* More NPCs
