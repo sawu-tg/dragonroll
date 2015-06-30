@@ -2,6 +2,7 @@
 	name = "pre-prep food"
 	desc = "needs makering"
 	icon = 'sprite/obj/food_ingredients.dmi'
+	helpInfo = "You can add all sorts of things to this, and create a much tastier morsel!"
 
 /obj/item/food/prep/objFunction(var/mob/user,var/obj/item/I)
 	if(istype(I,/obj/item/food))

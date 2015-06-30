@@ -3,6 +3,7 @@
 	var/reagentSize = 0
 	var/datum/reagent_holder/reagents
 	var/alignment = ALIGN_NEUTRAL
+	var/helpInfo //shown when the player examines the object
 
 /atom/New()
 	..()

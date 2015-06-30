@@ -19,6 +19,7 @@
 	var/datum/farmedGood/FG
 	var/water = 0
 	var/nutrients = 0
+	var/helpInfo = "Use seeds on this tilled dirt to start growing fruits, vegetables and flowers!"
 
 /turf/floor/outside/farm/New()
 	..()
@@ -94,6 +95,7 @@
 	desc = "contains seeds"
 	icon = 'sprite/obj/hydroponics/seeds.dmi'
 	icon_state = "seed"
+	helpInfo = "Use these seeds on tilled dirt, and you can grow something!"
 	var/datum/farmedGood/held_seed = new/datum/farmedGood/test
 
 /obj/item/seedpack/New()
@@ -107,6 +109,7 @@
 	desc = "Tills soil"
 	icon_state = "scythe0"
 	loot_icon_state = "scythe0"
+	helpInfo = "You can use this item on regular grass to till it into farmable land.<br>Make sure you remember to till near water!"
 
 /obj/item/weapon/tool/hoe/onUsed(var/mob/user,var/atom/onWhat)
 	if(istype(onWhat,/turf/floor/outside/grass))
@@ -119,6 +122,7 @@
 	desc = "Helps dig channels"
 	icon_state = "shovel"
 	loot_icon_state = "shovel"
+	helpInfo = "Using this item, you can dig channels, which flow water into them!"
 
 /obj/item/weapon/tool/shovel/onUsed(var/mob/user,var/atom/onWhat)
 	if(istype(onWhat,/turf/floor/outside/grass) || istype(onWhat,/turf/floor/outside/dirt) || istype(onWhat,/turf/floor/outside/snow))
@@ -134,6 +138,7 @@
 	name = "Channel"
 	desc = "Liquids can flow into this!"
 	icon_state = "asteroid_dug"
+	helpInfo = "A nearby water source can be used to fill this!"
 
 /turf/floor/outside/waterChannel/New()
 	..()

@@ -2,6 +2,7 @@
 	name = "edible numnums"
 	desc = "tastey!"
 	icon = 'sprite/obj/food.dmi'
+	helpInfo = "Cook this over a heat source, or combine it with other foods for a tasty treat!"
 	var/cooked_icon_state
 	var/cooked_name
 	var/foodLevel = 2

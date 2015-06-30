@@ -4,6 +4,7 @@
 	icon_state = "chain"
 	loot_icon_state = "fishingrod"
 	loot_icon = 'sprite/obj/weapons.dmi'
+	helpInfo = "Use this on water to cast out a line, and reel in various aquatic life!"
 	var/obj/item/bait
 	var/obj/fishingbouy/bouy
 	range = 5
@@ -120,6 +121,7 @@
 	desc = "Floats and glubs."
 	icon = 'sprite/obj/fish.dmi'
 	icon_state = "fish"
+	helpInfo = "You can cook this over a fire for a tasty treat, but be careful of poisonous food!"
 	var/randColour = TRUE
 	var/required_level_fishing = 1
 	var/exp_granted_fishing = 1
