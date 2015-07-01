@@ -15,7 +15,7 @@
 	icon_state = "grassf[rand(1,4)]"
 	update_icon()
 
-/turf/floor/outside/grass/proc/update_icon()
+/turf/floor/outside/grass/update_icon()
 	color = grassMaterial.color
 
 /turf/floor/outside/snow

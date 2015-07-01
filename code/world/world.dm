@@ -1,5 +1,3 @@
-
-
 var/globalCacheIDs = 0
 
 /world
@@ -23,7 +21,7 @@ var/globalCacheIDs = 0
 		CS.addControl(new /datum/controller/chemicals)
 		CS.addControl(new /datum/controller/sdel)
 		CS.addControl(new /datum/controller/cooldowns)
-		//CS.addControl(new /datum/controller/environment)
+		diplomacy = CS.addControl(new /datum/controller/diplomacy)
 		balance = CS.addControl(new /datum/controller/balance)
 		CS.process()
 	spawn(10)
@@ -43,6 +41,8 @@ var/globalCacheIDs = 0
 		spawn(1) processObjects()
 		spawn(1) processRegions()
 		spawn(1) processLiquids()
+		spawn(30)
+			world << sound('sound/misc/themesong.ogg',1,0)
 	..()
 
 /proc/addProcessingObject(var/atom/movable/a)

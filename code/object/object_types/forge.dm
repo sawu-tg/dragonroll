@@ -89,7 +89,7 @@
 		html += "</td>"
 	html += "</tr></table>"
 	html += "</body></center></html>"
-	user << browse(html,"window=cooking")
+	user << browse(html,"window=forging")
 
 /obj/structure/forge/Topic(href,href_list[])
 	var/function = href_list["function"]

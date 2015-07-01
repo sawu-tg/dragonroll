@@ -2,6 +2,7 @@
 	name = "default item"
 	desc = "not very interesting"
 	var/range = 1 // usage range
+	var/worth = 1 //how much this sells for
 	var/stackSize = 1 // The amount of objects held with it
 	var/showAsLoot = FALSE // Whether the object is shown with a loot_icon
 	var/isLoot = FALSE // Whether it's showing the loot icon or not

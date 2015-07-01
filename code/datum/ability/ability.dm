@@ -36,6 +36,9 @@
 	var/obj/projectile/abilityProjectile // the projectile thrown when cast (if any)
 	var/obj/effect/abilityIconTarget // the effect path displayed on the target, or in the case of AOE, around it
 
+	var/preCastSound = 'sound/weapons/marauder.ogg'
+	var/postCastSound = 'sound/weapons/pulse.ogg'
+
 	var/mob/holder // who holds this spell, for easy access
 
 /datum/ability/garbageCleanup()
@@ -81,6 +84,7 @@
 // Called before casting.
 ///
 /datum/ability/proc/preCast(var/mob/player/casting,var/target)
+	playsound(get_turf(casting), preCastSound, 50, 1)
 	if(!suppressMessage)
 		messageArea("You begin casting [name].","[casting.name] begins casting [name].",casting,image(abilityIcon,icon_state=abilityState))
 	if(abilityIconSelf)
@@ -139,6 +143,7 @@
 // Called after a succseful cast.
 ///
 /datum/ability/proc/postCast(var/mob/player/caster,var/target)
+	playsound(get_turf(target), postCastSound, 50, 1)
 	if(!suppressMessage)
 		messageArea("You cast [name].","[caster.name] cast [name].",caster,image(abilityIcon,icon_state=abilityState))
 	//if(abilityIconTarget)

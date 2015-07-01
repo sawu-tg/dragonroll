@@ -7,7 +7,7 @@
 	pixel_x = rand(-12,12)
 	pixel_y = rand(-12,12)
 
-/obj/item/loot/proc/update_icon()
+/obj/item/loot/update_icon()
 	color = itemMaterial.color
 
 ///

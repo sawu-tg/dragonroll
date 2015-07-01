@@ -51,7 +51,7 @@
 /obj/structure/tank/doProcess()
 	update_icon()
 
-/obj/structure/tank/proc/update_icon()
+/obj/structure/tank/update_icon()
 	if(!reagents)
 		return
 

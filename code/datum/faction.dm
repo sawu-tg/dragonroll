@@ -28,7 +28,7 @@ var/list/globalFactions = list()
 	var/angerThreshold = -250 // what the standing of a faction to another has to be to trigger a change
 	var/happyThreshold = 250 // the same as above, but in reverse
 	var/list/fStandings = list() // an associative list of the standings of other factions
-	var/currencyType = /obj/item/loot/gold // the currency the faction uses
+	var/currencyType // the currency the faction uses
 	var/list/factionOwners = list() // a list of people authorized to modify the faction
 
 /datum/faction/New()
@@ -38,12 +38,78 @@ var/list/globalFactions = list()
 		fStandings[A] = happyThreshold + (happyThreshold/2)
 	for(var/A in hostileTo)
 		fStandings[A] = angerThreshold + (angerThreshold/2)
+	setCurrencyType(/obj/item/loot/gold)
 
 /datum/faction/garbageCleanup()
 	..()
 	friendlyTo = null
 	hostileTo = null
 
+
+//Use this to take money!
+/datum/faction/proc/doTransaction(var/mob/player/P,var/cost)
+	cost *= diplomacy.currInflation[name]
+	cost = round(cost)
+	if(!hasEnoughCurrency(P,cost))
+		messageError("You don't have enough money for that!",P,P)
+		return FALSE
+	else
+		takeCurrency(P,cost)
+		return TRUE
+
+//use this to sell items!
+/datum/faction/proc/giveCurrency(var/mob/player/P,var/extra,var/obj/item/sold)
+	var/amount = extra
+	if(sold)
+		amount += sold.worth
+		sdel(sold)
+	amount *= diplomacy.currInflation[name]
+	diplomacy.currInflation[name] += (amount/100)
+	for(var/B in P.contents)
+		if(B:type == currencyType)
+			B:stackSize += amount
+			B:update_icon()
+			amount = 0
+	if(amount != 0)
+		var/A = new currencyType(get_turf(P))
+		A:stackSize = amount
+		P.addToInventory(A)
+
+
+/datum/faction/proc/hasEnoughCurrency(var/mob/player/P,var/cost)
+	var/total = 0
+	for(var/obj/item/A in P.contents)
+		if(!istype(A,currencyType))
+			continue
+		if(A.stackSize > 1)
+			total += A.stackSize
+		else
+			total++
+	if(total >= cost)
+		return TRUE
+	return FALSE
+
+/datum/faction/proc/takeCurrency(var/mob/player/P,var/cost)
+	var/list/valid = list()
+	diplomacy.currInflation[name] -= (cost/100)
+	while(cost > 0)
+		for(var/obj/item/A in P.contents)
+			if(A.stackSize > 0)
+				--A.stackSize
+				--cost
+				A.update_icon()
+				if(A.stackSize <= 0)
+					valid += A
+			else
+				valid += A
+	for(var/obj/item/B in valid)
+		sdel(B)
+
+/datum/faction/proc/setCurrencyType(var/type)
+	currencyType = type
+	diplomacy.currTypes[name] = type
+	if(!diplomacy.currInflation[name])
+		diplomacy.currInflation[name] = 1
 
 /datum/faction/proc/addStanding(var/datum/faction/F,var/amount)
 	if(F.name == name) // NO BULLY
@@ -164,7 +230,10 @@ var/list/globalFactions = list()
 		html += "<b>===============</b><br>"
 		html += "[parseIcon(src,D.factionImage,FALSE)]<br>"
 		html += "<b>[D.name]</b><br>"
-		html += "<b>Currency:</b> [D.currencyType]<br>"
+		var/CC = new D.currencyType()
+		html += "<b>Currency:</b> [CC]<br>"
+		html += "<b>Inflation: </b> [diplomacy.currInflation[D.name]]"
+		sdel(CC)
 		if(D.hostileTo.len)
 			html += "<i><b>~</b>Hostile To<b>~</b></i><br>"
 			for(var/A in D.hostileTo)
@@ -178,7 +247,7 @@ var/list/globalFactions = list()
 			for(var/A in D.factionOwners)
 				html += "[A]<br>"
 	html += "</body></center></html>"
-	src << browse(html,"window=playersheet")
+	src << browse(html,"window=factionsheet")
 
 ///////////// FACTIONS /////////////////////////
 

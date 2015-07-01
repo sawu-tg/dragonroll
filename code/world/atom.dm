@@ -4,6 +4,7 @@
 	var/datum/reagent_holder/reagents
 	var/alignment = ALIGN_NEUTRAL
 	var/helpInfo //shown when the player examines the object
+	var/datum/faction/mobFaction
 
 /atom/New()
 	..()
@@ -13,6 +14,8 @@
 		globalObjList += src
 	if(reagentSize > 0)
 		reagents = new(src,reagentSize)
+
+/atom/proc/update_icon()
 
 /atom/movable
 	// size and weight determine how difficult it is to pick up and whether the player can throw it far

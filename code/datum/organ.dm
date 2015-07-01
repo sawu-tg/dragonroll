@@ -74,6 +74,7 @@
 	itemMaterial = new/datum/material/flesh
 
 /obj/item/organ/doProcess()
+	..()
 	if(bloodLeft > 0)
 		var/turf/TT = get_turf(src)
 		if(TT != lastHit)

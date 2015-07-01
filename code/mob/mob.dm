@@ -11,7 +11,6 @@
 	var/obj/interface/Cursor
 	var/maxHotkeys = 9
 	var/selectedHotKey = 1
-	var/datum/faction/mobFaction
 
 	///vehicle shit, sue me
 	var/obj/vehicle/mounted

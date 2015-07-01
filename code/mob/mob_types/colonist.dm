@@ -26,12 +26,16 @@
 
 /mob/player/npc/colonist/proc/upgradeItems()
 	for(var/A in nearbyObj)
+		if(!A)
+			return
 		if(!istype(A,/obj/item/weapon) && !istype(A,/obj/item/armor))
 			continue
 		else
 			if(istype(A,/obj/item/armor))
 				var/DE = FALSE
 				for(var/obj/interface/slot/B in slots)
+					if(!B)
+						return
 					if(A:slot == B.id)
 						var/obj/item/C = B.contents[1]
 						if(C)
