@@ -86,6 +86,7 @@
 #include "code\modules\agriculture\food\food.dm"
 #include "code\modules\agriculture\food\grown.dm"
 #include "code\modules\agriculture\food\ingredients.dm"
+#include "code\modules\agriculture\food\meat.dm"
 #include "code\modules\agriculture\food\recipes.dm"
 #include "code\modules\agriculture\food\structures.dm"
 #include "code\modules\agriculture\food\utensils.dm"

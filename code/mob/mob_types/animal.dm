@@ -17,12 +17,17 @@
 			mobFaction = findFaction("Hostile")
 		else
 			mobFaction = findFaction("Wildlife")
+
+		for(var/A in droppedItems)
+			for(var/I = 0; I < droppedItems[A]; ++I)
+				new A(src)
 	classChange(/datum/class/beast)
 
 /mob/player/npc/animal/chicken
 	name = "Chicken"
 	desc = "You wonder where it came from."
 	icon_state = "chicken_white"
+	droppedItems = list(/obj/item/food/meat/generic = 2)
 	npcSpells = list(/datum/ability/assassinate/gore,/datum/ability/heal/lickwounds,/datum/ability/deathbeam/leer)
 
 /mob/player/npc/animal/chicken/New()
@@ -33,12 +38,14 @@
 	name = "Fox"
 	desc = "Smarter than most things."
 	icon_state = "fox"
+	droppedItems = list(/obj/item/food/meat/generic = 2)
 	npcSpells = list(/datum/ability/heal/lickwounds,/datum/ability/assassinate/leap,/datum/ability/deathbeam/leer)
 
 /mob/player/npc/animal/dog
 	name = "Dog"
 	desc = "Some call him \"Ian\""
 	icon_state = "corgi"
+	droppedItems = list(/obj/item/food/meat/generic = 2)
 	npcSpells = list(/datum/ability/assassinate/gore,/datum/ability/heal/lickwounds,/datum/ability/assassinate/leap)
 
 /mob/player/npc/animal/dog/New()
@@ -49,6 +56,7 @@
 	name = "Crab"
 	desc = "Comes with six conveniently attached sticks."
 	icon_state = "crab"
+	droppedItems = list(/obj/item/food/meat/fish = 2)
 	npcSpells = list(/datum/ability/assassinate/gore,/datum/ability/heal/lickwounds,/datum/ability/toxicthrow/spit)
 
 /mob/player/npc/animal/crab/New()
@@ -59,6 +67,7 @@
 	name = "Cow"
 	desc = "She likes to moo-ve it."
 	icon_state = "cow"
+	droppedItems = list(/obj/item/food/meat/generic = 2)
 	npcSpells = list(/datum/ability/heal/lickwounds,/datum/ability/deathbeam/leer)
 
 /mob/player/npc/animal/bear
@@ -66,6 +75,7 @@
 	desc = "Smarter than the average."
 	icon_state = "bear"
 	isHostile = TRUE
+	droppedItems = list(/obj/item/food/meat/bear = 2)
 	npcSpells = list(/datum/ability/heal/lickwounds,/datum/ability/assassinate/leap)
 
 /mob/player/npc/animal/bear/New()
@@ -78,6 +88,7 @@
 	icon_state = "guard"
 	var/hasBabies = TRUE
 	isHostile = TRUE
+	droppedItems = list(/obj/item/food/meat/spider = 2)
 	npcSpells = list(/datum/ability/assassinate/gore,/datum/ability/heal/lickwounds,/datum/ability/taunt/web,/datum/ability/assassinate/leap,/datum/ability/toxicthrow/spit)
 
 /mob/player/npc/animal/spider/New()
@@ -108,6 +119,7 @@
 	name = "Cat"
 	desc = "Fond of fiddles and spoons."
 	icon_state = "cat"
+	droppedItems = list(/obj/item/food/meat/generic = 2)
 	npcSpells = list(/datum/ability/assassinate/gore,/datum/ability/heal/lickwounds,/datum/ability/assassinate/leap,/datum/ability/deathbeam/leer)
 
 /mob/player/npc/animal/cat/New()
@@ -118,6 +130,7 @@
 	name = "Bat"
 	desc = "No men here."
 	icon_state = "bat"
+	droppedItems = list(/obj/item/food/meat/generic = 2)
 	npcSpells = list(/datum/ability/heal/lickwounds,/datum/ability/deathbeam/leer)
 
 /mob/player/npc/animal/wasp
@@ -125,12 +138,14 @@
 	desc = "Pollinates figs. And nightmares."
 	icon_state = "wasp"
 	isHostile = TRUE
+	droppedItems = list(/obj/item/food/meat/generic = 2)
 	npcSpells = list(/datum/ability/assassinate/gore,/datum/ability/heal/lickwounds,/datum/ability/deathbeam/leer,/datum/ability/toxicthrow/spit)
 
 /mob/player/npc/animal/deer
 	name = "Deer"
 	desc = "Neigh!."
 	icon_state = "deer"
+	droppedItems = list(/obj/item/food/meat/generic = 2)
 	npcSpells = list(/datum/ability/heal/lickwounds,/datum/ability/deathbeam/leer)
 
 ///
@@ -141,6 +156,8 @@
 	name = "Slime"
 	desc = "Blib blobs all over you!."
 	icon_state = "slime"
+
+	droppedItems = list(/obj/item/food/meat/generic = 2)
 
 	hasOtherDeath = TRUE
 	isHostile = TRUE

@@ -41,7 +41,7 @@
 				sdel(bouy)
 				return
 			var/obj/item/food/fish/catchType = pick(picked_fish)
-			var/obj/item/food/fish/catch = new catchType(get_turf(user))
+			var/obj/item/food/fish/catch = new catchType(get_turf(user),user.playerData.fishing.statModified)
 			user.playerData.fishing.addxp(catch.exp_granted_fishing, user)
 			messageInfo("[catch_message][catch].",user,src)
 		messageInfo("You finish fishing.",user,src)

@@ -1,6 +1,7 @@
 /datum/recipe
 	var/name = "default recipe"
 	var/desc = "default desc"
+	var/listCategory = "Uncategorized"
 	var/usesGeneric = TRUE // if this is true, requiredReagents checks for REAGENT_STATE instead of ref id
 	var/requiredType // what type needs to be nearby to use it
 	var/list/requiredReagents = list() // associative list of required reagents, if using defines, make sure to do "[define]"
@@ -111,28 +112,28 @@
 /datum/recipe/hatchet
 	name = "hatchet"
 	desc = "a cutting tool"
-
+	listCategory = "Tools"
 	materials = list(/obj/item/loot/nature/stick = 1, /obj/item/loot/nature/rock = 1)
 	product = list(/obj/item/weapon/tool/hatchet = 1)
 
 /datum/recipe/hoe
 	name = "hoe"
 	desc = "a farming tool"
-
+	listCategory = "Tools"
 	materials = list(/obj/item/loot/nature/stick = 2, /obj/item/loot/nature/rock = 1)
 	product = list(/obj/item/weapon/tool/hoe = 1)
 
 /datum/recipe/woodwall
 	name = "wooden wall"
 	desc = "keeps things out"
-
+	listCategory = "Building"
 	materials = list(/obj/item/loot/processed/wood = 4)
 	product = list(/obj/item/buildable/turf/woodenWall = 1)
 
 /datum/recipe/wooddoor
 	name = "wooden door"
 	desc = "keeps things out"
-
+	listCategory = "Building"
 	materials = list(/obj/item/loot/processed/wood = 2)
 	product = list(/obj/item/buildable/turf/woodenDoor = 1)
 
@@ -140,6 +141,6 @@
 /datum/recipe/woodboat
 	name = "wood boat"
 	desc = "makes oceans seem smaller"
-
+	listCategory = "Mounts"
 	materials = list(/obj/item/loot/processed/wood = 4)
 	product = list(/obj/vehicle/boat = 1)
