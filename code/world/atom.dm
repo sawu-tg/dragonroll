@@ -24,7 +24,7 @@
 	// size 3 = larger object, like a fridge or a stove
 	// size 4 = largest object, like a car or a cow
 	// weight is a number between 1 and 10, and is checked against the STR score of a player trying to pick it up. 1d20 vs (weight + size)
-	var/size = 0
+	var/size = 1
 	var/weight = 0
 	var/beingCarried = FALSE
 	var/mob/player/carriedBy

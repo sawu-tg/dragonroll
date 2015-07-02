@@ -8,6 +8,7 @@
 	pixel_y = rand(-12,12)
 
 /obj/item/loot/update_icon()
+	..()
 	color = itemMaterial.color
 
 ///

@@ -30,6 +30,9 @@
 
 	var/debugModeOn = FALSE
 
+	var/list/playerEnc = list() // a list of all remembered encyclopedia entries
+	var/chosenEncIndex
+
 	var/beingRezzed = FALSE
 
 
@@ -535,6 +538,7 @@
 /////////////////////////////- END OF CUSTOM PROCS- /////////////////////////////////
 
 /mob/player/Topic(href,href_list[])
+	..()
 	var/function = href_list["function"]
 	switch(function)
 		if("name")

@@ -134,8 +134,17 @@
 		return "Harming"
 	if(intent == 3)
 		return "Sneaking"
+	if(intent == 4)
+		return "Diplomatic"
 
 /mob/objFunction(var/mob/user,var/obj/inHand)
+	if(user.intent == INTENT_DIPLOMACY)
+		if(inHand)
+			doTrade(user,inHand)
+		else
+			if(!client)
+				user.lastChatted = src
+				myChat.chatTo(user)
 	if(user.intent == INTENT_HELP)
 		if(user == src)
 			messagePlayer("You brush yourself off",src,src)

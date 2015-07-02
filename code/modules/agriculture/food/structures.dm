@@ -3,6 +3,8 @@
 	desc = "keeps things warm."
 	icon = 'sprite/obj/alchemy/structures.dmi'
 	icon_state = "campfire"
+	var/prefixState = "campfire"
+	helpInfo = "Can be used to cook a variety of things, when lit with a tinderbox."
 	var/burnTime = 50
 	var/icon/cookOverlay // the overlay applied for cooking
 	var/lit = FALSE // is the cooking structure providing fire to cook
@@ -19,14 +21,14 @@
 /obj/structure/cooking/proc/doLight(var/fromWho)
 	lit = TRUE
 	messageInfo("You light the fire.",fromWho,src)
-	icon_state = "[icon_state]_lit"
+	icon_state = "[prefixState]_lit"
 	set_light(4,4,"orange")
 	addProcessingObject(src)
 
 /obj/structure/cooking/proc/doExtinguish()
 	lit = FALSE
 	burnTime = initial(burnTime)
-	icon_state = "[initial(icon_state)]"
+	icon_state = "[prefixState]"
 	messageArea("The [src] extinguishes!","The [src] extinguishes!", src, src)
 	set_light(0)
 	remProcessingObject(src)
@@ -44,11 +46,14 @@
 		if(istype(I, /obj/item/loot/nature/log))
 			var/obj/item/loot/nature/log/L = I
 			if(L.required_level > user.playerData.firemaking.statCurr)
-				messagePlayer("You aren't good enough at firemaking to put that in the fire.",user,src)
+				messagePlayer("Your skill isn't high enough to burn \an [I] yet.",user,src)
 				return
 			messagePlayer("You throw [L] into [src].",user,src)
 			user.playerData.firemaking.addxp(L.exp_granted, user)
 			burnTime += L.light_length
+			if(burnTime >= 200)
+				prefixState = "bonfire"
+				icon_state = prefixState
 			sdel(L)
 			return
 		if(I && !istype(I,/obj/item/food))
@@ -67,6 +72,9 @@
 			showCookingMenu(lastUsr)
 	if(burnTime > 0)
 		--burnTime
+		if(burnTime <= 100)
+			prefixState = "campfire"
+			icon_state = prefixState
 		if(contents.len)
 			for(var/obj/item/food/A in curCooking)
 				if(curCooking[A] <= 0)
@@ -130,3 +138,42 @@
 				curCooking[A] = A.foodLevel*10
 				lastUsr = usr
 				showCookingMenu(usr)
+
+///
+// GRINDR
+///
+/obj/item/food/chempile
+	name = "Pile of Ground Dust"
+	desc = "Full of gritty, disgusting things."
+	reagentSize = 500
+	icon = 'sprite/obj/alchemy/items.dmi'
+	icon_state = "pile"
+	helpInfo = "A powdered form of any amount of reagents; Can be combined with another pile to form one larger!"
+
+/obj/item/food/chempile/objFunction(var/mob/player/P, var/obj/item/I)
+	if(I)
+		if(istype(I,/obj/item/food/chempile))
+			I.reagents.trans_to(src.reagents,I.reagents.currentvolume)
+			src.color = mix_color_from_reagents(src.reagents.liquidlist)
+			P.DropItem()
+			sdel(I)
+			messageInfo("You mix the two piles together",P,src)
+
+/obj/structure/grindr
+	name = "Grinder"
+	desc = "Grinds things into powdered form"
+	icon_state = "grinder"
+	icon = 'sprite/obj/alchemy/structures.dmi'
+	helpInfo = "Grinds anything with contained reagents into a powdered form!"
+
+/obj/structure/grindr/objFunction(var/mob/player/P, var/obj/item/I)
+	if(I)
+		if(I.reagents.liquidlist.len)
+			var/obj/item/food/chempile/CP = new(get_turf(P))
+			I.reagents.trans_to(CP.reagents,I.reagents.currentvolume)
+			CP.color = mix_color_from_reagents(CP.reagents.liquidlist)
+			P.DropItem()
+			sdel(I)
+			for(var/datum/reagent/R in CP.reagents.liquidlist)
+				R.reagentState = REAGENT_STATE_POWDER
+			messageInfo("You grind the [I] into it's base reagents",P,src)

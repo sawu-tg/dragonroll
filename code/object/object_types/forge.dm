@@ -1,7 +1,8 @@
 /obj/structure/forge
 	name = "forge"
-	desc = "melts things into tiny pieces."
+	desc = "Used to smelt objects into processed form."
 	icon = 'sprite/obj/alchemy/forge.dmi'
+	helpInfo = "You can use a large variety of processed materials with this to create usable ingots and bars."
 	icon_state = "forge"
 	var/burnTime = 1200
 	var/icon/burnOverlay

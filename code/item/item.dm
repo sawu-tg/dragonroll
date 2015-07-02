@@ -2,7 +2,7 @@
 	name = "default item"
 	desc = "not very interesting"
 	var/range = 1 // usage range
-	var/worth = 1 //how much this sells for
+	var/worth = 0 //how much this sells for
 	var/stackSize = 1 // The amount of objects held with it
 	var/showAsLoot = FALSE // Whether the object is shown with a loot_icon
 	var/isLoot = FALSE // Whether it's showing the loot icon or not
@@ -19,6 +19,11 @@
 		isLoot = TRUE
 		icon = loot_icon
 		icon_state = loot_icon_state
+	if(worth <= 0)
+		if(force > 0 && weight > 0)
+			worth = (force+weight) * size
+		else
+			worth = rand(1,10)
 
 /obj/item/proc/toggleLoot(var/towhat)
 	isLoot = towhat

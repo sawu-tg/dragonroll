@@ -307,7 +307,7 @@
 /mob/verb/changeIntent()
 	set hidden = 1
 	set name = "Change Intent"
-	if(intent < 3)
+	if(intent < 4)
 		intent++
 	else
 		intent = 1
@@ -344,3 +344,29 @@
 		usr << "<b>Debug ON</b>"
 		debugModeOn = TRUE
 		return
+
+
+/mob/player/verb/ViewEnc()
+	set name = "Encyclopedia"
+	set category = "Skills"
+	var/html = "<title>Encyclopedia</title><html><center><body style='background:grey'><br>"
+	var/list/index = list()
+	for(var/A in playerEnc)
+		index |= uppertext(copytext(A,1,2))
+	var/counter = 0
+	for(var/A in index)
+		if(counter > 0)
+			html += " <b>|</b> "
+		html += "<a href=?src=\ref[src];enccategory=[A]>[A]</a>"
+		counter++
+	for(var/A in playerEnc)
+		if(uppertext(copytext(A,1,2)) == chosenEncIndex)
+			html += "<br><b>[A]</b><br>[playerEnc[A]]<br>"
+	html += "</body></center></html>"
+	src << browse(html,"window=encyclopedia")
+
+/mob/player/Topic(href,href_list[])
+	..()
+	if(href_list["enccategory"])
+		chosenEncIndex = href_list["enccategory"]
+		src.ViewEnc()

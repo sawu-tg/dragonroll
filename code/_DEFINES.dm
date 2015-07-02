@@ -17,6 +17,7 @@
 #define INTENT_HELP 1
 #define INTENT_HARM 2
 #define INTENT_SNEAK 3
+#define INTENT_DIPLOMACY 4
 
 #define BLEEDING_INTERVAL 240
 

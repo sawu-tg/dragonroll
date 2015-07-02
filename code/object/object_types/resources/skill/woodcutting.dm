@@ -8,6 +8,7 @@
 	var/exp_granted = 40
 
 /obj/item/loot/nature/log/update_icon()
+	..()
 	overlays += image(icon,src,"tree_logo")
 
 	var/image/I = image(icon,src,"tree_logf")

@@ -67,12 +67,13 @@ var/list/globalFactions = list()
 	diplomacy.currInflation[name] += (amount/100)
 	for(var/B in P.contents)
 		if(B:type == currencyType)
-			B:stackSize += amount
+			B:changeAmt(amount)
 			B:update_icon()
 			amount = 0
 	if(amount != 0)
 		var/A = new currencyType(get_turf(P))
 		A:stackSize = amount
+		A:update_icon()
 		P.addToInventory(A)
 
 
@@ -95,7 +96,7 @@ var/list/globalFactions = list()
 	while(cost > 0)
 		for(var/obj/item/A in P.contents)
 			if(A.stackSize > 0)
-				--A.stackSize
+				A.changeAmt(-1)
 				--cost
 				A.update_icon()
 				if(A.stackSize <= 0)
