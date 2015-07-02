@@ -132,3 +132,96 @@
 	desc = "Neigh!."
 	icon_state = "deer"
 	npcSpells = list(/datum/ability/heal/lickwounds,/datum/ability/deathbeam/leer)
+
+///
+// SLIMES
+///
+
+/mob/player/npc/animal/slime
+	name = "Slime"
+	desc = "Blib blobs all over you!."
+	icon_state = "slime"
+
+	hasOtherDeath = TRUE
+	isHostile = TRUE
+
+	var/food = 0
+	var/stage = "baby"
+	var/maxFood = 120
+
+	var/feedInterval = 60
+
+	var/myColor = "green"
+	var/myFace = "aslime-:3"
+
+	var/mob/player/fedOn
+
+	var/hasChangedState = FALSE
+
+	npcSpells = list(/datum/ability/assassinate/gore,/datum/ability/toxicthrow/spit)
+
+/mob/player/npc/animal/slime/New()
+	..()
+	spawn(5)
+		icon = 'sprite/mob/slimes.dmi'
+		update_icon()
+
+/mob/player/npc/animal/slime/doProcess()
+	if(food < -(maxFood/2))
+		myFace = "aslime-pout"
+		hasChangedState = TRUE
+	if(food < -(maxFood))
+		myFace = "aslime-sad"
+		hasChangedState = TRUE
+	if(npcState == NPCSTATE_FIGHTING)
+		myFace = "aslime-angry"
+		hasChangedState = TRUE
+	if(target)
+		if(istype(target,/mob/player))
+			fedOn = target
+	if(fedOn)
+		loc = get_turf(fedOn)
+		feedInterval--
+		if(feedInterval <= 0)
+			feedInterval = initial(feedInterval)
+			fedOn.takeDamage(1,DTYPE_DIRECT)
+			food = food + 10 > maxFood ? maxFood : food + 10
+			myFace = "aslime-mischevious"
+			hasChangedState = TRUE
+			if(fedOn.checkEffectStack("dead"))
+				fedOn = null
+	if(food >= maxFood/2 && stage != "adult")
+		stage = "adult"
+		hasChangedState = TRUE
+	else if(food < maxFood/2 && stage != "baby")
+		stage = "baby"
+		hasChangedState = TRUE
+	if(food >= maxFood)
+		myFace = "aslime-:33"
+		hasChangedState = TRUE
+		doSplit(rand(1,4))
+		food = 0
+		isHostile = FALSE
+		target = null
+		fedOn = null
+	if(hasChangedState)
+		hasChangedState = FALSE
+		update_icon()
+	..()
+
+/mob/player/npc/animal/slime/proc/doSplit(var/times)
+	for(var/I = 0; I < times; ++I)
+		var/mob/player/npc/animal/slime/S = new(get_turf(src))
+		S.myColor = myColor
+		food -= round(food/times)
+		S.food = round(food/times)
+
+/mob/player/npc/animal/slime/update_icon()
+	if(checkEffectStack("dead") > 0)
+		icon_state = "[myColor] [stage] slime dead"
+	else if(fedOn)
+		icon_state = "[myColor] [stage] slime eat"
+	else
+		icon_state = "[myColor] [stage] slime"
+	overlays.Cut()
+	overlays += image(icon,icon_state = myFace)

@@ -5,6 +5,8 @@
 
 	var/balanceWorth = 1 // how much this rewards when killed
 
+	var/hasOtherDeath = FALSE // is death icons and stuf fhandled elsewhere?
+
 	//liquid stuff
 	var/inDPSLiquid = FALSE
 	var/liquidVerb = ""
@@ -35,7 +37,7 @@
 		if(canMove)
 			canMove = FALSE
 	if(playerData && playerData.hp.statCurr <= playerData.hp.statMin)
-		if(isMonster)
+		if(isMonster && !hasOtherDeath)
 			icon_state = "[icon_state]_dead"
 		if(balanceWorth > 0)
 			--balanceWorth
