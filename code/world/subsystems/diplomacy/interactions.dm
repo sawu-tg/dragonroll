@@ -11,7 +11,7 @@
 		mobFaction = findFaction("Colonist")
 		heldMoney = rand(100,1000)
 		name = "[mobFaction.name] [initial(name)]"
-		myChat = new/datum/chat/vendomat
+		myChat = new/datum/chatTree/vendomat
 
 /// TRADE AND DIALOG HANDLING
 
