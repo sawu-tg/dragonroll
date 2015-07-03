@@ -46,7 +46,7 @@
 
 /proc/formatspeech(msg)
 	if(!msg)
-		return "says, \"...\"";
+		return " mutters indistinguishably";
 
 	var/ending = copytext(msg, length(msg))
 

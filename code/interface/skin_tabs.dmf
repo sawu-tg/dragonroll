@@ -88,6 +88,10 @@ macro "macro"
 		command = ".south"
 		is-disabled = false
 	elem 
+		name = "T"
+		command = "say"
+		is-disabled = false
+	elem 
 		name = "W+REP"
 		command = ".north"
 		is-disabled = false

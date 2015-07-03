@@ -37,6 +37,8 @@
 
 	var/obj/interface/minimap/MM
 
+	var/icon/emotes
+
 
 /mob/player/garbageCleanup()
 	..()
@@ -96,6 +98,7 @@
 		addToInventory(AB)
 		equipItem(AB)
 
+	emotes = new('sprite/gui/emoticon.dmi')
 	add_pane(/datum/windowpane/stats)
 	add_pane(/datum/windowpane/abilities)
 	add_pane(/datum/windowpane/inventory)
@@ -166,7 +169,11 @@
 	set category = "Actions"
 	var/message_range = 7
 	var/list/listening = get_hear(message_range, usr)
-	popup(msg)//we wanted unformatted speech
+	//popup(msg)//we wanted unformatted speech
+	for(var/A in emotes.IconStates())
+		if(copytext(msg,1,length(A)+1) == A)
+			msg = copytext(msg,length(A)+1,length(msg))
+			popup("\icon[icon(emotes,A)]",COL_FRIENDLY)
 	msg = formatspeech(msg)
 	for (var/mob/M in listening)
 		M.hear(msg, usr)

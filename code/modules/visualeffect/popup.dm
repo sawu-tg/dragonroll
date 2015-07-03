@@ -89,6 +89,9 @@
 	if(fadetime > 0)
 		animate(I, pixel_z = 50, alpha = 0, time = fadetime)
 	spawn(fadetime)
+		I.overlays.Cut()
+		I.underlays.Cut()
+		I.maptext = ""
 		sdel(I)
 
 
