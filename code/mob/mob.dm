@@ -179,8 +179,13 @@
 
 /mob/proc/refreshInterface()
 	if(client)
+		var/plyRef = istype(src,/mob/player)
 		screenObjs -= Cursor
+		if(plyRef)
+			screenObjs -= src:MM
 		client.screen = newlist()
+		if(plyRef)
+			screenObjs |= src:MM
 		Cursor = new/obj/interface(selectedHotKey,1,"select")
 		Cursor.layer = LAYER_INTERFACE+0.1
 		screenObjs |= Cursor

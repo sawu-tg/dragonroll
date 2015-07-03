@@ -21,6 +21,7 @@ var/globalCacheIDs = 0
 		CS.addControl(new /datum/controller/chemicals)
 		CS.addControl(new /datum/controller/sdel)
 		CS.addControl(new /datum/controller/cooldowns)
+		cartography = CS.addControl(new /datum/controller/cartography)
 		diplomacy = CS.addControl(new /datum/controller/diplomacy)
 		balance = CS.addControl(new /datum/controller/balance)
 		CS.process()

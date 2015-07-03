@@ -127,6 +127,7 @@ var/list/globalObjList = list()
 var/datum/controller_master/CS
 var/datum/controller/balance/balance
 var/datum/controller/diplomacy/diplomacy
+var/datum/controller/cartography/cartography
 ///
 // Non-define defines..?
 ///

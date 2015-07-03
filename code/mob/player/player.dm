@@ -35,6 +35,8 @@
 
 	var/beingRezzed = FALSE
 
+	var/obj/interface/minimap/MM
+
 
 /mob/player/garbageCleanup()
 	..()
@@ -104,6 +106,8 @@
 	spawn(20)
 		refreshIcon(playerData.playerRacePrefix)
 		playerList += src
+		if(client)
+			MM = new/obj/interface/minimap(src)
 	..()
 
 /mob/player/Cross(atom/movable/O)
