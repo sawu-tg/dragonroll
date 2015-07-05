@@ -2,89 +2,90 @@
 "ab" = (/turf/wall/lobbyWall,/area)
 "ac" = (/turf/floor/outside/farm,/area)
 "ad" = (/obj/structure/powered/light{tag = "icon-tube0 (NORTH)"; icon_state = "tube0"; dir = 1},/turf/floor/outside/farm,/area)
-"ae" = (/turf/floor/outside/grass,/area)
-"af" = (/obj/structure/powered/light{tag = "icon-tube0 (NORTH)"; icon_state = "tube0"; dir = 1},/turf/floor/outside/shimmering,/area)
-"ag" = (/turf/floor/outside/shimmering,/area)
-"ah" = (/turf/floor/outside/liquid/water,/area)
-"ai" = (/obj/structure/powered/light{dir = 4; icon_state = "tube0"; tag = "icon-tube0 (EAST)"; tubelight = "#FFFFFF"},/turf/floor/outside/shimmering,/area)
+"ae" = (/obj/structure/automaton,/turf/floor/outside/grass,/area)
+"af" = (/turf/floor/outside/grass,/area)
+"ag" = (/obj/structure/powered/light{tag = "icon-tube0 (NORTH)"; icon_state = "tube0"; dir = 1},/turf/floor/outside/shimmering,/area)
+"ah" = (/turf/floor/outside/shimmering,/area)
+"ai" = (/turf/floor/outside/liquid/water,/area)
 "aj" = (/obj/structure/magicbarrel/tools,/turf/floor/outside/shimmering,/area)
 "ak" = (/obj/structure/magicbarrel/food,/turf/floor/outside/shimmering,/area)
 "al" = (/obj/furniture/table/wooden,/obj/structure/grindr,/turf/floor/outside/shimmering,/area)
 "am" = (/obj/structure/cooking,/turf/floor/outside/shimmering,/area)
-"an" = (/obj/structure/magicbarrel/seeds,/turf/floor/outside/grass,/area)
-"ao" = (/obj/structure/powered/light{dir = 8; icon_state = "tube0"; tag = "icon-tube0 (WEST)"; tubelight = "#00FFFF"},/turf/floor/outside/dirt,/area)
-"ap" = (/turf/floor/outside/dirt,/area)
-"aq" = (/turf/floor/lobbyFloor,/area)
-"ar" = (/obj/structure/powered/light{tag = "icon-tube0 (NORTH)"; icon_state = "tube0"; dir = 1},/turf/floor/lobbyFloor,/area)
-"as" = (/obj/structure/magicbarrel/tools,/turf/floor/outside/dirt,/area)
-"at" = (/obj/structure/forge,/turf/floor/outside/dirt,/area)
-"au" = (/obj/structure/magicbarrel/procres,/turf/floor/outside/dirt,/area)
-"av" = (/obj/structure/powered/light{dir = 4; icon_state = "tube0"; tag = "icon-tube0 (EAST)"; tubelight = "#FFFFFF"},/turf/floor/outside/dirt,/area)
-"aw" = (/obj/structure/powered/light{dir = 8; icon_state = "tube0"; tag = "icon-tube0 (WEST)"; tubelight = "#FFFFFF"},/turf/floor/outside/grass,/area)
-"ax" = (/obj/structure/rail{tag = "icon-rail3"; icon_state = "rail3"},/turf/floor/outside/dirt,/area)
-"ay" = (/obj/item/buildable/train/wall,/turf/floor/outside/grass,/area)
-"az" = (/obj/item/buildable/turf/woodenWall,/turf/floor/outside/grass,/area)
-"aA" = (/obj/item/buildable/train/wheel,/turf/floor/outside/grass,/area)
-"aB" = (/obj/item/buildable/train/control,/turf/floor/outside/grass,/area)
-"aC" = (/obj/item/buildable/turf/woodenDoor,/turf/floor/outside/grass,/area)
-"aD" = (/obj/trigger/portal{name = "Lobby A"},/turf/floor/lobbyFloor,/area)
-"aE" = (/obj/furniture/seat/chair/comfy,/turf/floor/lobbyFloor,/area)
-"aF" = (/obj/structure/rail/soulsteel{tag = "icon-rail7"; icon_state = "rail7"},/turf/floor/outside/dirt,/area)
-"aG" = (/obj/structure/rail{tag = "icon-rail12"; icon_state = "rail12"},/turf/floor/outside/dirt,/area)
-"aH" = (/obj/structure/rail/soulsteel,/turf/floor/outside/dirt,/area)
-"aI" = (/obj/structure/rail{tag = "icon-rail14"; icon_state = "rail14"},/turf/floor/outside/dirt,/area)
-"aJ" = (/obj/structure/rail{tag = "icon-rail10"; icon_state = "rail10"},/turf/floor/outside/dirt,/area)
-"aK" = (/obj/structure/powered/light{dir = 8; icon_state = "tube0"; tag = "icon-tube0 (WEST)"; tubelight = "#00FFFF"},/turf/floor/lobbyFloor{tag = "icon-carpet7-3"; icon_state = "carpet7-3"},/area)
-"aL" = (/turf/floor/lobbyFloor{tag = "icon-carpet11-12"; icon_state = "carpet11-12"},/area)
-"aM" = (/obj/structure/realmguardian,/turf/floor/lobbyFloor,/area)
-"aN" = (/obj/furniture/table/wooden,/obj/item/weapon/tool/hammer,/turf/floor/lobbyFloor,/area)
-"aO" = (/obj/structure/magicbarrel/food,/turf/floor/lobbyFloor,/area)
-"aP" = (/turf/floor/lobbyFloor{tag = "icon-carpet7-3"; icon_state = "carpet7-3"},/area)
-"aQ" = (/obj/furniture/seat/chair/comfy{tag = "icon-comfychair_black (NORTH)"; icon_state = "comfychair_black"; dir = 1},/turf/floor/lobbyFloor,/area)
-"aR" = (/mob/vendomat,/turf/floor/lobbyFloor,/area)
-"aS" = (/obj/structure/rail{tag = "icon-rail7"; icon_state = "rail7"},/turf/floor/outside/dirt,/area)
-"aT" = (/obj/structure/rail,/turf/floor/outside/dirt,/area)
-"aU" = (/obj/structure/rail{tag = "icon-rail11"; icon_state = "rail11"},/turf/floor/outside/dirt,/area)
-"aV" = (/obj/structure/powered/light{dir = 4; icon_state = "tube0"; tag = "icon-tube0 (EAST)"; tubelight = "#FFFFFF"},/turf/floor/outside/grass,/area)
-"aW" = (/turf/floor/lobbyFloor{tag = "icon-carpet15-14"; icon_state = "carpet15-14"},/area)
-"aX" = (/turf/floor/lobbyFloor{tag = "icon-carpet14-10"; icon_state = "carpet14-10"},/area)
-"aY" = (/obj/structure/powered/light{tag = "icon-tube0 (NORTH)"; icon_state = "tube0"; dir = 1},/turf/floor/lobbyFloor{tag = "icon-carpet14-10"; icon_state = "carpet14-10"},/area)
-"aZ" = (/turf/floor/lobbyFloor{tag = "icon-carpet10-8"; icon_state = "carpet10-8"},/area)
-"ba" = (/obj/structure/lightswitch,/turf/floor/outside/grass,/area)
-"bb" = (/turf/floor/lobbyFloor{tag = "icon-carpet5-1"; icon_state = "carpet5-1"},/area)
-"bc" = (/turf/floor/lobbyFloor{tag = "icon-carpetside"; icon_state = "carpetside"},/area)
-"bd" = (/turf/floor/lobbyFloor{tag = "icon-carpet15-5"; icon_state = "carpet15-5"},/area)
-"be" = (/obj/structure/powered/light{tag = "icon-tube0"; icon_state = "tube0"; dir = 2; tubelight = "#FFFFFF"},/turf/floor/lobbyFloor{tag = "icon-carpetside"; icon_state = "carpetside"},/area)
-"bf" = (/obj/structure/powered/light{dir = 4; icon_state = "tube0"; tag = "icon-tube0 (EAST)"; tubelight = "#FFFFFF"},/turf/floor/lobbyFloor{tag = "icon-carpet9-4"; icon_state = "carpet9-4"},/area)
-"bg" = (/obj/structure/rail/soulsteel{tag = "icon-rail11"; icon_state = "rail11"},/turf/floor/outside/dirt,/area)
-"bh" = (/obj/item/logicgate/not,/turf/floor/outside/grass,/area)
-"bi" = (/obj/structure/door,/turf/floor/lobbyFloor{tag = "icon-carpet3-0"; icon_state = "carpet3-0"},/area)
-"bj" = (/obj/structure/lightswitch,/obj/structure/powered/light{dir = 4; icon_state = "tube0"; tag = "icon-tube0 (EAST)"; tubelight = "#FFFFFF"},/turf/floor/outside/grass,/area)
-"bk" = (/obj/structure/powered/light{dir = 8; icon_state = "tube0"; tag = "icon-tube0 (WEST)"; tubelight = "#00FFFF"},/turf/floor/lobbyFloor{tag = "icon-carpet6-2"; icon_state = "carpet6-2"},/area)
-"bl" = (/turf/floor/lobbyFloor{tag = "icon-carpet15-10"; icon_state = "carpet15-10"},/area)
-"bm" = (/obj/structure/magicbarrel/food,/turf/floor/lobbyFloor{tag = "icon-carpet10-8"; icon_state = "carpet10-8"},/area)
-"bn" = (/turf/floor/lobbyFloor{tag = "icon-carpet6-2"; icon_state = "carpet6-2"},/area)
-"bo" = (/turf/floor/lobbyFloor{tag = "icon-carpetnoconnect"; icon_state = "carpetnoconnect"},/area)
-"bp" = (/obj/furniture/seat/chair/comfy,/turf/floor/lobbyFloor{tag = "icon-carpetnoconnect"; icon_state = "carpetnoconnect"},/area)
-"bq" = (/obj/structure/tank/petrol,/turf/floor/outside/grass,/area)
-"br" = (/obj/structure/rail{tag = "icon-rail7"; icon_state = "rail7"},/obj/train/wheel,/turf/floor/outside/dirt,/area)
-"bs" = (/obj/structure/rail{tag = "icon-rail12"; icon_state = "rail12"},/obj/train/floor,/obj/train/train_control,/turf/floor/outside/dirt,/area)
-"bt" = (/obj/structure/rail,/obj/train/wheel,/turf/floor/outside/dirt,/area)
-"bu" = (/obj/furniture/seat/chair/comfy/beige{tag = "icon-comfychair_beige (EAST)"; icon_state = "comfychair_beige"; dir = 4},/turf/floor/lobbyFloor{tag = "icon-carpetnoconnect"; icon_state = "carpetnoconnect"},/area)
-"bv" = (/obj/furniture/table/wooden,/turf/floor/lobbyFloor{tag = "icon-carpetnoconnect"; icon_state = "carpetnoconnect"},/area)
-"bw" = (/obj/furniture/seat/chair/comfy/teal{tag = "icon-comfychair_teal (WEST)"; icon_state = "comfychair_teal"; dir = 8},/turf/floor/lobbyFloor{tag = "icon-carpetnoconnect"; icon_state = "carpetnoconnect"},/area)
-"bx" = (/obj/structure/door,/turf/floor/lobbyFloor,/area)
-"by" = (/obj/structure/rail{tag = "icon-rail3"; icon_state = "rail3"},/obj/train/floor,/obj/item/logicgate/constant,/turf/floor/outside/dirt,/area)
-"bz" = (/obj/train/floor,/obj/item/powerdevice/wiretool,/turf/floor/outside/dirt,/area)
-"bA" = (/obj/structure/rail{tag = "icon-rail3"; icon_state = "rail3"},/obj/train/floor,/obj/structure/lightswitch,/turf/floor/outside/dirt,/area)
-"bB" = (/obj/furniture/seat/chair/comfy/lime{tag = "icon-comfychair_lime (NORTH)"; icon_state = "comfychair_lime"; dir = 1},/turf/floor/lobbyFloor{tag = "icon-carpetnoconnect"; icon_state = "carpetnoconnect"},/area)
-"bC" = (/obj/structure/rail{tag = "icon-rail5"; icon_state = "rail5"},/obj/train/wheel,/turf/floor/outside/dirt,/area)
-"bD" = (/obj/structure/rail{tag = "icon-rail12"; icon_state = "rail12"},/obj/train/floor,/turf/floor/outside/dirt,/area)
-"bE" = (/obj/structure/rail{tag = "icon-rail13"; icon_state = "rail13"},/obj/train/wheel,/turf/floor/outside/dirt,/area)
-"bF" = (/obj/structure/rail{tag = "icon-rail13"; icon_state = "rail13"},/turf/floor/outside/dirt,/area)
-"bG" = (/obj/furniture/underlay/bed/bedframe,/obj/furniture/underlay/bed,/obj/item/furniture/overlay/bed/blanket,/obj/item/furniture/underlay/bed/pillow,/turf/floor/lobbyFloor{tag = "icon-carpet5-1"; icon_state = "carpet5-1"},/area)
-"bH" = (/obj/furniture/underlay/bed/bedframe,/obj/furniture/underlay/bed,/obj/item/furniture/overlay/bed/blanket,/obj/item/furniture/underlay/bed/pillow,/turf/floor/lobbyFloor{tag = "icon-carpetside"; icon_state = "carpetside"},/area)
-"bI" = (/turf/floor/lobbyFloor{tag = "icon-carpet9-4"; icon_state = "carpet9-4"},/area)
+"an" = (/obj/structure/powered/light{dir = 4; icon_state = "tube0"; tag = "icon-tube0 (EAST)"; tubelight = "#FFFFFF"},/turf/floor/outside/shimmering,/area)
+"ao" = (/obj/structure/magicbarrel/seeds,/turf/floor/outside/grass,/area)
+"ap" = (/obj/structure/powered/light{dir = 8; icon_state = "tube0"; tag = "icon-tube0 (WEST)"; tubelight = "#00FFFF"},/turf/floor/outside/dirt,/area)
+"aq" = (/turf/floor/outside/dirt,/area)
+"ar" = (/turf/floor/lobbyFloor,/area)
+"as" = (/obj/structure/powered/light{tag = "icon-tube0 (NORTH)"; icon_state = "tube0"; dir = 1},/turf/floor/lobbyFloor,/area)
+"at" = (/obj/structure/magicbarrel/tools,/turf/floor/outside/dirt,/area)
+"au" = (/obj/structure/forge,/turf/floor/outside/dirt,/area)
+"av" = (/obj/structure/magicbarrel/procres,/turf/floor/outside/dirt,/area)
+"aw" = (/obj/structure/powered/light{dir = 4; icon_state = "tube0"; tag = "icon-tube0 (EAST)"; tubelight = "#FFFFFF"},/turf/floor/outside/dirt,/area)
+"ax" = (/obj/structure/powered/light{dir = 8; icon_state = "tube0"; tag = "icon-tube0 (WEST)"; tubelight = "#FFFFFF"},/turf/floor/outside/grass,/area)
+"ay" = (/obj/structure/rail{tag = "icon-rail3"; icon_state = "rail3"},/turf/floor/outside/dirt,/area)
+"az" = (/obj/item/buildable/train/wall,/turf/floor/outside/grass,/area)
+"aA" = (/obj/item/buildable/turf/woodenWall,/turf/floor/outside/grass,/area)
+"aB" = (/obj/item/buildable/train/wheel,/turf/floor/outside/grass,/area)
+"aC" = (/obj/item/buildable/train/control,/turf/floor/outside/grass,/area)
+"aD" = (/obj/item/buildable/turf/woodenDoor,/turf/floor/outside/grass,/area)
+"aE" = (/obj/trigger/portal{name = "Lobby A"},/turf/floor/lobbyFloor,/area)
+"aF" = (/obj/furniture/seat/chair/comfy,/turf/floor/lobbyFloor,/area)
+"aG" = (/obj/structure/rail/soulsteel{tag = "icon-rail7"; icon_state = "rail7"},/turf/floor/outside/dirt,/area)
+"aH" = (/obj/structure/rail{tag = "icon-rail12"; icon_state = "rail12"},/turf/floor/outside/dirt,/area)
+"aI" = (/obj/structure/rail/soulsteel,/turf/floor/outside/dirt,/area)
+"aJ" = (/obj/structure/rail{tag = "icon-rail14"; icon_state = "rail14"},/turf/floor/outside/dirt,/area)
+"aK" = (/obj/structure/rail{tag = "icon-rail10"; icon_state = "rail10"},/turf/floor/outside/dirt,/area)
+"aL" = (/obj/structure/powered/light{dir = 8; icon_state = "tube0"; tag = "icon-tube0 (WEST)"; tubelight = "#00FFFF"},/turf/floor/lobbyFloor{tag = "icon-carpet7-3"; icon_state = "carpet7-3"},/area)
+"aM" = (/turf/floor/lobbyFloor{tag = "icon-carpet11-12"; icon_state = "carpet11-12"},/area)
+"aN" = (/obj/structure/realmguardian,/turf/floor/lobbyFloor,/area)
+"aO" = (/obj/furniture/table/wooden,/obj/item/weapon/tool/hammer,/turf/floor/lobbyFloor,/area)
+"aP" = (/obj/structure/magicbarrel/food,/turf/floor/lobbyFloor,/area)
+"aQ" = (/turf/floor/lobbyFloor{tag = "icon-carpet7-3"; icon_state = "carpet7-3"},/area)
+"aR" = (/obj/furniture/seat/chair/comfy{tag = "icon-comfychair_black (NORTH)"; icon_state = "comfychair_black"; dir = 1},/turf/floor/lobbyFloor,/area)
+"aS" = (/mob/vendomat,/turf/floor/lobbyFloor,/area)
+"aT" = (/obj/structure/rail{tag = "icon-rail7"; icon_state = "rail7"},/turf/floor/outside/dirt,/area)
+"aU" = (/obj/structure/rail,/turf/floor/outside/dirt,/area)
+"aV" = (/obj/structure/rail{tag = "icon-rail11"; icon_state = "rail11"},/turf/floor/outside/dirt,/area)
+"aW" = (/obj/structure/powered/light{dir = 4; icon_state = "tube0"; tag = "icon-tube0 (EAST)"; tubelight = "#FFFFFF"},/turf/floor/outside/grass,/area)
+"aX" = (/turf/floor/lobbyFloor{tag = "icon-carpet15-14"; icon_state = "carpet15-14"},/area)
+"aY" = (/turf/floor/lobbyFloor{tag = "icon-carpet14-10"; icon_state = "carpet14-10"},/area)
+"aZ" = (/obj/structure/powered/light{tag = "icon-tube0 (NORTH)"; icon_state = "tube0"; dir = 1},/turf/floor/lobbyFloor{tag = "icon-carpet14-10"; icon_state = "carpet14-10"},/area)
+"ba" = (/turf/floor/lobbyFloor{tag = "icon-carpet10-8"; icon_state = "carpet10-8"},/area)
+"bb" = (/obj/structure/lightswitch,/turf/floor/outside/grass,/area)
+"bc" = (/turf/floor/lobbyFloor{tag = "icon-carpet5-1"; icon_state = "carpet5-1"},/area)
+"bd" = (/turf/floor/lobbyFloor{tag = "icon-carpetside"; icon_state = "carpetside"},/area)
+"be" = (/turf/floor/lobbyFloor{tag = "icon-carpet15-5"; icon_state = "carpet15-5"},/area)
+"bf" = (/obj/structure/powered/light{tag = "icon-tube0"; icon_state = "tube0"; dir = 2; tubelight = "#FFFFFF"},/turf/floor/lobbyFloor{tag = "icon-carpetside"; icon_state = "carpetside"},/area)
+"bg" = (/obj/structure/powered/light{dir = 4; icon_state = "tube0"; tag = "icon-tube0 (EAST)"; tubelight = "#FFFFFF"},/turf/floor/lobbyFloor{tag = "icon-carpet9-4"; icon_state = "carpet9-4"},/area)
+"bh" = (/obj/structure/rail/soulsteel{tag = "icon-rail11"; icon_state = "rail11"},/turf/floor/outside/dirt,/area)
+"bi" = (/obj/item/logicgate/not,/turf/floor/outside/grass,/area)
+"bj" = (/obj/structure/door,/turf/floor/lobbyFloor{tag = "icon-carpet3-0"; icon_state = "carpet3-0"},/area)
+"bk" = (/obj/structure/lightswitch,/obj/structure/powered/light{dir = 4; icon_state = "tube0"; tag = "icon-tube0 (EAST)"; tubelight = "#FFFFFF"},/turf/floor/outside/grass,/area)
+"bl" = (/obj/structure/powered/light{dir = 8; icon_state = "tube0"; tag = "icon-tube0 (WEST)"; tubelight = "#00FFFF"},/turf/floor/lobbyFloor{tag = "icon-carpet6-2"; icon_state = "carpet6-2"},/area)
+"bm" = (/turf/floor/lobbyFloor{tag = "icon-carpet15-10"; icon_state = "carpet15-10"},/area)
+"bn" = (/obj/structure/magicbarrel/food,/turf/floor/lobbyFloor{tag = "icon-carpet10-8"; icon_state = "carpet10-8"},/area)
+"bo" = (/turf/floor/lobbyFloor{tag = "icon-carpet6-2"; icon_state = "carpet6-2"},/area)
+"bp" = (/turf/floor/lobbyFloor{tag = "icon-carpetnoconnect"; icon_state = "carpetnoconnect"},/area)
+"bq" = (/obj/furniture/seat/chair/comfy,/turf/floor/lobbyFloor{tag = "icon-carpetnoconnect"; icon_state = "carpetnoconnect"},/area)
+"br" = (/obj/structure/tank/petrol,/turf/floor/outside/grass,/area)
+"bs" = (/obj/structure/rail{tag = "icon-rail7"; icon_state = "rail7"},/obj/train/wheel,/turf/floor/outside/dirt,/area)
+"bt" = (/obj/structure/rail{tag = "icon-rail12"; icon_state = "rail12"},/obj/train/floor,/obj/train/train_control,/turf/floor/outside/dirt,/area)
+"bu" = (/obj/structure/rail,/obj/train/wheel,/turf/floor/outside/dirt,/area)
+"bv" = (/obj/furniture/seat/chair/comfy/beige{tag = "icon-comfychair_beige (EAST)"; icon_state = "comfychair_beige"; dir = 4},/turf/floor/lobbyFloor{tag = "icon-carpetnoconnect"; icon_state = "carpetnoconnect"},/area)
+"bw" = (/obj/furniture/table/wooden,/turf/floor/lobbyFloor{tag = "icon-carpetnoconnect"; icon_state = "carpetnoconnect"},/area)
+"bx" = (/obj/furniture/seat/chair/comfy/teal{tag = "icon-comfychair_teal (WEST)"; icon_state = "comfychair_teal"; dir = 8},/turf/floor/lobbyFloor{tag = "icon-carpetnoconnect"; icon_state = "carpetnoconnect"},/area)
+"by" = (/obj/structure/door,/turf/floor/lobbyFloor,/area)
+"bz" = (/obj/structure/rail{tag = "icon-rail3"; icon_state = "rail3"},/obj/train/floor,/obj/item/logicgate/constant,/turf/floor/outside/dirt,/area)
+"bA" = (/obj/train/floor,/obj/item/powerdevice/wiretool,/turf/floor/outside/dirt,/area)
+"bB" = (/obj/structure/rail{tag = "icon-rail3"; icon_state = "rail3"},/obj/train/floor,/obj/structure/lightswitch,/turf/floor/outside/dirt,/area)
+"bC" = (/obj/furniture/seat/chair/comfy/lime{tag = "icon-comfychair_lime (NORTH)"; icon_state = "comfychair_lime"; dir = 1},/turf/floor/lobbyFloor{tag = "icon-carpetnoconnect"; icon_state = "carpetnoconnect"},/area)
+"bD" = (/obj/structure/rail{tag = "icon-rail5"; icon_state = "rail5"},/obj/train/wheel,/turf/floor/outside/dirt,/area)
+"bE" = (/obj/structure/rail{tag = "icon-rail12"; icon_state = "rail12"},/obj/train/floor,/turf/floor/outside/dirt,/area)
+"bF" = (/obj/structure/rail{tag = "icon-rail13"; icon_state = "rail13"},/obj/train/wheel,/turf/floor/outside/dirt,/area)
+"bG" = (/obj/structure/rail{tag = "icon-rail13"; icon_state = "rail13"},/turf/floor/outside/dirt,/area)
+"bH" = (/obj/furniture/underlay/bed/bedframe,/obj/furniture/underlay/bed,/obj/item/furniture/overlay/bed/blanket,/obj/item/furniture/underlay/bed/pillow,/turf/floor/lobbyFloor{tag = "icon-carpet5-1"; icon_state = "carpet5-1"},/area)
+"bI" = (/obj/furniture/underlay/bed/bedframe,/obj/furniture/underlay/bed,/obj/item/furniture/overlay/bed/blanket,/obj/item/furniture/underlay/bed/pillow,/turf/floor/lobbyFloor{tag = "icon-carpetside"; icon_state = "carpetside"},/area)
+"bJ" = (/turf/floor/lobbyFloor{tag = "icon-carpet9-4"; icon_state = "carpet9-4"},/area)
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -189,31 +190,31 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 ababababababababababababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-abacadacacacacadacacacacacadacaeaeafagagagagagafagagagagagabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-abahacahacahacahacahacahacahacaeaeagagagagagagagagagagagagabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-abacacacacacacacacacacacacacacaeaeagagagagagagagagagagagaiabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-abahacahacahacahacahacahacahacaeaeagagagagajakagagagagagagabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-abacacacacacacacacacacacacacacaeaeagagagagalamagagagagagagabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-abahacahacahacahacahacahacahacaeaeagagagagagagagagagagagagabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-abacacacacacacacacacacacacacacaeaeagagagagagagagagagagagaiabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-abahacahacahacahacahacahacahacaeaeagagagagagagagagagagagagabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-abacacacacacacacacacacacacacacanaeagagagagagagagagagagagagabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-abababababababababababababababababaoapapapapapapapapapapapabababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-abaqaqabaqaraqaqaqaraqaqaqabasatauapapapapapapapapapapapavabawaeaxapaxayayayayayazaAaAaBaCabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-abaDaqabaqaEaqaEaqaEaqaEaqabapapapapapapapapapapapapapapapabaeaeaFaGaHaGaGaGaGaGaGaIaGaJaeabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-abaKaLaMaqaNaOaNaOaNaOaNaqabaoapapapapapapapapapapapapapapabaeaeaxapaxapapapapapapaxapaxaeabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-abaPaLaqaqaQaqaQaRaQaqaQaqabapapapapapapapapapapapapapapapabaeaeaSaGaTaGaGaGaGaGaGaTaGaUaeabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-abaPaLaqaqaqaqaqaqaqaqaqaqabapapapapapapapapapapapapapapavabaeaeaxapaxapapapapapapaxapaxaVabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-abaPaLaqaqaqaqaqaqaqaqaqaqabaoapapapapapapapapapapapapapapabawaeaxapaxapapapapapapaxapaxaeabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-abaKaLaqaqaqaqaqaqaqaqaqaqabapapapapapapapapapapapapapapapabaeaeaSaGaTaGaGaGaGaGaGaTaGaUaeabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-abaPaWaXaXaXaXaXaXaXaXaXaXaYaXaXaXaXaXaXaXaXaXaXaXaXaXaXaZabaeaeaxapaxapapapapapapaxapaxbaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-abbbbcbcbdbcbcbebcbcbdbcbcbcbebcbcbdbcbcbcbcbebcbcbdbcbcbfabaeaeaSaGaTaGaGaGaGaGaGaTaGbgbhabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-ababababbiabababababbiababababababbiabababababababbiababababawaeaxapaxapapapapapapaxapaxbjabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-abbkaXaXblaXbmabbnaXblaXaXbmabbnaXblaXaXaXbmabbnaXblaXaXbmabaeaeaxapaxapapapapapapaxapaxaeabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-abaPbobpboboaLabaPbobpboboaLabaPbobpboboboaLabaPbobpboboaLabbqaebrbsbtaGaGaGaGaGaGaTaGaTaGabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-abaPbubvbwboaLabaPbubvbwboaLabaPbubvbwboboaLabaPbubvbwboaLbxaeaebybzbAapapapapapapaxapaxapabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-abaPbobBboboaLabaPbobBboboaLabaPbobBboboboaLabaPbobBboboaLbxaeaebCbDbEaGaGaGaGaGaGbFaGbFaGabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-abbGbHbHbebcbIabbGbHbHbcbebIabbGbHbHbcbcbebIabbGbHbHbcbebfabawaeaeaeaeaeaeaeaeaeaeaeaeaeaeabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+abacadacacacacadacacacacacadacaeafagahahahahahagahahahahahabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+abaiacaiacaiacaiacaiacaiacaiacafafahahahahahahahahahahahahabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+abacacacacacacacacacacacacacacaeafahahahahahahahahahahahahabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+abaiacaiacaiacaiacaiacaiacaiacafafahahahahajakahahahahahahabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+abacacacacacacacacacacacacacacaeafahahahahalamahahahahahanabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+abaiacaiacaiacaiacaiacaiacaiacafafahahahahahahahahahahahahabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+abacacacacacacacacacacacacacacaeafahahahahahahahahahahahahabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+abaiacaiacaiacaiacaiacaiacaiacafafahahahahahahahahahahahahabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+abacacacacacacacacacacacacacacaoafahahahahahahahahahahahahabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+abababababababababababababababababapaqaqaqaqaqaqaqaqaqaqaqabababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+abararabarasarararasarararabatauavaqaqaqaqaqaqaqaqaqaqaqawabaxafayaqayazazazazazaAaBaBaCaDabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+abaEarabaraFaraFaraFaraFarabaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqabafafaGaHaIaHaHaHaHaHaHaJaHaKafabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+abaLaMaNaraOaPaOaPaOaPaOarabapaqaqaqaqaqaqaqaqaqaqaqaqaqaqabafafayaqayaqaqaqaqaqaqayaqayafabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+abaQaMararaRaraRaSaRaraRarabaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqabafafaTaHaUaHaHaHaHaHaHaUaHaVafabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+abaQaMararararararararararabaqaqaqaqaqaqaqaqaqaqaqaqaqaqawabafafayaqayaqaqaqaqaqaqayaqayaWabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+abaQaMararararararararararabapaqaqaqaqaqaqaqaqaqaqaqaqaqaqabaxafayaqayaqaqaqaqaqaqayaqayafabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+abaLaMararararararararararabaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqabafafaTaHaUaHaHaHaHaHaHaUaHaVafabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+abaQaXaYaYaYaYaYaYaYaYaYaYaZaYaYaYaYaYaYaYaYaYaYaYaYaYaYbaabafafayaqayaqaqaqaqaqaqayaqaybbabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+abbcbdbdbebdbdbfbdbdbebdbdbdbfbdbdbebdbdbdbdbfbdbdbebdbdbgabafafaTaHaUaHaHaHaHaHaHaUaHbhbiabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+ababababbjabababababbjababababababbjabababababababbjababababaxafayaqayaqaqaqaqaqaqayaqaybkabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+abblaYaYbmaYbnabboaYbmaYaYbnabboaYbmaYaYaYbnabboaYbmaYaYbnabafafayaqayaqaqaqaqaqaqayaqayafabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+abaQbpbqbpbpaMabaQbpbqbpbpaMabaQbpbqbpbpbpaMabaQbpbqbpbpaMabbrafbsbtbuaHaHaHaHaHaHaUaHaUaHabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+abaQbvbwbxbpaMabaQbvbwbxbpaMabaQbvbwbxbpbpaMabaQbvbwbxbpaMbyafafbzbAbBaqaqaqaqaqaqayaqayaqabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+abaQbpbCbpbpaMabaQbpbCbpbpaMabaQbpbCbpbpbpaMabaQbpbCbpbpaMbyafafbDbEbFaHaHaHaHaHaHbGaHbGaHabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+abbHbIbIbfbdbJabbHbIbIbdbfbJabbHbIbIbdbdbfbJabbHbIbIbdbfbgabaxafafafafafafafafafafafafafafabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 ababababababababababababababababababababababababababababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 "}
 
@@ -314,38 +315,38 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-ahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 "}
 
 (1,1,3) = {"

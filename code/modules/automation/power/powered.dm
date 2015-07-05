@@ -5,10 +5,11 @@
 	icon_state = "potato_cell"
 	var/powerHeld = 0 // power currently in the object
 	var/powerTransfer = FALSE // should the object share it's power with connected sources
-	var/powerNeeded = 100 // power consumed per call
-	var/powerMax = 100000 // max power held
+	var/powerNeeded = 10 // power consumed per call
+	var/powerMax = 255 // max power held
 	var/powerShare = 0 // power shared per call
-	var/halfLife = 1
+	var/powerMin = 100 // how much power must be charged before we start
+	var/halfLife = 10
 	var/timeSinceLastPower = 0
 	var/powerOn = TRUE // is the obj powered on and consuming electricity
 	var/powerConsuming = TRUE // consumes power
@@ -17,20 +18,18 @@
 /obj/structure/powered/New()
 	spawn(5)
 		globalMachines |= src
+		powerOn = TRUE
 		update()
 
 //consumes energy, used in normal process
 /obj/structure/powered/proc/consumePower(var/amount)
-	if(powerOn)
-		powerHeld = max(0,powerHeld - amount)
+	powerHeld = max(0,powerHeld - amount)
 
 //shares power with the given obj
 /obj/structure/powered/proc/sharePower(var/amount,var/obj/structure/powered/where)
-	if(powerOn)
-		if(powerHeld - amount > 0)
-			powerHeld -= amount
-			where.powerHeld = min(powerMax,powerHeld + amount)
-			where.timeSinceLastPower = 0
+	if(powerHeld - amount >= 0)
+		consumePower(amount)
+		where.addPower(amount)
 
 //adds power to the obj
 /obj/structure/powered/proc/addPower(var/amount)
@@ -49,30 +48,38 @@
 	return
 
 /obj/structure/powered/proc/process()
-	if(powerOn)
-		timeSinceLastPower++
-		if(powerConsuming)
-			if(timeSinceLastPower >= halfLife)
-				consumePower(powerNeeded)
-			if(powerHeld <= 0)
-				powerOn = FALSE
-
-		if(powerTransfer)
-			for(var/obj/structure/powered/P in connectedWire)
-				sharePower(powerShare,P)
+	timeSinceLastPower++
+	if(powerConsuming)
+		if(timeSinceLastPower >= halfLife)
+			if(powerHeld > powerMin)
+				if(powerNeeded > 0)
+					consumePower(powerNeeded)
+			else
+				if(prob(25))
+					popup("\icon[icon('sprite/gui/emoticon.dmi',"nopower")]",COL_FRIENDLY)
+		//if(powerHeld <= 0 && powerNeeded > 0)
+		//	powerOn = FALSE
+	if(powerTransfer)
+		for(var/obj/structure/powered/P in connectedWire)
+			if(powerHeld > powerMin)
+				if(P.powerHeld < powerMin)
+					sharePower(powerShare,P)
 
 //shows output on the powered item's vars
 /obj/structure/powered/verb/debugPower()
 	set name = "Debug Power Inf."
 	set category = "Debug Verbs"
 	set src in view(1)
-	world << "Held: [powerHeld]"
-	world << "Transferring: [powerTransfer]"
-	world << "Needed: [powerNeeded]"
-	world << "Max: [powerMax]"
-	world << "Shared: [powerShare]"
-	world << "Consuming: [powerConsuming]"
-	world << "On: [powerOn]"
+	world << "<b>---------------------------</b>"
+	world << "<b>Held</b>: [powerHeld]"
+	world << "<b>Transferring</b>: [powerTransfer]"
+	world << "<b>Min</b>: [powerMin]"
+	world << "<b>Needed</b>: [powerNeeded]"
+	world << "<b>Max</b>: [powerMax]"
+	world << "<b>Shared</b>: [powerShare]"
+	world << "<b>Consuming</b>: [powerConsuming]"
+	world << "<b>On</b>: [powerOn]"
+	world << "<b>---------------------------</b>"
 
 //basic power structures
 /obj/structure/powered/smes

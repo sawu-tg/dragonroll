@@ -14,6 +14,7 @@ Crafting
 	* Expand cooking/baking etc, make very deep.
 	* Add "Discovery" system, a-la Starbound
 	* Add more ways to make things
+	* Add magical machines to do things for you
 	
 NPCs
 	* Add building/crafting

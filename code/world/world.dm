@@ -39,7 +39,7 @@ var/globalCacheIDs = 0
 			generate(i)
 		spawn(10)
 			messageSystemAll("FINISHED!")
-		spawn(1) processObjects()
+		//spawn(1) processObjects()
 		spawn(1) processRegions()
 		spawn(1) processLiquids()
 		spawn(30)
@@ -48,7 +48,7 @@ var/globalCacheIDs = 0
 
 /proc/addProcessingObject(var/atom/movable/a)
 	a.preProc()
-	procObjects += a
+	procObjects |= a
 
 /proc/remProcessingObject(var/atom/movable/r)
 	r.postProc()
@@ -75,12 +75,12 @@ var/globalCacheIDs = 0
 		sleep(1)
 
 
-/proc/processObjects()
+/*/proc/processObjects()
 	while(1)
 		if(procObjects.len)
 			for(var/atom/i in procObjects)
 				i.doProcess()
-		sleep(1)
+		sleep(1)*/
 
 /proc/generateName(var/forWhat)
 	if(forWhat == 0)

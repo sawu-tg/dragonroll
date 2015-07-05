@@ -24,7 +24,6 @@
 /turf/floor/outside/farm/New()
 	..()
 	updateArea()
-	addProcessingObject(src)
 
 /turf/floor/outside/farm/verb/DebugTurf()
 	set src in view()
@@ -35,21 +34,25 @@
 	world << "Icon State: [FG.icon_state]"
 	world << "Growth Stages: [FG.growthStages]"
 	world << "Last Growth: [FG.lastGrowthTime]"
+	world << "Current Time: [world.time]"
+	world << "Time To Growth: [world.time - FG.lastGrowthTime]"
 	world << "Current Stage: [FG.curGrowthStage]"
 	world << "Time Per Stage: [FG.timePerStage]"
+	world << "Processing?: [src in procObjects]"
 	world << "Grows: "
 	for(var/a in FG.grownItems)
 		world << "[a]"
 
 /turf/floor/outside/farm/proc/updateOverlay()
 	icon_state = "farmed[water > 0 ? "_fed" : ""]"
+	overlays.Cut()
 	if(!FG)
 		return
-	overlays.Cut()
-	var/icon/I = icon(FG.icon,icon_state="[FG.icon_state][FG.curGrowthStage < FG.curGrowthStage ? "-grow[FG.growthStages]" : "-harvest"]")
+	var/icon/I = icon(FG.icon,icon_state="[FG.icon_state][FG.curGrowthStage <= FG.growthStages ? "-grow[FG.curGrowthStage]" : "-harvest"]")
 	overlays += I
 
 /turf/floor/outside/farm/proc/updateArea()
+	water = 0
 	for(var/turf/A in range(src,1))
 		if(istype(A,/turf/floor/outside/liquid/water))
 			water += A:depth/2
@@ -58,22 +61,24 @@
 	for(var/a in FG.grownItems)
 		for(var/b = 0; b < FG.grownItems[a]; b++)
 			new a(src)
-	FG = null
+	if(FG.dropsProduce)
+		remProcessingObject(src)
+		FG = null
+	else
+		FG.curGrowthStage = 0
+		FG.lastGrowthTime = 0
+	updateOverlay()
+	updateArea()
 
 /turf/floor/outside/farm/doProcess()
-	..()
 	if(!FG)
 		return
-
 	if(world.time > FG.lastGrowthTime)
-		updateOverlay()
 		if(FG.curGrowthStage <= FG.growthStages)
 			FG.curGrowthStage++
-			FG.lastGrowthTime = world.time + (FG.timePerStage - (water/4))
+			FG.lastGrowthTime = world.time + (FG.timePerStage - ((water/4)*(nutrients/10)))
 			updateArea()
-		else
-			if(FG.dropsProduce)
-				doHarvest()
+		updateOverlay()
 
 /turf/floor/outside/farm/objFunction(var/mob/user, var/obj/item/with)
 	..()
@@ -83,6 +88,14 @@
 	else
 		if(istype(with,/obj/item/seedpack))
 			FG = with:held_seed
+			addProcessingObject(src)
+			spawn(1)
+				messageInfo("You plant the [FG.name].",user,src)
+				user.DropItem()
+				sdel(with)
+		if(istype(with,/obj/item/food))
+			nutrients += with:foodLevel
+			messageInfo("You fertilize the soil with the [with.name].",user,src)
 			spawn(1)
 				user.DropItem()
 				sdel(with)

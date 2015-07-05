@@ -27,8 +27,17 @@
 	var/turf/lastPos
 	var/list/nearbyPlayers = list()
 
-	var/list/firstName = list("Steve","John","Reggie","Oswald","Daniel","Delilah","Rudy","Christine","Chad","Roma","Jessy","Mike","Gabe")
-	var/list/secondName  = list("Smith","Rivers","Bombastic","Donalds","Stevens","Black","McRand","Compton","Chadswick","Hunt","Horn")
+	var/list/firstName = list("Steve","John","Reggie","Oswald",
+	"Daniel","Delilah","Rudy","Christine",
+	"Chad","Roma","Jessy","Mike",
+	"Gabe","Robert","James","Dandy",
+	"Callam","Dillon","Benjamin","George",
+	"Randy","Kendal","Kyle","Keith")
+	var/list/secondName  = list("Smith","Rivers","Bombastic","Donalds",
+	"Stevens","Black","McRand","Compton",
+	"Chadswick","Hunt","Horn","Wright",
+	"White","Mars","Nahasapeemapetilon",
+	"Bush","Clinton","Abbot","Duff")
 
 /mob/player/npc/New()
 	if(isMonster)
