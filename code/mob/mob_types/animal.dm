@@ -125,6 +125,10 @@
 /mob/player/npc/animal/cat/New()
 	icon_state = pick("cat","cat2")
 	..()
+	spawn(15)
+		if(prob(0.1))
+			name = "Miauw"
+
 
 /mob/player/npc/animal/bat
 	name = "Bat"
