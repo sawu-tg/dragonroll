@@ -26,13 +26,14 @@
 			worth = rand(1,10)
 
 /obj/item/proc/toggleLoot(var/towhat)
-	isLoot = towhat
-	if(isLoot)
-		icon = loot_icon
-		icon_state = loot_icon_state
-	else
-		icon = initial(icon)
-		icon_state = initial(icon_state)
+	if(showAsLoot)
+		isLoot = towhat
+		if(isLoot)
+			icon = loot_icon
+			icon_state = loot_icon_state
+		else
+			icon = initial(icon)
+			icon_state = initial(icon_state)
 
 /obj/item/proc/recalculateStat(var/datum/stat/S)
 	if(!S || !istype(S))

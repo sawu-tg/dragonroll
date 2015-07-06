@@ -57,10 +57,12 @@
 		if(istype(A,/turf/floor/outside/liquid/water))
 			water += A:depth/2
 
-/turf/floor/outside/farm/proc/doHarvest()
+/turf/floor/outside/farm/proc/doHarvest(var/toWhere)
+	if(!toWhere)
+		toWhere = get_turf(src)
 	for(var/a in FG.grownItems)
 		for(var/b = 0; b < FG.grownItems[a]; b++)
-			new a(src)
+			new a(toWhere)
 	if(FG.dropsProduce)
 		remProcessingObject(src)
 		FG = null
@@ -84,7 +86,7 @@
 	..()
 	if(FG)
 		if(FG.curGrowthStage >= FG.growthStages)
-			doHarvest()
+			doHarvest(get_turf(user))
 	else
 		if(istype(with,/obj/item/seedpack))
 			FG = with:held_seed

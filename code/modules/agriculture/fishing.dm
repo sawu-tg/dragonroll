@@ -24,7 +24,7 @@
 		messageInfo(cast_message,user,src)
 		bouy = new/obj/fishingbouy(get_turf(onWhat))
 		spawn(1)
-			user.Beam(bouy,time=length,icon_state="f_beam")
+			bouy.Beam(get_turf(src),time=length,icon_state="f_beam")
 		var/sleep_length = length / fish_given
 		fishing = TRUE
 		for(var/i = 0; i < fish_given; ++i)
@@ -41,7 +41,7 @@
 				sdel(bouy)
 				return
 			var/obj/item/food/fish/catchType = pick(picked_fish)
-			var/obj/item/food/fish/catch = new catchType(get_turf(user),user.playerData.fishing.statModified)
+			var/obj/item/food/fish/catch = new catchType(get_turf(src),user.playerData.fishing.statModified)
 			user.playerData.fishing.addxp(catch.exp_granted_fishing, user)
 			messageInfo("[catch_message][catch].",user,src)
 		messageInfo("You finish fishing.",user,src)
