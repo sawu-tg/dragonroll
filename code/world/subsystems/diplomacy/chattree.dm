@@ -53,7 +53,9 @@
 		var/datum/chatBranch/CTT = new CTYPE
 		html += "<br><a href=?src=\ref[P];curchat=\ref[src];newchat=[CT.responses[A]][CTT.responseHref ? ";[CTT.responseHref]" : ""]>[A]</a>"
 		del(CTT)
-	P << browse(html,"window=chatdialog")
+	var/datum/browser/popup = new(P, "chatdialog", "Conversation")
+	popup.set_content(html)
+	popup.open()
 
 
 ////

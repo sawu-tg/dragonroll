@@ -28,7 +28,9 @@
 	html += "Vendor: [round(heldMoney)]<br>"
 	for(var/obj/item/B in contents)
 		html += "<a href=?src=\ref[src];tosell=\ref[B]>[B]: [round(B.worth*inflation)]$</a><br>"
-	P << browse(html,"window=vendomatic")
+	var/datum/browser/popup = new(P, "vendomatic", "Vendor")
+	popup.set_content(html)
+	popup.open()
 
 /mob/proc/doTrade(var/mob/player/P, var/obj/item/I)
 	if(!P)

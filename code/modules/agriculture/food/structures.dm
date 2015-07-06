@@ -126,7 +126,9 @@
 		html += "</td>"
 	html += "</tr></table>"
 	html += "</body></center></html>"
-	user << browse(html,"window=cooking")
+	var/datum/browser/popup = new(user, "cookmenu", "Cooking Menu")
+	popup.set_content(html)
+	popup.open()
 
 /obj/structure/cooking/Topic(href,href_list[])
 	var/function = href_list["function"]
@@ -137,6 +139,7 @@
 			if(A)
 				curCooking[A] = A.foodLevel*10
 				lastUsr = usr
+				giveMedal("Novice Chef",src)
 				showCookingMenu(usr)
 
 ///

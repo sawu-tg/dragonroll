@@ -45,6 +45,7 @@
 			user.playerData.fishing.addxp(catch.exp_granted_fishing, user)
 			messageInfo("[catch_message][catch].",user,src)
 		messageInfo("You finish fishing.",user,src)
+		giveMedal("The Deeps",src)
 		fishing = FALSE
 		sdel(bouy)
 

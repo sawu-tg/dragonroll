@@ -14,7 +14,6 @@ Crafting
 	* Expand cooking/baking etc, make very deep.
 	* Add "Discovery" system, a-la Starbound
 	* Add more ways to make things
-	* Add magical machines to do things for you
 	
 NPCs
 	* Add building/crafting
@@ -22,8 +21,6 @@ NPCs
 	* Add better, less laggier processing
 	* Add interaction
 	* Add NPC faction "creation" and progress
-	* NPC chat (talk-to npcs via dialog windows)
-	* NPC stores
 	
 Biomes
 	* Add more

@@ -90,7 +90,9 @@
 		html += "</td>"
 	html += "</tr></table>"
 	html += "</body></center></html>"
-	user << browse(html,"window=forging")
+	var/datum/browser/popup = new(user, "forgemenu", "Forging")
+	popup.set_content(html)
+	popup.open()
 
 /obj/structure/forge/Topic(href,href_list[])
 	var/function = href_list["function"]
@@ -113,4 +115,5 @@
 						curSmelting[A] = 10
 						createType[A] = modifiers[C]
 						lastUsr = usr
+						giveMedal("Ready to Fight!",src)
 						showSmeltingMenu(usr)

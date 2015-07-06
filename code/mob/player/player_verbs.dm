@@ -62,7 +62,9 @@
 	for(var/obj/I in playerInventory)
 		html += "<b>[I.name]</b> ([!isWorn(I) ? "<a href=?src=\ref[src];function=dropitem;item=\ref[I]><i>Drop</i></a>" : ""][isWearable(I) && !isWorn(I) ? " | <a href=?src=\ref[src];function=wearitem;item=\ref[I]><i>Equip</i></a>" : (isWorn(I) ? "<a href=?src=\ref[src];function=removeitem;item=\ref[I]><i>Remove</i></a>" : "")] | <a href=?src=\ref[src];function=useitem;item=\ref[I]><i>Use</i></a>)<br>"
 	html += "</body></center></html>"
-	src << browse(html,"window=inventorysheet")
+	var/datum/browser/popup = new(usr, "inventory", "Inventory")
+	popup.set_content(html)
+	popup.open()
 
 /mob/player/verb/playerSheet()
 	set name = "View Player Sheet"
@@ -145,7 +147,9 @@
 		html += "</table>"
 		html += "[shouldShowChange ? "<a href=?src=\ref[src];function=statroll><b>Reroll Stats</b></a> <a href=?src=\ref[src];function=statkeep><b>Keep Stats</b></a>" : ""]<br>"
 	html += "</body></center></html>"
-	toWho << browse(html,"window=playersheet")
+	var/datum/browser/popup = new(toWho, "plysheet", "Player Sheet")
+	popup.set_content(html)
+	popup.open()
 
 /mob/verb/forceRefreshInterface()
 	set name = "Refresh Interface"
@@ -363,7 +367,9 @@
 		if(uppertext(copytext(A,1,2)) == chosenEncIndex)
 			html += "<br><b>[A]</b><br>[playerEnc[A]]<br>"
 	html += "</body></center></html>"
-	src << browse(html,"window=encyclopedia")
+	var/datum/browser/popup = new(usr, "encyclopedia", "Encyclopedia")
+	popup.set_content(html)
+	popup.open()
 
 /mob/player/Topic(href,href_list[])
 	..()

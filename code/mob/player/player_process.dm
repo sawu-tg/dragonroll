@@ -87,6 +87,7 @@
 		inWater = shouldDrown
 
 	if(shouldDrown)
+		giveMedal("No Glub",src)
 		if(prob(5))
 			messageArea("You are [liquidVerb]!","[src] screams!",src,src)
 			takeDamage(liquidDamage,DTYPE_ENVIRONMENT)

@@ -16,6 +16,7 @@
 // BEGIN_INCLUDE
 #include "code\_DEFINES.dm"
 #include "code\datum\biome.dm"
+#include "code\datum\browser.dm"
 #include "code\datum\class.dm"
 #include "code\datum\crafting.dm"
 #include "code\datum\faction.dm"

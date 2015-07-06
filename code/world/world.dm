@@ -7,6 +7,8 @@ var/globalCacheIDs = 0
 	fps = 20
 	icon_size = 32
 	loop_checks = 0
+	hub = "Sawucalls.DragonRoll"
+	hub_password = "4dlzubF0vugUpt9x"
 
 /world/New()
 	. = ..()

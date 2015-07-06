@@ -229,3 +229,14 @@ proc/pickweight(list/L)
 		if(get_dist(center,A) <= inRange)
 			found += A
 	. = found
+
+/proc/giveMedal(var/medal,var/mob/who)
+	if(!who.client)
+		return FALSE
+	if(world.GetMedal(medal,who))
+		return FALSE
+	spawn(1)
+		who << "<text style='text-align: center; vertical-align: middle; font-size: 5;'>\blue You earned an achievement!</text>"
+		who << "<text style='text-align: center; vertical-align: middle; font-size: 4;'>Congratulations, you've just earned: <b>[medal]</b>.</text>"
+		playsound(get_turf(who), 'sound/effects/cooking_lvl.ogg', 50, 0)
+		return world.SetMedal(medal,who)

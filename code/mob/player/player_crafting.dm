@@ -45,7 +45,9 @@
 				topic += "</td>"
 		topic += "</tr>"
 	topic += "</table></body></center></html>"
-	src << browse(topic,"window=craftwindow")
+	var/datum/browser/popup = new(usr, "craftmenu", "Crafting Menu")
+	popup.set_content(topic)
+	popup.open()
 
 
 /mob/player/Topic(href,href_list[])
@@ -58,5 +60,6 @@
 		var/datum/recipe/located = locate(recipe)
 		if(located)
 			if(located.canCraft(contents))
+				giveMedal("Crafty",src)
 				located.getResult(contents,src)
 		src.craft()

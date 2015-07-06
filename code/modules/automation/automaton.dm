@@ -64,7 +64,9 @@
 		html += "</td style=\"text-align: center\">[parseIcon(toWho,F)]<br><a href=?src=\ref[src];function=eject;what=\ref[F]>[F.name]</a></td>"
 	html += "</tr></table>"
 	html += "</body></center></html>"
-	toWho << browse(html,"window=automaton")
+	var/datum/browser/popup = new(toWho, "automatonmenu", "Automaton")
+	popup.set_content(html)
+	popup.open()
 
 /obj/structure/automaton/objFunction(var/mob/player/user,var/obj/item/I)
 	if(I)

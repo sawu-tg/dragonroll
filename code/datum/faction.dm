@@ -54,6 +54,7 @@ var/list/globalFactions = list()
 		messageError("You don't have enough money for that!",P,P)
 		return FALSE
 	else
+		giveMedal("It's worth something?",src)
 		takeCurrency(P,cost)
 		return TRUE
 
@@ -195,6 +196,7 @@ var/list/globalFactions = list()
 			else
 				F.factionImage = makeFlag(fImage)
 			globalFactions += F
+			giveMedal("Ready to Rule!",src)
 			messageInfo("[F.name] created!",src,src)
 	else
 		messageError("You already own a faction!", src, src)
@@ -248,7 +250,9 @@ var/list/globalFactions = list()
 			for(var/A in D.factionOwners)
 				html += "[A]<br>"
 	html += "</body></center></html>"
-	src << browse(html,"window=factionsheet")
+	var/datum/browser/popup = new(usr, "factionsheet", "Factions")
+	popup.set_content(html)
+	popup.open()
 
 ///////////// FACTIONS /////////////////////////
 
