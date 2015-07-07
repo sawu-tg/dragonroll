@@ -66,6 +66,10 @@
 						if(P)
 							var/turf/T = get_turf(P)
 							target.throw_at(T)
+							spawn(5)
+								messagePlayer("You tumble through the portal into a dark horizon...",target,src,COL_HOSTILE)
+								target.z = 2
+								target.revive()
 					else
 						target.revive()
 					target.beingRezzed = FALSE

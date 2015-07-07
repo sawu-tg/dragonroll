@@ -61,5 +61,14 @@
 	density = 1
 	opacity = 1
 
+/turf/floor/darknessfloor
+	name = "Strange tiling"
+	icon_state = "cult"
+
+/turf/floor/darknessfloor/New()
+	..()
+	spawn(1)
+		icon_state = pick("cult","cultdamage[rand(1,7)]")
+
 
 //End of default floors

@@ -106,3 +106,15 @@ var/list/validBiomes = list(/datum/biome/grassland) //uncomment this for biome t
 	validDebris = list(/obj/interact/nature/bush,/obj/interact/nature/rock)
 	validMobs = list(/mob/player/npc/animal/bat,/mob/player/npc/animal/spider,/mob/player/npc/grey,/mob/player/npc/colonist)
 
+
+/datum/biome/darkness
+	name = "deep dark"
+	desc = "if you're here, you're probably dead"
+
+	baseTurf = /turf/floor/darknessfloor
+	validTurfs = list(/turf/floor/darknessfloor)
+	liquidSize = 0
+	liquidErode = 0
+	validLiquids = list()
+	validDebris = list()
+	validMobs = list()

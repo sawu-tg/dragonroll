@@ -21,7 +21,7 @@
 	messagePlayer("<b>[personal]</b>",toWho,fromWhat,"red")
 
 /proc/messageSystem(var/personal as text, var/mob/toWho, var/fromWhat)
-	messagePlayer("<b><i>[personal]</i></b>",toWho,fromWhat,"purple")
+	messagePlayer("<b>[personal]</b>",toWho,fromWhat,"black")
 
 /proc/messageWarning(var/personal as text, var/mob/toWho, var/fromWhat)
 	world.log << "WARNING: [personal] from [fromWhat] to [toWho]"

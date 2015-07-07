@@ -140,6 +140,8 @@
 	healDamage(99999)
 	healMana(99999)
 
+	hasResWindow = TRUE
+
 	for(var/datum/statuseffect/S in statuseffects)
 		remStatusEffect(S)
 

@@ -78,8 +78,9 @@
 		if(linkedSlot)
 			spawn(1)
 				if(linkedSlot.is_hand)
-					mymob.selectSlot(idToLink)
-					mymob.DropItem()
+					if(idToLink && mymob)
+						mymob.selectSlot(idToLink)
+						mymob.DropItem()
 				else
 					var/obj/item/I
 					for(var/obj/item/A in mymob)

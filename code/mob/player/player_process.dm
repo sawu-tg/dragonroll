@@ -14,6 +14,8 @@
 	var/isSliding = FALSE
 	var/datum/statuseffect/suffocating/drownEffect = new
 
+	var/hasResWindow = FALSE
+
 /mob/player/proc/processOrgans()
 	for(var/O in playerOrgans)
 		if(O:processTime > 0)
@@ -37,6 +39,14 @@
 		if(canMove)
 			canMove = FALSE
 	if(playerData && playerData.hp.statCurr <= playerData.hp.statMin)
+		if(client)
+			if(!hasResWindow)
+				hasResWindow = TRUE
+				var/choice = input(src,"Would you like to traverse to [levelNames[2]]?") as null|anything in list("Yes","No")
+				if(choice)
+					if(choice == "Yes")
+						z = 2
+						src.revive()
 		if(isMonster && !hasOtherDeath)
 			icon_state = "[icon_state]_dead"
 		if(balanceWorth > 0)

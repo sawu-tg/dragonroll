@@ -13,9 +13,6 @@ proc/generateReactionList()
 		if(D.required_reagents && D.required_reagents.len)
 			for(var/reaction in D.required_reagents)
 				reaction_ids += reaction
-
-		world << "[path]"
-
 		// Create filters based on each reagent id in the required reagents list
 		for(var/id in reaction_ids)
 			if(!all_reactions[id])
