@@ -25,7 +25,7 @@ datum/controller/chemicals/getStat()
 		A:life()
 		scheck()
 
-/client/verb/debug_chemical_list()
+/mob/verb/debug_chemical_list()
 	set name = "Debug Chemical Reactions"
 	set category = "Debug Verbs"
 	for (var/reaction in all_reactions)

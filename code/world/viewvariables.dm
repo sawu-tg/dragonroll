@@ -2,9 +2,15 @@
 	..()
 	view_var_Topic(href, href_list, hsrc)
 
+/mob/verb/viewvars(datum/D in world)
+	set category = "Debug Verbs"
+	set name = "View Variables"
+	src.client.debug_variables(D)
+
 /client/verb/debug_variables(datum/D in world)
 	set category = "Debug Verbs"
 	set name = "View Variables"
+	set hidden = 1
 	//set src in world
 
 	var/title = ""

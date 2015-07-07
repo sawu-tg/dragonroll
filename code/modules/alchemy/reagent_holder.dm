@@ -279,10 +279,9 @@
 				R.processObj(myatom)
 
 
-/atom/verb/debugChemicals()
+/mob/verb/debugChemicals(var/obj/O in view())
 	set name = "Debug Reagents"
 	set category = "Debug Verbs"
-	set src in view()
 
 	for(var/datum/reagent/a in reagents.liquidlist)
 		world << "Reagent [a.name]"

@@ -72,7 +72,7 @@ datum/controller/sdel/getStat()
 	scheck() //why is this out here!?
 
 //This is a debug verb
-/client/verb/getFailedTypeDeletes()
+/mob/verb/getFailedTypeDeletes()
 	set name = "List Failed GCs"
 	set category = "Debug Verbs"
 

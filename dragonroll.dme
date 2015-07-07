@@ -131,6 +131,7 @@
 #include "code\object\object_types\vehicle\train_construction.dm"
 #include "code\object\object_types\vehicle\train_engine.dm"
 #include "code\object\object_types\vehicle\vehicle.dm"
+#include "code\world\admins.dm"
 #include "code\world\atom.dm"
 #include "code\world\dice.dm"
 #include "code\world\examine.dm"

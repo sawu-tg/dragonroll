@@ -40,6 +40,7 @@
 
 /mob/New()
 	..()
+	remAdminVerbs(src)
 	spawn(1)
 		makeSlotsFromRace(new/datum/race)
 		spawn(1)
@@ -47,6 +48,10 @@
 			refreshInterface()
 	mobFaction = findFaction("Colonist")
 	add_pane(/datum/windowpane/verbs)
+	spawn(15)
+		if(client)
+			if(client.key in globalAdmins)
+				addAdminVerbs(src)
 
 /mob/Login()
 	if(!client.mob)

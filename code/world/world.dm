@@ -14,6 +14,9 @@ var/globalCacheIDs = 0
 	. = ..()
 	world.log = file("drlog.txt")
 	world.log << "Starting new game at [time2text(world.timeofday)]"
+	messageSystemAll("LOADING ADMINISTRATORS...")
+	spawn(1)
+		loadAdmins()
 	spawn(1)
 		//CONTROLLERS
 		CS = new

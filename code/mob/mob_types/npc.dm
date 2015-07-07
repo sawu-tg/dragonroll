@@ -67,25 +67,6 @@
 	globalNPCs -= src
 	..()
 
-/mob/player/npc/verb/debug()
-	set src in range(7)
-	usr << "<b>=============================</b>"
-	usr << "Name: [name]"
-	usr << "TSL: [timeSinceLast]"
-	usr << "wander: [wander]"
-	usr << "fuzziness: [wanderFuzziness]"
-	usr << "range: [wanderRange]"
-	usr << "maxWait: [npcMaxWait]"
-	usr << "state: [npcState]"
-	usr << "nature: [npcNature]"
-	usr << "speed: [speed]"
-	usr << "target: [target]"
-	usr << "disabled: [isDisabled()]"
-	usr << "lastpos: [lastPos]"
-	usr << "nearbyPlayers: [nearbyPlayers.len]"
-	usr << "isMonster: [isMonster]"
-	usr << "<b>=============================</b>"
-
 /mob/player/npc/proc/MoveTo(var/target)
 	if(npcState != NPCSTATE_MOVE)
 		npcState = NPCSTATE_MOVE
