@@ -6,6 +6,5 @@
 	abilityCooldown = 35
 	abilityState = "shout"
 	abilityHitsPlayers = TRUE
-	abilityIconSelf = /obj/effect/pow
 	abilityIconTarget = /obj/effect/aoe_tile/bolster
 	abilityAoe = -1

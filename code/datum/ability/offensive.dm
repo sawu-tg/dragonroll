@@ -14,7 +14,6 @@
 	abilityModifier = -8
 	abilityCooldown = 40
 	abilityState = "duel"
-	abilityIconSelf = /obj/effect/pow
 	abilityIconTarget = /obj/effect/strike
 	abilityHitsPlayers = TRUE
 
@@ -33,7 +32,6 @@
 	abilityModifier = -2
 	abilityCooldown = 25
 	abilityState = "redline"
-	abilityIconSelf = /obj/effect/pow
 	abilityProjectile = /obj/projectile/manablast
 	abilityIconTarget = /obj/effect/target
 
@@ -49,7 +47,6 @@
 	abilityCooldown = 25
 	abilityState = "staff"
 	abilityEffect = /datum/statuseffect/dazed
-	abilityIconSelf = /obj/effect/pow
 	abilityProjectile = /obj/projectile/manablast
 	abilityIconTarget = /obj/effect/target
 
@@ -65,7 +62,6 @@
 	abilityCooldown = 25
 	abilityState = "staff"
 	abilityEffect = /datum/statuseffect/poison
-	abilityIconSelf = /obj/effect/pow
 	abilityProjectile = /obj/projectile/toxinthrow
 	abilityIconTarget = /obj/effect/target
 
@@ -81,7 +77,6 @@
 	abilityModifier = -2
 	abilityCooldown = 35
 	abilityState = "d_beam"
-	abilityIconSelf = /obj/effect/pow
 	abilityIconTarget = /obj/effect/target
 
 /datum/ability/deathbeam/Cast(var/mob/player/caster,var/target)

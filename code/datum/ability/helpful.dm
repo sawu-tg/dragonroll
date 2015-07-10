@@ -6,7 +6,6 @@
 	abilityCooldown = 15
 	abilityProjectiles = 8
 	abilityState = "redcross"
-	abilityIconSelf = /obj/effect/pow
 	abilityProjectile = /obj/projectile/healingblast
 	abilityIconTarget = /obj/effect/heal
 
@@ -22,7 +21,6 @@
 	abilityCooldown = 10
 	abilityState = "shout"
 	abilityHitsPlayers = TRUE
-	abilityIconSelf = /obj/effect/pow
 	abilityProjectile = /obj/projectile/spear
 	abilityIconTarget = /obj/effect/target
 	var/beamIcon = "c_beam"

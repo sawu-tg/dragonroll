@@ -52,7 +52,6 @@
 	abilityModifier = -1000
 	abilityCooldown = 0
 	abilityState = "redline"
-	abilityIconSelf = /obj/effect/pow
 	abilityIconTarget = /obj/effect/target
 
 /datum/ability/gigabeam/Cast(var/mob/player/caster,var/target)
@@ -72,6 +71,5 @@
 	abilityCooldown = 0
 	abilityProjectiles = 4
 	abilityState = "redcross"
-	abilityIconSelf = /obj/effect/pow
 	abilityProjectile = /obj/projectile/healingblast
 	abilityIconTarget = /obj/effect/heal

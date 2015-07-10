@@ -114,3 +114,54 @@
 
 /obj/structure/magicbarrel/procres/New()
 	containedTypes = typesof(/obj/item/loot/processed) - /obj/item/loot/processed
+
+
+/obj/structure/popupspawn
+	name = "Disturbed ground"
+	desc = "What could be in here?"
+	helpInfo = "Recently disturbed earth, all manner of things could be lurking in this hole!"
+	icon = 'sprite/obj/tg_effects/effects.dmi'
+	icon_state = "smoke"
+	density = 0
+	var/popupType = /mob/player/npc/animal/spider
+	var/popupSkill = 15
+	var/cooldown = 0
+	var/maxCooldown = 500
+
+/obj/structure/popupspawn/Cross(var/atom/movable/O)
+	if(cooldown <= 0)
+		if(istype(O,/mob/player))
+			var/mob/player/P = O
+			if(P && P.client)
+				if(do_roll(1,20,P.playerData.dex.statCurr) < popupSkill)
+					var/mob/player/npc/N = new popupType(get_turf(src))
+					messageError("\an [N] bursts fourth from the [src]",P,N)
+					N.target = P
+					cooldown = maxCooldown
+					invisibility = 1
+					addProcessingObject(src)
+	else
+		return 1
+/obj/structure/popupspawn/doProcess()
+	--cooldown
+	if(cooldown <= 0)
+		invisibility = 1
+		remProcessingObject(src)
+
+/obj/structure/popupspawn/thing
+	popupType = /mob/player/npc/animal/eater
+
+/obj/structure/popupspawn/goliath
+	popupType = /mob/player/npc/animal/eater/goliath
+
+/obj/structure/popupspawn/grub
+	popupType = /mob/player/npc/animal/eater/giantgrub
+
+/obj/structure/popupspawn/basilisk
+	popupType = /mob/player/npc/animal/eater/basilisk
+
+/obj/structure/popupspawn/carp
+	popupType = /mob/player/npc/animal/eater/carp
+
+/obj/structure/popupspawn/hivelord
+	popupType = /mob/player/npc/animal/eater/hivelord

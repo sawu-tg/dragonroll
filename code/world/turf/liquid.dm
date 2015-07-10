@@ -20,10 +20,14 @@
 	var/depth = 5 //1 - 100
 	var/liquidopacity = 128
 	var/docile = 0
+	var/monsterType
 
 /turf/floor/outside/liquid/New()
 	..()
 	depth = rand(1,100)
+	if(monsterType)
+		if(prob(1))
+			new monsterType(get_turf(src))
 
 /turf/floor/outside/liquid/proc/updateErodeDepth()
 	if(!src || !istype(src,/turf/floor/outside/liquid))
@@ -153,6 +157,7 @@
 	damage = 1
 	damageVerb = "drowning"
 	minDamDepth = 15
+	monsterType = /obj/structure/popupspawn/carp
 
 /turf/floor/outside/liquid/pit //what even does this mean :^)
 	name = "Pit"
@@ -160,6 +165,7 @@
 	color = "#999999"
 	liquidopacity = 0
 	corrosive = TRUE
+	monsterType = /obj/structure/popupspawn/hivelord
 
 /turf/floor/outside/liquid/pit/New()
 	..()
@@ -181,6 +187,7 @@
 	damageVerb = "burning"
 	liquidopacity = 200
 	corrosive = TRUE
+	monsterType = /obj/structure/popupspawn/hivelord
 
 	New()
 		..()

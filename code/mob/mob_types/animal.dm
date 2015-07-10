@@ -152,6 +152,33 @@
 	droppedItems = list(/obj/item/food/meat/generic = 2)
 	npcSpells = list(/datum/ability/heal/lickwounds,/datum/ability/deathbeam/leer)
 
+/mob/player/npc/animal/eater
+	name = "Eater"
+	desc = "It looks hungry..."
+	icon_state = "otherthing"
+	droppedItems = list(/obj/item/food/meat/generic = 2)
+	npcSpells = list(/datum/ability/heal/lickwounds,/datum/ability/deathbeam/leer,/datum/ability/assassinate/gore,/datum/ability/toxicthrow/spit)
+
+/mob/player/npc/animal/eater/goliath
+	name = "Goliath"
+	icon_state = "Goliath"
+
+/mob/player/npc/animal/eater/giantgrub
+	name = "Giant Grub"
+	icon_state = "Goldgrub"
+
+/mob/player/npc/animal/eater/basilisk
+	name = "Basilisk"
+	icon_state = "Basilisk"
+
+/mob/player/npc/animal/eater/carp
+	name = "Carp"
+	icon_state = "carp"
+
+/mob/player/npc/animal/eater/hivelord
+	name = "Hivelord"
+	icon_state = "Hivelord"
+
 ///
 // SLIMES
 ///

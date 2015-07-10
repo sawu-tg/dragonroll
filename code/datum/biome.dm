@@ -1,11 +1,11 @@
-/*var/list/validBiomes = list(/datum/biome/grassland,
+var/list/validBiomes = list(/datum/biome/grassland,
 	/datum/biome/desert,
 	/datum/biome/lavaland,
 	/datum/biome/alienlab,
 	/datum/biome/snow,
-	/datum/biome/meteor)*/
+	/datum/biome/meteor)
 
-var/list/validBiomes = list(/datum/biome/grassland) //uncomment this for biome testing
+//var/list/validBiomes = list(/datum/biome/grassland) //uncomment this for biome testing
 
 /datum/biome
 	var/name = "default"
@@ -31,7 +31,7 @@ var/list/validBiomes = list(/datum/biome/grassland) //uncomment this for biome t
 	dirtTurf = /turf/floor/outside/dirt
 	validTurfs = list(/turf/floor/outside/grass,/turf/floor/outside/dirt)
 	validLiquids = list(/turf/floor/outside/liquid/water)
-	validDebris = list(/obj/interact/nature/bush,/obj/interact/nature/rock)
+	validDebris = list(/obj/interact/nature/bush,/obj/interact/nature/rock,/obj/structure/popupspawn)
 	validMobs = list(/mob/player/npc/animal/deer,/mob/player/npc/animal/wasp,/mob/player/npc/animal/bat,/mob/player/npc/animal/spider,/mob/player/npc/animal/cat,/mob/player/npc/animal/bear,/mob/player/npc/animal/cow,/mob/player/npc/animal/chicken,/mob/player/npc/animal/dog,/mob/player/npc/animal/fox,/mob/player/npc/colonist)
 /datum/biome/grassland/New()
 	validDebris += typesof(/obj/interact/nature/tree)
@@ -58,7 +58,7 @@ var/list/validBiomes = list(/datum/biome/grassland) //uncomment this for biome t
 	liquidSize = 2
 	liquidErode = 2
 	validLiquids = list(/turf/floor/outside/liquid/water)
-	validDebris = list(/obj/interact/nature/bush,/obj/interact/nature/rock)
+	validDebris = list(/obj/interact/nature/bush,/obj/interact/nature/rock,/obj/structure/popupspawn,/obj/structure/popupspawn/grub)
 	validMobs = list(/mob/player/npc/animal/wasp,/mob/player/npc/animal/cat,/mob/player/npc/animal/spider,/mob/player/npc/grey,/mob/player/npc/animal/dog,/mob/player/npc/animal/fox,/mob/player/npc/colonist)
 
 /datum/biome/lavaland
@@ -70,7 +70,7 @@ var/list/validBiomes = list(/datum/biome/grassland) //uncomment this for biome t
 	liquidSize = 6
 	liquidErode = 6
 	validLiquids = list(/turf/floor/outside/liquid/lava)
-	validDebris = list(/obj/interact/nature/rock)
+	validDebris = list(/obj/interact/nature/rock,/obj/structure/popupspawn/basilisk,/obj/structure/popupspawn/goliath,/obj/structure/popupspawn/hivelord)
 	validMobs = list(/mob/player/npc/animal/bat,/mob/player/npc/animal/spider,/mob/player/npc/grey)
 
 /datum/biome/alienlab
@@ -91,7 +91,7 @@ var/list/validBiomes = list(/datum/biome/grassland) //uncomment this for biome t
 	baseTurf = /turf/floor/outside/snow
 	validTurfs = list(/turf/floor/outside/snow)
 	validLiquids = list(/turf/floor/outside/liquid/water/ice)
-	validDebris = list(/obj/interact/nature/tree/snow,/obj/interact/nature/bush/snow)
+	validDebris = list(/obj/interact/nature/tree/snow,/obj/interact/nature/bush/snow,/obj/structure/popupspawn/thing)
 	validMobs = list(/mob/player/npc/animal/deer,/mob/player/npc/animal/bear,/mob/player/npc/colonist,/mob/player/npc/animal/fox,/mob/player/npc/animal/dog)
 
 /datum/biome/meteor
@@ -103,7 +103,7 @@ var/list/validBiomes = list(/datum/biome/grassland) //uncomment this for biome t
 	liquidSize = 8
 	liquidErode = 0
 	validLiquids = list(/turf/floor/outside/liquid/pit)
-	validDebris = list(/obj/interact/nature/bush,/obj/interact/nature/rock)
+	validDebris = list(/obj/interact/nature/bush,/obj/interact/nature/rock,/obj/structure/popupspawn/thing,/obj/structure/popupspawn/goliath)
 	validMobs = list(/mob/player/npc/animal/bat,/mob/player/npc/animal/spider,/mob/player/npc/grey,/mob/player/npc/colonist)
 
 

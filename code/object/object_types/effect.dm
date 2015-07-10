@@ -32,7 +32,7 @@
 				alpha = alpha - 10
 			else
 				onDestroy()
-				sdel(src)
+				del(src)
 	else
 		--procTime
 
