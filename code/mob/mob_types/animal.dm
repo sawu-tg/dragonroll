@@ -7,6 +7,13 @@
 	var/isHostile = FALSE
 	var/list/droppedItems = list()
 
+	//submerging stuff
+	var/submerged = FALSE
+	var/submergeEffect
+	var/submergeType
+	var/minSubmergeTime = 10*60
+	var/lastSubmerge = 0
+
 /mob/player/npc/animal/New()
 	actualIconState = icon_state
 	..()
@@ -22,6 +29,39 @@
 			for(var/I = 0; I < droppedItems[A]; ++I)
 				new A(src)
 	classChange(/datum/class/beast)
+
+/mob/player/npc/animal/proc/submerge()
+	if(submerged)
+		return
+	if(submergeType)
+		if(!istype(get_turf(src),submergeType))
+			return
+	messageArea("You submerge","[src] sinks into the [get_turf(src)]", src, src,color="red")
+	lastSubmerge = world.time
+	submerged = TRUE
+	invisibility += 1
+
+/mob/player/npc/animal/proc/unsubmerge()
+	messageArea("You return","[src] rises from the [get_turf(src)]", src, src,color="red")
+	submerged = FALSE
+	invisibility -= 1
+	if(invisibility < 0)
+		invisibility = 0
+
+/mob/player/npc/animal/Move(var/turf/T)
+	T = get_turf(T)
+	if(submerged)
+		if(!istype(T,submergeType))
+			return 0
+	..(T)
+
+/mob/player/npc/animal/doProcess()
+	if(submerged)
+		if(lastSubmerge + minSubmergeTime >= world.time)
+			unsubmerge()
+		if(submergeEffect)
+			createEffect(get_turf(src),submergeEffect,3)
+	..()
 
 /mob/player/npc/animal/chicken
 	name = "Chicken"
@@ -152,6 +192,11 @@
 	droppedItems = list(/obj/item/food/meat/generic = 2)
 	npcSpells = list(/datum/ability/heal/lickwounds,/datum/ability/deathbeam/leer)
 
+
+///
+// Popup animals
+///
+
 /mob/player/npc/animal/eater
 	name = "Eater"
 	desc = "It looks hungry..."
@@ -178,6 +223,48 @@
 /mob/player/npc/animal/eater/hivelord
 	name = "Hivelord"
 	icon_state = "Hivelord"
+
+
+///
+// Monsters of Gorekin
+///
+
+/mob/player/npc/animal/gore
+	name = "Son of Gorekin"
+	desc = "Maybe it's born with it, maybe it's a horrible ancient curse."
+	helpInfo = "These monsters will spread extremely quickly. Destroy with much predjudice."
+	icon_state = "horror"
+	submergeEffect = /obj/effect/blood
+	npcSpells = list(/datum/ability/assassinate/gore)
+
+/mob/player/npc/animal/gore/unsubmerge()
+	..()
+	for(var/cdir in alldirs)
+		bloodSpray(cdir,1,1,1)
+
+/mob/player/npc/animal/gore/doProcess()
+	..()
+	if(!isDisabled())
+		if(!submerged)
+			if(prob(5))
+				submerge()
+
+/mob/player/npc/animal/gore/floater
+	name = "Daughter of Gorekin"
+	icon_state = "floatinghorror"
+	npcSpells = list(/datum/ability/toxicthrow/gorethrow)
+
+/mob/player/npc/animal/gore/spreader
+	name = "Blood of Gorekin"
+	desc = "Disgusting, wobbly and reeks of blood."
+	icon_state = "coagblood"
+
+/mob/player/npc/animal/gore/spreader/Move(var/turf/T)
+	T = get_turf(T)
+	if(T)
+		if(!istype(T,/turf/floor/balance/evil/flesh))
+			new/turf/floor/balance/evil/flesh(T)
+	..(T)
 
 ///
 // SLIMES

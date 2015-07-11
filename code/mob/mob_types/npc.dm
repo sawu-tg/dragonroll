@@ -52,6 +52,7 @@
 	else
 		if(!forceRace)
 			raceChange(/datum/race/Beast,TRUE)
+			nameChange(initial(name))
 		else
 			raceChange(forceRace,TRUE)
 	globalNPCs |= src

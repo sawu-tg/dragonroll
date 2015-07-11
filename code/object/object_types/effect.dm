@@ -1,3 +1,14 @@
+/proc/createEffect(var/turf/T,var/ofType,var/maxEff = 1)
+	T = get_turf(T)
+	var/count = 1
+	for(var/A in T)
+		if(A:type == ofType)
+			count++
+	if(count > maxEff)
+		return null
+	var/obj/effect/E = new ofType(T)
+	return E
+
 /obj/effect
 	name = "effect"
 	desc = "generic effect"
@@ -214,10 +225,11 @@
 	var/turf/T = get_turf(src)
 	var/obj/effect/E
 	if(spatType && maxLength == 0)
-		E = new spatType(T)
+		E = createEffect(T,spatType)
 	else
-		E = new effectType(T)
-	E.dir = first ? onDir : dir
+		E = createEffect(T,effectType)
+	if(E)
+		E.dir = first ? onDir : dir
 	T = get_step(src,onDir)
 	first = FALSE
 	if(maxLength > 0)

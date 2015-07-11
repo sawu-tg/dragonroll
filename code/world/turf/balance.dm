@@ -115,6 +115,15 @@
 	desc = "It seems to resonate with an evil presence."
 	icon_state = "cult"
 
+/turf/floor/balance/evil/flesh
+	name = "Fleshy mass"
+	desc = "Reminds you of minced meat.."
+	icon_state = "flesh"
+
+/turf/floor/balance/evil/flesh/New()
+	..()
+	icon_state = "flesh[rand(1,5)]"
+
 /turf/floor/balance/evil/New()
 	..()
 	balance.actsEvil += src

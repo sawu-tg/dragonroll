@@ -78,10 +78,11 @@
 	if(bloodLeft > 0)
 		var/turf/TT = get_turf(src)
 		if(TT != lastHit)
-			var/obj/effect/blood/trail/T = new(TT)
-			T.dir = dir
-			lastHit = TT
-			--bloodLeft
+			var/obj/effect/blood/trail/T = createEffect(TT,/obj/effect/blood/trail)
+			if(T)
+				T.dir = dir
+				lastHit = TT
+				--bloodLeft
 	else
 		remProcessingObject(src)
 

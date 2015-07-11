@@ -88,13 +88,13 @@
 	if(!suppressMessage)
 		messageArea("You begin casting [name].","[casting.name] begins casting [name].",casting,image(abilityIcon,icon_state=abilityState))
 	if(abilityIconSelf)
-		new abilityIconSelf(casting.loc)
+		createEffect(get_turf(casting),abilityIconSelf)
 
 ///
 // Places an AOE for the ability on the given turf
 ///
 /datum/ability/proc/placeAoe(var/turf/where)
-	var/obj/effect/aoe_tile/A = new abilityIconTarget(where)
+	var/obj/effect/aoe_tile/A = createEffect(where,abilityIconTarget)
 	A.damage = do_roll(1,abilityModifier*abilityLevel)
 	A.length = (abilityModifier*abilityLevel)*60
 

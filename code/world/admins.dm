@@ -1,3 +1,5 @@
+var/list/globalVerbList = list()
+
 /proc/loadAdmins()
 	var/F = file("cfg/admins.txt")
 	if(F)
@@ -6,21 +8,16 @@
 	else
 		messageSystemAll("Failed to load admins.txt!")
 
-/proc/constructVerbList()
-	var/list/L = list()
-	L.Add(typesof(/mob/verb))
-	. = L
-
 /proc/addAdminVerbs(var/mob/onWho)
-	var/list/R = constructVerbList()
+	var/list/R = globalVerbList
 	for(var/RR in R)
-		var/RRR = new RR
-		if(RRR:category == "DM" || RRR:category == "Debug Verbs")
-			onWho.verbs += RRR
+		if(RR:category == "DM" || RR:category == "Debug Verbs")
+			onWho.verbs += RR
 
 
 /proc/remAdminVerbs(var/mob/onWho)
 	for(var/V in onWho.verbs)
+		globalVerbList |= V
 		if(V:category == "DM")
 			onWho.verbs -= V
 		if(V:category == "Debug Verbs")

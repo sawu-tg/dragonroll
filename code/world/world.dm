@@ -181,7 +181,11 @@ var/globalCacheIDs = 0
 					if(!(T.type in chosenBiome.validLiquids))
 						if(chosenBiome.validDebris.len)
 							var/obj/o = pick(chosenBiome.validDebris)
-							new o(T)
+							if(chosenBiome.validDebris[o])
+								if(prob(chosenBiome.validDebris[o]))
+									new o(T)
+							else
+								new o(T)
 
 	messageSystemAll("FINISHED GENERATING DECORATIONS ON Z[zLevel].. TOOK [(world.timeofday - genstart)/10]s")
 

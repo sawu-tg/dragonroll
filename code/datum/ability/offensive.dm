@@ -86,7 +86,7 @@
 		caster.Beam(AM,time=15,icon_state=abilityState)
 		for(var/turf/T in range(1,AM))
 			if(prob(85))
-				var/obj/effect/sparks/EM = new/obj/effect/sparks(get_turf(caster))
+				var/obj/effect/sparks/EM = createEffect(get_turf(caster),/obj/effect/sparks)
 				if(EM)
 					walk_to(EM,T)
 		AM.anchored = 0

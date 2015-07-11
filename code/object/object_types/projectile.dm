@@ -99,6 +99,10 @@
 	icon_state = "neurotoxin"
 	projectileLight = "#00CC00"
 
+/obj/projectile/toxinthrow/gore
+	name = "Gore"
+	icon_state = "gore"
+
 /obj/projectile/spear
 	name = "Spear"
 	desc = "Be very worried."

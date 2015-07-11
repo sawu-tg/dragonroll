@@ -39,6 +39,12 @@
 
 	var/icon/emotes
 
+	var/statScaling = 1.0 // how much this monster's stats are scaled by
+
+	var/maxThralls = 5
+	var/thrallMaster
+	var/list/playerThralls = list() // associative list of all the player's thralls and their time left
+
 
 /mob/player/garbageCleanup()
 	..()
@@ -86,6 +92,15 @@
 	playerOrgans |= new/datum/organ/brain(playerData.playerRace,src)
 	playerOrgans |= new/datum/organ/heart(playerData.playerRace,src)
 
+/mob/player/proc/addThrall(var/ofType,var/lifeTime = 280)
+	if(playerThralls.len > maxThralls)
+		return
+	lifeTime = lifeTime * 60
+	var/P = new ofType(get_turf(src))
+	if(P)
+		P:thrallMaster = src
+		playerThralls[P] = lifeTime
+
 /mob/player/New()
 	..()
 	if(doesProcessing)
@@ -97,6 +112,12 @@
 		var/obj/item/AB = new A()
 		addToInventory(AB)
 		equipItem(AB)
+
+	for(var/datum/stat/S in playerData.playerStats)
+		S.setBaseTo(S.statModified * statScaling)
+		S.change(S.statModified)
+	recalculateBaseStats()
+	recalculateStats()
 
 	emotes = new('sprite/gui/emoticon.dmi')
 	add_pane(/datum/windowpane/stats)

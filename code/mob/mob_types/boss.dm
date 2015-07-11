@@ -4,22 +4,27 @@
 	icon_state = ""
 	icon = 'sprite/mob/boss.dmi'
 	forceRace = /datum/race/Boss
-	var/bossLevel = 2 // how many * normal the stats are
+	statScaling = 3.5 // how many * normal the stats are
 	isMonster = TRUE
 	npcNature = NPCTYPE_AGGRESSIVE
 	alignment = ALIGN_EVIL
+	var/bossTurfType
 
 /mob/player/npc/boss/New()
 	actualIconState = icon_state
 	..()
-	spawn(10)
-		for(var/datum/stat/S in playerData.playerStats)
-			S.setBaseTo(S.statModified * bossLevel)
-			S.change(S.statModified)
-		recalculateBaseStats()
-		recalculateStats()
 	mobFaction = findFaction("Hostile")
 	popup("<b>[name]</b>",COL_HOSTILE,tsize=16,fadetime=0)
+	messageSystemAll("<b>[name]</b> has entered [levelNames[z]]!")
+	if(bossTurfType)
+		new bossTurfType(get_turf(src))
+
+/mob/player/npc/boss/Move(var/turf/T)
+	T = get_turf(T)
+	if(bossTurfType)
+		if(!istype(T,bossTurfType))
+			new bossTurfType(T)
+	..(T)
 
 ///
 // Or'otsk, the shadow of Death
@@ -29,3 +34,18 @@
 	desc = "He pulses with a dark aura, which seems to leech the very life of it's surroundings"
 	icon_state = "death"
 	npcSpells = list(/datum/ability/deathbeam,/datum/ability/toxicthrow,/datum/ability/slowbolt)
+	bossTurfType = /turf/floor/balance/evil
+
+/mob/player/npc/boss/gorekin
+	name = "Gorekin, the Tender of Flesh"
+	desc = "A writhing mass of bastard flesh and magic, it's skin seems to reach out for you, asking you to join it."
+	icon_state = "gorekin"
+	npcSpells = list(/datum/ability/toxicthrow/gorethrow)
+	bossTurfType = /turf/floor/balance/evil/flesh
+
+/mob/player/npc/boss/gorekin/doProcess()
+	..()
+	if(prob(25))
+		if(playerThralls.len < maxThralls)
+			var/thrallType = pick(/mob/player/npc/animal/gore,/mob/player/npc/animal/gore/floater,/mob/player/npc/animal/gore/spreader)
+			addThrall(thrallType,60)

@@ -74,6 +74,10 @@
 
 	reagents.handle_procs()
 
+	if(thrallMaster)
+		if(get_dist(src,thrallMaster) > 3)
+			Move(thrallMaster)
+
 	if(!mobFaction)
 		mobFaction = findFaction("Colonist")
 
@@ -114,6 +118,21 @@
 		else
 			lastBleed--
 
+/mob/player/proc/processThralls()
+	if(playerThralls.len)
+		var/list/expiredThralls = list()
+		for(var/A in playerThralls)
+			playerThralls[A]--
+			if(isnull(A))
+				expiredThralls |= A
+			else
+				if(playerThralls[A] <= 0)
+					expiredThralls |= A
+					spawn(5)
+						sdel(A)
+		for(var/A in expiredThralls)
+			playerThralls -= A
+
 /mob/player/doProcess()
 	..()
 	if(src.client)
@@ -122,3 +141,4 @@
 	processEffects()
 	processOrgans()
 	processStates()
+	processThralls()

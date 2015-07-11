@@ -25,7 +25,7 @@
 					if(!M.checkEffectStack("dead"))
 						myAttack.tryCast(src,M)
 					else
-						new/obj/effect/strike(get_turf(M))
+						createEffect(get_turf(M),/obj/effect/strike)
 						M.throw_at(src)
 						spawn(10)
 							sdel(M)
@@ -34,7 +34,7 @@
 						myBoon.tryCast(src,M)
 		for(var/obj/item/organ/I in nearby)
 			spawn(1)
-				new/obj/effect/shield(get_turf(I))
+				createEffect(get_turf(I),/obj/effect/shield)
 				I.throw_at(src)
 				spawn(10)
 					sdel(I)
