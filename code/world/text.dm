@@ -44,6 +44,9 @@
 /proc/messageChat(var/who, var/msg as text)
 	who << "<font color=black><b>[usr]</b> [msg]</font>"
 
+/proc/messageEmote(var/who, var/msg as text)
+	who << "<font color=orange><b>[usr]</b> [msg]</font>"
+
 /proc/formatspeech(msg)
 	if(!msg)
 		return " mutters indistinguishably";

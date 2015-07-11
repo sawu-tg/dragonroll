@@ -117,8 +117,6 @@
 
 /mob/player/npc/proc/npcIdle()
 	if(npcState == NPCSTATE_IDLE)
-		if(prob(5))
-			say(pick(":)",":3","c:"))
 		if(wander && timeSinceLast >= wanderFuzziness)
 			target = get_step(src,pick(alldirs))
 			changeState(NPCSTATE_MOVE)
@@ -133,7 +131,7 @@
 /mob/player/npc/proc/npcMove()
 	if(npcState == NPCSTATE_MOVE)
 		if(prob(5))
-			say(pick("vov","o/"))
+			emote("[src] [pick("looks","gazes","stares")] [pick("towards","at","around")] [src]")
 		MoveTo(target)
 		checkTimeout()
 
@@ -167,7 +165,7 @@
 					npcReset()
 			if(world.time >= nextAttack)
 				if(prob(5))
-					say(pick(":(",">:(",":c",">.<"))
+					emote("[src] [pick("growls","glares","roars")] [pick("towards","at","around")] [src]")
 				var/A = getCastableSpell(distTo)
 				var/datum/ability/C
 				if(!ispath(A))

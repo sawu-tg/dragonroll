@@ -1,7 +1,7 @@
 /datum/controller/balance
 	name = "World Balance"
 	execTime = 15
-	var/shiftCause = 5 // shifts in this interval will cause events in the world
+	var/shiftCause = 15 // shifts in this interval will cause events in the world
 	var/lastBalance = 0
 	var/balance = 0
 	var/goodPoints = 0 // accumulates when the world has a good change

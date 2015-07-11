@@ -187,6 +187,21 @@
 /mob/proc/hear(msg, var/source)
 	messageChat(src,"[msg]")
 
+/mob/proc/see(msg, var/source)
+	messageEmote(src,"[msg]")
+
+/mob/player/verb/emote(msg as text)
+	set name = "Emote"
+	set category = "Actions"
+	var/message_range = 7
+	var/list/listening = get_hear(message_range, usr)
+	for(var/A in emotes.IconStates())
+		if(copytext(msg,1,length(A)+1) == A)
+			msg = copytext(msg,length(A)+1,length(msg))
+			popup("\icon[icon(emotes,A)]",COL_FRIENDLY)
+	for (var/mob/M in listening)
+		M.see(msg, usr)
+
 /mob/player/verb/say(msg as text)
 	set name = "Say"
 	set category = "Actions"
