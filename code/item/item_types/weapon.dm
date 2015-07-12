@@ -174,6 +174,31 @@
 	var/obj/item/part/hilt/middle
 	var/obj/item/part/handle/bottom
 
+/obj/item/weapon/custom/verb/enchant()
+	set name = "Enchant"
+	set src in view()
+
+	var/icon/newIcon = icon('sprite/obj/tg_effects/effects.dmi', "nothing")
+
+	var/icon/compare = getFlatIcon(src)
+
+	for(var/count = 1; count < 7; ++count)
+		var/icon/I = new('sprite/obj/custom/base.dmi',icon_state = "enchant_overlay3",frame = count)
+		var/icon/R = icon('sprite/obj/tg_effects/effects.dmi', "nothing")
+		for(var/x = 1; x < 32; ++x)
+			for(var/y = 1; y < 32; ++y)
+				if(compare.GetPixel(x,y))
+					R.DrawBox(I.GetPixel(x,y),x,y)
+		newIcon.Insert(R,frame=count)
+
+	var/image/ii = new(newIcon)
+	ii.blend_mode = BLEND_ADD
+	ii.layer = src.layer + 10
+
+
+	overlays += ii
+
+
 /obj/item/weapon/custom/objFunction(var/mob/user,var/obj/item/I)
 	if(istype(I,/obj/item/part))
 		if(constructed)
@@ -192,14 +217,15 @@
 
 /obj/item/weapon/custom/proc/construct()
 	if(!constructed)
+		var/image/mask = image('sprite/obj/tg_effects/effects.dmi', "nothing")
 		constructed = TRUE
-		icon_state = ""
 		itemMaterial = bottom.itemMaterial
-		overlays += bottom
+		mask.overlays += bottom
 		itemMaterial = combineMaterials(itemMaterial,middle.itemMaterial)
-		overlays += middle
+		mask.overlays += middle
 		itemMaterial = combineMaterials(itemMaterial,top.itemMaterial)
-		overlays += top
+		mask.overlays += top
+		icon = getFlatIcon(mask)
 		force = (top.force + (middle.force/2)) + itemMaterial.addedForce
 		weight = (bottom.weight + (middle.weight/2)) + itemMaterial.addedWeight
 		name = "[itemMaterial.name] [top.nameCon] [middle.nameCon] [bottom.nameCon]"
