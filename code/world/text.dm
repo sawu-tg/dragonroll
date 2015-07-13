@@ -1,18 +1,19 @@
 /proc/messageArea(var/personal as text,var/others as text, var/mob/toWho, var/fromWhat,var/color="blue")
 	var/visibleMessage = toWho == fromWhat ? "\[[fromWhat:name]]" : "\[[fromWhat:name]] > [toWho:name]"
-	toWho << "<font color=[color]><b>[visibleMessage]</b>: [personal]</font>"
+	toWho << "[istype(fromWhat,/atom) ? "\icon[getFlatIcon(fromWhat)]" : ""] <font color=[color]><b>[visibleMessage]</b>: [personal]</font>"
 	for(var/mob/m in oview(world.view,toWho))
 		if(m == toWho)
 			continue
-		m << "<font color=[color]><b>[visibleMessage]</b>: [others]</font>"
+		m << "[istype(fromWhat,/atom) ? "\icon[getFlatIcon(fromWhat)]" : ""] <font color=[color]><b>[visibleMessage]</b>: [others]</font>"
 
 /proc/messagePlayer(var/personal as text, var/mob/toWho, var/fromWhat,var/color="blue")
 	var/visibleMessage = toWho == fromWhat ? "\[[fromWhat:name]]" : "\[[fromWhat:name]] > [toWho:name]"
-	toWho << "<font color=[color]><b>[visibleMessage]</b>: [personal]</font>"
+	toWho << "[istype(fromWhat,/atom) ? "\icon[getFlatIcon(fromWhat)]" : ""] <font color=[color]><b>[visibleMessage]</b>: [personal]</font>"
 
 ///
 // WRAPPER PROCS
 //
+
 /proc/messageInfo(var/personal as text, var/mob/toWho, var/fromWhat)
 	messagePlayer(personal,toWho,fromWhat,"blue")
 

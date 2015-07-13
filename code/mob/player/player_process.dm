@@ -74,10 +74,6 @@
 
 	reagents.handle_procs()
 
-	if(thrallMaster)
-		if(get_dist(src,thrallMaster) > 3)
-			Move(thrallMaster)
-
 	if(!mobFaction)
 		mobFaction = findFaction("Colonist")
 

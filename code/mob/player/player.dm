@@ -134,10 +134,26 @@
 			MM = new/obj/interface/minimap(src)
 	..()
 
+/mob/player/Move(var/T)
+	if(playerThralls.len)
+		for(var/mob/A in playerThralls)
+			if(get_dist(T,get_turf(A))> 6)
+				A.Move(get_step_towards(src,A))
+	if(thrallMaster)
+		if(get_dist(T,get_turf(thrallMaster)) > 5)
+			..(get_step_towards(src,thrallMaster))
+		else
+			..(T)
+		return
+	..(T)
+
 /mob/player/Cross(atom/movable/O)
+	if(O in playerThralls)
+		return 1
+	if(O == thrallMaster)
+		return 1
 	if(layingDown)
 		return 1
-
 	return ..()
 
 /mob/player/proc/harvest()
