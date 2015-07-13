@@ -114,6 +114,8 @@
 	name = "Hellish Tiling"
 	desc = "It seems to resonate with an evil presence."
 	icon_state = "cult"
+	edged = TRUE
+	edge_weight = 4
 
 /turf/floor/balance/evil/flesh
 	name = "Fleshy mass"

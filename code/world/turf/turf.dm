@@ -10,6 +10,7 @@
 	var/edge_weight = 0
 	var/edge_icon = 'sprite/world/edges.dmi'
 	var/turfRotBy = 0
+	var/edged = FALSE
 
 /turf/New()
 	if(turfCreeps)
@@ -23,6 +24,12 @@
 		turfRotBy = pick(90,180,270)
 		src.transform = turn(src.transform,turfRotBy)
 		useNaturalTiling = FALSE
+	if(edged)
+		spawn(5)
+			generate_edges()
+			for(var/A in alldirs)
+				var/turf/T = get_step(src,A)
+				T.generate_edges()
 	..()
 
 /turf/doProcess()

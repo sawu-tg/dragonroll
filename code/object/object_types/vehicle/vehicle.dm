@@ -10,7 +10,11 @@
 	layer = LAYER_OVERLAY
 	var/mob/player/driver
 	var/list/passengers = list()
-
+	move_delay = 2 * TICK_LAG
+	var/trailType
+	var/hidesPlayer = FALSE
+	var/locksPlayerIn = FALSE
+	var/noMessage = FALSE
 
 /obj/vehicle/garbageCleanup()
 	..()
@@ -26,10 +30,14 @@
 
 /obj/vehicle/proc/EnterVehicle(var/mob/user)
 	if(!driver)
-		messagePlayer("You start driving the [src]",user,src)
+		if(!noMessage)
+			messagePlayer("You start controlling the [src]",user,src)
 		driver = user
-		driver.loc = loc
+		driver.loc = get_turf(src)
+		driver.move_delay = move_delay
 		user.mounted = src
+		if(hidesPlayer)
+			user.invisibility++
 	else
 		if(driver == user)
 			Eject(driver)
@@ -40,35 +48,55 @@
 				Ride(user)
 
 /obj/vehicle/proc/Ride(var/mob/who)
-	messagePlayer("You start riding on the [src]",who,src)
+	if(!noMessage)
+		messagePlayer("You enter the [src]",who,src)
 	if(driver)
 		passengers |= who
+	if(hidesPlayer)
+		who.invisibility++
+	who.move_delay = move_delay
 	who.loc = loc
 
 /obj/vehicle/proc/Eject(var/mob/who)
-	messagePlayer("You leave the [src]",who,src)
+	if(!who)
+		return
+	if(!noMessage)
+		messagePlayer("You leave the [src]",who,src)
 	if(who == driver)
 		driver = null
 		who.mounted = null
 	passengers.Remove(who)
 	who.loc = get_turf(src)
+	who.move_delay = 4 * TICK_LAG
+	if(hidesPlayer)
+		who.invisibility--
 
 /obj/vehicle/proc/driverCheck()
 	if(driver)
 		if(get_dist(src,driver) > 2)
-			Eject(driver)
+			if(locksPlayerIn)
+				driver.loc = get_turf(src)
+			else
+				Eject(driver)
 
 /obj/vehicle/Move(var/newLoc)
-	if(maxSteps > 0)
+	driverCheck()
+	if(trailType)
+		createEffect(get_turf(src),trailType)
+	if(maxSteps >= 0)
 		--maxSteps
-	if(maxSteps == 0)
-		sdel(src)
+	if(maxSteps <= 0)
+		Eject(driver)
+		for(var/mob/A in passengers)
+			Eject(A)
+		invisibility = 99
+		spawn(10)
+			sdel(src)
 	for(var/mob/m in passengers)
 		m.Move(newLoc)
 	..()
 
 /obj/vehicle/proc/CanPass(var/turf/T)
-	driverCheck()
 	if(VEHICLE_PASS_ANY)
 		return TRUE
 	if(istype(T,/turf/floor/outside/liquid))

@@ -63,12 +63,14 @@
 	..()
 
 /mob/Move(var/atom/newLoc)
+	if(!newLoc)
+		return
 	if(mounted)
 		if(mounted.CanPass(newLoc))
 			mounted.Move(newLoc)
+			if(mounted.locksPlayerIn && (newLoc.density || loc.density) )
+				loc = newLoc
 			return ..()
-	if(!newLoc)
-		return
 	if(client)
 		if(client.isDM)
 			..()

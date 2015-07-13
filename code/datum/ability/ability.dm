@@ -30,6 +30,8 @@
 
 	var/obj/projectile/abilityCastedProjectile // casted projectile for spell tracking etc
 
+	var/abilitySelfCast = FALSE
+
 	var/abilityAoe = 0 // if > 0, equals the damage range the ability is cast, if it is negative, its self cast around it
 	var/abilityProjectiles = 1 // amount of projectiles cast
 	var/obj/effect/abilityIconSelf // the effect path displayed on the user when cast (if any)
@@ -191,8 +193,11 @@
 
 /obj/spellHolder/proc/Cast(var/mob/user)
 	if(mobHolding)
-		mobHolding.casting = TRUE
-		mobHolding.castingSpell = src
-		mobHolding.client.mouse_pointer_icon = image(icon='sprite/obj/ability.dmi',icon_state="all")
+		if(heldAbility.abilitySelfCast)
+			heldAbility.tryCast(mobHolding,mobHolding)
+		else
+			mobHolding.casting = TRUE
+			mobHolding.castingSpell = src
+			mobHolding.client.mouse_pointer_icon = image(icon='sprite/obj/ability.dmi',icon_state="all")
 
 //ABILITIES

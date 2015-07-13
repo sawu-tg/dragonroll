@@ -11,12 +11,12 @@
 	useNaturalTiling = TRUE
 	var/datum/material/grassMaterial = new/datum/material/grass1
 	edge_weight = 1
+	edged = TRUE
 
 /turf/floor/outside/grass/New()
 	..()
 	icon_state = "grassf[rand(1,4)]"
 	update_icon()
-	generate_edges()
 
 /turf/floor/outside/grass/update_icon()
 	color = grassMaterial.color
@@ -25,21 +25,21 @@
 	name = "Snow"
 	useNaturalTiling = TRUE
 	edge_weight = 2
+	edged = TRUE
 
 /turf/floor/outside/snow/New()
 	..()
 	icon_state = "snow[rand(1,3)]"
-	generate_edges()
 
 /turf/floor/outside/dirt
 	name = "Dirt"
 	useNaturalTiling = TRUE
 	edge_weight = 3
+	edged = TRUE
 
 /turf/floor/outside/dirt/New()
 	..()
 	icon_state = "asteroid[rand(1,5)]"
-	generate_edges()
 
 /turf/floor/outside/dirt/lava
 	name = "Ashen Dirt"

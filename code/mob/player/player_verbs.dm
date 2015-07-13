@@ -162,54 +162,61 @@
 ///
 // INTERFACE SHORTCUTS
 ///
+
+/mob/proc/findInterfaceKey(var/asNum)
+	for(var/obj/interface/spellContainer/O in screenObjs)
+		if(O.hotKey == asNum && !isnull(O.heldSpell))
+			return O
+	return null
+
 /mob/verb/KeyDown0()
 	set hidden = TRUE
-	var/obj/interface/O = screenObjs[0]
+	var/obj/interface/O = findInterfaceKey(0)
 	O.objFunction()
 
 /mob/verb/KeyDown1()
 	set hidden = TRUE
-	var/obj/interface/O = screenObjs[1]
+	var/obj/interface/O = findInterfaceKey(1)
 	O.objFunction()
 
 /mob/verb/KeyDown2()
 	set hidden = TRUE
-	var/obj/interface/O = screenObjs[2]
+	var/obj/interface/O = findInterfaceKey(2)
 	O.objFunction()
 
 /mob/verb/KeyDown3()
 	set hidden = TRUE
-	var/obj/interface/O = screenObjs[3]
+	var/obj/interface/O = findInterfaceKey(3)
 	O.objFunction()
 
 /mob/verb/KeyDown4()
 	set hidden = TRUE
-	var/obj/interface/O = screenObjs[4]
+	var/obj/interface/O = findInterfaceKey(4)
 	O.objFunction()
 
 /mob/verb/KeyDown5()
 	set hidden = TRUE
-	var/obj/interface/O = screenObjs[5]
+	var/obj/interface/O = findInterfaceKey(5)
 	O.objFunction()
 
 /mob/verb/KeyDown6()
 	set hidden = TRUE
-	var/obj/interface/O = screenObjs[6]
+	var/obj/interface/O = findInterfaceKey(6)
 	O.objFunction()
 
 /mob/verb/KeyDown7()
 	set hidden = TRUE
-	var/obj/interface/O = screenObjs[7]
+	var/obj/interface/O = findInterfaceKey(7)
 	O.objFunction()
 
 /mob/verb/KeyDown8()
 	set hidden = TRUE
-	var/obj/interface/O = screenObjs[8]
+	var/obj/interface/O = findInterfaceKey(8)
 	O.objFunction()
 
 /mob/verb/KeyDown9()
 	set hidden = TRUE
-	var/obj/interface/O = screenObjs[9]
+	var/obj/interface/O = findInterfaceKey(9)
 	O.objFunction()
 
 /mob/verb/NextHotkey()
