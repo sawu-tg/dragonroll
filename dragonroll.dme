@@ -110,6 +110,7 @@
 #include "code\modules\automation\automaton.dm"
 #include "code\modules\automation\power\powered.dm"
 #include "code\modules\automation\power\powered_light.dm"
+#include "code\modules\enchanting\enchanting.dm"
 #include "code\modules\visualeffect\popup.dm"
 #include "code\modules\windowpanes\pane_datum.dm"
 #include "code\object\object.dm"

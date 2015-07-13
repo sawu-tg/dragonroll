@@ -119,6 +119,9 @@
 		else // its a smashy weapon
 			for(var/cdir in alldirs)
 				bloodSpray(cdir,max(mainHand.force/4,1),max(mainHand.weight/4,1))
+		if(istype(mainHand,/obj/item/weapon))
+			if(mainHand:enchantment)
+				mainHand:enchantment.onHit(victim)
 	if(do_roll(1,def/2,dex) > damage)
 		playsound(get_turf(src), 'sound/weapons/punchmiss.ogg', 50, 1)
 		var/tod = !victim.isMonster ? "parry" : "feint"
