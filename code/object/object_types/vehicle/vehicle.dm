@@ -12,6 +12,8 @@
 	var/list/passengers = list()
 	move_delay = 2 * TICK_LAG
 	var/trailType
+	var/trailIcon
+	var/trailState
 	var/hidesPlayer = FALSE
 	var/locksPlayerIn = FALSE
 	var/noMessage = FALSE
@@ -82,7 +84,11 @@
 /obj/vehicle/Move(var/newLoc)
 	driverCheck()
 	if(trailType)
-		createEffect(get_turf(src),trailType)
+		var/obj/effect/E = createEffect(get_turf(src),trailType)
+		if(trailIcon && trailState)
+			E.icon = trailIcon
+			E.icon_state = trailState
+			E.dir = dir
 	if(maxSteps >= 0)
 		--maxSteps
 	if(maxSteps <= 0)

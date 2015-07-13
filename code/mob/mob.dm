@@ -67,8 +67,9 @@
 		return
 	if(mounted)
 		if(mounted.CanPass(newLoc))
+			mounted.dir = get_dir(src,newLoc)
 			mounted.Move(newLoc)
-			if(mounted.locksPlayerIn && (newLoc.density || loc.density) )
+			if(mounted.locksPlayerIn && (newLoc.density || loc.density || newLoc.anchored) )
 				loc = newLoc
 			return ..()
 	if(client)

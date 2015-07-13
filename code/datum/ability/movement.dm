@@ -9,6 +9,8 @@
 	var/travel_icon = 'sprite/mob/mob.dmi'
 	var/travel_state = "reappear"
 	var/cost = 0 // mana cost per tick
+	var/trailIcon
+	var/trailState
 
 /obj/vehicle/movementSpell
 	name = ""
@@ -20,6 +22,7 @@
 	locksPlayerIn = TRUE
 	noMessage = TRUE
 	trailType = /obj/effect/sparks
+
 
 /obj/vehicle/movementSpell/New(var/turf/T, var/asIcon, var/asState, var/target)
 	..(T)
@@ -41,6 +44,9 @@
 	..(caster,target)
 	var/turf/toTurf = get_turf(target)
 	var/obj/vehicle/movementSpell/MS = new(get_turf(caster),travel_icon,travel_state,toTurf)
+	if(trailIcon && trailState)
+		MS.trailIcon = trailIcon
+		MS.trailState = trailState
 	MS.EnterVehicle(caster)
 
 ///
@@ -56,13 +62,19 @@
 	name = "Wisp Form"
 	travel_icon = 'sprite/obj/projectiles.dmi'
 	travel_state = "magicm"
+	trailIcon = 'sprite/obj/projectiles.dmi'
+	trailState = "magicm"
 
 /datum/ability/movement/Cloud
 	name = "Cloud Form"
 	travel_icon = 'sprite/obj/tg_effects/effects.dmi'
 	travel_state = "extinguish"
+	trailIcon = 'sprite/obj/tg_effects/effects.dmi'
+	trailState = "extinguish"
 
 /datum/ability/movement/Dash
 	name = "Dash"
 	travel_icon = 'sprite/obj/tg_effects/effects.dmi'
 	travel_state = "blank"
+	trailIcon = 'sprite/obj/tg_effects/effects.dmi'
+	trailState = "blank"

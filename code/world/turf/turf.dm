@@ -29,7 +29,8 @@
 			generate_edges()
 			for(var/A in alldirs)
 				var/turf/T = get_step(src,A)
-				T.generate_edges()
+				if(T)
+					T.generate_edges()
 	..()
 
 /turf/doProcess()
