@@ -110,7 +110,7 @@
 				allstats += "<td><b><center><font size=2>[S:name]"
 				allstats += "[count > 1 ? " x [count]" : ""]"
 				if(remaintime)
-					allstats += "([remaintime])"
+					allstats += "([remaintime/10])"
 				allstats += "</font></b><br>"
 				allstats += "<font size = 1.5> [S:desc]</font>"
 
