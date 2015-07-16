@@ -81,3 +81,16 @@
 		II.pixel_y = rand(-5,5) + (i/8)
 		II.pixel_x = rand(-5,5)
 		overlays += II
+
+//AREAS
+/area
+	name = "Unnamed Area"
+	icon = 'sprite/world/areas.dmi'
+	icon_state = "base"
+	invisibility = 0
+	//layer = 10
+
+/area/New()
+	..()
+	spawn(10)
+		name = levelNames[z]

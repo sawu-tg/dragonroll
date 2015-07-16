@@ -15,6 +15,13 @@ var/globalCacheIDs = 0
 	world.log = file("drlog.txt")
 	world.log << "Starting new game at [time2text(world.timeofday)]"
 	messageSystemAll("LOADING ADMINISTRATORS...")
+	for(var/zLevel = 1; zLevel < world.maxz; zLevel++)
+		if(zLevel == 1)
+			levelNames.Add("Lobby")
+		else if(zLevel == 2)
+			levelNames.Add("The Darkness")
+		else
+			levelNames.Add(generateName(0))
 	spawn(1)
 		loadAdmins()
 	spawn(1)
@@ -113,13 +120,6 @@ var/globalCacheIDs = 0
 
 	var/x = world.maxx
 	var/y = world.maxy
-
-	if(zLevel == 1)
-		levelNames.Add("Lobby")
-	else if(zLevel == 2)
-		levelNames.Add("The Darkness")
-	else
-		levelNames.Add(generateName(0))
 
 	var/tilesBetweenLiquid = 1024
 

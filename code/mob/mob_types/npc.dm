@@ -68,6 +68,21 @@
 	globalNPCs -= src
 	..()
 
+/mob/player/npc/proc/calcStepTowards(var/atom/start,var/atom/end)
+	var/turf/T = get_step_towards(start,end)
+	if(!T.density && !T.anchored)
+		return T
+	else
+		var/list/validDirs = list()
+		for(var/D in alldirs)
+			T = get_step(start,D)
+			if(!T.density && !T.anchored)
+				validDirs += T
+		if(validDirs.len)
+			var/actShort = pick(validDirs)
+			return actShort
+	return T
+
 /mob/player/npc/proc/MoveTo(var/target)
 	if(npcState != NPCSTATE_MOVE)
 		npcState = NPCSTATE_MOVE
@@ -87,8 +102,10 @@
 			if(!validPoint)
 				checkTimeout()
 				return
-		lastPos = loc
-		Move(get_step_towards(src,walkTarget))
+		Move(calcStepTowards(get_turf(src),target))
+		lastPos = get_turf(src)
+		if(Adjacent(walkTarget))
+			changeState(NPCSTATE_IDLE)
 
 /mob/player/npc/proc/checkTimeout()
 	if(timeSinceLast >= npcMaxWait)

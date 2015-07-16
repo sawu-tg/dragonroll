@@ -6,6 +6,12 @@
 	var/obj/AH
 	var/obj/OH
 
+	//build shit
+	var/turf/myHome
+	var/isBuilding = FALSE
+	var/turf/startedAt
+	var/datum/mapGenPattern/MGP
+
 /mob/player/npc/colonist/New()
 	..()
 	spawn(15)
@@ -84,6 +90,39 @@
 		if(playerData.dex.statModified/2 >= wieldedWeight)
 			isDualWielding = TRUE
 
+/mob/player/npc/colonist/proc/processBuild()
+	if(!isBuilding)
+		return
+	if(!MGP)
+		return
+	if(!startedAt)
+		startedAt = get_turf(src)
+		MGP.lastTurf = startedAt
+	if(!Adjacent(MGP.lastTurf))
+		MoveTo(MGP.lastTurf)
+		return
+	var/A = MGP.buildFrom(startedAt)
+	if(A)
+		if(ispath(A,/obj/item/buildable))
+			var/obj/item/buildable/B = new A(MGP.lastTurf)
+			B.onUsed(src,MGP.lastTurf)
+		else
+			new A(MGP.lastTurf)
+	if(MGP.currentPos > lentext(MGP.tiles))
+		isBuilding = FALSE
+		startedAt = null
+		MGP = null
+
+/mob/player/npc/colonist/proc/processBuildStates()
+	if(isBuilding)
+		return
+	if(!myHome)
+		myHome = get_turf(src)
+		MGP = new/datum/mapGenPattern/box
+		isBuilding = TRUE
+
 /mob/player/npc/colonist/doProcess()
 	upgradeItems()
+	processBuildStates()
+	processBuild()
 	..()
