@@ -150,12 +150,13 @@
 
 /mob/objFunction(var/mob/user,var/obj/inHand)
 	if(user.intent == INTENT_DIPLOMACY)
-		if(inHand)
-			doTrade(user,inHand)
-		else
-			if(!client)
-				user.lastChatted = src
-				myChat.chatTo(user)
+		if(!client)
+			if(inHand)
+				doTrade(user,inHand)
+			else
+				if(!client)
+					user.lastChatted = src
+					myChat.chatTo(user)
 	if(user.intent == INTENT_HELP)
 		if(user == src)
 			messagePlayer("You brush yourself off",src,src)
