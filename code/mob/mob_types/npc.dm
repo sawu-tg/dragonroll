@@ -138,10 +138,12 @@
 			lastPos = loc
 
 /mob/player/npc/proc/processTargets()
+	updateLocation()
+	shuffle(nearbyPlayers)
 	for(var/a in nearbyPlayers)
 		if(istype(a,/mob/player))
 			if(!mobFaction.isHostile(a:mobFaction))
-				if(prob(75))
+				if(prob(50))
 					continue
 			return a
 	return null
@@ -233,7 +235,7 @@
 						else
 							changeState(NPCSTATE_MOVE)
 				else
-					changeState(NPCSTATE_MOVE)
+					MoveTo(target)
 				timeSinceLast = 0
 				nextAttack = world.time + attackFuzziness
 

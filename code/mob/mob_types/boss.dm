@@ -20,11 +20,11 @@
 		new bossTurfType(get_turf(src))
 
 /mob/player/npc/boss/Move(var/turf/T)
+	..(T)
 	T = get_turf(T)
 	if(bossTurfType)
 		if(!istype(T,bossTurfType))
 			new bossTurfType(T)
-	..(T)
 
 ///
 // Or'otsk, the shadow of Death
@@ -49,3 +49,16 @@
 		if(playerThralls.len < maxThralls)
 			var/thrallType = pick(/mob/player/npc/animal/gore,/mob/player/npc/animal/gore/floater,/mob/player/npc/animal/gore/spreader)
 			addThrall(thrallType,60)
+
+/mob/player/npc/boss/remrem
+	name = "Rem-a'Rem, the Purifier"
+	desc = "Though she floats ominously, your mind seems to fill with a calming song."
+	icon_state = "remrem"
+	npcSpells = list(/datum/ability/taunt,/datum/ability/toxicthrow,/datum/ability/slowbolt)
+	bossTurfType = /turf/floor/balance/evil
+
+/mob/player/npc/boss/remrem/New()
+	..()
+	var/image/I = new('sprite/mob/boss.dmi',icon_state = "remrem_overlay")
+	I.layer = LAYER_LIGHTING + 1
+	overlays += 1

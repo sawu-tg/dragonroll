@@ -48,6 +48,7 @@
 			refreshInterface()
 	mobFaction = findFaction("Colonist")
 	add_pane(/datum/windowpane/verbs)
+	globalMobList |= src
 	spawn(15)
 		if(client)
 			if(client.key in globalAdmins)
