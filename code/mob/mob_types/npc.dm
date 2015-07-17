@@ -125,7 +125,6 @@
 		changeState(NPCSTATE_MOVE)
 		var/turf/stepT = path[1]
 		src.Move(stepT)
-		stepT.color = "#00FF00"
 		var/moved = (src.loc == stepT)
 		if(!moved)
 			pathflunks++
@@ -152,18 +151,10 @@
 	return rtarget
 
 /mob/player/npc/proc/RecalculatePath(var/turf/target)
-	for(var/turf/T in path)
-		if(T)
-			T.color = null
-
 	path = AStar(get_turf(src), target, /turf/proc/CoolCardinalTurfs, /turf/proc/Distance_cardinal, 0)
 
 	if(!path)
 		path = list()
-
-	for(var/turf/T in path)
-		if(T)
-			T.color = "#FF0000"
 
 	pathLast = world.time
 
