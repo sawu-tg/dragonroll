@@ -15,8 +15,7 @@
 	var/cut_time = 30
 	var/exp_granted = 25
 	var/being_cut = FALSE
-	var/harvestable = TRUE
-	var/harvest_delay = 100
+
 
 
 /obj/interact/nature/tree/objFunction(var/mob/player/user, var/obj/item/I)
@@ -48,13 +47,13 @@
 		messagePlayer("You finish cutting down the tree!",user,src)
 		harvestable = FALSE
 		icon_update()
-		sleep(harvest_delay)
-		harvestable = TRUE
-		icon_update()
+		spawn(harvest_delay)
+			harvestable = TRUE
+			icon_update()
 		return
 
 /obj/interact/nature/tree/New()
-	//icon_state = "tree_[rand(1,6)]"
+	..()
 	icon_update()
 
 /obj/interact/nature/tree/proc/icon_update()
@@ -175,4 +174,5 @@
 	leafMaterial = new/datum/material/snowleaf
 
 /obj/interact/nature/tree/snow/New()
+	..()
 	icon_state = "pine_[rand(1,3)]"

@@ -17,6 +17,7 @@
 	//light = new(src, 12)
 	//light.loc = src.loc
 	//icon_state = "ntube"
+	..()
 
 	wires = new(src, 6)
 	wires.add_input("On")

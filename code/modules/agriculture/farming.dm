@@ -114,6 +114,7 @@
 	var/datum/farmedGood/held_seed = new/datum/farmedGood/test
 
 /obj/item/seedpack/New()
+	..()
 	var/newtype = pick(typesof(/datum/farmedGood) - /datum/farmedGood/test)
 	held_seed = new newtype
 	name = "[held_seed.name] seeds"

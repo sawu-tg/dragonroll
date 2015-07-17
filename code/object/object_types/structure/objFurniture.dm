@@ -96,6 +96,7 @@
 			user.dir = dir
 
 /obj/furniture/seat/New()
+	..()
 	if(seatArms)
 		var/image/arms = image('sprite/world/furniture.dmi',"[icon_state]_top")
 		arms.layer = LAYER_OVERLAY
@@ -177,3 +178,15 @@
 	desc = "A nice chair to relax in."
 	icon_state = "comfychair_teal"
 
+///
+// Structure Lights
+///
+
+/obj/furniture/light
+	name = "Lantern"
+	icon = 'sprite/obj/lighting.dmi'
+	icon_state = "lantern-on"
+
+/obj/furniture/light/New()
+	..()
+	set_light(7,1,"#FFFF66")

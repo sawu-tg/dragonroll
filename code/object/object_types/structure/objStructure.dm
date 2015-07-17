@@ -99,6 +99,7 @@
 	desc = "A big barrel of food!"
 
 /obj/structure/magicbarrel/food/New()
+	..()
 	containedTypes = typesof(/obj/item/food) - /obj/item/food
 
 /obj/structure/magicbarrel/tools
@@ -106,6 +107,7 @@
 	desc = "A big barrel of hitting things!"
 
 /obj/structure/magicbarrel/tools/New()
+	..()
 	containedTypes = typesof(/obj/item/weapon) - /obj/item/weapon
 
 /obj/structure/magicbarrel/procres
@@ -113,6 +115,7 @@
 	desc = "A big barrel of processed resources!"
 
 /obj/structure/magicbarrel/procres/New()
+	..()
 	containedTypes = typesof(/obj/item/loot/processed) - /obj/item/loot/processed
 
 

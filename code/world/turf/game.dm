@@ -68,3 +68,7 @@
 	mineral = "wood"
 	walltype = "wood"
 	ambient_factor = 1
+
+/turf/floor/woodFloor
+	name = "Wooden floor"
+	icon_state = "wood"

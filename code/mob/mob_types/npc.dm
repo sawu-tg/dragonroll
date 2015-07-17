@@ -69,21 +69,29 @@
 	..()
 
 /mob/player/npc/proc/calcStepTowards(var/atom/start,var/atom/end)
-	var/turf/T = get_step_towards(start,end)
+	var/turf/T = get_step_to(src,end)
+	if(!T)
+		return
 	if(!T.density && !T.anchored)
 		return T
 	else
 		var/list/validDirs = list()
 		for(var/D in alldirs)
 			T = get_step(start,D)
-			if(!T.density && !T.anchored)
-				validDirs += T
+			if(T)
+				if(!T.density && !T.anchored)
+					validDirs[T] = get_dist(src,T)
 		if(validDirs.len)
-			var/actShort = pick(validDirs)
+			var/turf/actShort = T
+			for(var/turf/TT in validDirs)
+				if(validDirs[TT] < validDirs[actShort])
+					actShort = validDirs[TT]
 			return actShort
 	return T
 
 /mob/player/npc/proc/MoveTo(var/target)
+	if(isDisabled() || !canMove)
+		return
 	if(npcState != NPCSTATE_MOVE)
 		npcState = NPCSTATE_MOVE
 	var/turf/walkTarget = get_turf(target)
@@ -102,8 +110,14 @@
 			if(!validPoint)
 				checkTimeout()
 				return
-		Move(calcStepTowards(get_turf(src),target))
-		lastPos = get_turf(src)
+		if(isDense)
+			var/datum/ability/C
+			for(var/A in playerData.playerAbilities)
+				if(istype(A,/datum/ability/movement))
+					C = A
+			if(C)
+				C.tryCast(src,src)
+		base_StepTowards(target)
 		if(Adjacent(walkTarget))
 			changeState(NPCSTATE_IDLE)
 
@@ -117,7 +131,7 @@
 	npcState = state
 
 /mob/player/npc/proc/updateLocation()
-	set background = 1
+	//set background = 1
 	spawn(1)
 		if(lastPos != loc)
 			nearbyPlayers = gmRange(src,7,globalMobList)

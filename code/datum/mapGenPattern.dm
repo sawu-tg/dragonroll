@@ -69,7 +69,7 @@ xoooox
 xxoxxx"}
 	tileDecos = {"xxxxxx
 xoooox
-xoootx
-xooocx
-xxoxxx"}
-	typeTiles = list("x" = /turf/wall/woodWall, "o" = /turf/floor/outside/dirt,"c" = /obj/furniture/seat/stool,"t" = /obj/furniture/table/wooden)
+xolotx
+xoaocx
+xxdxxx"}
+	typeTiles = list("d" = /obj/structure/door,"l" = /obj/furniture/light,"a" = /obj/areaFlooder,"x" = /turf/wall/woodWall, "o" = /turf/floor/woodFloor,"c" = /obj/furniture/seat/stool,"t" = /obj/furniture/table/wooden)

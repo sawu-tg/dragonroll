@@ -84,13 +84,12 @@
 
 //AREAS
 /area
-	name = "Unnamed Area"
+	name = "Unsettled Area"
 	icon = 'sprite/world/areas.dmi'
 	icon_state = "base"
 	invisibility = 0
 	//layer = 10
 
-/area/New()
-	..()
-	spawn(10)
-		name = levelNames[z]
+/area/settled
+	name = "Settled"
+	icon_state = "settled"
