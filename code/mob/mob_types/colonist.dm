@@ -122,7 +122,7 @@
 		isBuilding = TRUE
 
 /mob/player/npc/colonist/doProcess()
+	..()
 	upgradeItems()
 	processBuildStates()
 	processBuild()
-	..()

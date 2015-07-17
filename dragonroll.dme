@@ -53,7 +53,7 @@
 #include "code\item\item_types\weaponProjectile.dm"
 #include "code\item\item_types\wiretool.dm"
 #include "code\item\item_types\skill\woodcutting.dm"
-#include "code\misc\AStar.dm"
+#include "code\misc\AStar_working.dm"
 #include "code\misc\files.dm"
 #include "code\misc\game.dm"
 #include "code\misc\icons.dm"
