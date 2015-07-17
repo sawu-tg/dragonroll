@@ -23,7 +23,14 @@
 
 	speed = 4
 	doesProcessing = FALSE
+
 	var/target
+	var/turf/walkTarget
+	var/list/path = list()
+	var/pathflunks = 0
+	var/pathLast = 0
+	var/pathCooldown = 10
+
 	var/turf/lastPos
 	var/list/nearbyPlayers = list()
 
@@ -68,7 +75,7 @@
 	globalNPCs -= src
 	..()
 
-/mob/player/npc/proc/calcStepTowards(var/atom/start,var/atom/end)
+/*/mob/player/npc/proc/calcStepTowards(var/atom/start,var/atom/end)
 	var/turf/T = get_step_to(src,end)
 	if(!T)
 		return
@@ -87,39 +94,95 @@
 				if(validDirs[TT] < validDirs[actShort])
 					actShort = validDirs[TT]
 			return actShort
-	return T
+	return T*/
 
-/mob/player/npc/proc/MoveTo(var/target)
-	if(isDisabled() || !canMove)
+/mob/player/npc/proc/MoveTo(var/newtarget)
+	target = newtarget
+
+	var/turf/walkTargetNew = get_turf(target)
+
+	if(!walkTargetNew)
 		return
-	if(npcState != NPCSTATE_MOVE)
-		npcState = NPCSTATE_MOVE
-	var/turf/walkTarget = get_turf(target)
-	if(walkTarget)
-		var/isDense = walkTarget.density
-		for(var/atom/A in walkTarget)
-			if(A.density)
-				isDense = TRUE
-		if(isDense)
-			var/validPoint = FALSE
-			var/turf/T = get_step(walkTarget,pick(alldirs))
-			if(T)
-				if(!T.density)
-					walkTarget = T
-					validPoint = TRUE
-			if(!validPoint)
-				checkTimeout()
-				return
-		if(isDense)
-			var/datum/ability/C
-			for(var/A in playerData.playerAbilities)
-				if(istype(A,/datum/ability/movement))
-					C = A
-			if(C)
-				C.tryCast(src,src)
-		base_StepTowards(target)
-		if(Adjacent(walkTarget))
-			changeState(NPCSTATE_IDLE)
+
+	var/isDense = walkTargetNew.density
+	for(var/atom/A in walkTarget)
+		if(A.density)
+			isDense = TRUE
+	if(isDense)
+		walkTargetNew = FindValid(walkTargetNew)
+
+	if(!walkTargetNew)
+		walkTargetNew = walkTarget
+
+	if(pathLast + pathCooldown < world.time && (walkTarget != walkTargetNew || pathflunks > 5))
+		walkTarget = walkTargetNew
+		spawn(1)
+			RecalculatePath(walkTarget)
+			//world << "Recalculated path"
+		pathflunks = 0
+
+	if(path.len)
+		changeState(NPCSTATE_MOVE)
+		var/turf/stepT = path[1]
+		src.Move(stepT)
+		var/moved = (src.loc == stepT)
+		if(!moved)
+			pathflunks++
+		else
+			path.Cut(1,2)
+			lastPos = get_turf(src)
+			if(Adjacent(walkTarget))
+				changeState(NPCSTATE_IDLE)
+
+/mob/player/npc/proc/FindValid(var/turf/target)
+	var/validPoint = FALSE
+	var/rtarget
+	for(var/d in alldirs)
+		var/turf/T = get_step(target,d)
+		if(T)
+			if(!T.density)
+				rtarget = T
+				validPoint = TRUE
+				break
+	if(!validPoint)
+		checkTimeout()
+		return
+
+	return rtarget
+
+/mob/player/npc/proc/RecalculatePath(var/turf/target)
+	path = AStar(get_turf(src), target, /turf/proc/CoolCardinalTurfs, /turf/proc/Distance_cardinal, 0)
+
+	if(!path)
+		path = list()
+
+	pathLast = world.time
+
+/turf/proc/Distance_cardinal(turf/t)
+	if(t != null && src != null)
+		//world << abs(src.x - t.x) + abs(src.y - t.y)
+		return abs(src.x - t.x) + abs(src.y - t.y)
+
+	else
+		//world << 99999
+		return 99999
+
+/turf/proc/CoolCardinalTurfs()
+	var/list/L = new()
+	var/turf/T
+	for(var/dir in cardinal)
+		T = get_step(src, dir)
+		if(istype(T) && !T.density)
+			var/free = 1
+
+			for(var/obj/D in T)
+				if(D.density)
+					free = 0
+				break
+
+			if(free)
+				L.Add(T)
+	return L
 
 /mob/player/npc/proc/checkTimeout()
 	if(timeSinceLast >= npcMaxWait)
