@@ -227,7 +227,7 @@ proc/pickweight(list/L)
 		if(!istype(A.loc,/turf))
 			continue
 		if(get_dist(center,A) <= inRange)
-			found += A
+			found |= A
 	. = found
 
 /proc/giveMedal(var/medal,var/mob/who)

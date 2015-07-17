@@ -13,6 +13,7 @@
 	var/outputs
 
 /obj/item/logicgate/New()
+	..()
 	glowimage = image(icon,src,"[icon_state]_glow",1000)
 	glowimage.blend_mode = BLEND_ADD
 	glowimage.color = gatecolor

@@ -8,7 +8,7 @@
 
 /mob/New()
 	..()
-	myChat = new/datum/chatTree
+	myChat = new/datum/chatTree/vendomat
 
 /mob/Topic(href,href_list[])
 	..()

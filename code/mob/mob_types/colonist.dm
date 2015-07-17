@@ -11,6 +11,9 @@
 	var/isBuilding = FALSE
 	var/turf/startedAt
 	var/datum/mapGenPattern/MGP
+	//harvest shit
+	var/obj/interact/foundHarvestable
+	var/isHarvesting = FALSE
 
 /mob/player/npc/colonist/New()
 	..()
@@ -18,12 +21,18 @@
 		var/obj/item/AB = new/obj/item/weapon/projectile/bow()
 		addToInventory(AB)
 		takeToActiveHand(AB)
+		AB = new/obj/item/weapon/tool/hatchet/iron()
+		addToInventory(AB)
+		takeToActiveHand(AB)
+		updateHands()
+		playerData.woodcutting.change(99)
+		playerData.fishing.change(99)
+		playerData.cooking.change(99)
 
 /mob/player/npc/colonist/updateLocation()
 	spawn(1)
 		if(lastPos != loc)
 			nearbyObj = gmRange(src,7,globalObjList)
-			lastPos = loc
 	..()
 
 /mob/player/npc/colonist/proc/updateHands()
@@ -35,6 +44,8 @@
 		if(!A)
 			return
 		if(!istype(A,/obj/item/weapon) && !istype(A,/obj/item/armor))
+			if(istype(A,/obj/item))
+				addToInventory(A)
 			continue
 		else
 			if(istype(A,/obj/item/armor))
@@ -103,6 +114,8 @@
 		return
 	var/A = MGP.buildFrom(startedAt)
 	if(A)
+		for(var/obj/interact/nature/N in MGP.lastTurf)
+			sdel(N)
 		if(ispath(A,/obj/item/buildable))
 			var/obj/item/buildable/B = new A(MGP.lastTurf)
 			B.onUsed(src,MGP.lastTurf)
@@ -117,12 +130,78 @@
 	if(isBuilding)
 		return
 	if(!myHome)
-		myHome = get_turf(src)
-		MGP = new/datum/mapGenPattern/box
-		isBuilding = TRUE
+		var/turf/T = get_turf(src)
+		if(!locate(/turf/floor/outside/liquid) in circle(src,7))
+			if(!istype(T.loc,/area/settled))
+				myHome = T
+				MGP = new/datum/mapGenPattern/box
+				isBuilding = TRUE
+
+
+/mob/player/npc/colonist/proc/processNodes()
+	updateLocation()
+	var/obj/interact/fnd
+	if(!foundHarvestable)
+		if(prob(25) || isBuilding)
+			fnd = locate(/obj/interact) in nearbyObj
+	else
+		fnd = foundHarvestable
+	sleep(10)
+	if(fnd)
+		if(!isHarvesting)
+			if(!Adjacent(fnd))
+				MoveTo(fnd)
+				sleep(10)
+			if(get_dist(src,fnd) > 2)
+				return
+			if(istype(fnd,/obj/interact/nature/tree))
+				sleep(30)
+				if(equipType(/obj/item/weapon/tool/hatchet))
+					sleep(10)
+					if(!fnd:being_cut)
+						isHarvesting = TRUE
+						fnd.objFunction(src,AH)
+			else
+				fnd.objFunction(src)
+				isHarvesting = TRUE
+			sleep(fnd.harvest_delay)
+			isHarvesting = FALSE
+			foundHarvestable = null
+
+/mob/player/npc/colonist/proc/equipType(var/oftype)
+	if(istype(AH,oftype))
+		return TRUE
+	for(var/I in playerInventory)
+		if(istype(I,oftype))
+			addToInventory(AH)
+			takeToActiveHand(I)
+			updateHands()
+			return TRUE
+	return FALSE
+
+/mob/player/npc/colonist/npcIdle()
+	..()
+	if(myHome)
+		if(npcState == NPCSTATE_IDLE)
+			MoveTo(myHome)
 
 /mob/player/npc/colonist/doProcess()
-	..()
 	upgradeItems()
-	processBuildStates()
+	if(!isBuilding)
+		processBuildStates()
+	processNodes()
 	processBuild()
+	if(!isHarvesting && !foundHarvestable && !isBuilding)
+		..()
+
+//colonist specific items and things
+
+/obj/areaFlooder
+	invisibility = 1
+
+/obj/areaFlooder/New()
+	..()
+	spawn(10)
+		for(var/turf/T in circle(src,5))
+			spawn(1)
+				new/area/settled(T)

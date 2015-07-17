@@ -76,17 +76,23 @@
 	..()
 
 /*/mob/player/npc/proc/calcStepTowards(var/atom/start,var/atom/end)
-	var/turf/T = get_step_towards(start,end)
+	var/turf/T = get_step_to(src,end)
+	if(!T)
+		return
 	if(!T.density && !T.anchored)
 		return T
 	else
 		var/list/validDirs = list()
 		for(var/D in alldirs)
 			T = get_step(start,D)
-			if(!T.density && !T.anchored)
-				validDirs += T
+			if(T)
+				if(!T.density && !T.anchored)
+					validDirs[T] = get_dist(src,T)
 		if(validDirs.len)
-			var/actShort = pick(validDirs)
+			var/turf/actShort = T
+			for(var/turf/TT in validDirs)
+				if(validDirs[TT] < validDirs[actShort])
+					actShort = validDirs[TT]
 			return actShort
 	return T*/
 
@@ -197,17 +203,19 @@
 	npcState = state
 
 /mob/player/npc/proc/updateLocation()
-	set background = 1
+	//set background = 1
 	spawn(1)
 		if(lastPos != loc)
 			nearbyPlayers = gmRange(src,7,globalMobList)
 			lastPos = loc
 
 /mob/player/npc/proc/processTargets()
+	updateLocation()
+	shuffle(nearbyPlayers)
 	for(var/a in nearbyPlayers)
 		if(istype(a,/mob/player))
 			if(!mobFaction.isHostile(a:mobFaction))
-				if(prob(75))
+				if(prob(50))
 					continue
 			return a
 	return null
@@ -299,7 +307,7 @@
 						else
 							changeState(NPCSTATE_MOVE)
 				else
-					changeState(NPCSTATE_MOVE)
+					MoveTo(target)
 				timeSinceLast = 0
 				nextAttack = world.time + attackFuzziness
 

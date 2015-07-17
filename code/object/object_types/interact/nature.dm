@@ -7,12 +7,16 @@
 	var/list/harvestables = list() // associative list, type count
 
 /obj/interact/nature/objFunction(var/mob/user)
-	if(numOfHarvests > 0)
-		messagePlayer("You harvest some things from the [src]!",user,src)
-		for(var/a in harvestables)
-			for(var/i = 0; i < harvestables[a]; i++)
-				new a(user.loc)
-		--numOfHarvests
+	if(harvestable)
+		if(numOfHarvests > 0)
+			messagePlayer("You harvest some things from the [src]!",user,src)
+			for(var/a in harvestables)
+				for(var/i = 0; i < harvestables[a]; i++)
+					new a(user.loc)
+			--numOfHarvests
+		else
+			harvestable = FALSE
+			sdel(src)
 
 /obj/interact/nature/bush
 	name = "small bush"
@@ -20,6 +24,7 @@
 	harvestables = list(/obj/item/loot/nature/stick = 4,/obj/item/loot/nature/leaf = 4,/obj/item/seedpack = 1)
 
 /obj/interact/nature/bush/New()
+	..()
 	icon_state = "grassybush_[rand(1,4)]"
 
 /obj/interact/nature/bush/snow
@@ -37,6 +42,7 @@
 	harvestables = list(/obj/item/loot/nature/rock = 1)
 
 /obj/interact/nature/rock/New()
+	..()
 	icon_state = "rock[rand(1,5)]"
 
 /obj/interact/nature/tree/snow
@@ -46,4 +52,5 @@
 	icon = 'sprite/world/pinetrees.dmi'
 
 /obj/interact/nature/tree/snow/New()
+	..()
 	icon_state = "pine_[rand(1,3)]"

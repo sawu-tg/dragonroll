@@ -16,6 +16,7 @@
 	var/list/connectedWire = list() // connected machines
 
 /obj/structure/powered/New()
+	..()
 	spawn(5)
 		globalMachines |= src
 		powerOn = TRUE

@@ -132,7 +132,6 @@
 		playerList += src
 		if(client)
 			MM = new/obj/interface/minimap(src)
-	..()
 
 /mob/player/Move(var/T)
 	if(playerThralls.len)

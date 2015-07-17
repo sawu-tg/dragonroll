@@ -25,6 +25,7 @@
 	var/odir = 15
 
 /obj/structure/rail/New()
+	..()
 	connect_from_iconstate()
 
 /obj/structure/rail/proc/connect_from_iconstate()
