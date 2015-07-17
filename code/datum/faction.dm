@@ -54,7 +54,7 @@ var/list/globalFactions = list()
 		messageError("You don't have enough money for that!",P,P)
 		return FALSE
 	else
-		giveMedal("It's worth something?",src)
+		giveMedal("It's worth something?",P)
 		takeCurrency(P,cost)
 		return TRUE
 

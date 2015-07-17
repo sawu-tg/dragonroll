@@ -139,7 +139,7 @@
 			if(A)
 				curCooking[A] = A.foodLevel*10
 				lastUsr = usr
-				giveMedal("Novice Chef",src)
+				giveMedal("Novice Chef",usr)
 				showCookingMenu(usr)
 
 ///

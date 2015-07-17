@@ -115,5 +115,5 @@
 						curSmelting[A] = 10
 						createType[A] = modifiers[C]
 						lastUsr = usr
-						giveMedal("Ready to Fight!",src)
+						giveMedal("Ready to Fight!",usr)
 						showSmeltingMenu(usr)
