@@ -1,7 +1,7 @@
 /obj/item/logicgate
 	name = "logic slab"
 	desc = "Intricate runes mark the surface but it seems inert."
-	icon = 'sprite/obj/alchemy/runes.dmi'
+	icon = 'sprite/obj/wire.dmi'
 	icon_state = "gate"
 	var/gatecolor = "#FFFFFF"
 	var/evaluating = 0
@@ -14,7 +14,7 @@
 
 /obj/item/logicgate/New()
 	..()
-	glowimage = image(icon,src,"[icon_state]_glow",1000)
+	glowimage = image('sprite/obj/wire.dmi',src,"gate_glow",1000)
 	glowimage.blend_mode = BLEND_ADD
 	glowimage.color = gatecolor
 
@@ -65,7 +65,6 @@
 
 /obj/item/logicgate/not
 	name = "\"NOT\" slab"
-	icon_state = "wrath"
 	gatecolor = "#CC0000"
 
 	inputs = 1
@@ -82,7 +81,6 @@
 
 /obj/item/logicgate/and
 	name = "\"AND\" slab"
-	icon_state = "congelation"
 	gatecolor = "#0000CC"
 
 	inputs = 2
@@ -100,7 +98,6 @@
 
 /obj/item/logicgate/or
 	name = "\"OR\" slab"
-	icon_state = "calcination"
 	gatecolor = "#00CC00"
 
 	inputs = 2
@@ -118,7 +115,6 @@
 
 /obj/item/logicgate/xor
 	name = "\"XOR\" slab"
-	icon_state = "coagulation"
 	gatecolor = "#CC00CC"
 
 	inputs = 2
@@ -136,33 +132,22 @@
 
 /obj/item/logicgate/constant
 	name = "Constant crystal"
-	desc = "A brilliant stone that refracts light."
-	gatecolor = "#FFFFFF"
-	icon = 'sprite/obj/wire.dmi'
+	gatecolor = "#FF0000"
 	icon_state = "constant"
 
 	inputs = 0
 	outputs = 1
 
-	var/maxvalue = 100
 	var/keepvalue = 1
-
-/obj/item/logicgate/constant/aja
-	name = "Red Stone of Aja"
-	desc = "A brilliant red gemstone that refracts light over a million times, amplifying energy."
-	icon_state = "constant_aja"
-	maxvalue = 1000000
 
 /obj/item/logicgate/constant/objFunction(var/mob/user,var/obj/item/with)
 	if(istype(with,/obj/item/powerdevice/wiretool))
 		var/obj/item/powerdevice/wiretool/WT = with
 		WT.default_wire_action(user,wires)
 	else
-		keepvalue = input("Adjust the output value of this crystal (max [maxvalue])","Output Strength",0) as num
+		keepvalue = input("Adjust the output value of this crystal","Output Strength",usr.gender) as num
 
 		if(!keepvalue)
 			keepvalue = 0
-
-		keepvalue = min(keepvalue,maxvalue)
 
 		wires.set_wiresignal("Out",keepvalue)
