@@ -7,8 +7,6 @@
 
 #define BASE_PATHNODE_LIMIT	300
 
-#include <deadron/geography>
-
 atom/movable
 	var/tmp
 		BaseCamp/PathController/base_path	// Used by base_StepTowards() to manage pathing.

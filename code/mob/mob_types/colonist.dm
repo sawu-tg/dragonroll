@@ -144,6 +144,7 @@
 	if(!foundHarvestable)
 		if(prob(25) || isBuilding)
 			fnd = locate(/obj/interact) in nearbyObj
+			foundHarvestable = fnd
 	else
 		fnd = foundHarvestable
 	sleep(10)

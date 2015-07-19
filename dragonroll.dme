@@ -61,6 +61,7 @@
 #include "code\misc\type2type.dm"
 #include "code\misc\helpers\misc.dm"
 #include "code\misc\helpers\noise.dm"
+#include "code\misc\PathFinder\Geography.dm"
 #include "code\misc\PathFinder\implementation.dm"
 #include "code\misc\PathFinder\PathFinding.dm"
 #include "code\mob\client.dm"

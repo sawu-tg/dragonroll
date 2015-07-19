@@ -47,9 +47,7 @@
 		messagePlayer("You finish cutting down the tree!",user,src)
 		harvestable = FALSE
 		icon_update()
-		spawn(harvest_delay)
-			harvestable = TRUE
-			icon_update()
+		sdel(src)
 		return
 
 /obj/interact/nature/tree/New()
