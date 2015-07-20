@@ -56,7 +56,8 @@
 // Adds the properties of one material to this one
 ///
 /datum/material/proc/inherit(var/obj/inheriting)
-	inheriting.color = color
+	if(inheriting.doesColor)
+		inheriting.color = color
 	inheriting.weight += addedWeight
 	if(istype(inheriting,/obj/item))
 		var/obj/item/i = inheriting

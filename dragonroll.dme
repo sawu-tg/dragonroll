@@ -29,6 +29,7 @@
 #include "code\datum\statuseffect.dm"
 #include "code\datum\statuseffect_types.dm"
 #include "code\datum\timer.dm"
+#include "code\datum\weatherEffect.dm"
 #include "code\datum\wiremodule.dm"
 #include "code\datum\zregion.dm"
 #include "code\datum\ability\ability.dm"

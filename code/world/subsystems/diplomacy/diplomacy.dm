@@ -88,7 +88,12 @@
 	icon = 'sprite/world/areas.dmi'
 	icon_state = "base"
 	invisibility = 0
-	//layer = 10
+	layer = LAYER_LIGHTING-1
+	var/datum/areaWeather/AW
+
+/area/New()
+	..()
+	AW = new(src)
 
 /area/settled
 	name = "Settled"

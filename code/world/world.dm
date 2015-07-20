@@ -12,9 +12,20 @@ var/globalCacheIDs = 0
 
 /world/New()
 	. = ..()
+	///
+	// Set up Logging
+	///
 	world.log = file("drlog.txt")
 	world.log << "Starting new game at [time2text(world.timeofday)]"
+	///
+	// Load administrators
+	///
 	messageSystemAll("LOADING ADMINISTRATORS...")
+	spawn(1)
+		loadAdmins()
+	///
+	// Generate Level names
+	///
 	for(var/zLevel = 1; zLevel < world.maxz; zLevel++)
 		if(zLevel == 1)
 			levelNames.Add("Lobby")
@@ -22,8 +33,16 @@ var/globalCacheIDs = 0
 			levelNames.Add("The Darkness")
 		else
 			levelNames.Add(generateName(0))
-	spawn(1)
-		loadAdmins()
+	///
+	// Generate Weather
+	///
+	globalWeather += new/datum/weatherEffect("Rain","It's a bit wet..",image('sprite/obj/tg_effects/tile_effects.dmi',layer = LAYER_LIGHTING-1, icon_state = "rain"))
+	globalWeather += new/datum/weatherEffect("Snow","It's a bit cold..",image('sprite/obj/tg_effects/tile_effects.dmi',layer = LAYER_LIGHTING-1, icon_state = "snow"))
+	globalWeather += new/datum/weatherEffect("Clear","It's just right!")
+
+	///
+	// Set up controllers
+	///
 	spawn(1)
 		//CONTROLLERS
 		CS = new
@@ -38,6 +57,9 @@ var/globalCacheIDs = 0
 		diplomacy = CS.addControl(new /datum/controller/diplomacy)
 		balance = CS.addControl(new /datum/controller/balance)
 		CS.process()
+	///
+	// Generate facial icons and world
+	///
 	spawn(10)
 		var/icon/face = icon('sprite/mob/human_face.dmi')
 		for(var/i in face.IconStates())
@@ -53,11 +75,11 @@ var/globalCacheIDs = 0
 			generate(i)
 		spawn(10)
 			messageSystemAll("FINISHED!")
-		spawn(1) processObjects()
-		spawn(1) processRegions()
-		spawn(1) processLiquids()
 		spawn(30)
 			world << sound('sound/misc/themesong.ogg',1,0)
+		spawn(1) processObjects()
+		//spawn(1) processRegions()
+		spawn(1) processLiquids()
 	..()
 
 /proc/addProcessingObject(var/atom/movable/a)
@@ -86,7 +108,7 @@ var/globalCacheIDs = 0
 		if(regions.len)
 			for(var/datum/zregion/R in regions)
 				R.doProcess()
-		sleep(1)
+		sleep(10)
 
 
 /proc/processObjects()

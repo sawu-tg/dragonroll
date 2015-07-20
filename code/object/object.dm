@@ -4,6 +4,7 @@
 	var/uuid = "item_default" //unique item identifier
 	var/force = 1 // damage
 	var/datum/material/itemMaterial = new/datum/material/default
+	var/doesColor = TRUE
 
 /obj/New()
 	..()

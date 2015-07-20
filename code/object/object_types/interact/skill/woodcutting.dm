@@ -15,6 +15,7 @@
 	var/cut_time = 30
 	var/exp_granted = 25
 	var/being_cut = FALSE
+	doesColor = FALSE
 
 
 

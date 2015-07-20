@@ -4,6 +4,7 @@ var/list/lighting_update_overlays = list()
 /datum/controller/lighting
 	name = "Lighting"
 	execTime = LIGHTING_INTERVAL
+	var/lastRegionIndex = 1
 
 /datum/controller/lighting/Initialize()
 	create_lighting_overlays()
@@ -15,8 +16,15 @@ var/list/lighting_update_overlays = list()
 /datum/controller/lighting/getStat()
 	return "<b>[name]</b> | [round(cost,0.001)]ds | (CPU:[round(cpu,1)]%) (Lightcount: [lighting_update_lights.len]) (Overlaycount: [lighting_update_overlays.len])"
 
-/datum/controller/doProcess()
+/datum/controller/lighting/doProcess()
 //	world << "updating [lighting_update_lights.len] lights"
+
+	if(regions.len)
+		var/datum/zregion/R = regions[lastRegionIndex]
+		R.doProcess()
+		++lastRegionIndex
+		if(lastRegionIndex > regions.len)
+			lastRegionIndex = 1
 
 	for(var/datum/light_source/L in lighting_update_lights)
 		if(L.needs_update)
