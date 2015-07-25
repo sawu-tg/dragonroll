@@ -55,9 +55,6 @@
 			if(powerHeld > powerMin)
 				if(powerNeeded > 0)
 					consumePower(powerNeeded)
-			else
-				if(prob(25))
-					popup("\icon[icon('sprite/gui/emoticon.dmi',"nopower")]",COL_FRIENDLY)
 		//if(powerHeld <= 0 && powerNeeded > 0)
 		//	powerOn = FALSE
 	if(powerTransfer)

@@ -1,5 +1,26 @@
 #define AMBIENCE_SEGMENT 16
 
+/mob/verb/debugZregions()
+	set name = "Debug Z regions"
+	set category = "Debug Verbs"
+	var/list/zlevels = list()
+	for(var/datum/zregion/R in regions)
+		zlevels[R.regionName] = R
+	var/z = input("Choose a Zlevel") as null|anything in zlevels
+	if(z)
+		viewvars(zlevels[z])
+
+/mob/verb/debugAreas()
+	set name = "Debug Areas"
+	set category = "Debug Verbs"
+	var/list/zlevels = list()
+	for(var/area/A in globalAreas)
+		var/aString = "[A.name]([A.zLevel])"
+		zlevels[aString] = A
+	var/z = input("Choose a Zlevel") as null|anything in zlevels
+	if(z)
+		viewvars(zlevels[z])
+
 /datum/zregion
 	var/regionName = ""
 
@@ -18,6 +39,8 @@
 	var/minWeather = 600
 	var/lastWeatherShift = 0
 	var/weatherChanging = FALSE
+
+	var/list/areaList = list()
 
 	var/datum/weatherEffect/regionWeather
 
@@ -52,7 +75,7 @@
 
 		if(ambientLight != ambientLight_Last)
 			if(world.time + minWeather > lastWeatherShift)
-				if(prob(5))
+				if(prob(100))
 					regionWeather = pick(globalWeather)
 					lastWeatherShift = world.time
 					weatherChanging = TRUE
@@ -66,13 +89,12 @@
 		for(var/i = 1, i <= timeSegmentName.len, i++)
 			timeTotalLength += timeSegmentLength[i]
 
-	proc/constructZList(var/zlev)
-		var/list/zlevels = list()
-		for(var/area/A in world)
-			var/turf/T = locate(/turf) in A
-			if(T.z == zlev)
-				zlevels += A
-		. = zlevels
+	proc/constructZList()
+		var/list/areaList = list()
+		for(var/area/A in globalAreas)
+			if(A.zLevel == zLevel)
+				areaList += A
+		return areaList
 
 	proc/ambientLightUpdate()
 		set background = 1
@@ -85,9 +107,11 @@
 		for(var/atom/movable/lighting_overlay/O in bounds(1,1,world.maxx*32,world.maxy*32,zLevel))
 			O.update_ambience(lum_r,lum_g,lum_b)
 		if(weatherChanging)
-			for(var/area/A in constructZList(zLevel))
+			for(var/area/A in areaList)
 				if(A.AW)
 					A.AW.updateWeather(regionWeather)
+				else
+					messageSystemAll("Warning! [A.name] has no weather set!")
 
 		//for(var/xseg = 0, xseg < world.maxx / AMBIENCE_SEGMENT, xseg++)
 		//	for(var/yseg = 0, yseg < world.maxy / AMBIENCE_SEGMENT, yseg++)

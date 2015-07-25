@@ -3,14 +3,14 @@ var/list/globalWeather = list()
 /datum/weatherEffect
 	var/name = "weather"
 	var/desc = "probably britain"
-	var/image/addedOverlay
+	var/overlayState
 
 /datum/weatherEffect/New(var/ofname,var/ofdesc,var/ofoverlay)
 	..()
 	name = ofname
 	desc = ofdesc
 	if(ofoverlay)
-		addedOverlay = ofoverlay
+		overlayState = ofoverlay
 
 /datum/weatherEffect/proc/doWeather(var/mob/player/P)
 	return
@@ -31,5 +31,5 @@ var/list/globalWeather = list()
 
 /datum/areaWeather/proc/updateWeather(var/datum/weatherEffect/newWE)
 	WE = newWE
-	if(WE.addedOverlay)
-		owner.icon = WE.addedOverlay
+	if(WE.overlayState)
+		owner.icon_state = WE.overlayState

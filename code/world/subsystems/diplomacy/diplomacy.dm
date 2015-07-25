@@ -85,16 +85,18 @@
 //AREAS
 /area
 	name = "Unsettled Area"
-	icon = 'sprite/world/areas.dmi'
+	icon = 'sprite/obj/tg_effects/tile_effects.dmi'
 	icon_state = "base"
 	invisibility = 0
 	layer = LAYER_LIGHTING-1
+	var/zLevel = 0
 	var/datum/areaWeather/AW
 
-/area/New()
-	..()
+/area/New(var/turf/where,var/onZ)
+	..(where)
+	zLevel = onZ
+	globalAreas += src
 	AW = new(src)
 
 /area/settled
 	name = "Settled"
-	icon_state = "settled"

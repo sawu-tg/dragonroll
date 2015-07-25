@@ -160,9 +160,10 @@
 					myChat.chatTo(user)
 	if(user.intent == INTENT_HELP)
 		if(user == src)
-			messagePlayer("You brush yourself off",src,src)
+			giveMedal("Self-Love",usr)
 		else
-			messageArea("You hug [src]","[user] hugs [src]",user,src)
+			giveMedal("Spread the Love",usr)
+		messageArea("You hug [src]","[user] hugs [src]",user,src)
 		playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1)
 	if(user.intent == INTENT_HARM)
 		processAttack(user,src)

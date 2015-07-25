@@ -362,6 +362,8 @@
 	set category = "Skills"
 	var/html = "<title>Encyclopedia</title><html><center><body style='background:grey'><br>"
 	var/list/index = list()
+	if(playerEnc.len >= 5)
+		giveMedal("Knowledge is Power",usr)
 	for(var/A in playerEnc)
 		index |= uppertext(copytext(A,1,2))
 	var/counter = 0

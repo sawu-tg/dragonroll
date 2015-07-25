@@ -202,7 +202,12 @@
 
 /obj/areaFlooder/New()
 	..()
+	var/area/settled/A = new(null,src.z)
+	var/list/prefix = list("Scratch","Axe","Ore","Rift","Man","Vulture","Dog","Warf")
+	var/list/suffix = list("gully","gorge","town","bridge","gate","ton","land")
+	A.name = "[pick(prefix)][prob(50) ? "-" : ""][pick(suffix)]"
 	spawn(10)
 		for(var/turf/T in circle(src,5))
 			spawn(1)
-				new/area/settled(T)
+				A.contents += T
+		sdel(src)

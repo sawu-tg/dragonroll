@@ -36,8 +36,8 @@ var/globalCacheIDs = 0
 	///
 	// Generate Weather
 	///
-	globalWeather += new/datum/weatherEffect("Rain","It's a bit wet..",image('sprite/obj/tg_effects/tile_effects.dmi',layer = LAYER_LIGHTING-1, icon_state = "rain"))
-	globalWeather += new/datum/weatherEffect("Snow","It's a bit cold..",image('sprite/obj/tg_effects/tile_effects.dmi',layer = LAYER_LIGHTING-1, icon_state = "snow"))
+	globalWeather += new/datum/weatherEffect("Rain","It's a bit wet..","rain")
+	globalWeather += new/datum/weatherEffect("Snow","It's a bit cold..","snow")
 	globalWeather += new/datum/weatherEffect("Clear","It's just right!")
 
 	///
@@ -73,13 +73,18 @@ var/globalCacheIDs = 0
 		for(var/i = 1; i < world.maxz; i++)
 			messageSystemAll("STARTING LEVEL [i] GENERATION..")
 			generate(i)
-		spawn(10)
-			messageSystemAll("FINISHED!")
+			sleep(1)
+			var/datum/zregion/R = regions[i]
+			R.areaList = R.constructZList(R.zLevel)
+			messageSystemAll("PROCESSING REGION \"[R.regionName]\"")
+		messageSystemAll("PROCESSED [regions.len] REGIONS AND [globalAreas.len] AREAS")
 		spawn(30)
 			world << sound('sound/misc/themesong.ogg',1,0)
 		spawn(1) processObjects()
 		//spawn(1) processRegions()
 		spawn(1) processLiquids()
+		spawn(10)
+			messageSystemAll("FINISHED!")
 	..()
 
 /proc/addProcessingObject(var/atom/movable/a)
@@ -122,7 +127,11 @@ var/globalCacheIDs = 0
 	if(forWhat == 0)
 		var/list/prefix = list("Kal'","Kom'","Bre'","Tor","Jan'","Min","Zer'","Na")
 		var/list/suffix = list("toth","kim","herl","bof","rend","fren","roff","hert","pindreth","gallod")
-		return "[pick(prefix)][pick(suffix)]"
+		var/nameString = "[pick(prefix)][pick(suffix)]"
+		if(!nameString in levelNames)
+			return nameString
+		else
+			return "[nameString][pick(suffix)]"
 
 //terrain generation
 
@@ -136,20 +145,18 @@ var/globalCacheIDs = 0
 	var/datum/biome/chosenBiome = new cB()
 
 	var/decoChance = chosenBiome.debrisChance
-	var/turfScale = chosenBiome.turfSize
-	var/liquidScale = chosenBiome.liquidSize
-	var/liquidErosion = chosenBiome.liquidErode
 
 	var/x = world.maxx
 	var/y = world.maxy
-
-	var/tilesBetweenLiquid = 1024
 
 	var/datum/zregion/R = new(zLevel,chosenBiome,levelNames[zLevel])
 	var/datum/noise/liquidnoise = new()
 	var/datum/noise/dirtnoise = new()
 
 	regions += R
+
+	var/area/A = new(null,zLevel)
+	A.name = levelNames[zLevel]
 
 	messageSystemAll("GENERATING TURFS ON Z[zLevel]..")
 
@@ -177,6 +184,7 @@ var/globalCacheIDs = 0
 				T = new T3(T)
 			else
 				T = new chosenBiome.baseTurf(T)
+			A.contents += T
 	erodeLiquids += liqMade
 	liqMade.Cut()
 

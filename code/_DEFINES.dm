@@ -123,6 +123,7 @@ var/list/newErodeLiquids = list()
 
 var/list/globalMobList = list()
 var/list/globalObjList = list()
+var/list/globalAreas = list()
 
 var/datum/controller_master/CS
 var/datum/controller/balance/balance
