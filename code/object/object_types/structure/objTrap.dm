@@ -124,3 +124,19 @@
 		var/mob/player/P = A
 		playsound(get_turf(A), 'sound/effects/smoke.ogg', 50, 0)
 		P.addStatusEffect(/datum/statuseffect/poison,30)
+
+/obj/structure/trap/pit
+	name = "Pit Trap"
+	desc = "Possibly Chinese, Possibly Vietnamese.. You aren't entirely sure"
+	icon_state = "pitfall"
+	helpInfo = "Clicking the trap will ready it, just don't step in it afterwards!"
+	damage = 5
+
+/obj/structure/trap/pit/trigger(var/atom/A)
+	..()
+	if(istype(A,/mob/player))
+		var/mob/player/P = A
+		for(var/I = 0; I < 7; ++I)
+			P.takeDamage(damage,DTYPE_MELEE)
+			playsound(get_turf(A), 'sound/weapons/bladeslice.ogg', 50, 0)
+		P.addStatusEffect(/datum/statuseffect/stun,30)
