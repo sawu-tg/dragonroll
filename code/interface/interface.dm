@@ -269,6 +269,10 @@
 	var/lastY
 	var/srcX
 	var/srcY
+	var/lastAngle = 0
+	var/lastR = 0
+	var/lastG = 0
+	var/lastB = 0
 
 /obj/interface/compass/New()
 	..()
@@ -288,15 +292,32 @@
 		return
 	if(!istype(target,/atom))
 		return
-	if(target.x != lastX || target.y != lastY || master.x != srcX || master.y != srcY)
+	var/inputX = target.x
+	var/inputY = target.y
+	var/newAngle = get_angle_nums(master.x,master.y,inputX,inputY)
+	var/lastRGB = rgb(lastR,lastG,lastB)
+	if(target.x != lastX || target.y != lastY || master.x != srcX || master.y != srcY || lastAngle != newAngle || arrow.color != lastRGB)
 		lastX = target.x
 		lastY = target.y
 		srcX = master.x
 		srcY = master.y
 		overlays -= arrow
+		var/toColor
 		if(master.z != target.z)
 			arrow.icon_state = "arrow_noz"
+			toColor = list("R" = 255, "G" = 0, "B" = 0)
+			inputX = rand(1,world.maxx)
+			inputY = rand(1,world.maxy)
+			newAngle = get_angle_nums(master.x,master.y,inputX,inputY)
 		else
 			arrow.icon_state = "arrow"
-		animate(arrow, transform = turn(matrix(), get_angle_nums(master.x,master.y,target.x,target.y)), time = 3, loop = 1)
+			toColor = list("R" = 0, "G" = 255, "B" = 255)
+		if(get_dist(target,master) < 2)
+			toColor = list("R" = 0, "G" = 255, "B" = 0)
+		lastAngle = Lerp(lastAngle,newAngle,0.25)
+		lastR = Lerp(lastR,toColor["R"])
+		lastG = Lerp(lastG,toColor["G"])
+		lastB = Lerp(lastB,toColor["B"])
+		lastRGB = rgb(lastR,lastG,lastB)
+		animate(arrow, transform = turn(matrix(), lastAngle),color=lastRGB, time = TICK_LAG*5, loop = 1,easing=SINE_EASING)
 		overlays += arrow
