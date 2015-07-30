@@ -121,7 +121,8 @@ var/globalCacheIDs = 0
 	while(1)
 		if(procObjects.len)
 			for(var/atom/i in procObjects)
-				i.doProcess()
+				spawn(0)
+					i.doProcess()
 		sleep(1)
 
 /proc/generateName(var/forWhat)

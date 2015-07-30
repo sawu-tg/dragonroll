@@ -85,21 +85,18 @@
 	addProcessingObject(src)
 
 /obj/effect/particle/proc/bScatter()
-	animate(src, pixel_x = Lerp(pixel_x,rand(-pRotSpeed,pRotSpeed)*16,0.25), time = TICK_LAG, loop = 1)
-	animate(src, pixel_y = Lerp(pixel_y,rand(-pRotSpeed,pRotSpeed)*16,0.25), time = TICK_LAG, loop = 1)
+	animate(src, pixel_x = Lerp(pixel_x,rand(-pRotSpeed,pRotSpeed)*16,0.25), pixel_y = Lerp(pixel_y,rand(-pRotSpeed,pRotSpeed)*16,0.25), time = TICK_LAG, loop = 1)
 
 /obj/effect/particle/proc/bWhirl()
-	animate(src, pixel_x = Lerp(pixel_x,sin(world.time*pRotSpeed)*(16*pStage),0.25), time = TICK_LAG, loop = 1)
-	animate(src, pixel_y = Lerp(pixel_y,cos(-(world.time*pRotSpeed))*(16*pStage),0.25), time = TICK_LAG, loop = 1)
+	animate(src, pixel_x = Lerp(pixel_x,sin(world.time*pRotSpeed)*(16*pStage),0.25),pixel_y = Lerp(pixel_y,cos(-(world.time*pRotSpeed))*(16*pStage),0.25), time = TICK_LAG, loop = 1)
 
 /obj/effect/particle/proc/bExplode()
 	var/vel_x = sin(initialAngle) * 16
 	var/vel_y = cos(initialAngle) * 16
-	animate(src, pixel_x = Lerp(pixel_x,pStage * vel_x,0.25), time = TICK_LAG, loop = 1)
-	animate(src, pixel_y = Lerp(pixel_y,pStage * vel_y,0.25), time = TICK_LAG, loop = 1)
+	animate(src, pixel_x = Lerp(pixel_x,pStage * vel_x,0.25),pixel_y = Lerp(pixel_y,pStage * vel_y,0.25), time = 0, loop = 1)
 
 /obj/effect/particle/proc/bFall()
-	animate(src, pixel_y = Lerp(pixel_y,pixel_y-pRotSpeed,0.25), time = TICK_LAG, loop = 1)
+	animate(src, pixel_y = Lerp(pixel_y,pixel_y-pRotSpeed,0.25), time = 0, loop = 1)
 
 /obj/effect/particle/garbageCleanup()
 	remProcessingObject(src)
