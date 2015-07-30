@@ -75,7 +75,7 @@
 
 		if(ambientLight != ambientLight_Last)
 			if(world.time + minWeather > lastWeatherShift)
-				if(prob(100))
+				if(prob(5))
 					regionWeather = pick(globalWeather)
 					lastWeatherShift = world.time
 					weatherChanging = TRUE

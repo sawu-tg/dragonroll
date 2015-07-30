@@ -29,15 +29,18 @@ var/list/globalFactions = list()
 	var/happyThreshold = 250 // the same as above, but in reverse
 	var/list/fStandings = list() // an associative list of the standings of other factions
 	var/currencyType // the currency the faction uses
+	var/mob/player/factionCreator
+	var/list/factionMembers = list()
 	var/list/factionOwners = list() // a list of people authorized to modify the faction
 
 /datum/faction/New()
 	..()
 	factionImage = new('sprite/obj/flags.dmi',icon_state = pick(icon_states('sprite/obj/flags.dmi')))
-	for(var/A in friendlyTo)
-		fStandings[A] = happyThreshold + (happyThreshold/2)
-	for(var/A in hostileTo)
-		fStandings[A] = angerThreshold + (angerThreshold/2)
+	spawn(10)
+		for(var/A in friendlyTo)
+			fStandings[A] = happyThreshold + (happyThreshold/2)
+		for(var/A in hostileTo)
+			fStandings[A] = angerThreshold + (angerThreshold/2)
 	setCurrencyType(/obj/item/loot/gold)
 
 /datum/faction/garbageCleanup()
@@ -191,6 +194,8 @@ var/list/globalFactions = list()
 			var/datum/faction/F = new
 			F.name = fName
 			F.factionOwners += src
+			F.factionCreator = src
+			F.factionMembers |= src
 			if(istext(fImage))
 				F.factionImage = new('sprite/obj/flags.dmi',icon_state = fImage)
 			else
@@ -201,16 +206,24 @@ var/list/globalFactions = list()
 	else
 		messageError("You already own a faction!", src, src)
 
+/mob/proc/forceJoinFaction(var/factionName)
+	if(factionName)
+		mobFaction = findFaction(factionName)
+		mobFaction.factionMembers |= src
+
+
 /mob/verb/joinFaction()
 	set name = "Join Faction"
 	set category = "Factions"
 	if(!findOwned(src))
 		var/list/valid = list()
+		if(src.mobFaction)
+			src.mobFaction.factionMembers -= src
 		for(var/datum/faction/F in globalFactions)
 			valid += F.name
 		var/fName = input("Choose a Faction") as null|anything in valid
 		if(fName)
-			mobFaction = findFaction(fName)
+			forceJoinFaction(fName)
 	else
 		messageError("You own a faction!", src, src)
 
@@ -235,7 +248,8 @@ var/list/globalFactions = list()
 		html += "<b>[D.name]</b><br>"
 		var/CC = new D.currencyType()
 		html += "<b>Currency:</b> [CC]<br>"
-		html += "<b>Inflation: </b> [diplomacy.currInflation[D.name]]"
+		html += "<b>Members:</b> [D.factionMembers.len]<br>"
+		html += "<b>Inflation: </b> [diplomacy.currInflation[D.name]]<br>"
 		sdel(CC)
 		if(D.hostileTo.len)
 			html += "<i><b>~</b>Hostile To<b>~</b></i><br>"

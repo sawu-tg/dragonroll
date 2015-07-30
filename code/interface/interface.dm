@@ -10,11 +10,14 @@
 	layer = LAYER_INTERFACE
 	mouse_opacity = 0
 
-/obj/interface/New(var/x,var/y,var/state="box",var/scale=32)
+/obj/interface/New(var/x,var/y,var/state="box",var/scale=32,var/customres)
 	var/icon/temp = icon(icon=icon,icon_state=state)
 	temp.Scale(scale,scale)
 	icon = temp
-	screen_loc = "[x],[y]"
+	if(customres)
+		screen_loc = customres
+	else
+		screen_loc = "[x],[y]"
 
 /obj/interface/proc/showTo(var/mob/M)
 	M.client.screen |= src
@@ -253,3 +256,47 @@
 /obj/interface/dropIButton/Click()
 	var/mob/player/P = usr
 	P.DropItem()
+
+//compass
+
+/obj/interface/compass
+	name = "compass"
+	icon = 'sprite/gui/guiObj64.dmi'
+	var/atom/target
+	var/atom/master
+	var/image/arrow
+	var/lastX
+	var/lastY
+	var/srcX
+	var/srcY
+
+/obj/interface/compass/New()
+	..()
+	addProcessingObject(src)
+	arrow = image('sprite/gui/guiObj64.dmi',icon_state = "notarget", layer = LAYER_INTERFACE+11)
+	overlays += arrow
+
+/obj/interface/compass/Click()
+	var/mob/player/P = usr
+	P.viewObjectives()
+
+/obj/interface/compass/doProcess()
+	if(!target)
+		arrow.icon_state = "notarget"
+		return
+	if(!master)
+		return
+	if(!istype(target,/atom))
+		return
+	if(target.x != lastX || target.y != lastY || master.x != srcX || master.y != srcY)
+		lastX = target.x
+		lastY = target.y
+		srcX = master.x
+		srcY = master.y
+		overlays -= arrow
+		if(master.z != target.z)
+			arrow.icon_state = "arrow_noz"
+		else
+			arrow.icon_state = "arrow"
+		animate(arrow, transform = turn(matrix(), get_angle_nums(master.x,master.y,target.x,target.y)), time = 3, loop = 1)
+		overlays += arrow

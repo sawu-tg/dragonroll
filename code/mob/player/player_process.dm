@@ -74,6 +74,10 @@
 
 	reagents.handle_procs()
 
+	if(compass)
+		if(trackedObjective)
+			compass.target = trackedObjective.target
+
 	if(!mobFaction)
 		mobFaction = findFaction("Colonist")
 

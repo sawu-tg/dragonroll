@@ -56,6 +56,7 @@ var/globalCacheIDs = 0
 		chemicals = CS.addControl(new /datum/controller/chemicals)
 		diplomacy = CS.addControl(new /datum/controller/diplomacy)
 		balance = CS.addControl(new /datum/controller/balance)
+		antags = CS.addControl(new /datum/controller/antags)
 		CS.process()
 	///
 	// Generate facial icons and world

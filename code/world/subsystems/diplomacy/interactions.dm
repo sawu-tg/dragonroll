@@ -56,6 +56,7 @@
 				new I.type(src)
 				messageInfo("You trade [src] the [I]",P,src)
 				mobFaction.giveCurrency(P,0,I)
+				mobFaction.fStandings[P.mobFaction.name] += 10
 		else
 			messageError("The [src] already has too many [I]s!",P,src)
 	else
@@ -63,6 +64,12 @@
 
 /mob/Topic(href,href_list[])
 	..()
+	if(href_list["joinFaction"])
+		if(lastChatted.mobFaction.fStandings[src.mobFaction.name] > lastChatted.mobFaction.happyThreshold*2)
+			lastChatted.forceJoinFaction(src.mobFaction.name)
+			messageInfo("[lastChatted] joins your faction!",usr,src)
+		else
+			messageInfo("[lastChatted] doesn't seem interested!",usr,src)
 	if(href_list["opentrade"])
 		lastChatted.showBuyWindow(usr)
 	var/tosell = href_list["tosell"]

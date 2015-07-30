@@ -45,6 +45,9 @@
 	var/thrallMaster
 	var/list/playerThralls = list() // associative list of all the player's thralls and their time left
 
+	var/datum/antag/playerAntag = new
+	var/datum/objective/trackedObjective
+
 
 /mob/player/garbageCleanup()
 	..()
@@ -132,6 +135,7 @@
 		playerList += src
 		if(client)
 			MM = new/obj/interface/minimap(src)
+		antags.registerPlayer(src)
 
 /mob/player/Move(var/T)
 	if(playerThralls.len)

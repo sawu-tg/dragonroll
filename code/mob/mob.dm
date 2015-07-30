@@ -20,6 +20,8 @@
 	var/isDualWielding = FALSE
 	var/wieldedWeight = 0
 
+	var/obj/interface/compass/compass
+
 
 /mob/garbageCleanup()
 	..()
@@ -190,6 +192,9 @@
 	screenObjs += new/obj/interface/intentButton(13,1,"box",32)
 	screenObjs += new/obj/interface/leapButton(13,2,"box",32)
 	screenObjs += new/obj/interface/dwButton(14,1,"box",32)
+	compass = new/obj/interface/compass(1,1,"compass",64,"NORTH,WEST")
+	compass.master = src
+	screenObjs += compass
 
 /mob/proc/refreshInterface()
 	if(client)

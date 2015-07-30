@@ -13,6 +13,12 @@
 	icon_state = "g_[pick("base","scythe","shield","halberaxe")]"
 	addProcessingObject(src)
 
+/obj/structure/realmguardian/proc/friendlyCheck(var/mob/player/M)
+	if(M.client)
+		return TRUE
+	else
+		return myFaction.isFriendly(M.mobFaction)
+
 /obj/structure/realmguardian/doProcess()
 	if(tickRate > 0)
 		--tickRate
@@ -21,7 +27,7 @@
 		var/list/nearby = range(16,src)
 		for(var/mob/player/M in nearby)
 			spawn(1)
-				if(!myFaction.isFriendly(M.mobFaction))
+				if(!friendlyCheck(M))
 					if(!M.checkEffectStack("dead"))
 						myAttack.tryCast(src,M)
 					else

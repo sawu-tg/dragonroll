@@ -86,7 +86,6 @@
 	treeIcons |= I3
 
 /obj/interact/nature/tree/oak
-	name = "oak tree"
 	required_level = 15
 	cut_time = 50
 	exp_granted = 37.5
@@ -95,7 +94,6 @@
 	itemMaterial = new/datum/material/oak
 
 /obj/interact/nature/tree/willow
-	name = "willow tree"
 	required_level = 30
 	cut_time = 70
 	exp_granted = 67.5
@@ -104,7 +102,6 @@
 	itemMaterial = new/datum/material/willow
 
 /obj/interact/nature/tree/teak
-	name = "teak tree"
 	required_level = 35
 	cut_time = 80
 	exp_granted = 85
@@ -113,7 +110,6 @@
 	itemMaterial = new/datum/material/teak
 
 /obj/interact/nature/tree/maple
-	name = "maple tree"
 	required_level = 45
 	cut_time = 100
 	exp_granted = 100
@@ -123,7 +119,6 @@
 	leafMaterial = new/datum/material/mapleleaf
 
 /obj/interact/nature/tree/mahogany
-	name = "mahogany tree"
 	required_level = 50
 	cut_time = 120
 	exp_granted = 125
@@ -132,7 +127,6 @@
 	itemMaterial = new/datum/material/mahogany
 
 /obj/interact/nature/tree/yew
-	name = "yew tree"
 	required_level = 60
 	cut_time = 170
 	exp_granted = 175
@@ -142,7 +136,6 @@
 	leafMaterial = new/datum/material/yewleaf
 
 /obj/interact/nature/tree/magic
-	name = "magic tree"
 	required_level = 75
 	cut_time = 250
 	exp_granted = 250
@@ -152,7 +145,6 @@
 	leafMaterial = new/datum/material/magicleaf
 
 /obj/interact/nature/tree/elder
-	name = "elder tree"
 	required_level = 90
 	cut_time = 300
 	exp_granted = 325
@@ -162,7 +154,6 @@
 	leafMaterial = null // no leaves
 
 /obj/interact/nature/tree/snow
-	name = "snowy tree"
 	desc = "it's seen warmer days"
 	harvestables = list(/obj/item/loot/nature/log/snowy = 3)
 	required_level = 54

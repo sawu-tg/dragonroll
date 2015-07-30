@@ -8,7 +8,10 @@
 
 /mob/New()
 	..()
-	myChat = new/datum/chatTree/vendomat
+	if(istype(src,/mob/player/npc/animal))
+		myChat = new/datum/chatTree/beast
+	else
+		myChat = new/datum/chatTree/colonist
 
 /mob/Topic(href,href_list[])
 	..()
@@ -47,12 +50,13 @@
 		CT = new start
 	else
 		CT = new CC
-	html += "[CT.text], [getResponse(CT.responseType)]"
+	html += "[CT.text], [getResponse(CT.responseType)]<br>"
 	for(var/A in CT.responses)
 		var/CTYPE = CT.responses[A]
 		var/datum/chatBranch/CTT = new CTYPE
 		html += "<br><a href=?src=\ref[P];curchat=\ref[src];newchat=[CT.responses[A]][CTT.responseHref ? ";[CTT.responseHref]" : ""]>[A]</a>"
 		del(CTT)
+	html += "<a href=?src=\ref[P];joinFaction=1>Ask to join your Faction</a><br>"
 	var/datum/browser/popup = new(P, "chatdialog", "Conversation")
 	popup.set_content(html)
 	popup.open()
@@ -82,5 +86,54 @@
 /datum/chatBranch/vendomat/trade
 	text = "ASSERTION: THIS TRADE WILL BE USEFUL TO THIS UNIT"
 	responses = list("Thanks." = /datum/chatBranch/vendomat/greet)
+	responseHref = "opentrade=1"
+	responseType = RESPONSE_HAPPY
+
+//COLONIST
+
+/datum/chatTree/colonist
+	responsesGeneric = list("Yes.","Okay.","Sure.")
+	responsesHappy = list("Excellent!","Sound's Great!", "Awesome.")
+	responsesMad = list("Get out of my sight.","Why must you bother me?","You're crossing a line here.")
+
+	start = /datum/chatBranch/colonist/greet
+
+/datum/chatBranch/colonist/greet
+	text = "Hello, How's your day going?"
+	responses = list("Hello!" = /datum/chatBranch/colonist/hello, "Let's trade!" = /datum/chatBranch/colonist/trade)
+	responseType = RESPONSE_GENERIC
+
+/datum/chatBranch/colonist/hello
+	text = "Well alright then"
+	responses = list("Okay." = /datum/chatBranch/colonist/greet)
+	responseType = RESPONSE_HAPPY
+
+/datum/chatBranch/colonist/trade
+	text = "Sure, I've got some things"
+	responses = list("Thanks." = /datum/chatBranch/colonist/greet)
+	responseHref = "opentrade=1"
+	responseType = RESPONSE_HAPPY
+
+/// BEAST
+/datum/chatTree/beast
+	responsesGeneric = list("and Barks","and Brays","and Wanders Idly")
+	responsesHappy = list("and Barks Excitedly","and Nuzzles you", "and Brays in Content")
+	responsesMad = list("and Growls","and Ignores you","and Gives you a rude look")
+
+	start = /datum/chatBranch/beast/greet
+
+/datum/chatBranch/beast/greet
+	text = "The animal peers at you"
+	responses = list("Hello!" = /datum/chatBranch/beast/hello, "Let's trade!" = /datum/chatBranch/beast/trade)
+	responseType = RESPONSE_GENERIC
+
+/datum/chatBranch/beast/hello
+	text = "The animal doesn't seem to understand"
+	responses = list("Okay." = /datum/chatBranch/beast/greet)
+	responseType = RESPONSE_HAPPY
+
+/datum/chatBranch/beast/trade
+	text = "The animal looks intently at you, as if wanting something"
+	responses = list("Thanks." = /datum/chatBranch/beast/greet)
 	responseHref = "opentrade=1"
 	responseType = RESPONSE_HAPPY

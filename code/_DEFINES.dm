@@ -112,6 +112,17 @@
 #define PART_PHYS_WHIRL 4
 #define PART_PHYS_FALL 8
 
+///
+// OBJECTIVES
+///
+#define OBJ_STEAL 1 // steal an objective
+#define OBJ_DESTROY 2 // kill/destroy an objective
+#define OBJ_RULE 3 // become the leader of your own faction
+#define OBJ_USURP 4 // become the leader of another faction
+#define OBJ_HITLER 5 // entirely remove a faction from the game
+#define OBJ_DISCOVER 6 // find a target
+#define OBJ_AVENGE 7 // take revenge on a target
+
 var/list/playerValidHair = list()
 var/list/playerValidFacial = list()
 var/list/playerList = list()
@@ -130,6 +141,7 @@ var/datum/controller/balance/balance
 var/datum/controller/diplomacy/diplomacy
 var/datum/controller/cartography/cartography
 var/datum/controller/chemicals/chemicals
+var/datum/controller/antags/antags
 
 var/list/globalAdmins = list()
 

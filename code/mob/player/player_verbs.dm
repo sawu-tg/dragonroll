@@ -66,6 +66,27 @@
 	popup.set_content(html)
 	popup.open()
 
+/mob/player/verb/viewObjectives()
+	set name = "Show Objectives"
+	set category = "Player"
+	var/html = "<title>Objectives</title><html><center>[parseIcon(src.client,src,FALSE)]<br><body style='background:grey'>"
+	html += "Click an Objective's name to track it!<br>"
+	html += "<b>Completed</b>: [playerAntag.completedObjectives]<br>"
+	html += "<b>Score</b>: [playerAntag.score]<br>"
+	for(var/datum/objective/O in playerAntag.antag_objectives)
+		html += "<a href=?src=\ref[src];objective=\ref[O]><b>[O.name]</b></a><br><i>[O.desc]</i><br>"
+	html += "</body></center></html>"
+	var/datum/browser/popup = new(usr, "objectives", "Objectives")
+	popup.set_content(html)
+	popup.open()
+
+/mob/player/Topic(href,href_list[])
+	if(href_list["objective"])
+		var/datum/objective/O = locate(href_list["objective"])
+		trackedObjective = O
+		messageInfo("You are now tracking [O.name].",src,src)
+	..()
+
 /mob/player/verb/playerSheet()
 	set name = "View Player Sheet"
 	set category = "Player"
