@@ -131,7 +131,7 @@
 	..()
 	if(!owner)
 		return
-	if(prob(5))
+	if(prob(15))
 		owner.healDamage(1)
 		owner.healMana(1)
 

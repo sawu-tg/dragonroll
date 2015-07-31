@@ -25,28 +25,28 @@
 	stats = list("hp" = 10, "con" = 5)
 
 /obj/item/armor/dustercoat
-	name = "duster coat"
+	name = "tanned coat"
 	slot = "chest"
 	icon = 'sprite/clothing/body.dmi'
 	icon_state = "coat"
 	stats = list("hp" = 10, "con" = 5)
 
 /obj/item/armor/duster_pants
-	name = "duster pants"
+	name = "tanned pants"
 	slot = "groin"
 	icon = 'sprite/clothing/body.dmi'
 	icon_state = "coat_legs"
 	stats = list("hp" = 10, "con" = 5)
 
 /obj/item/armor/duster_shoe_left
-	name = "duster shoe left"
+	name = "tanned shoe left"
 	slot = "l_foot"
 	icon = 'sprite/clothing/feet.dmi'
 	icon_state = "boots_l"
 	stats = list("hp" = 10, "con" = 5)
 
 /obj/item/armor/duster_shoe_right
-	name = "duster shoe right"
+	name = "tanned shoe right"
 	slot = "r_foot"
 	icon = 'sprite/clothing/feet.dmi'
 	icon_state = "boots_r"

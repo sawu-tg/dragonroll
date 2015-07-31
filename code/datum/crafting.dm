@@ -123,6 +123,27 @@
 	materials = list(/obj/item/loot/nature/stick = 2, /obj/item/loot/nature/rock = 1)
 	product = list(/obj/item/weapon/tool/hoe = 1)
 
+/datum/recipe/customWeapon
+	name = "custom weapon"
+	desc = "gives you a mould to forge a custom weapon"
+	listCategory = "Tools"
+	materials = list(/obj/item/loot/nature/stick = 4, /obj/item/loot/nature/rock = 2)
+	product = list(/obj/item/weapon/custom = 1)
+
+/datum/recipe/forge
+	name = "forge"
+	desc = "creates parts for a forge"
+	listCategory = "Building"
+	materials = list(/obj/item/loot/nature/stick = 3, /obj/item/loot/nature/rock = 5)
+	product = list(/obj/item/buildable/forge = 1)
+
+/datum/recipe/campfire
+	name = "campfire"
+	desc = "creates parts for a campfire"
+	listCategory = "Building"
+	materials = list(/obj/item/loot/nature/stick = 3, /obj/item/loot/nature/rock = 3)
+	product = list(/obj/item/buildable/campfire = 1)
+
 /datum/recipe/woodwall
 	name = "wooden wall"
 	desc = "keeps things out"
@@ -144,3 +165,66 @@
 	listCategory = "Mounts"
 	materials = list(/obj/item/loot/processed/wood = 4)
 	product = list(/obj/vehicle/boat = 1)
+
+/datum/recipe/leatherjerkin
+	name = "leather jerkin"
+	desc = "some basic armor"
+	listCategory = "Armor"
+	materials = list(/obj/item/loot/processed/animal/hide = 4)
+	product = list(/obj/item/armor/jerkin = 1)
+
+/datum/recipe/leatherlshoe
+	name = "leather left shoe"
+	desc = "some basic armor"
+	listCategory = "Armor"
+	materials = list(/obj/item/loot/processed/animal/hide = 1)
+	product = list(/obj/item/armor/leather_boot_left = 1)
+
+/datum/recipe/leatherrshoe
+	name = "leather right shoe"
+	desc = "some basic armor"
+	listCategory = "Armor"
+	materials = list(/obj/item/loot/processed/animal/hide = 1)
+	product = list(/obj/item/armor/leather_boot_right = 1)
+
+/datum/recipe/tannedarmor
+	name = "tanned coat"
+	desc = "some basic armor"
+	listCategory = "Armor"
+	materials = list(/obj/item/loot/processed/animal/hide = 4)
+	product = list(/obj/item/armor/dustercoat = 1)
+
+/datum/recipe/tannedlegs
+	name = "tanned pants"
+	desc = "some basic armor"
+	listCategory = "Armor"
+	materials = list(/obj/item/loot/processed/animal/hide = 2)
+	product = list(/obj/item/armor/duster_pants = 1)
+
+/datum/recipe/tannedshoel
+	name = "tanned left shoe"
+	desc = "some basic armor"
+	listCategory = "Armor"
+	materials = list(/obj/item/loot/processed/animal/hide = 2)
+	product = list(/obj/item/armor/duster_shoe_left = 1)
+
+/datum/recipe/tannedshoer
+	name = "tanned right shoe"
+	desc = "some basic armor"
+	listCategory = "Armor"
+	materials = list(/obj/item/loot/processed/animal/hide = 2)
+	product = list(/obj/item/armor/duster_shoe_right = 1)
+
+/datum/recipe/corgisuit
+	name = "corgi suit"
+	desc = "some basic armor"
+	listCategory = "Armor"
+	materials = list(/obj/item/loot/processed/animal/hide = 4)
+	product = list(/obj/item/armor/corgisuit = 1)
+
+/datum/recipe/corgihat
+	name = "corgi hood"
+	desc = "some basic armor"
+	listCategory = "Armor"
+	materials = list(/obj/item/loot/processed/animal/hide = 1)
+	product = list(/obj/item/armor/corgihat = 1)

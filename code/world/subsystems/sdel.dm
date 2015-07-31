@@ -35,6 +35,7 @@ var/global/list/failedTypes = list()
 /datum/proc/garbageCleanup()
 	tag = null //REMINDER THAT TAGGED OBJECTS ARE IMMORTAL
 	for(var/A in src.vars)
+		vars[A] = null
 		A = null
 
 /atom/movable/garbageCleanup()

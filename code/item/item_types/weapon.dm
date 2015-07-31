@@ -180,6 +180,7 @@
 /obj/item/weapon/custom/verb/random()
 	set name = "Randomise"
 	set src in range()
+	set hidden = 1
 	var/newType = pick(typesof(/obj/item/part/blade) - /obj/item/part/blade)
 	top = new newType
 	top.loc = src

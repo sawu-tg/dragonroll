@@ -20,6 +20,9 @@
 
 /obj/vehicle/garbageCleanup()
 	..()
+	Eject(driver)
+	for(var/mob/A in passengers)
+		Eject(A)
 	driver = null
 	passengers = null
 

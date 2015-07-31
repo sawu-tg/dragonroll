@@ -36,7 +36,7 @@
 		sdel(src)
 
 /obj/item/buildable/proc/buildAt(var/atom/targetloc)
-	if(!targetloc || !is_type_in_list(targetloc, canBuildOn))
+	if(!targetloc || (!is_type_in_list(targetloc, canBuildOn) && canBuildOn.len))
 		return
 
 	if(is_type_in_list(targetloc, canNotBuildOn))
@@ -69,3 +69,17 @@
 	icon_state = "wood_tableparts"
 	ofType = /obj/structure/door
 	canBuildOn = list(/turf,/obj/train/floor)
+
+/obj/item/buildable/forge
+	name = "forge parts"
+	icon = 'sprite/obj/items.dmi'
+	icon_state = "parts_reinforce"
+	desc = "constructs a forge."
+	ofType = /obj/structure/forge
+
+/obj/item/buildable/campfire
+	name = "campfire parts"
+	icon = 'sprite/obj/items.dmi'
+	icon_state = "wood_tableparts"
+	desc = "constructs a campfire."
+	ofType = /obj/structure/cooking

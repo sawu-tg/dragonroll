@@ -54,21 +54,7 @@
 	var/datum/stat/cooking/cooking = new("Cooking","ck",FALSE,1,staticon = "res")
 
 	// The recipes that the player knows for crafting
-	var/list/knownRecipes = list(new/datum/recipe/tortilla,
-	new/datum/recipe/piecrust,
-	new/datum/recipe/pizzacrust,
-	new/datum/recipe/dough,
-	new/datum/recipe/hoe,
-	new/datum/recipe/woodboat,
-	new/datum/recipe/hatchet,
-	new/datum/recipe/woodwall,
-	new/datum/recipe/wooddoor,
-	new/datum/recipe/foodprep/sashimi,
-	new/datum/recipe/foodprep/sausage,
-	new/datum/recipe/foodprep/meatball,
-	new/datum/recipe/foodprep/kebob,
-	new/datum/recipe/foodprep/bacon,
-	new/datum/recipe/foodprep/burger)
+	var/list/knownRecipes = list()
 
 /datum/playerFile/New()
 	playerRace = new/datum/race/Human
@@ -94,6 +80,9 @@
 	playerSkills += fishing
 	playerSkills += crafting
 	playerSkills += cooking
+
+	for(var/A in typesof(/datum/recipe) - list(/datum/recipe/foodprep,/datum/recipe))
+		knownRecipes += new A
 ///
 // Returns the gender of the player for strings
 ///

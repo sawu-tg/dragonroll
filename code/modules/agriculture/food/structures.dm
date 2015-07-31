@@ -71,7 +71,7 @@
 		if(Adjacent(lastUsr) && curCooking.len > 0)
 			showCookingMenu(lastUsr)
 	if(burnTime > 0)
-		--burnTime
+		burnTime -= 0.1
 		if(burnTime <= 100)
 			prefixState = "campfire"
 			icon_state = prefixState

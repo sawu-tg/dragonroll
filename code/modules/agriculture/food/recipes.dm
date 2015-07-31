@@ -14,7 +14,7 @@
 	listCategory = "Dough"
 	product = list(/obj/item/food/prep/cakebatter = 1)
 
-/datum/recipe/dough/New()
+/datum/recipe/cakebatter/New()
 	..()
 	requiredReagents = list("[REAGENT_STATE_LIQUID]" = 1,"[REAGENT_STATE_POWDER]" = 1)
 
@@ -59,6 +59,18 @@
 	desc = "Thin slices of fish."
 	materials = list(/obj/item/food/meat/fish = 1)
 	product = list(/obj/item/food/sashimi = 1)
+
+/datum/recipe/foodprep/filletfish
+	name = "fillet fish"
+	desc = "slices a fish into fish meat."
+	materials = list(/obj/item/food/fish = 1)
+	product = list(/obj/item/food/meat/fish = 1)
+
+/datum/recipe/foodprep/filletmeat
+	name = "fillet offal"
+	desc = "slices a piece of meat into usable strips."
+	materials = list(/obj/item/organ = 1)
+	product = list(/obj/item/food/meat/generic = 1)
 
 /datum/recipe/foodprep/sausage
 	name = "sausage"
