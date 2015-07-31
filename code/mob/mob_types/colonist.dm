@@ -210,4 +210,4 @@
 		for(var/turf/T in circle(src,5))
 			spawn(1)
 				A.contents += T
-		sdel(src)
+		del(src)

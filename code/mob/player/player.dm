@@ -371,12 +371,13 @@
 	var/image/player = image(icon,state)
 	player.color = playerData.playerColor
 	overlays |= player
-
-	var/image/eyes = image(icon,playerData.playerRace.raceEyes)
-	eyes.color = playerData.eyeColor
-
 	addedOverlays |= playerData.playerRace.race_overlays
-	addedOverlays |= eyes //fuck the what byond
+	var/image/eyes
+	if(playerData.playerRace)
+		if(playerData.playerRace.raceEyes)
+			eyes = image(icon,playerData.playerRace.raceEyes)
+			eyes.color = playerData.eyeColor
+			addedOverlays |= eyes //fuck the what byond
 	addedOverlays |= playerData.playerOverlays
 
 	for(var/obj/item/I in playerEquipped)

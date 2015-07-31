@@ -17,6 +17,17 @@
 	var/being_cut = FALSE
 	doesColor = FALSE
 
+/obj/interact/nature/tree/garbageCleanup()
+	itemMaterial = null
+	leafMaterial = null
+	treeIcons = null
+	harvestables = null
+	required_level = null
+	cut_time = null
+	exp_granted = null
+	being_cut = null
+	doesColor = null
+
 
 
 /obj/interact/nature/tree/objFunction(var/mob/player/user, var/obj/item/I)
@@ -48,7 +59,12 @@
 		messagePlayer("You finish cutting down the tree!",user,src)
 		harvestable = FALSE
 		icon_update()
-		sdel(src)
+		invisibility = 99
+		loc = locate(rand(1,world.maxx),rand(1,world.maxy),z)
+		spawn(120*required_level)
+			invisibility = 0
+			harvestable = TRUE
+			icon_update()
 		return
 
 /obj/interact/nature/tree/New()

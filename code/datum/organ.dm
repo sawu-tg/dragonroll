@@ -26,15 +26,16 @@
 		if(toOwner)
 			asrace = toOwner:playerData.playerRace
 	race = asrace
-	if(toOwner)
-		owner = toOwner
-	else
-		messageSystemAll("Warning: Limb made without owner!")
-	var/icon/I = getfile("sprite/mob/dismemberment/r_def_[lowertext(race.raceName)].dmi")
-	if(I)
-		icon = I
-	else
-		messageSystemAll("<b>INVALID:</b> sprite/mob/dismemberment/r_def_[lowertext(race.raceName)].dmi")
+	if(race)
+		if(toOwner)
+			owner = toOwner
+		else
+			messageSystemAll("Warning: Limb made without owner!")
+		var/icon/I = getfile("sprite/mob/dismemberment/r_def_[lowertext(race.raceName)].dmi")
+		if(I)
+			icon = I
+		else
+			messageSystemAll("<b>INVALID:</b> sprite/mob/dismemberment/r_def_[lowertext(race.raceName)].dmi")
 
 /mob/player/verb/debugOrgans()
 	set category = "Debug Verbs"

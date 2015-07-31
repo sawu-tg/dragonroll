@@ -111,10 +111,11 @@ var/list/globalFactions = list()
 		sdel(B)
 
 /datum/faction/proc/setCurrencyType(var/type)
-	currencyType = type
-	diplomacy.currTypes[name] = type
-	if(!diplomacy.currInflation[name])
-		diplomacy.currInflation[name] = 1
+	if(diplomacy && type)
+		currencyType = type
+		diplomacy.currTypes[name] = type
+		if(!diplomacy.currInflation[name])
+			diplomacy.currInflation[name] = 1
 
 /datum/faction/proc/addStanding(var/datum/faction/F,var/amount)
 	if(F.name == name) // NO BULLY

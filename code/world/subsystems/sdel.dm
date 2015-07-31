@@ -34,6 +34,8 @@ var/global/list/failedTypes = list()
 //then it should sdel the things it "contains"
 /datum/proc/garbageCleanup()
 	tag = null //REMINDER THAT TAGGED OBJECTS ARE IMMORTAL
+	for(var/A in src.vars)
+		A = null
 
 /atom/movable/garbageCleanup()
 	..()
@@ -68,16 +70,20 @@ datum/controller/sdel/getStat()
 				failedTypes["[D.type]"]++
 				del(D)
 			deleted -= dref
-
 	scheck() //why is this out here!?
 
 //This is a debug verb
 /mob/verb/getFailedTypeDeletes()
 	set name = "List Failed GCs"
 	set category = "Debug Verbs"
-
+	var/html = "<title>Failed GCs</title><html><center><br><body style='background:grey'>"
 	for(var/stype in failedTypes)
-		usr << "[stype]: x[failedTypes[stype]]"
+		html += "<b>[failedTypes[stype]]</b> x [stype]<br>"
+	html += "</body></center></html>"
+	var/datum/browser/popup = new(usr, "failedgc", "Failed GCs")
+	popup.set_content(html)
+	popup.open()
+
 
 /proc/getSDelFailures()
 	. = 0

@@ -6,6 +6,11 @@
 	var/numOfHarvests = 1
 	var/list/harvestables = list() // associative list, type count
 
+/obj/interact/nature/garbageCleanup()
+	..()
+	numOfHarvests = null
+	harvestables = null
+
 /obj/interact/nature/objFunction(var/mob/user)
 	if(harvestable)
 		if(numOfHarvests > 0)

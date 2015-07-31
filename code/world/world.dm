@@ -1,4 +1,7 @@
+#define DEBUG
+
 var/globalCacheIDs = 0
+var/gameName = "Stable Server"
 
 /world
 	turf = /turf/floor/voidFloor
@@ -10,6 +13,27 @@ var/globalCacheIDs = 0
 	hub = "Sawucalls.DragonRoll"
 	hub_password = "4dlzubF0vugUpt9x"
 
+
+///
+// This proc "references" icons that are dynamically loaded into the game so that they are cached into the .rsc
+///
+/world/proc/forceCaching()
+	var/icon/I = icon('sprite/mob/dismemberment/r_def_ape-person.dmi')
+	I = icon('sprite/mob/dismemberment/r_def_fly-person.dmi')
+	I = icon('sprite/mob/dismemberment/r_def_genie.dmi')
+	I = icon('sprite/mob/dismemberment/r_def_golem.dmi')
+	I = icon('sprite/mob/dismemberment/r_def_greylien.dmi')
+	I = icon('sprite/mob/dismemberment/r_def_hologram.dmi')
+	I = icon('sprite/mob/dismemberment/r_def_human.dmi')
+	I = icon('sprite/mob/dismemberment/r_def_jelly-person.dmi')
+	I = icon('sprite/mob/dismemberment/r_def_lizard.dmi')
+	I = icon('sprite/mob/dismemberment/r_def_monster.dmi')
+	I = icon('sprite/mob/dismemberment/r_def_pod-person.dmi')
+	I = icon('sprite/mob/dismemberment/r_def_robot.dmi')
+	I = icon('sprite/mob/dismemberment/r_def_slime-person.dmi')
+	I = icon('sprite/mob/dismemberment/r_def_spidertaur.dmi')
+	del(I)
+
 /world/New()
 	. = ..()
 	///
@@ -20,6 +44,8 @@ var/globalCacheIDs = 0
 	///
 	// Load administrators
 	///
+	world.status = "[gameName]: Generating World"
+	forceCaching()
 	messageSystemAll("LOADING ADMINISTRATORS...")
 	spawn(1)
 		loadAdmins()
@@ -86,6 +112,7 @@ var/globalCacheIDs = 0
 		spawn(1) processLiquids()
 		spawn(10)
 			messageSystemAll("FINISHED!")
+		world.status = "[gameName]: World Up!"
 	..()
 
 /proc/addProcessingObject(var/atom/movable/a)

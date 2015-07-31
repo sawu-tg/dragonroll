@@ -154,8 +154,7 @@ datum/wiremodule
 
 	proc/doProcess()
 		cull_wires()
-		render()
-
+		//render()
 		renderobj.Move(get_turf(myatom))
 
 	proc/cull_wires()
@@ -270,6 +269,9 @@ datum/wiremodule
 	proc/pulse_wiresignal(input)
 		myatom.receive_wiresignal(input,receive_wiresignal(input),TRUE)
 
+
+	//TODO
+	// DE-LAG THIS SHIT
 	proc/render()
 		//if(cableimages.len)
 		//	return

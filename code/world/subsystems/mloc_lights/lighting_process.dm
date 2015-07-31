@@ -19,6 +19,8 @@ var/list/lighting_update_overlays = list()
 /datum/controller/lighting/doProcess()
 //	world << "updating [lighting_update_lights.len] lights"
 
+	set background = 1
+
 	if(regions.len)
 		var/datum/zregion/R = regions[lastRegionIndex]
 		R.doProcess()

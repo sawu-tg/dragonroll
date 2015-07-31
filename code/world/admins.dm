@@ -5,6 +5,7 @@ var/list/globalVerbList = list()
 	if(F)
 		for(var/line in file2list(F))
 			globalAdmins += line
+			world.SetConfig("APP/admin", ckey("[line]"), "role=root")
 	else
 		messageSystemAll("Failed to load admins.txt!")
 
