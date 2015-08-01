@@ -231,22 +231,53 @@ proc/pickweight(list/L)
 	. = found
 
 
+/proc/printList(var/list/inlist)
+	world << "Printing list of length [inlist.len]"
+	for(var/a in inlist)
+		world << "[a] == [inlist[a]]"
+
+/mob/verb/setScoreDefault()
+	set name = "Reset Scores"
+	set category = "Debug Verbs"
+	var/list/scores = list("Food Eaten" = 0, "Completed Objectives" = 0, "Deaths" = 0)
+	world.SetScores(src.client.key,list2params(scores))
+
+/mob/verb/deleteScores()
+	set name = "Delete Scores"
+	set category = "Debug Verbs"
+	world.SetScores(src.client.key,"")
+
+/mob/verb/CheckForReset()
+	set name = "ScoreValidate"
+	set hidden = 1
+	spawn(1)
+		var/pScores = world.GetScores(usr.key)
+		var/list/gotten = params2list(pScores)
+		if(gotten.len == 0)
+			src.setScoreDefault()
+
 /proc/addScore(var/ckey,var/scoreid)
-	var/list/pScores = world.GetScores(ckey)
-	if(pScores)
-		var/list/scoreList = params2list(pScores)
-		if(scoreList["[scoreid]"])
-			var/scorecount = text2num(scoreList["[scoreid]"])
-			var/list/newScores = list("[scoreid]" = (scorecount + 1))
+	spawn(1)
+		var/pScores = world.GetScores(ckey)
+		var/list/gotten = params2list(pScores)
+		if(gotten.len)
+			var/scoreList = params2list(pScores)
+			if(scoreList["[scoreid]"])
+				var/scorecount = text2num(scoreList["[scoreid]"])
+				var/newScores = list("[scoreid]" = (scorecount + 1))
+				world.SetScores(ckey,list2params(newScores))
+		else
+			var/newScores = list("[scoreid]" = 1)
 			world.SetScores(ckey,list2params(newScores))
 
 /proc/giveMedal(var/medal,var/mob/who)
-	if(!who.client)
-		return FALSE
-	if(world.GetMedal(medal,who))
-		return FALSE
 	spawn(1)
-		who << "<text style='text-align: center; vertical-align: middle; font-size: 5;'>\blue You earned an achievement!</text>"
-		who << "<text style='text-align: center; vertical-align: middle; font-size: 4;'>Congratulations, you've just earned: <b>[medal]</b>.</text>"
-		playsound(get_turf(who), 'sound/effects/cooking_lvl.ogg', 50, 0)
-		return world.SetMedal(medal,who)
+		if(!who.client)
+			return FALSE
+		if(world.GetMedal(medal,who))
+			return FALSE
+		spawn(1)
+			who << "<text style='text-align: center; vertical-align: middle; font-size: 5;'>\blue You earned an achievement!</text>"
+			who << "<text style='text-align: center; vertical-align: middle; font-size: 4;'>Congratulations, you've just earned: <b>[medal]</b>.</text>"
+			playsound(get_turf(who), 'sound/effects/cooking_lvl.ogg', 50, 0)
+			return world.SetMedal(medal,who)

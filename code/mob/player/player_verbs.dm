@@ -384,7 +384,7 @@
 	var/choice = input("Are you sure you want to kill yourself?") in list("Yes","No")
 	if(choice)
 		if(choice == "Yes")
-			src.takeDamage(9999,DTYPE_DIRECT)
+			src.takeDamage(9999,DTYPE_MELEE)
 
 /mob/player/verb/ViewEnc()
 	set name = "Encyclopedia"

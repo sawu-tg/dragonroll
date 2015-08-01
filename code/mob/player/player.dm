@@ -135,6 +135,7 @@
 		playerList += src
 		if(client)
 			MM = new/obj/interface/minimap(src)
+			CheckForReset()
 		antags.registerPlayer(src)
 
 /mob/player/Move(var/T)
@@ -278,7 +279,7 @@
 	if(type == DTYPE_MASSIVE)
 		soundToPlay = "swing_hit"
 		if(!savingThrow(src,0,SAVING_FORTITUDE))
-			playerData.hp.change(-(playerData.hp.statCurr + 1))
+			playerData.hp.change(-(playerData.hp.statMax + 1))
 			src.popup("Massive hit! [damage]",COL_INFOTICK)
 			doDamage = FALSE
 		else

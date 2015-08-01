@@ -104,7 +104,8 @@
 		inWater = shouldDrown
 
 	if(shouldDrown)
-		giveMedal("No Glub",src)
+		if(istype(get_turf(src),/turf/floor/outside/liquid))
+			giveMedal("No Glub",src)
 		if(prob(5))
 			messageArea("You are [liquidVerb]!","[src] screams!",src,src)
 			takeDamage(liquidDamage,DTYPE_ENVIRONMENT)

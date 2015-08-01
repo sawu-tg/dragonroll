@@ -4,7 +4,7 @@
 
 	var/turf/source_turf
 	var/light_power
-	var/light_range
+	var/light_range = 0
 	var/light_color // string, decomposed by parse_light_color()
 
 	var/lum_r
@@ -112,6 +112,8 @@
 		lum_b = 1
 
 /datum/light_source/proc/falloff(atom/movable/lighting_overlay/O)
+	if(!light_range)
+		light_range = 1
   #if LIGHTING_FALLOFF == 1 // circular
    #if LIGHTING_RESOLUTION == 1
 	. = (O.x - source_turf.x)**2 + (O.y - source_turf.y)**2 + LIGHTING_HEIGHT
