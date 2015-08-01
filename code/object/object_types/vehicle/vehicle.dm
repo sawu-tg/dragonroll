@@ -85,6 +85,8 @@
 				Eject(driver)
 
 /obj/vehicle/Move(var/newLoc)
+	if(istype(newLoc,/turf/floor/lobbyFloor))
+		return
 	driverCheck()
 	if(trailType)
 		var/obj/effect/E = createEffect(get_turf(src),trailType)

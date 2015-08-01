@@ -78,6 +78,7 @@ var/gameName = "Stable Server"
 		CS.addControl(new /datum/controller/chemicals)
 		CS.addControl(new /datum/controller/sdel)
 		CS.addControl(new /datum/controller/cooldowns)
+		CS.addControl(new /datum/controller/broadcast)
 		//cartography = CS.addControl(new /datum/controller/cartography)
 		chemicals = CS.addControl(new /datum/controller/chemicals)
 		diplomacy = CS.addControl(new /datum/controller/diplomacy)

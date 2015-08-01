@@ -134,6 +134,7 @@
 	name = "Constant crystal"
 	gatecolor = "#FF0000"
 	icon_state = "constant"
+	helpInfo = "Provides a constant output at a variable power to all wired objects."
 
 	inputs = 0
 	outputs = 1

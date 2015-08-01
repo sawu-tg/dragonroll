@@ -118,6 +118,14 @@
 	..()
 	containedTypes = typesof(/obj/item/loot/processed) - /obj/item/loot/processed
 
+/obj/structure/magicbarrel/buildables
+	name = "Buildables Barrel"
+	desc = "A big barrel of building parts!"
+
+/obj/structure/magicbarrel/buildables/New()
+	..()
+	containedTypes = typesof(/obj/item/buildable) - list(/obj/item/buildable,/obj/item/buildable/train,/obj/item/buildable/turf)
+
 
 /obj/structure/popupspawn
 	name = "Disturbed ground"

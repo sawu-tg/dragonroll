@@ -58,13 +58,25 @@
 	density = 1
 	opacity = 1
 	anchored = 1
+	var/destructable = TRUE
+	var/wallHealth = 10
 	var/walltype = "metal"
+
+/turf/wall/objFunction(var/mob/user,var/obj/item)
+	if(destructable)
+		messageInfo("You hit the wall!",user,src)
+		wallHealth--
+		src.popup("[wallHealth]/[initial(wallHealth)]",rgb(255,255,0))
+		playsound(src, 'sound/effects/break_stone.ogg', 50, 0)
+		if(wallHealth <= 0)
+			new/turf/floor/outside/dirt(src)
 
 /turf/wall/lobbyWall
 	name = "Lobby Wall"
 	icon_state = "wood0"
 	mineral = "wood"
 	walltype = "wood"
+	destructable = FALSE
 
 /turf/floor/lobbyFloor
 	name = "Lobby Floor"

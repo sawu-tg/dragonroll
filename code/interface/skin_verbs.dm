@@ -1,6 +1,7 @@
 var/const/wikiurl = "https://github.com/sawu-tg/dragonroll/wiki"
 var/const/giturl = "https://github.com/sawu-tg/dragonroll"
 var/const/issuesurl = "https://github.com/sawu-tg/dragonroll/issues"
+var/const/controlsurl = "https://github.com/sawu-tg/dragonroll/wiki/Game-Controls"
 
 client/verb/github()
 	set name = "github"
@@ -36,4 +37,16 @@ client/verb/issues()
 		src << link(issuesurl)
 	else
 		src << "\red The issue tracker URL is not set."
+	return
+
+client/verb/controls()
+	set name = "controls"
+	set desc = "Visit the controls chart."
+	set hidden = 1
+	if( controlsurl )
+		if(alert("This will open the Controls Chart in your browser. Are you sure?",,"Yes","No")=="No")
+			return
+		src << link(controlsurl)
+	else
+		src << "\red The control chart URL is not set."
 	return

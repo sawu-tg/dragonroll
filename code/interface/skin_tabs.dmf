@@ -585,6 +585,34 @@ window "rightpane"
 		macro = ""
 		menu = ""
 		on-close = ""
+	elem "button1"
+		type = BUTTON
+		pos = 128,0
+		size = 84x16
+		anchor1 = none
+		anchor2 = none
+		font-family = ""
+		font-size = 0
+		font-style = ""
+		text-color = #000000
+		background-color = none
+		is-visible = true
+		is-disabled = false
+		is-transparent = false
+		is-default = false
+		border = none
+		drop-zone = false
+		right-click = false
+		saved-params = "is-checked"
+		on-size = ""
+		text = "Controls"
+		image = ""
+		command = "controls"
+		is-flat = false
+		stretch = false
+		is-checked = false
+		group = ""
+		button-type = pushbutton
 	elem "btn_rpane_text"
 		type = BUTTON
 		pos = 64,0
@@ -671,7 +699,7 @@ window "rightpane"
 		button-type = pushbutton
 	elem "btn_github"
 		type = BUTTON
-		pos = 280,0
+		pos = 284,0
 		size = 60x16
 		anchor1 = none
 		anchor2 = none
@@ -699,7 +727,7 @@ window "rightpane"
 		button-type = pushbutton
 	elem "btn_wiki"
 		type = BUTTON
-		pos = 212,0
+		pos = 216,0
 		size = 60x16
 		anchor1 = none
 		anchor2 = none

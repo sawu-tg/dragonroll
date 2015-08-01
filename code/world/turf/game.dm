@@ -8,6 +8,7 @@
 
 /turf/floor/outside/grass
 	name = "Grass"
+	icon_state = "grassf1"
 	useNaturalTiling = TRUE
 	var/datum/material/grassMaterial = new/datum/material/grass1
 	edge_weight = 1
@@ -23,6 +24,7 @@
 
 /turf/floor/outside/snow
 	name = "Snow"
+	icon_state = "snow1"
 	useNaturalTiling = TRUE
 	edge_weight = 2
 	edged = TRUE
@@ -33,6 +35,7 @@
 
 /turf/floor/outside/dirt
 	name = "Dirt"
+	icon_state = "asteroid1"
 	useNaturalTiling = TRUE
 	edge_weight = 3
 	edged = TRUE
@@ -43,6 +46,7 @@
 
 /turf/floor/outside/dirt/lava
 	name = "Ashen Dirt"
+	icon_state = "ironsand1"
 
 /turf/floor/outside/dirt/lava/New()
 	..()

@@ -30,10 +30,6 @@
 	icon = asIcon
 	addProcessingObject(src)
 
-/obj/vehicle/movementSpell/doProcess()
-	dir = driver.dir
-	driver.Move(get_step(src,dir))
-
 /obj/vehicle/movementSpell/garbageCleanup()
 	Eject(driver)
 	for(var/A in passengers)

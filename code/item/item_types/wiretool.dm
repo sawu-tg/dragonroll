@@ -7,7 +7,7 @@
 /obj/item/powerdevice/wiretool
 	name = "wiretool"
 	desc = "Generates wires between wireable components"
-
+	helpInfo = "Can be used to link things like constant crystals, to any power device, such as train controllers."
 	icon = 'sprite/obj/wire.dmi'
 	icon_state = "wiretool"
 
