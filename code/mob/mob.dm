@@ -159,15 +159,18 @@
 			else
 				if(!client)
 					user.lastChatted = src
+					giveMedal("Make Money, Not War",user)
 					myChat.chatTo(user)
 	if(user.intent == INTENT_HELP)
 		if(user == src)
-			giveMedal("Self-Love",usr)
+			giveMedal("Self-Love",user)
 		else
-			giveMedal("Spread the Love",usr)
+			giveMedal("Spread the Love",user)
 		messageArea("You hug [src]","[user] hugs [src]",user,src)
 		playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1)
 	if(user.intent == INTENT_HARM)
+		if(inHand)
+			giveMedal("First Strike",user)
 		processAttack(user,src)
 
 /mob/proc/defaultInterface()

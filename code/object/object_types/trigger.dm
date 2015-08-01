@@ -176,6 +176,8 @@ var/list/globalTriggers = list()
 			teletar.forceCooldown()
 			Ply.loc = teletar.loc
 			step(triggering,exitDir)
+			if(z == 2)
+				giveMedal("I'm back, baby!",Ply)
 		else
 			step(triggering,exitDir)
 	else

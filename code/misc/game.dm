@@ -230,6 +230,16 @@ proc/pickweight(list/L)
 			found += A
 	. = found
 
+
+/proc/addScore(var/ckey,var/scoreid)
+	var/list/pScores = world.GetScores(ckey)
+	if(pScores)
+		var/list/scoreList = params2list(pScores)
+		if(scoreList["[scoreid]"])
+			var/scorecount = text2num(scoreList["[scoreid]"])
+			var/list/newScores = list("[scoreid]" = (scorecount + 1))
+			world.SetScores(ckey,list2params(newScores))
+
 /proc/giveMedal(var/medal,var/mob/who)
 	if(!who.client)
 		return FALSE

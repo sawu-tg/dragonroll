@@ -23,7 +23,7 @@ var/list/globalAntags = list()
 
 /datum/controller/antags/proc/validateObjective(var/datum/objective/O,var/mob/player/P)
 	if(O.completed)
-		return TRUE
+		return FALSE
 
 	if(!O.target)
 		return TRUE
@@ -80,6 +80,8 @@ var/list/globalAntags = list()
 						totalScore += O.number
 						continue
 					if(validateObjective(O,P))
+						if(P.client)
+							addScore(P.client.key,"Completed Objectives")
 						O.completed = TRUE
 				P.playerAntag.completedObjectives = toAdd
 				P.playerAntag.score = totalScore + toAdd

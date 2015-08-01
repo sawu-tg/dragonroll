@@ -377,6 +377,14 @@
 		debugModeOn = TRUE
 		return
 
+/mob/player/verb/suicide()
+	set name = "Suicide"
+	set category = "Skills"
+
+	var/choice = input("Are you sure you want to kill yourself?") in list("Yes","No")
+	if(choice)
+		if(choice == "Yes")
+			src.takeDamage(9999,DTYPE_DIRECT)
 
 /mob/player/verb/ViewEnc()
 	set name = "Encyclopedia"

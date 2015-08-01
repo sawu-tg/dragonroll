@@ -23,6 +23,8 @@
 
 /obj/item/food/objFunction(var/mob/user)
 	reagents.trans_to(user.reagents,reagents.maxvolume)
+	if(user.client)
+		addScore(user.client.key,"Food Eaten")
 	spawn(5)
 		user.refreshInterface()
 	sdel(src)

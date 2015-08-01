@@ -108,6 +108,8 @@
 					na.updateStats()
 				for(var/d in found)
 					sdel(crafter.remFromInventory(d))
+		if(materials[/obj/item/loot/processed/animal/hide])
+			giveMedal("Chainsaw-less Massacre",crafter)
 
 /datum/recipe/hatchet
 	name = "hatchet"
@@ -144,12 +146,20 @@
 	materials = list(/obj/item/loot/nature/stick = 3, /obj/item/loot/nature/rock = 3)
 	product = list(/obj/item/buildable/campfire = 1)
 
+/datum/recipe/campfire/getResult(var/list/provided, var/mob/player/crafter, var/override=FALSE)
+	..(provided,crafter,override)
+	giveMedal("Warming Glow",crafter)
+
 /datum/recipe/woodwall
 	name = "wooden wall"
 	desc = "keeps things out"
 	listCategory = "Building"
 	materials = list(/obj/item/loot/processed/wood = 4)
 	product = list(/obj/item/buildable/turf/woodenWall = 1)
+
+/datum/recipe/woodwall/getResult(var/list/provided, var/mob/player/crafter, var/override=FALSE)
+	..(provided,crafter,override)
+	giveMedal("Wall'em'up",crafter)
 
 /datum/recipe/wooddoor
 	name = "wooden door"

@@ -46,6 +46,9 @@
 				if(choice)
 					if(choice == "Yes")
 						z = 2
+						giveMedal("Is this the end?",src)
+						if(src.client)
+							addScore(src.client.key,"Deaths")
 						src.revive()
 		if(isMonster && !hasOtherDeath)
 			icon_state = "[icon_state]_dead"
