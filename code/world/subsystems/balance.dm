@@ -12,6 +12,8 @@
 	var/list/actsEvil = list() //list of evil things spawned
 	var/list/actsGood = list() //list of good things spawned
 
+	var/timeSinceRestart = 0
+
 	//apocolypse vars
 	var/apocEvil = FALSE
 	var/apocGood = FALSE
@@ -39,7 +41,12 @@
 	balance = Clamp(balance + amount,balanceMin,balanceMax)
 
 /datum/controller/balance/doProcess()
-	scheck()
+	if(playerList.len == 0)
+		timeSinceRestart++
+	if(timeSinceRestart > 1024 && playerList.len == 0)
+		world.Reboot()
+	if(timeSinceRestart > 0 && playerList.len > 0)
+		timeSinceRestart = 0
 	if(apocEvil)
 		doEvilApoc()
 	if(apocGood)
@@ -49,6 +56,7 @@
 			doGoodAct()
 		else
 			doEvilAct()
+	scheck()
 
 /datum/controller/balance/proc/doEvilApoc()
 	if(balance > 0)

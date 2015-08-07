@@ -132,9 +132,9 @@
 	///
 	spawn(20)
 		refreshIcon(playerData.playerRacePrefix)
-		playerList += src
 		if(client)
 			MM = new/obj/interface/minimap(src)
+			playerList += src
 			CheckForReset()
 		antags.registerPlayer(src)
 

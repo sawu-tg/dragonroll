@@ -85,13 +85,19 @@
 	desc = "Licks of flame and magma flit in and out of the portal."
 	icon_state = "portal1"
 	density = 0
+	var/popped = FALSE
 	var/ableToSpawn = 8
 	var/spawnRate = 120
 	var/list/spawnTypes = list(/mob/player/npc/animal/wasp,/mob/player/npc/animal/spider)
+	var/list/bossTypes = list(/mob/player/npc/boss/orotsk,/mob/player/npc/boss/gorekin,/mob/player/npc/boss/remrem)
 
-/obj/structure/balance/evilportal/New()
-	..()
-	addProcessingObject(src)
+
+/obj/structure/balance/evilportal/objFunction(var/mob/user,var/obj/item/I)
+	if(user)
+		if(!popped)
+			messageInfo("You reach into the [src], touching it's surface. The [src] bursts open!",user,src)
+			addProcessingObject(src)
+			popped = TRUE
 
 /obj/structure/balance/evilportal/doProcess()
 	if(spawnRate > 0)
@@ -109,6 +115,12 @@
 			var/toSpawn = pick(spawnTypes)
 			if(toSpawn)
 				new toSpawn(get_turf(src))
+		else
+			if(prob(5))
+				var/toSpawn = pick(bossTypes)
+				if(toSpawn)
+					new toSpawn(get_turf(src))
+			sdel(src)
 
 /turf/floor/balance/evil
 	name = "Hellish Tiling"
