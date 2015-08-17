@@ -34,7 +34,7 @@ var/global/list/failedTypes = list()
 //then it should sdel the things it "contains"
 /datum/proc/garbageCleanup()
 	tag = null //REMINDER THAT TAGGED OBJECTS ARE IMMORTAL
-	var/list/novars = list("move_delay","last_move","step_x","step_y","bound_x","bound_y","contents","type","parent_type","verbs","vars","group","gender")
+	var/list/novars = list("move_delay","last_move","step_x","step_y","bound_x","bound_y","contents","type","parent_type","verbs","vars","group","gender","locs")
 	for(var/A in src.vars)
 		if(A in novars)
 			continue
